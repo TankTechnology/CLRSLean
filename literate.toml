@@ -2,11 +2,15 @@ landing_page = "CLRSLean"
 
 [order_children]
 "CLRSLean" = [
+  "CLRSLean.Chapter_01",
   "CLRSLean.Chapter_02.Section_02_1_Insertion_Sort",
   "CLRSLean.Chapter_16.Section_16_3_Huffman_Codes",
   "CLRSLean.Chapter_23.Section_23_1_Growing_Minimum_Spanning_Trees",
   "CLRSLean.Chapter_23.Section_23_2_Kruskal_And_Prim",
 ]
+
+[modules."CLRSLean.Chapter_01"]
+title = "Chapter 1. Algorithms"
 
 [modules."CLRSLean.Chapter_02.Section_02_1_Insertion_Sort"]
 title = "2.1. Insertion Sort"

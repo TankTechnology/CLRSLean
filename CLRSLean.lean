@@ -1,3 +1,4 @@
+import CLRSLean.Chapter_01
 import CLRSLean.Chapter_02.Section_02_1_Insertion_Sort
 import CLRSLean.Chapter_16.Section_16_3_Huffman_Codes
 import CLRSLean.Chapter_23.Section_23_1_Growing_Minimum_Spanning_Trees
