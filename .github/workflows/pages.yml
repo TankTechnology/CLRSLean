@@ -29,12 +29,6 @@ jobs:
       - name: Build project
         run: lake build
 
-      - name: Install doc-gen4
-        run: lake -R -Kenv=dev update «doc-gen4»
-
-      - name: Build doc-gen4 docs
-        run: lake -R -Kenv=dev build CLRSLean:docs
-
       - name: Build Verso literate HTML
         run: lake build :literateHtml
 
@@ -44,7 +38,6 @@ jobs:
           echo "Verso output: $VERSO_OUT"
           mkdir -p _site
           cp -r "$VERSO_OUT"/* _site/
-          cp -r .lake/build/doc _site/docs 2>/dev/null || echo "No doc-gen4 output"
 
       - uses: actions/upload-pages-artifact@v3
         with:
