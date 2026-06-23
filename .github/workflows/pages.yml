@@ -1,4 +1,4 @@
-name: Deploy static site
+name: Build and deploy Verso site
 
 on:
   push:
@@ -15,18 +15,45 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+          use-mathlib-cache: true
+
+      - name: Build project
+        run: lake build
+
+      - name: Build doc-gen4 docs
+        run: lake -R -Kenv=dev build CLRSLean:docs
+
+      - name: Build Verso literate HTML
+        run: lake build :literateHtml
+
+      - name: Assemble _site
+        run: |
+          VERSO_OUT=$(lake query :literateHtml)
+          echo "Verso output: $VERSO_OUT"
+          mkdir -p _site
+          cp -r "$VERSO_OUT"/* _site/
+          cp -r .lake/build/doc _site/docs 2>/dev/null || echo "No doc-gen4 output"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
   deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v4
-        with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs/site
       - id: deployment
         uses: actions/deploy-pages@v4

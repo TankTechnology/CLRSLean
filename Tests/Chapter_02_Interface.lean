@@ -1,0 +1,15 @@
+import CLRSLean.Chapter_02.Section_02_1_Insertion_Sort
+import CLRSLean.Chapter_02.Section_02_2_Analyzing_Algorithms
+import CLRSLean.Chapter_02.Section_02_3_Designing_Algorithms
+
+#check CLRS.Chapter02.insertionSort
+#check CLRS.Chapter02.insertionSort_sorted
+#check CLRS.Chapter02.insertionSort_perm
+#check CLRS.Chapter02.triangular
+#check CLRS.Chapter02.insertionSortWorstComparisons_quadratic
+#check CLRS.Chapter02.insertionSortWorstComparisons_eventually_quadratic
+#check CLRS.Chapter02.mergeSort
+#check CLRS.Chapter02.mergeSort_sortedLE
+#check CLRS.Chapter02.mergeSort_perm
+#check CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo
+#check CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm

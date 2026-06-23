@@ -3,6 +3,53 @@
 This ledger records what is proved, what is partial, and what is currently
 deferred.  It is intended to become the website's main navigation table.
 
+## Chapter 2 - Getting Started
+
+### Section 2.1 - Insertion sort
+
+- Lean source: `CLRSLean/Chapter_02/Section_02_1_Insertion_Sort.lean`
+- Status: `proved`
+- Main theorems:
+  - `CLRS.Chapter02.insertionSort_sorted`
+  - `CLRS.Chapter02.insertionSort_perm`
+- Proof pattern: induction, sortedness preservation, permutation preservation
+- Current gap: none for the current functional-list theorem statement
+
+The section proves functional correctness for insertion sort over lists of
+natural numbers.  The proof mirrors the textbook loop invariant by separating
+orderedness from element preservation.
+
+### Section 2.2 - Analyzing algorithms
+
+- Lean source: `CLRSLean/Chapter_02/Section_02_2_Analyzing_Algorithms.lean`
+- Status: `proved`
+- Main theorems:
+  - `CLRS.Chapter02.insertionSortWorstComparisons_quadratic`
+  - `CLRS.Chapter02.insertionSortWorstComparisons_eventually_quadratic`
+- Proof pattern: triangular sum, natural-number inequalities, asymptotic wrapper
+- Current gap: full RAM semantics and exact line-by-line pseudocode cost are
+  future strengthening targets
+
+The section proves that the standard insertion-sort worst-case comparison count
+is bounded by a quadratic function.
+
+### Section 2.3 - Designing algorithms
+
+- Lean source: `CLRSLean/Chapter_02/Section_02_3_Designing_Algorithms.lean`
+- Status: `proved`
+- Main theorems:
+  - `CLRS.Chapter02.mergeSort_sortedLE`
+  - `CLRS.Chapter02.mergeSort_perm`
+  - `CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm`
+- Proof pattern: divide and conquer, sortedness, permutation preservation,
+  recurrence solving
+- Current gap: arbitrary-size floor/ceiling recurrence and full RAM execution
+  cost are future strengthening targets
+
+The section proves functional correctness for merge sort using Lean's verified
+`List.mergeSort` implementation.  It also proves the exact closed form of the
+standard recurrence on input sizes `2^k`.
+
 ## Chapter 16 - Greedy Algorithms
 
 ### Section 16.3 - Huffman codes
@@ -59,6 +106,10 @@ then the result is optimal.
 | Sorted-order lightness for Kruskal | `partial` | Needs a list-order invariant over processed edges. |
 | Concrete MST exchange edge from paths | `blocked-design` | Needs a stable finite path/walk representation. |
 | Prim's algorithm | `statement` | Section file exists only through the Chapter 23.2 target; theorem interface has not been added yet. |
+| CLRS exercises | `future-work` | Keep the first pass focused on main textbook claims; add exercises after section interfaces stabilize. |
+| Chapter-end problems | `future-work` | Treat as a second track with explicit priority and difficulty labels. |
+| Full RAM semantics | `future-work` | Requires an imperative machine/cost semantics rather than only mathematical functions and recurrences. |
+| General merge-sort recurrence | `future-work` | Needs floor/ceiling arithmetic and an asymptotic theorem for all input sizes. |
 
 ## Publication Value
 

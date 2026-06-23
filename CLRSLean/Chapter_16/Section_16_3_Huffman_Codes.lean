@@ -22,6 +22,7 @@ is arranged as a readable pipeline:
 
 open List
 
+namespace CLRS
 namespace HuffmanV2
 
 /-! ## Trees, forests, and the Huffman algorithm -/
@@ -1035,7 +1036,7 @@ lemma freqOf_mergePair_of_areSiblings (t : HuffTree) (a b z : ℕ)
                                  (htInner (htInner ll lr) r) =
                  htInner (mergePair a b z (freqOf a (htInner ll lr) + freqOf b (htInner ll lr)) (htInner ll lr))
                         (mergePair a b z (freqOf a (htInner ll lr) + freqOf b (htInner ll lr)) r) := by
-        delta mergePair; simp
+        simp [mergePair]
       rw [h_mp, h_merge_r']
       conv => lhs; rw [freqOf]
       rw [h_freq_l]
@@ -1070,7 +1071,7 @@ lemma freqOf_mergePair_of_areSiblings (t : HuffTree) (a b z : ℕ)
                                  (htInner l (htInner rl rr)) =
                  htInner (mergePair a b z (freqOf a (htInner rl rr) + freqOf b (htInner rl rr)) l)
                         (mergePair a b z (freqOf a (htInner rl rr) + freqOf b (htInner rl rr)) (htInner rl rr)) := by
-        delta mergePair; simp
+        simp [mergePair]
       rw [h_mp, h_merge_l']
       conv => lhs; rw [freqOf]
       rw [h_freq_r]
@@ -1840,7 +1841,7 @@ private lemma freqOf_mergePair_same_sibling (t : HuffTree) (b z s : ℕ)
                                  (htInner (htInner ll lr) r) =
                  htInner (mergePair z b z (freqOf z (htInner ll lr) + freqOf b (htInner ll lr)) (htInner ll lr))
                         (mergePair z b z (freqOf z (htInner ll lr) + freqOf b (htInner ll lr)) r) := by
-        delta mergePair; simp
+        simp [mergePair]
       rw [h_mp, h_merge_r]
       conv => lhs; rw [freqOf]
       rw [h_freq_l]
@@ -1870,7 +1871,7 @@ private lemma freqOf_mergePair_same_sibling (t : HuffTree) (b z s : ℕ)
                                  (htInner l (htInner rl rr)) =
                  htInner (mergePair z b z (freqOf z (htInner rl rr) + freqOf b (htInner rl rr)) l)
                         (mergePair z b z (freqOf z (htInner rl rr) + freqOf b (htInner rl rr)) (htInner rl rr)) := by
-        delta mergePair; simp
+        simp [mergePair]
       rw [h_mp, h_merge_l]
       conv => lhs; rw [freqOf]
       rw [h_freq_r]
@@ -2969,3 +2970,4 @@ theorem optimum_huffman_freqs (xs : List (ℕ × ℕ))
       nonempty := sortForest_ne_nil (by simpa [leavesOfFreqs] using h_nonempty) }
 
 end HuffmanV2
+end CLRS

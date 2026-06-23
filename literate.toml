@@ -1,0 +1,21 @@
+landing_page = "CLRSLean"
+
+[order_children]
+"CLRSLean" = [
+  "CLRSLean.Chapter_02.Section_02_1_Insertion_Sort",
+  "CLRSLean.Chapter_16.Section_16_3_Huffman_Codes",
+  "CLRSLean.Chapter_23.Section_23_1_Growing_Minimum_Spanning_Trees",
+  "CLRSLean.Chapter_23.Section_23_2_Kruskal_And_Prim",
+]
+
+[modules."CLRSLean.Chapter_02.Section_02_1_Insertion_Sort"]
+title = "2.1. Insertion Sort"
+
+[modules."CLRSLean.Chapter_16.Section_16_3_Huffman_Codes"]
+title = "16.3. Huffman Codes"
+
+[modules."CLRSLean.Chapter_23.Section_23_1_Growing_Minimum_Spanning_Trees"]
+title = "23.1. Growing a Minimum Spanning Tree"
+
+[modules."CLRSLean.Chapter_23.Section_23_2_Kruskal_And_Prim"]
+title = "23.2. Kruskal and Prim"
