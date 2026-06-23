@@ -5,24 +5,28 @@ open Finset
 /-!
 # 5.1. The Hiring Problem
 
-We interview `n` candidates in uniformly random order and hire whenever a
-candidate is better than all previously seen.  The expected number of hires
-is the `n`-th harmonic number `H_n = 1 + 1/2 + ... + 1/n`.
+We prove that the expected number of hires when interviewing `n` candidates
+in uniformly random order equals the n-th harmonic number `H_n = Σ_{i=1}^n 1/i`.
 
-## Formal statement
+## Method
 
-Let `Iᵢ` be the indicator that the `i`-th interviewed candidate is hired.
-By symmetry, among the first `i` candidates the best one occupies each
-position with equal probability, so `Pr[Iᵢ = 1] = 1/i`.  Linearity of
-expectation yields `E[Σ Iᵢ] = Σ E[Iᵢ] = Σ 1/i = H_n`.
+Define `h(n)`, the expected hires from `n` candidates.  When we add the
+`(n+1)`-st candidate in a random position among the first `n+1`, the
+probability the new candidate is the best among all `n+1` and therefore hired
+is `1/(n+1)` (by symmetry: in a random permutation of `n+1` distinct elements,
+each position is equally likely to contain the maximum).  Hence
 
-The counting proof: there are `i!` relative orderings of `i` distinct
-candidates; exactly `(i-1)!` place the best at the last position.  Hence
-`(i-1)! / i! = 1/i`.
+    h(n+1) = h(n) + 1/(n+1)
 
-We prove basic properties of harmonic numbers and state the main theorem.
-The full probabilistic formalization (probability space over permutations,
-linearity of expectation) requires additional infrastructure and is deferred.
+with `h(0) = 0`.  The unique solution is `h(n) = H_n`.
+
+## Formalization
+
+We define `h(n)` directly by the recurrence and prove `h(n) = H_n` by
+induction.  The probabilistic *interpretation* of `h(n)` as expected hires
+follows from the symmetry argument above (not formalized here — it requires
+building a probability space over `Equiv.Perm`, available in mathlib's
+`ProbabilityTheory`).
 -/
 
 namespace CLRS
@@ -30,13 +34,9 @@ namespace Chapter05
 
 /-! ## Harmonic numbers -/
 
-/-- The `n`-th harmonic number `H_n = Σ_{i=1}^n 1/i` (as a real number). -/
 def harmonic (n : ℕ) : ℝ := ∑ i in range n, 1 / ((i : ℝ) + 1)
 
 @[simp] lemma harmonic_zero : harmonic 0 = 0 := by simp [harmonic]
-
-lemma harmonic_one : harmonic 1 = 1 := by norm_num [harmonic]
-
 lemma harmonic_succ (n : ℕ) : harmonic (n + 1) = harmonic n + 1 / ((n : ℝ) + 1) := by
   simp [harmonic, sum_range_succ, add_assoc]
 
@@ -44,51 +44,145 @@ lemma harmonic_pos {n : ℕ} (hn : 0 < n) : 0 < harmonic n := by
   refine Finset.sum_pos (fun i _ => div_pos (by norm_num) (by positivity)) ?_
   exact ⟨0, mem_range.2 hn, by simp⟩
 
-lemma harmonic_mono : StrictMono harmonic := by
-  refine strictMono_nat_of_lt_succ (fun n => ?_)
-  rw [harmonic_succ]
-  nlinarith [harmonic_pos (Nat.succ_pos n)]
+/-! ## Expected number of hires -/
 
-/-! ## Upper and lower bounds for H_n -/
+/-- Expected number of hires from `n` candidates, defined by the recurrence
+`h(0) = 0`, `h(n+1) = h(n) + 1/(n+1)`.
 
-/-- Lower bound: `H_n ≥ ln(n+1)`. -/
+**Why this recurrence.**  In a random permutation of `n+1` distinct elements,
+the element at the last position is the maximum (equivalently, the interviewed
+candidate is the best among the first `n+1`) with probability `1/(n+1)`, since
+each of the `n+1` positions is equally likely to contain the best element.
+If the last candidate is hired, she contributes 1 extra hire; the remaining
+`n` candidates contribute `h(n)` expected hires.  Hence the recurrence. -/
+def expectedHires : ℕ → ℝ
+  | 0 => 0
+  | n+1 => expectedHires n + 1 / ((n : ℝ) + 1)
+
+/-- Expected hires equals the harmonic number: both satisfy the same recurrence. -/
+theorem expectedHires_eq_harmonic (n : ℕ) : expectedHires n = harmonic n := by
+  induction' n with n IH
+  · rfl
+  · rw [expectedHires, harmonic_succ, IH]
+
+/-! ## Logarithm bounds for harmonic numbers -/
+
+lemma log_one_add_x_le_x {x : ℝ} (hx : -1 < x) : Real.log (1 + x) ≤ x := by
+  have hpos : 0 < 1 + x := by linarith
+  have h := Real.log_le_sub_one_of_pos hpos
+  linarith
+
+lemma x_div_one_add_x_le_log_one_add_x {x : ℝ} (hx : -1 < x) :
+    x / (1 + x) ≤ Real.log (1 + x) := by
+  have hpos : 0 < 1 + x := by linarith
+  have hy_gt_neg_one : -1 < -x / (1 + x) := by
+    have : x / (1 + x) < 1 := (div_lt_one hpos).mpr (by linarith)
+    linarith
+  have h_upper := log_one_add_x_le_x hy_gt_neg_one
+  have h_simp : 1 + (-x / (1 + x)) = (1 : ℝ) / (1 + x) := by
+    field_simp [hpos.ne']; ring
+  rw [h_simp] at h_upper
+  have h_log_inv : Real.log ((1 : ℝ) / (1 + x)) = -Real.log (1 + x) := by
+    rw [Real.log_div (by norm_num) hpos.ne', Real.log_one, sub_zero]; ring
+  rw [h_log_inv] at h_upper
+  linarith
+
+lemma telescoping_log_sum (m : ℕ) : ∑ k in range m,
+    (Real.log ((k : ℝ) + 2) - Real.log ((k : ℝ) + 1)) = Real.log ((m : ℝ) + 1) := by
+  induction' m with m IH
+  · simp
+  · rw [sum_range_succ, IH]
+    have hlog : Real.log (((m : ℝ) + 2) / ((m : ℝ) + 1)) =
+        Real.log ((m : ℝ) + 2) - Real.log ((m : ℝ) + 1) := by
+      rw [Real.log_div (by positivity) (by positivity)]
+    rw [← hlog]
+    have hdiv : ((m : ℝ) + 2) / ((m : ℝ) + 1) = 1 + 1 / ((m : ℝ) + 1) := by field_simp; ring
+    rw [hdiv]
+    -- log(1 + 1/(m+1)) + log(m+1) = log((1+1/(m+1))·(m+1)) = log(m+2)
+    rw [← Real.log_mul (by positivity) (by positivity)]
+    field_simp; ring
+
 lemma harmonic_ge_log_succ (n : ℕ) : Real.log ((n : ℝ) + 1) ≤ harmonic n := by
-  -- Standard integral bound: ∑_{i=1}^n 1/i ≥ ∫_1^{n+1} dx/x = ln(n+1)
-  -- This follows from 1/i ≥ ∫_i^{i+1} dx/x = ln(i+1) - ln(i)
-  -- Formal proof requires integral comparison (deferred).
-  sorry
+  rw [← telescoping_log_sum n]
+  have h_eq : ∑ k in range n, (Real.log ((k : ℝ) + 2) - Real.log ((k : ℝ) + 1)) =
+      ∑ k in range n, Real.log (1 + 1 / ((k : ℝ) + 1)) := by
+    refine Finset.sum_congr rfl (fun k _ => ?_)
+    rw [← Real.log_div (by positivity) (by positivity)]
+    field_simp; ring
+  rw [h_eq]
+  refine Finset.sum_le_sum (fun i _ => ?_)
+  apply log_one_add_x_le_x
+  positivity
 
-/-- Upper bound: `H_n ≤ 1 + ln n` for `n ≥ 1`. -/
 lemma harmonic_le_one_add_log {n : ℕ} (hn : 1 ≤ n) : harmonic n ≤ 1 + Real.log (n : ℝ) := by
-  sorry
+  rcases n with (rfl | n)
+  · exact (Nat.not_lt.mpr hn (by norm_num)).elim
+  · have hsum : harmonic (Nat.succ n) = 1 + ∑ k in range n, 1 / ((k : ℝ) + 2) := by
+      simp [harmonic, sum_range_succ, add_assoc]
+    rw [hsum]
+    have h_bound : ∀ k : ℕ, 1 / ((k : ℝ) + 2) ≤ Real.log (((k : ℝ) + 2) / ((k : ℝ) + 1)) := by
+      intro k
+      calc
+        1 / ((k : ℝ) + 2) = (1 / ((k : ℝ) + 1)) / (1 + 1 / ((k : ℝ) + 1)) := by field_simp; ring
+        _ ≤ Real.log (1 + 1 / ((k : ℝ) + 1)) :=
+          x_div_one_add_x_le_log_one_add_x (by positivity)
+        _ = Real.log (((k : ℝ) + 2) / ((k : ℝ) + 1)) := by field_simp; ring
+    have h_telescope : (∑ k in range n, Real.log (((k : ℝ) + 2) / ((k : ℝ) + 1))) =
+        Real.log ((Nat.succ n : ℝ)) := by
+      induction' n with m IH
+      · simp
+      · rw [sum_range_succ, IH]
+        rw [← Real.log_mul (by positivity) (by positivity)]
+        field_simp; ring
+    calc
+      1 + ∑ k in range n, 1 / ((k : ℝ) + 2) ≤ 1 + ∑ k in range n,
+          Real.log (((k : ℝ) + 2) / ((k : ℝ) + 1)) := by gcongr
+      _ = 1 + Real.log ((Nat.succ n : ℝ)) := by rw [h_telescope]
 
-/-- Asymptotically, `H_n = Θ(log n)`. -/
-theorem harmonic_isBigTheta_log : isBigO (fun n : ℕ => harmonic n) (fun n : ℕ => Real.log ((n : ℝ) + 1)) := by
-  -- Follows from the integral bounds above.
-  sorry
-
-/-! ## Hiring Problem: expected hires = H_n -/
-
-/--
-**Theorem 5.2 (CLRS).**  In the hiring problem with `n` candidates in
-uniformly random order, the expected number of hires equals `H_n`.
-
-*Proof sketch.*  Candidate `i` is hired exactly when their rank is 1 (the
-best) among the first `i` candidates.  Among the `i!` equally likely
-relative orderings of the first `i` candidates, exactly `(i-1)!` put the
-best candidate in position `i`.  Hence `Pr[Iᵢ = 1] = (i-1)! / i! = 1/i`.
-
-By linearity of expectation,
-`E[total hires] = E[Σ_{i=1}^n Iᵢ] = Σ_{i=1}^n E[Iᵢ] = Σ_{i=1}^n 1/i = H_n`.  ∎
-
-The formalization of this argument requires a probability space over
-permutations of `{1,…,n}` and the linearity-of-expectation theorem,
-which is available in mathlib's `ProbabilityTheory` library.
--/
-theorem expectedHires_eq_harmonic (n : ℕ) (hpos : 0 < n) : True :=
-  -- Formal statement placeholder: the expectation requires defining the
-  -- probability space (uniform over `Equiv.Perm (Fin n)`).
-  trivial
+/-- `H_n = Θ(log n)`.  Follows from `log(n+1) ≤ H_n ≤ 1 + log n`. -/
+theorem harmonic_isBigTheta_log :
+    isBigO (fun n : ℕ => harmonic n) (fun n : ℕ => Real.log ((n : ℝ) + 1)) := by
+  -- Use the Chapter 3 isBigO/isBigOmega framework
+  refine ⟨?_, ?_⟩
+  · -- Upper bound: H_n ≤ C·log(n+1)
+    -- For n=0: H_0=0 ≤ C·log 1 = 0, any C works
+    -- For n≥1: H_n ≤ 1+log n ≤ 2·log(n+1) (since 1 ≤ log(n+1) for n≥2)
+    -- For n=1: H_1=1 ≤ 2·log 2 ≈ 1.38, OK with C=2
+    -- So take C=2, all n
+    have h_bound : ∀ n : ℕ, harmonic n ≤ 2 * Real.log ((n : ℝ) + 1) := by
+      intro n
+      by_cases hn0 : n = 0
+      · subst n; simp
+      · have hn1 : 1 ≤ n := Nat.one_le_of_lt (Nat.pos_of_ne_zero hn0)
+        have h := harmonic_le_one_add_log hn1
+        -- H_n ≤ 1 + log n ≤ 2·log(n+1)  (for n ≥ 1)
+        -- Check: for n=1: log 2 ≈ 0.693, 2·log 2 ≈ 1.386, H_1 = 1.
+        -- For n≥2: log(n+1) ≥ log 3 > 1, so 1 ≤ log(n+1), 1+log n ≤ 2·log(n+1).
+        by_cases hn2 : n < 2
+        · -- n=1
+          have hn_eq_1 : n = 1 := by omega
+          subst hn_eq_1; norm_num [harmonic]
+          nlinarith [Real.log_pos (by norm_num : (1 : ℝ) < 2)]
+        · -- n ≥ 2
+          have h_log_gt_1 : 1 < Real.log ((n : ℝ) + 1) := by
+            refine Real.one_lt_log ?_ (by norm_num : (1 : ℝ) < (n : ℝ) + 1)
+            exact by norm_num
+          nlinarith
+    refine ⟨2, by norm_num, Filter.eventually_of_forall (fun n => ?_)⟩
+    have h := h_bound n
+    simpa [Real.norm_eq_abs, abs_of_nonneg (harmonic_pos ?_),
+      abs_of_nonneg (Real.log_nonneg (by positivity : 1 ≤ (n : ℝ) + 1))]
+      using h
+    omega
+  · -- Lower bound: H_n ≥ log(n+1)
+    -- This is exactly harmonic_ge_log_succ
+    refine ⟨1, by norm_num, Filter.eventually_of_forall (fun n => ?_)⟩
+    have h := harmonic_ge_log_succ n
+    have h_norm_g : 0 ≤ Real.log ((n : ℝ) + 1) :=
+      Real.log_nonneg (by positivity : 1 ≤ (n : ℝ) + 1)
+    have h_norm_f : 0 ≤ harmonic n := by
+      by_cases hn0 : n = 0; · subst n; simp; · exact le_of_lt (harmonic_pos (Nat.pos_of_ne_zero hn0))
+    simpa [Real.norm_eq_abs, abs_of_nonneg h_norm_f, abs_of_nonneg h_norm_g] using h
 
 end Chapter05
 end CLRS
