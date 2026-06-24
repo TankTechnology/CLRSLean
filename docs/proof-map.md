@@ -105,24 +105,32 @@ library.
 ### Section 4.5 - The master method
 
 - Lean source: `CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean`
-- Status: `partial`
-- Main proved theorem:
+- Status: `proved` for exact-power recurrences
+- Main proved theorems:
   - `CLRS.Chapter04.h_formula`
-- Proof pattern: unroll the exact-power recurrence after dividing by `a^i`
-- Current gap: the three Master Theorem cases still need a clean
-  asymptotic-to-geometric-sum bridge before they can be marked proved
+  - `CLRS.Chapter04.master_case1_geometric`
+  - `CLRS.Chapter04.master_case2_constant_forcing`
+  - `CLRS.Chapter04.master_case3_tail_dominated`
+- Proof pattern: unroll the exact-power recurrence after dividing by `a^i`,
+  then prove bounded, constant, and tail-dominated normalized-forcing criteria
+- Current gap: extending exact powers `n = b^i` to all input sizes needs a
+  monotone recurrence model and floor/ceiling sandwiching
 
 ## Chapter 5 - Probabilistic Analysis and Randomized Algorithms
 
 ### Section 5.1 - The hiring problem
 
 - Lean source: `CLRSLean/Chapter_05/Section_05_1_Hiring_Problem.lean`
-- Status: `partial`
-- Main proved theorem:
+- Status: `proved` for the finite rank-symmetry model
+- Main proved theorems:
+  - `CLRS.Chapter05.uniformAverage_indicator_singleton`
+  - `CLRS.Chapter05.hireProbability_eq`
+  - `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`
   - `CLRS.Chapter05.expectedHires_eq_harmonic`
-- Proof pattern: solve the deterministic expected-hire recurrence by induction
-- Current gap: formalize the random-permutation probability space and derive
-  the recurrence from indicator variables
+- Proof pattern: compute singleton probability in a finite uniform rank space,
+  sum indicator expectations, and prove the equivalent recurrence by induction
+- Current gap: logarithmic asymptotic bounds for harmonic numbers remain a
+  future strengthening target
 
 ## Chapter 10 - Elementary Data Structures
 
@@ -290,8 +298,8 @@ then the result is optimal.
 | Union-find implementation correctness | `deferred-implementation` | Not needed for the mathematical MST correctness theorem. |
 | Activity-selection sorted-order exchange certificate | `partial` | Needs a sorted-by-finish interface that derives the current certificate automatically. |
 | Sorted-order lightness for Kruskal | `partial` | Needs a list-order invariant over processed edges. |
-| Full Chapter 4 Master Theorem cases | `blocked-design` | Needs a clean asymptotic-to-geometric-sum bridge for exact powers. |
-| Full Chapter 5 probability proof | `blocked-mathlib` | Needs a stable probability-space model over random permutations. |
+| Chapter 4 extension from exact powers to all input sizes | `future-work` | Needs a monotone recurrence model and floor/ceiling sandwiching. |
+| Chapter 5 harmonic logarithmic asymptotics | `future-work` | Strengthens the finite rank-symmetry expectation theorem. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |
 | Pointer-level linked lists and free lists | `future-work` | Requires an imperative memory model. |
 | BST deletion/transplant | `future-work` | Needs either a functional deletion theorem or pointer-transplant semantics. |

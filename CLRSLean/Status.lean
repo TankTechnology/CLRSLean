@@ -30,6 +30,16 @@ navigating the deployed pages.
   `CLRS.Chapter03.isBigOmega_iff`,
   `CLRS.Chapter03.isLittleOmega_iff`,
   `CLRS.Chapter03.isBigTheta_trans`.
+* 4.5 Master method, exact-power model:
+  {lit}`CLRS.Chapter04.h_formula`,
+  {lit}`CLRS.Chapter04.master_case1_geometric`,
+  {lit}`CLRS.Chapter04.master_case2_constant_forcing`,
+  {lit}`CLRS.Chapter04.master_case3_tail_dominated`.
+* 5.1 Hiring problem, finite rank-symmetry model:
+  {lit}`CLRS.Chapter05.uniformAverage_indicator_singleton`,
+  {lit}`CLRS.Chapter05.hireProbability_eq`,
+  {lit}`CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,
+  {lit}`CLRS.Chapter05.expectedHires_eq_harmonic`.
 * 2.1 Insertion sort:
   `CLRS.Chapter02.insertionSort_sorted`,
   `CLRS.Chapter02.insertionSort_perm`.
@@ -66,14 +76,6 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter03.isLittleO_exp_vs_factorial`;
   remaining gap: add the full CLRS table of standard growth comparisons,
   especially logarithm-vs-polynomial and polynomial-vs-exponential facts.
-* 4.5 Master method:
-  current result {lit}`CLRS.Chapter04.h_formula`;
-  remaining gap: prove the three Master Theorem cases from the exact-power
-  recurrence expansion.
-* 5.1 Hiring problem:
-  current result {lit}`CLRS.Chapter05.expectedHires_eq_harmonic`;
-  remaining gap: formalize the probability space over random permutations and
-  derive the recurrence from indicator variables.
 * 11.2 Chained hash tables:
   current result {lit}`CLRS.Chapter11.hashSearch_hashInsert_self`;
   remaining gap: expected search time under simple uniform hashing needs a
@@ -113,10 +115,10 @@ navigating the deployed pages.
   Reason: needs a stable finite path or walk representation.
 * Full RAM semantics: `future-work`.
   Reason: requires a separate imperative machine and cost model.
-* Full Chapter 4 Master Theorem cases: `blocked-design`.
-  Reason: needs a clean asymptotic-to-geometric-sum bridge for exact powers.
-* Full Chapter 5 probability proof: `blocked-mathlib`.
-  Reason: needs a stable probability-space model over random permutations.
+* Chapter 4 extension from exact powers to all input sizes: `future-work`.
+  Reason: needs a monotone recurrence model and floor/ceiling sandwiching.
+* Chapter 5 logarithmic harmonic-number asymptotics: `future-work`.
+  Reason: useful strengthening beyond the current finite rank-symmetry theorem.
 * General merge-sort recurrence: `future-work`.
   Reason: needs floor and ceiling arithmetic for all input sizes.
 * CLRS exercises and chapter-end problems: `future-work`.

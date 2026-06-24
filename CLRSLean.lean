@@ -80,6 +80,13 @@ Start with the chapter pages in the sidebar.
   Current results: `CLRS.Chapter03.isLittleO_pow_pow`,
   `CLRS.Chapter03.factorial_upper_bound`,
   `CLRS.Chapter03.isLittleO_exp_vs_factorial`.
+* 4.5 Master method: `proved` for exact-power recurrences.
+  Public results: `CLRS.Chapter04.master_case1_geometric`,
+  `CLRS.Chapter04.master_case2_constant_forcing`,
+  `CLRS.Chapter04.master_case3_tail_dominated`.
+* 5.1 Hiring problem: `proved` for the finite rank-symmetry model.
+  Public results: `CLRS.Chapter05.hireProbability_eq`,
+  `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`.
 * 10.1 Stacks and queues: `proved` for the functional-list model.
   Public results: `CLRS.Chapter10.pop_push`,
   `CLRS.Chapter10.dequeue_enqueue_nonempty`.
