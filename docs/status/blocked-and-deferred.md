@@ -22,9 +22,9 @@ without changing the mathematical Kruskal proof.
 - Status: `blocked-design`
 
 The deterministic chained-table interface is in place for a fixed hash
-function.  The CLRS expected-time theorem needs a probability model over keys,
-hash functions, or random assignments before we can state simple uniform
-hashing precisely.
+function, including insert/delete/search behavior.  The CLRS expected-time
+theorem needs a probability model over keys, hash functions, or random
+assignments before we can state simple uniform hashing precisely.
 
 ### Master Theorem Extension Beyond Exact Powers
 

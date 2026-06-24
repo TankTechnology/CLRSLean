@@ -53,7 +53,7 @@ Start with the chapter pages in the sidebar.
 * Chapter 10 - Elementary Data Structures: functional stack, queue, and
   linked-list operation proofs.
 * Chapter 11 - Hash Tables: direct-address table correctness and deterministic
-  chained-hash-table lookup facts.
+  chained-hash-table insert/delete/search facts.
 * Chapter 12 - Binary Search Trees: search, minimum/maximum, insertion,
   functional successor/predecessor, and functional deletion correctness for an
   inductive BST model.
@@ -125,7 +125,9 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter11.search_delete_same`.
 * 11.2 Chained hash tables: `partial`.
   Current results: `CLRS.Chapter11.hashSearch_hashInsert_self`,
-  `CLRS.Chapter11.hashSearch_hashInsert_iff`.
+  `CLRS.Chapter11.hashSearch_hashInsert_iff`,
+  `CLRS.Chapter11.hashSearch_hashDelete_self`,
+  `CLRS.Chapter11.hashSearch_hashDelete_iff`.
 * 12.1 Binary search trees: `partial`.
   Current results: `CLRS.Chapter12.BSTree.search_eq_true_iff`,
   `CLRS.Chapter12.BSTree.minimum?_le_of_ordered`,

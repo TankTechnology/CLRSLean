@@ -162,8 +162,8 @@ end CLRS
   theorems before adding hashing costs.
 - **Hash-table performance chapters:** split deterministic correctness from
   expected-time analysis.  First prove bucket/update/search facts for a fixed
-  hash function; only introduce probability once the deterministic interface is
-  stable.
+  hash function, including deletion/search-after-delete facts; only introduce
+  probability once the deterministic interface is stable.
 - **Tree chapters:** use inductive trees, an `InTree` predicate, an `Ordered`
   invariant, and theorem names for insertion membership and invariant
   preservation.  Prove a membership-after-insert equivalence before proving
@@ -240,6 +240,10 @@ end CLRS
   prove the finish-sorted head lemma and the executable greedy selector's
   sublist and feasibility invariants.  These are small theorem layers that make
   the remaining exchange-certificate gap much sharper.
+- Chapter 11.2 chained-hashing pass: do not leave deletion as prose while
+  expected-time analysis is blocked.  A fixed-hash functional model can still
+  prove bucket delete, search-after-delete failure, and the full
+  `hashSearch_hashDelete_iff` characterization.
 
 ## Honesty Rules
 

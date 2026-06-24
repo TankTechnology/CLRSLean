@@ -252,9 +252,13 @@ stack top is list head, and queue front is list head with enqueue at the back.
 - Main proved theorems:
   - `CLRS.Chapter11.bucket_hashInsert_same`
   - `CLRS.Chapter11.bucket_hashInsert_other`
+  - `CLRS.Chapter11.bucket_hashDelete_same`
+  - `CLRS.Chapter11.bucket_hashDelete_other`
   - `CLRS.Chapter11.hashSearch_hashInsert_self`
   - `CLRS.Chapter11.hashSearch_hashInsert_iff`
-- Proof pattern: deterministic bucket update for a fixed hash function
+  - `CLRS.Chapter11.hashSearch_hashDelete_self`
+  - `CLRS.Chapter11.hashSearch_hashDelete_iff`
+- Proof pattern: deterministic bucket update/delete for a fixed hash function
 - Current gap: expected search time under simple uniform hashing requires a
   probability model over keys or hash functions
 

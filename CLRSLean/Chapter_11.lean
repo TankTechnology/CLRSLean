@@ -18,13 +18,15 @@ performance analysis.
   Main results: {lit}`CLRS.Chapter11.bucket_hashInsert_same`,
   {lit}`CLRS.Chapter11.hashSearch_hashInsert_self`,
   {lit}`CLRS.Chapter11.hashSearch_hashInsert_iff`,
-  {lit}`CLRS.Chapter11.bucket_hashInsert_other`.
+  {lit}`CLRS.Chapter11.hashSearch_hashDelete_self`,
+  {lit}`CLRS.Chapter11.hashSearch_hashDelete_iff`.
 
 ## Current Gaps
 
-The expected-time analysis under simple uniform hashing is not yet formalized.
-That requires a probability model over keys and hash functions, so it is kept
-separate from the deterministic lookup-correctness layer.
+The deterministic insert/delete/search layer is compiler-clean.  The
+expected-time analysis under simple uniform hashing is not yet formalized.  That
+requires a probability model over keys and hash functions, so it is kept
+separate from the deterministic operation-correctness layer.
 -/
 
 namespace CLRS

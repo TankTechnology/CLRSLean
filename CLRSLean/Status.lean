@@ -93,8 +93,10 @@ navigating the deployed pages.
   remaining gap: add the full CLRS table of standard growth comparisons,
   especially logarithm-vs-polynomial and polynomial-vs-exponential facts.
 * 11.2 Chained hash tables:
-  current results {lit}`CLRS.Chapter11.hashSearch_hashInsert_self` and
-  {lit}`CLRS.Chapter11.hashSearch_hashInsert_iff`;
+  current results {lit}`CLRS.Chapter11.hashSearch_hashInsert_self`,
+  {lit}`CLRS.Chapter11.hashSearch_hashInsert_iff`,
+  {lit}`CLRS.Chapter11.hashSearch_hashDelete_self`, and
+  {lit}`CLRS.Chapter11.hashSearch_hashDelete_iff`;
   remaining gap: expected search time under simple uniform hashing needs a
   probability model over keys or hash functions.
 * 12.1 Binary search trees:

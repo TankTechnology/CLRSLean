@@ -30,6 +30,15 @@ chapters.
   functional table model, while chained hashing is currently `partial` because
   the average-case analysis is not formalized.
 
+## 2026-06-24 - After Chapter 11.2 Chained-Hash Deletion
+
+- Strengthened the hash-table pattern: deterministic chaining should cover
+  deletion too, not only insertion.  In a fixed-hash functional model, deletion
+  is a bucket filter and admits a concise `search-after-delete iff` theorem.
+- Keep Section 11.2 `partial` until simple-uniform-hashing expected-time
+  analysis exists, but list the deterministic insert/delete/search layer as
+  compiler-clean public progress.
+
 ## 2026-06-24 - After Chapter 12
 
 - Strengthened the tree-chapter pattern: first prove
