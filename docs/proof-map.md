@@ -270,15 +270,18 @@ stack top is list head, and queue front is list head with enqueue at the back.
   - `CLRS.Chapter12.BSTree.inTree_insert_iff`
   - `CLRS.Chapter12.BSTree.inTree_insert_self`
   - `CLRS.Chapter12.BSTree.insert_ordered`
+  - `CLRS.Chapter12.BSTree.inTree_delete_iff`
+  - `CLRS.Chapter12.BSTree.delete_ordered`
 - Proof pattern: inductive tree membership, bound predicates, ordered invariant,
-  and extremal-path recursion
+  extremal-path recursion, and successor-replacement deletion
 - Current gap: parent-pointer successor/predecessor procedures, transplant,
-  deletion, and pointer-level mutation remain future section targets
+  and pointer-level mutation remain future section targets
 
 This section proves the core ordered-tree interface: search is equivalent to
 membership, minimum/maximum return actual extremal keys, functional
-successor/predecessor return least-greater/greatest-less keys, and insertion
-adds exactly one key while preserving the BST ordering invariant.
+successor/predecessor return least-greater/greatest-less keys, insertion adds
+exactly one key, and functional deletion removes exactly the requested key while
+preserving the BST ordering invariant.
 
 ## Chapter 13 - Red-Black Trees
 
@@ -378,7 +381,7 @@ then the result is optimal.
 | Chapter 5 harmonic logarithmic asymptotics | `future-work` | Strengthens the finite rank-symmetry expectation theorem. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |
 | Pointer-level linked lists and free lists | `future-work` | Requires an imperative memory model. |
-| BST deletion/transplant and parent-pointer navigation | `future-work` | Functional successor/predecessor queries are proved; deletion and pointer-transplant semantics remain. |
+| BST transplant and parent-pointer navigation | `future-work` | Functional successor/predecessor queries and functional deletion are proved; pointer-transplant semantics remain. |
 | Full red-black insertion/deletion | `blocked-design` | Needs a balancing representation and invariant-preservation proof across fixup cases. |
 | Concrete MST exchange edge from paths | `blocked-design` | Needs a stable finite path/walk representation. |
 | Prim's algorithm | `statement` | Section file exists only through the Chapter 23.2 target; theorem interface has not been added yet. |

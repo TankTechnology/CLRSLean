@@ -123,14 +123,14 @@ The current Section 10.2 file proves the functional-list membership behavior of
 search, insertion, and deletion.  Predecessor/successor pointer updates,
 sentinels, allocation, and free lists require a shared imperative memory model.
 
-### Binary-Search-Tree Deletion And Navigation
+### Binary-Search-Tree Pointer Navigation And Transplant
 
 - Related section: Section 12.1 - Binary search trees
 - Status: `future-work`
 
-Search, minimum/maximum, functional successor/predecessor, insertion membership,
-and ordering preservation are proved.  Functional deletion is the next
-tree-level layer before any parent-pointer, transplant, or mutation refinement.
+Search, minimum/maximum, functional successor/predecessor, insertion, and
+functional deletion membership/order preservation are proved.  The remaining
+BST work is the CLRS parent-pointer, transplant, and mutation refinement layer.
 
 ### Full Red-Black Insertion And Deletion
 

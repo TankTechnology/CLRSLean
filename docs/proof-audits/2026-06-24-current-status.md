@@ -20,7 +20,7 @@ the imported CLRS-Lean source, not experimental worktrees.
 - Sections marked `proved` currently have named Lean theorems and no imported
   `sorry`/`admit`/`axiom` markers.
 - Sections marked `partial` expose the missing mathematical or modeling layer:
-  probability for chained hashing, navigation/deletion for BSTs, full fixup
+  probability for chained hashing, pointer navigation/transplant for BSTs, full fixup
   algorithms for red-black trees, sorted-order/certificate automation for
   greedy and MST algorithms.
 - The MST and activity-selection theorems remain intentionally certificate
@@ -37,6 +37,9 @@ the imported CLRS-Lean source, not experimental worktrees.
 - Chapter 12 now proves functional successor/predecessor queries:
   `CLRS.Chapter12.BSTree.successor?_least_greater` and
   `CLRS.Chapter12.BSTree.predecessor?_greatest_less`.
+- Chapter 12 now proves functional deletion:
+  `CLRS.Chapter12.BSTree.inTree_delete_iff` and
+  `CLRS.Chapter12.BSTree.delete_ordered`.
 
 ## Next Proof Priorities
 
@@ -45,10 +48,10 @@ the imported CLRS-Lean source, not experimental worktrees.
    be proved next.
 2. Chapter 23.2: add the sorted-prefix invariant needed to turn Kruskal's edge
    order into lightness certificates.
-3. Chapter 12.1: add functional deletion over the current tree model before
-   attempting pointer-transplant semantics.
-4. Chapter 4.1: create the maximum-subarray model instead of leaving the section
+3. Chapter 4.1: create the maximum-subarray model instead of leaving the section
    as prose-only future work.
+4. Chapter 12.1: design a parent-pointer/transplant refinement for the current
+   functional tree theorem.
 
 ## Audit Rule
 

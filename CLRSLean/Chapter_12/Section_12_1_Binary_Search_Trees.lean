@@ -10,7 +10,8 @@ minimum and maximum return genuine extremal keys, insertion adds exactly the
 inserted key to the membership set, and insertion preserves the BST ordering
 invariant.  It also proves functional successor and predecessor queries: the
 successor is the least key greater than the query, and the predecessor is the
-greatest key less than the query.
+greatest key less than the query.  Finally, it proves a functional deletion
+operation that removes exactly the requested key and preserves ordering.
 
 Main results:
 
@@ -29,11 +30,15 @@ Main results:
 - Theorem {lit}`inTree_insert_iff`: membership after insertion is exactly the
   old membership relation plus the inserted key.
 - Theorem {lit}`insert_ordered`: insertion preserves the BST ordering invariant.
+- Theorem {lit}`inTree_delete_iff`: functional deletion removes exactly the
+  requested key.
+- Theorem {lit}`delete_ordered`: functional deletion preserves the BST ordering
+  invariant.
 
 Current gaps:
 
-- Parent-pointer successor/predecessor procedures, transplant, deletion, and
-  pointer-level tree mutation are future section targets.
+- Parent-pointer successor/predecessor procedures, transplant, and pointer-level
+  tree mutation are future section targets.
 -/
 
 namespace CLRS
@@ -133,6 +138,43 @@ def predecessor? (x : Nat) : BSTree → Option Nat
         | none => some key
       else
         predecessor? x left
+
+/--
+A total version of the minimum-key operation.  The value on an empty tree is a
+dummy; all public theorems use it only through membership hypotheses or
+nonempty subtrees.
+-/
+def minKey : BSTree → Nat
+  | empty => 0
+  | node empty key _right => key
+  | node left@(node _ _ _) _key _right => minKey left
+
+/-- Delete the minimum key from a tree, leaving empty trees unchanged. -/
+def deleteMin : BSTree → BSTree
+  | empty => empty
+  | node empty _key right => right
+  | node left@(node _ _ _) key right => node (deleteMin left) key right
+
+/--
+Delete the root of a tree.  When both children are present, the root is replaced
+by the minimum key of the right subtree, matching the successor-replacement
+idea from the CLRS deletion proof.
+-/
+def deleteRoot : BSTree → BSTree
+  | empty => empty
+  | node left _key empty => left
+  | node left _key right@(node _ _ _) => node left (minKey right) (deleteMin right)
+
+/-- Functional deletion from a binary search tree. -/
+def delete (x : Nat) : BSTree → BSTree
+  | empty => empty
+  | node left key right =>
+      if x < key then
+        node (delete x left) key right
+      else if key < x then
+        node left key (delete x right)
+      else
+        deleteRoot (node left key right)
 
 /-! ## Search correctness -/
 
@@ -449,6 +491,298 @@ theorem predecessor?_greatest_less {x p : Nat} {t : BSTree}
             · have hx_lt_y : x < y := Nat.lt_of_le_of_lt hxLeKey (hGt y hyRight)
               exact False.elim (Nat.lt_asymm hyx hx_lt_y)
         ⟩
+
+/-! ## Functional deletion correctness -/
+
+/-- A node is never the empty tree. -/
+theorem node_ne_empty (left : BSTree) (key : Nat) (right : BSTree) :
+    node left key right ≠ empty := by
+  intro h
+  cases h
+
+/-- On nonempty trees, the total {lit}`minKey` agrees with {lit}`minimum?`. -/
+theorem minimum?_eq_some_minKey {t : BSTree} (h : t ≠ empty) :
+    minimum? t = some (minKey t) := by
+  induction t with
+  | empty =>
+      exact (h rfl).elim
+  | node left key right ihLeft _ihRight =>
+      cases left with
+      | empty =>
+          simp [minimum?, minKey]
+      | node ll lk lr =>
+          have hLeftNonempty : BSTree.node ll lk lr ≠ empty :=
+            node_ne_empty ll lk lr
+          simpa [minimum?, minKey] using ihLeft hLeftNonempty
+
+/-- The total minimum key of a nonempty tree occurs in that tree. -/
+theorem minKey_inTree {t : BSTree} (h : t ≠ empty) :
+    InTree (minKey t) t := by
+  exact minimum?_inTree (minimum?_eq_some_minKey h)
+
+/-- On an ordered tree, {lit}`minKey` is a lower bound for all members. -/
+theorem minKey_le_of_ordered {t : BSTree} (ht : Ordered t) :
+    ∀ y, InTree y t → minKey t ≤ y := by
+  by_cases h : t = empty
+  · subst t
+    intro y hy
+    simp [InTree] at hy
+  · exact minimum?_le_of_ordered ht (minimum?_eq_some_minKey h)
+
+/--
+Deleting the minimum key removes exactly that key from an ordered tree.
+The empty-tree case is harmless because membership is false.
+-/
+theorem inTree_deleteMin_iff {y : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    InTree y (deleteMin t) ↔ InTree y t ∧ y ≠ minKey t := by
+  induction t generalizing y with
+  | empty =>
+      simp [deleteMin, InTree, minKey]
+  | node left key right ihLeft _ihRight =>
+      simp [Ordered] at ht
+      rcases ht with ⟨hLeft, _hRight, hLt, hGt⟩
+      cases left with
+      | empty =>
+          simp [deleteMin, minKey, InTree]
+          constructor
+          · intro hyRight
+            refine ⟨Or.inr hyRight, ?_⟩
+            intro hyEq
+            subst y
+            exact (Nat.lt_irrefl key) (hGt key hyRight)
+          · intro h
+            rcases h with ⟨hyNode, hyNe⟩
+            rcases hyNode with hyKey | hyRight
+            · exact False.elim (hyNe hyKey)
+            · exact hyRight
+      | node ll lk lr =>
+          have hLeftNonempty : BSTree.node ll lk lr ≠ empty :=
+            node_ne_empty ll lk lr
+          have hMinInLeft :
+              InTree (minKey (BSTree.node ll lk lr)) (BSTree.node ll lk lr) :=
+            minKey_inTree hLeftNonempty
+          have hMinLtKey : minKey (BSTree.node ll lk lr) < key :=
+            hLt (minKey (BSTree.node ll lk lr)) hMinInLeft
+          have ih := ihLeft (y := y) hLeft
+          simp [deleteMin, minKey, InTree]
+          constructor
+          · intro hy
+            rcases hy with hyKey | hyLeft | hyRight
+            · refine ⟨Or.inl hyKey, ?_⟩
+              intro hyMin
+              omega
+            · rcases (ih.mp hyLeft) with ⟨hyOldLeft, hyNe⟩
+              exact ⟨Or.inr (Or.inl hyOldLeft), hyNe⟩
+            · refine ⟨Or.inr (Or.inr hyRight), ?_⟩
+              intro hyMin
+              have hKeyLtY : key < y := hGt y hyRight
+              omega
+          · intro h
+            rcases h with ⟨hyNode, hyNe⟩
+            rcases hyNode with hyKey | hyLeft | hyRight
+            · exact Or.inl hyKey
+            · exact Or.inr (Or.inl (ih.mpr ⟨hyLeft, hyNe⟩))
+            · exact Or.inr (Or.inr hyRight)
+
+/-- Deleting the minimum key preserves the BST ordering invariant. -/
+theorem deleteMin_ordered {t : BSTree} (ht : Ordered t) :
+    Ordered (deleteMin t) := by
+  induction t with
+  | empty =>
+      simp [deleteMin, Ordered]
+  | node left key right ihLeft _ihRight =>
+      simp [Ordered] at ht
+      rcases ht with ⟨hLeft, hRight, hLt, hGt⟩
+      cases left with
+      | empty =>
+          simpa [deleteMin] using hRight
+      | node ll lk lr =>
+          have hDeletedLeftOrdered :
+              Ordered (deleteMin (BSTree.node ll lk lr)) :=
+            ihLeft hLeft
+          have hDeletedLeftLt :
+              AllLt key (deleteMin (BSTree.node ll lk lr)) := by
+            intro y hy
+            exact hLt y ((inTree_deleteMin_iff (y := y) hLeft).mp hy).1
+          simp [deleteMin, Ordered]
+          exact ⟨hDeletedLeftOrdered, hRight, hDeletedLeftLt, hGt⟩
+
+/-- Deleting a root removes exactly the old root key from an ordered node. -/
+theorem inTree_deleteRoot_iff {y : Nat} {left right : BSTree} {key : Nat}
+    (ht : Ordered (node left key right)) :
+    InTree y (deleteRoot (node left key right)) ↔
+      InTree y (node left key right) ∧ y ≠ key := by
+  simp [Ordered] at ht
+  rcases ht with ⟨hLeft, hRight, hLt, hGt⟩
+  cases right with
+  | empty =>
+      simp [deleteRoot, InTree]
+      constructor
+      · intro hyLeft
+        refine ⟨Or.inr hyLeft, ?_⟩
+        intro hyEq
+        subst y
+        exact (Nat.lt_irrefl key) (hLt key hyLeft)
+      · intro h
+        rcases h with ⟨hyNode, hyNe⟩
+        rcases hyNode with hyKey | hyLeft
+        · exact False.elim (hyNe hyKey)
+        · exact hyLeft
+  | node rl rk rr =>
+      have hRightNonempty : BSTree.node rl rk rr ≠ empty :=
+        node_ne_empty rl rk rr
+      have hMinInRight :
+          InTree (minKey (BSTree.node rl rk rr)) (BSTree.node rl rk rr) :=
+        minKey_inTree hRightNonempty
+      have hKeyLtMin : key < minKey (BSTree.node rl rk rr) :=
+        hGt (minKey (BSTree.node rl rk rr)) hMinInRight
+      have hDelMin := inTree_deleteMin_iff (y := y) hRight
+      simp [deleteRoot, InTree]
+      constructor
+      · intro hy
+        rcases hy with hyMin | hyLeft | hyRightDeleted
+        · subst y
+          refine ⟨Or.inr (Or.inr hMinInRight), ?_⟩
+          intro hEq
+          omega
+        · refine ⟨Or.inr (Or.inl hyLeft), ?_⟩
+          intro hyEq
+          subst y
+          exact (Nat.lt_irrefl key) (hLt key hyLeft)
+        · rcases hDelMin.mp hyRightDeleted with ⟨hyRight, _hyNeMin⟩
+          refine ⟨Or.inr (Or.inr hyRight), ?_⟩
+          intro hyEq
+          subst y
+          exact (Nat.lt_irrefl key) (hGt key hyRight)
+      · intro h
+        rcases h with ⟨hyNode, hyNeKey⟩
+        rcases hyNode with hyKey | hyLeft | hyRight
+        · exact False.elim (hyNeKey hyKey)
+        · exact Or.inr (Or.inl hyLeft)
+        · by_cases hyMin : y = minKey (BSTree.node rl rk rr)
+          · exact Or.inl hyMin
+          · exact Or.inr (Or.inr (hDelMin.mpr ⟨hyRight, hyMin⟩))
+
+/-- Deleting a root preserves the BST ordering invariant. -/
+theorem deleteRoot_ordered {left right : BSTree} {key : Nat}
+    (ht : Ordered (node left key right)) :
+    Ordered (deleteRoot (node left key right)) := by
+  simp [Ordered] at ht
+  rcases ht with ⟨hLeft, hRight, hLt, hGt⟩
+  cases right with
+  | empty =>
+      simpa [deleteRoot] using hLeft
+  | node rl rk rr =>
+      have hRightNonempty : BSTree.node rl rk rr ≠ empty :=
+        node_ne_empty rl rk rr
+      have hMinInRight :
+          InTree (minKey (BSTree.node rl rk rr)) (BSTree.node rl rk rr) :=
+        minKey_inTree hRightNonempty
+      have hKeyLtMin : key < minKey (BSTree.node rl rk rr) :=
+        hGt (minKey (BSTree.node rl rk rr)) hMinInRight
+      have hLeftLtMin : AllLt (minKey (BSTree.node rl rk rr)) left := by
+        intro y hyLeft
+        exact Nat.lt_trans (hLt y hyLeft) hKeyLtMin
+      have hDeletedRightGt :
+          AllGt (minKey (BSTree.node rl rk rr))
+            (deleteMin (BSTree.node rl rk rr)) := by
+        intro y hyDeleted
+        rcases (inTree_deleteMin_iff (y := y) hRight).mp hyDeleted with
+          ⟨hyRight, hyNeMin⟩
+        have hMinLeY :
+            minKey (BSTree.node rl rk rr) ≤ y :=
+          minKey_le_of_ordered hRight y hyRight
+        omega
+      simp [deleteRoot, Ordered]
+      exact ⟨hLeft, deleteMin_ordered hRight, hLeftLtMin, hDeletedRightGt⟩
+
+/-- Functional deletion removes exactly the requested key from an ordered tree. -/
+theorem inTree_delete_iff {x y : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    InTree y (delete x t) ↔ InTree y t ∧ y ≠ x := by
+  induction t generalizing x y with
+  | empty =>
+      simp [delete, InTree]
+  | node left key right ihLeft ihRight =>
+      simp [Ordered] at ht
+      rcases ht with ⟨hLeft, hRight, hLt, hGt⟩
+      by_cases hxkey : x < key
+      · have ih := ihLeft (x := x) (y := y) hLeft
+        simp [delete, InTree, hxkey]
+        constructor
+        · intro hy
+          rcases hy with hyKey | hyLeftDeleted | hyRight
+          · refine ⟨Or.inl hyKey, ?_⟩
+            intro hyx
+            omega
+          · rcases ih.mp hyLeftDeleted with ⟨hyLeft, hyNe⟩
+            exact ⟨Or.inr (Or.inl hyLeft), hyNe⟩
+          · refine ⟨Or.inr (Or.inr hyRight), ?_⟩
+            intro hyx
+            have hKeyLtY : key < y := hGt y hyRight
+            omega
+        · intro h
+          rcases h with ⟨hyNode, hyNe⟩
+          rcases hyNode with hyKey | hyLeft | hyRight
+          · exact Or.inl hyKey
+          · exact Or.inr (Or.inl (ih.mpr ⟨hyLeft, hyNe⟩))
+          · exact Or.inr (Or.inr hyRight)
+      · by_cases hkeyx : key < x
+        · have ih := ihRight (x := x) (y := y) hRight
+          simp [delete, InTree, hxkey, hkeyx]
+          constructor
+          · intro hy
+            rcases hy with hyKey | hyLeft | hyRightDeleted
+            · refine ⟨Or.inl hyKey, ?_⟩
+              intro hyx
+              omega
+            · refine ⟨Or.inr (Or.inl hyLeft), ?_⟩
+              intro hyx
+              have hYLtKey : y < key := hLt y hyLeft
+              omega
+            · rcases ih.mp hyRightDeleted with ⟨hyRight, hyNe⟩
+              exact ⟨Or.inr (Or.inr hyRight), hyNe⟩
+          · intro h
+            rcases h with ⟨hyNode, hyNe⟩
+            rcases hyNode with hyKey | hyLeft | hyRight
+            · exact Or.inl hyKey
+            · exact Or.inr (Or.inl hyLeft)
+            · exact Or.inr (Or.inr (ih.mpr ⟨hyRight, hyNe⟩))
+        · have hxEq : x = key :=
+            Nat.le_antisymm (Nat.le_of_not_gt hkeyx) (Nat.le_of_not_gt hxkey)
+          subst x
+          have hNode : Ordered (node left key right) := by
+            simp [Ordered, hLeft, hRight, hLt, hGt]
+          simpa [delete, hxkey, hkeyx] using
+            (inTree_deleteRoot_iff (y := y) (left := left) (right := right)
+              (key := key) hNode)
+
+/-- Functional deletion preserves the binary-search-tree ordering invariant. -/
+theorem delete_ordered {x : Nat} {t : BSTree}
+    (ht : Ordered t) : Ordered (delete x t) := by
+  induction t generalizing x with
+  | empty =>
+      simp [delete, Ordered]
+  | node left key right ihLeft ihRight =>
+      simp [Ordered] at ht
+      rcases ht with ⟨hLeft, hRight, hLt, hGt⟩
+      by_cases hxkey : x < key
+      · have hDeletedLeftLt : AllLt key (delete x left) := by
+          intro y hy
+          exact hLt y ((inTree_delete_iff (x := x) (y := y) hLeft).mp hy).1
+        simp [delete, Ordered, hxkey]
+        exact ⟨ihLeft (x := x) hLeft, hRight, hDeletedLeftLt, hGt⟩
+      · by_cases hkeyx : key < x
+        · have hDeletedRightGt : AllGt key (delete x right) := by
+            intro y hy
+            exact hGt y ((inTree_delete_iff (x := x) (y := y) hRight).mp hy).1
+          simp [delete, Ordered, hxkey, hkeyx]
+          exact ⟨hLeft, ihRight (x := x) hRight, hLt, hDeletedRightGt⟩
+        · have hNode : Ordered (node left key right) := by
+            simp [Ordered, hLeft, hRight, hLt, hGt]
+          simpa [delete, hxkey, hkeyx] using
+            (deleteRoot_ordered (left := left) (right := right) (key := key) hNode)
 
 /-! ## Membership after insertion -/
 

@@ -53,8 +53,9 @@ Start with the chapter pages in the sidebar.
   linked-list operation proofs.
 * Chapter 11 - Hash Tables: direct-address table correctness and deterministic
   chained-hash-table lookup facts.
-* Chapter 12 - Binary Search Trees: search, minimum/maximum, insertion
-  membership, and ordering invariant preservation for an inductive BST model.
+* Chapter 12 - Binary Search Trees: search, minimum/maximum, insertion,
+  functional successor/predecessor, and functional deletion correctness for an
+  inductive BST model.
 * Chapter 13 - Red-Black Trees: local rotation, recoloring, and red-black shape
   invariant lemmas.
 * Chapter 16 - Greedy Algorithms: activity-selection exchange infrastructure
@@ -129,7 +130,9 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter12.BSTree.successor?_least_greater`,
   `CLRS.Chapter12.BSTree.predecessor?_greatest_less`,
   `CLRS.Chapter12.BSTree.inTree_insert_iff`,
-  `CLRS.Chapter12.BSTree.insert_ordered`.
+  `CLRS.Chapter12.BSTree.insert_ordered`,
+  `CLRS.Chapter12.BSTree.inTree_delete_iff`,
+  `CLRS.Chapter12.BSTree.delete_ordered`.
 * 13.1 Red-black trees: `partial`.
   Current results: `CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,
   `CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`,

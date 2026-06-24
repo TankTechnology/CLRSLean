@@ -41,6 +41,9 @@ chapters.
   still prove functional successor/predecessor as least-greater/greatest-less
   queries over the ordered tree.  This removes a real textbook gap without
   pretending that pointer-level `TREE-SUCCESSOR` is already verified.
+- Added the deletion lesson: once the pure tree model has extremal-key bounds,
+  prove `deleteMin`, `deleteRoot`, membership-after-delete, and
+  ordering-preservation theorems before deferring pointer-level transplant.
 
 ## 2026-06-24 - After Chapter 13
 

@@ -170,9 +170,11 @@ end CLRS
   ordering preservation; it turns bound-preservation lemmas into short
   case splits.  After insertion, prove search correctness and minimum/maximum
   membership plus bound theorems.  Then prove functional successor/predecessor
-  as least-greater/greatest-less queries before deferring deletion or
-  parent-pointer refinement; these proofs are usually just structural recursion
-  over the ordered-tree invariant.
+  as least-greater/greatest-less queries, and prove functional deletion with
+  `deleteMin`, `deleteRoot`, membership-after-delete, and ordering-preservation
+  theorems before deferring parent-pointer/transplant refinement; these proofs
+  are usually structural recursion over the ordered-tree invariant plus
+  extremal-key bounds.
 - **Balanced-tree chapters:** begin with invariants that can be checked locally:
   node color, no red-red edge, black height, and local rotations.  Full
   insertion/deletion should be marked partial until the balancing algorithm is
@@ -214,6 +216,10 @@ end CLRS
   scope, prove the pure functional query theorem anyway: returned successors are
   tree members, strictly greater than the query, and least among greater keys;
   predecessors use the symmetric greatest-less statement.
+- Chapter 12 deletion pass: after functional successor/predecessor, prove the
+  pure deletion layer instead of leaving it as prose.  Useful public theorems are
+  membership-after-delete and ordering preservation; keep only parent-pointer,
+  transplant, and pointer mutation as the remaining CLRS refinement layer.
 
 ## Honesty Rules
 
