@@ -94,13 +94,17 @@ rules.
   - `CLRS.Chapter03.isBigTheta_harmonic_log`
   - `CLRS.Chapter03.isBigTheta_nat_floor_coerce`
   - `CLRS.Chapter03.isBigTheta_nat_ceil_coerce`
+  - `CLRS.Chapter03.isBigTheta_nat_floor_half_coerce`
+  - `CLRS.Chapter03.isBigTheta_nat_ceil_half_coerce`
   - `CLRS.Chapter03.factorial_upper_bound`
+  - `CLRS.Chapter03.factorial_lower_bound_offset`
+  - `CLRS.Chapter03.factorial_lower_bound_half_pow`
   - `CLRS.Chapter03.isLittleO_exp_vs_factorial`
+  - `CLRS.Chapter03.isLittleO_factorial_pow_self`
 - Proof pattern: reuse Mathlib asymptotic and factorial facts through the CLRS
   wrappers
-- Current gap: half-scale floor/ceiling facts, lower factorial bounds,
-  and the rest of the CLRS standard-function table remain strengthening
-  targets.
+- Current gap: the rest of the CLRS standard-function table remains a
+  strengthening target.
 
 This section is the safe part of the `chapter-1-exploration` branch merged into
 the main site.  It compiles, but it is not yet the whole Chapter 3 growth

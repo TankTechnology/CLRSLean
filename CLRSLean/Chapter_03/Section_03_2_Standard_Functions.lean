@@ -17,7 +17,9 @@ Concrete asymptotic comparisons for algorithm analysis.
 * `aⁿ = o(bⁿ)` when `0 ≤ a < b`
 * the harmonic numbers satisfy `Hₙ ~ log n` and `Hₙ = Θ(log n)`
 * `⌊n⌋ = Θ(n)` and `⌈n⌉ = Θ(n)` on ℕ
-* `n! ≤ nⁿ` and `aⁿ = o(n!)`
+* `⌊n/2⌋ = Θ(n)` and `⌈n/2⌉ = Θ(n)` on ℕ
+* lower and upper factorial bounds
+* `aⁿ = o(n!)` and `n! = o(nⁿ)`
 -/
 
 namespace CLRS
@@ -102,27 +104,101 @@ theorem isBigTheta_nat_ceil_coerce : isBigTheta (fun n : ℕ => (⌈(n : ℝ)⌉
     (h_equiv.symm.isBigO.comp_tendsto tendsto_natCast_atTop_atTop).congr (by simp) (by simp)
   exact ⟨by unfold isBigO; exact hO, by unfold isBigOmega; exact hΩ⟩
 
+private theorem self_le_four_mul_div_two_nat {n : ℕ} (hn : 2 ≤ n) :
+    n ≤ 4 * (n / 2) := by
+  have hpos : 0 < n / 2 := Nat.div_pos hn (by decide)
+  have hmod_lt : n % 2 < 2 := Nat.mod_lt n (by decide)
+  have hdecomp : 2 * (n / 2) + n % 2 = n := Nat.div_add_mod n 2
+  omega
+
+private theorem ceil_half_le_self_nat {n : ℕ} (hn : 1 ≤ n) :
+    (n + 1) / 2 ≤ n := by
+  omega
+
+private theorem self_le_two_mul_ceil_half_nat (n : ℕ) :
+    n ≤ 2 * ((n + 1) / 2) := by
+  have hmod_lt : (n + 1) % 2 < 2 := Nat.mod_lt (n + 1) (by decide)
+  have hdecomp : 2 * ((n + 1) / 2) + (n + 1) % 2 = n + 1 :=
+    Nat.div_add_mod (n + 1) 2
+  omega
+
+/-- Natural-number floor half-scale: `⌊n/2⌋ = Θ(n)`. -/
+theorem isBigTheta_nat_floor_half_coerce :
+    isBigTheta (fun n : ℕ => ((n / 2 : ℕ) : ℝ)) (fun n : ℕ => (n : ℝ)) := by
+  constructor
+  · rw [isBigO_iff]
+    refine ⟨1, by norm_num, 0, ?_⟩
+    intro n _hn
+    have hnat : n / 2 ≤ n := Nat.div_le_self n 2
+    have hreal : ((n / 2 : ℕ) : ℝ) ≤ (n : ℝ) := by exact_mod_cast hnat
+    simpa using hreal
+  · change isBigO (fun n : ℕ => (n : ℝ)) (fun n : ℕ => ((n / 2 : ℕ) : ℝ))
+    rw [isBigO_iff]
+    refine ⟨4, by norm_num, 2, ?_⟩
+    intro n hn
+    have hnat : n ≤ 4 * (n / 2) := self_le_four_mul_div_two_nat hn
+    have hreal : (n : ℝ) ≤ 4 * ((n / 2 : ℕ) : ℝ) := by exact_mod_cast hnat
+    simpa using hreal
+
+/-- Natural-number ceiling half-scale, represented as `(n+1)/2`: `⌈n/2⌉ = Θ(n)`. -/
+theorem isBigTheta_nat_ceil_half_coerce :
+    isBigTheta (fun n : ℕ => (((n + 1) / 2 : ℕ) : ℝ)) (fun n : ℕ => (n : ℝ)) := by
+  constructor
+  · rw [isBigO_iff]
+    refine ⟨1, by norm_num, 1, ?_⟩
+    intro n hn
+    have hnat : (n + 1) / 2 ≤ n := ceil_half_le_self_nat hn
+    have hreal : (((n + 1) / 2 : ℕ) : ℝ) ≤ (n : ℝ) := by exact_mod_cast hnat
+    simpa using hreal
+  · change isBigO (fun n : ℕ => (n : ℝ)) (fun n : ℕ => (((n + 1) / 2 : ℕ) : ℝ))
+    rw [isBigO_iff]
+    refine ⟨2, by norm_num, 0, ?_⟩
+    intro n _hn
+    have hnat : n ≤ 2 * ((n + 1) / 2) := self_le_two_mul_ceil_half_nat n
+    have hreal : (n : ℝ) ≤ 2 * ((((n + 1) / 2 : ℕ) : ℝ)) := by exact_mod_cast hnat
+    simpa using hreal
+
 /-! ## Factorial bound -/
 
 /-- `n! ≤ nⁿ` for all `n`.  Proof on `ℕ`: each factor 1..n ≤ n. -/
 theorem factorial_upper_bound_nat (n : ℕ) : Nat.factorial n ≤ n ^ n := by
-  induction' n with k IH
-  · exact le_rfl
-  · rw [Nat.factorial_succ]
-    -- (k+1)! = (k+1) * k! ≤ (k+1) * k^k ≤ (k+1) * (k+1)^k = (k+1)^(k+1)
-    have h1 : k ^ k ≤ (k + 1) ^ k := Nat.pow_le_pow_left (Nat.le_succ k) _
-    have h2 : Nat.factorial k ≤ (k + 1) ^ k := le_trans IH h1
-    have h3 : (k + 1) * Nat.factorial k ≤ (k + 1) * (k + 1) ^ k :=
-      Nat.mul_le_mul_left (k + 1) h2
-    -- (k+1) * (k+1)^k = (k+1)^(k+1)
-    calc
-      (k + 1) * Nat.factorial k ≤ (k + 1) * (k + 1) ^ k := h3
-      _ = (k + 1) ^ (k + 1) := by rw [mul_comm, Nat.pow_succ]
+  exact Nat.factorial_le_pow n
 
 /-- `n! ≤ nⁿ` for all `n`, real version. -/
 theorem factorial_upper_bound (n : ℕ) : (Nat.factorial n : ℝ) ≤ (n : ℝ) ^ n := by
   exact_mod_cast factorial_upper_bound_nat n
-    -- Note: ↑(k + 1) = ((k : ℝ) + 1) by Nat.cast_add, so the goal is identical
+
+/--
+For any offset `m`, the last `k` factors in `(m+k)!` are each at least `m+1`,
+so `(m+1)^k ≤ (m+k)!`.
+-/
+theorem factorial_lower_bound_offset_nat (m k : ℕ) :
+    (m + 1) ^ k ≤ Nat.factorial (m + k) := by
+  have h := Nat.factorial_mul_pow_le_factorial (m := m) (n := k)
+  have hle : (m + 1) ^ k ≤ Nat.factorial m * (m + 1) ^ k :=
+    Nat.le_mul_of_pos_left ((m + 1) ^ k) (Nat.factorial_pos m)
+  exact le_trans hle h
+
+/-- Real-valued version of `factorial_lower_bound_offset_nat`. -/
+theorem factorial_lower_bound_offset (m k : ℕ) :
+    ((m + 1 : ℕ) : ℝ) ^ k ≤ (Nat.factorial (m + k) : ℝ) := by
+  exact_mod_cast factorial_lower_bound_offset_nat m k
+
+/--
+A CLRS-style half-scale lower bound: the upper half of the factors in `n!`
+contributes at least `(⌊n/2⌋+1)^(n-⌊n/2⌋)`.
+-/
+theorem factorial_lower_bound_half_pow_nat (n : ℕ) :
+    (n / 2 + 1) ^ (n - n / 2) ≤ Nat.factorial n := by
+  have h := factorial_lower_bound_offset_nat (m := n / 2) (k := n - n / 2)
+  have hsum : n / 2 + (n - n / 2) = n :=
+    Nat.add_sub_of_le (Nat.div_le_self n 2)
+  simpa [hsum] using h
+
+/-- Real-valued version of `factorial_lower_bound_half_pow_nat`. -/
+theorem factorial_lower_bound_half_pow (n : ℕ) :
+    (((n / 2 + 1 : ℕ) : ℝ) ^ (n - n / 2)) ≤ (Nat.factorial n : ℝ) := by
+  exact_mod_cast factorial_lower_bound_half_pow_nat n
 
 /-! ## Exponential vs factorial -/
 
@@ -140,6 +216,26 @@ theorem isLittleO_exp_vs_factorial (a : ℝ) :
     intro n hn
     have hpos : 0 < (Nat.factorial n : ℝ) := by exact_mod_cast Nat.factorial_pos n
     linarith
+  unfold isLittleO
+  rw [isLittleO_iff_tendsto h_cond]
+  exact h_tendsto
+
+/--
+CLRS standard growth-table fact: `n! = o(nⁿ)`.
+-/
+theorem isLittleO_factorial_pow_self :
+    isLittleO (fun n : ℕ => (Nat.factorial n : ℝ)) (fun n : ℕ => (n : ℝ) ^ n) := by
+  have h_tendsto :
+      Tendsto (fun n : ℕ => (Nat.factorial n : ℝ) / ((n : ℝ) ^ n)) atTop (𝓝 0) := by
+    simpa using tendsto_factorial_div_pow_self_atTop
+  have h_cond : ∀ n : ℕ, ((n : ℝ) ^ n = 0) → (Nat.factorial n : ℝ) = 0 := by
+    intro n hn
+    exfalso
+    have hpow_pos : 0 < (n : ℝ) ^ n := by
+      cases n with
+      | zero => norm_num
+      | succ k => positivity
+    exact (ne_of_gt hpow_pos) hn
   unfold isLittleO
   rw [isLittleO_iff_tendsto h_cond]
   exact h_tendsto

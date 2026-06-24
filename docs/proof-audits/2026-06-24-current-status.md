@@ -52,6 +52,13 @@ the imported CLRS-Lean source, not experimental worktrees.
 - Chapter 3.2 now also proves harmonic-number growth:
   `CLRS.Chapter03.isEquivalent_harmonic_log` and
   `CLRS.Chapter03.isBigTheta_harmonic_log`.
+- Chapter 3.2 now proves the factorial table layer more directly:
+  `CLRS.Chapter03.factorial_lower_bound_offset`,
+  `CLRS.Chapter03.factorial_lower_bound_half_pow`, and
+  `CLRS.Chapter03.isLittleO_factorial_pow_self`.
+- Chapter 3.2 now also proves half-scale floor/ceiling Θ wrappers:
+  `CLRS.Chapter03.isBigTheta_nat_floor_half_coerce` and
+  `CLRS.Chapter03.isBigTheta_nat_ceil_half_coerce`.
 - Chapter 5.1 now connects the hiring-problem expectation theorem to
   logarithmic growth:
   `CLRS.Chapter05.harmonic_isBigTheta_log` and

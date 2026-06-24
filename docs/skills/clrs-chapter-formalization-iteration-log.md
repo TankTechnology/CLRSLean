@@ -158,6 +158,19 @@ chapters.
   should ask for an expected-hires asymptotic wrapper, not for the harmonic
   asymptotic itself.
 
+## 2026-06-24 - After Chapter 3.2 Factorial Growth
+
+- Added a factorial-table bridge pattern: first expose simple concrete bounds
+  such as an offset lower bound and a half-scale lower bound, then wrap Mathlib
+  limit theorems such as `tendsto_factorial_div_pow_self_atTop` as CLRS-facing
+  `little-o` statements.
+- When Mathlib already has a sharper theorem than the local proof, replace long
+  arithmetic induction with the library lemma and keep the section's theorem
+  name as the reader-facing interface.
+- For half-scale floor/ceiling growth, prove the natural arithmetic facts once
+  with `Nat.div_add_mod` plus `omega`, then expose only the CLRS-facing
+  Θ wrappers as public theorem names.
+
 ## 2026-06-24 - After Chapter 5 Expected-Hires Asymptotics
 
 - Added a downstream-wrapper pattern: when one section proves an exact closed

@@ -107,10 +107,16 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter03.isBigTheta_harmonic_log`,
   {lit}`CLRS.Chapter03.isBigTheta_nat_floor_coerce`,
   {lit}`CLRS.Chapter03.isBigTheta_nat_ceil_coerce`,
-  {lit}`CLRS.Chapter03.factorial_upper_bound`, and
-  {lit}`CLRS.Chapter03.isLittleO_exp_vs_factorial`;
+  {lit}`CLRS.Chapter03.isBigTheta_nat_floor_half_coerce`,
+  {lit}`CLRS.Chapter03.isBigTheta_nat_ceil_half_coerce`,
+  {lit}`CLRS.Chapter03.factorial_upper_bound`,
+  {lit}`CLRS.Chapter03.factorial_lower_bound_offset`,
+  {lit}`CLRS.Chapter03.factorial_lower_bound_half_pow`,
+  {lit}`CLRS.Chapter03.isLittleO_exp_vs_factorial`, and
+  {lit}`CLRS.Chapter03.isLittleO_factorial_pow_self`;
   remaining gap: add the full CLRS table of standard growth comparisons,
-  including half-scale floor/ceiling facts and lower factorial bounds.
+  especially remaining logarithm/exponential variants not yet wrapped with
+  CLRS-facing theorem names.
 * 11.2 Chained hash tables:
   current results {lit}`CLRS.Chapter11.hashSearch_hashInsert_self`,
   {lit}`CLRS.Chapter11.hashSearch_hashInsert_iff`,

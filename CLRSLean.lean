@@ -93,8 +93,13 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter03.isBigTheta_harmonic_log`,
   `CLRS.Chapter03.isBigTheta_nat_floor_coerce`,
   `CLRS.Chapter03.isBigTheta_nat_ceil_coerce`,
+  `CLRS.Chapter03.isBigTheta_nat_floor_half_coerce`,
+  `CLRS.Chapter03.isBigTheta_nat_ceil_half_coerce`,
   `CLRS.Chapter03.factorial_upper_bound`,
-  `CLRS.Chapter03.isLittleO_exp_vs_factorial`.
+  `CLRS.Chapter03.factorial_lower_bound_offset`,
+  `CLRS.Chapter03.factorial_lower_bound_half_pow`,
+  `CLRS.Chapter03.isLittleO_exp_vs_factorial`,
+  `CLRS.Chapter03.isLittleO_factorial_pow_self`.
 * 4.1 Maximum subarray: `proved` for the exhaustive-search specification,
   crossing helper, and left/right/crossing combine interface.
   Public results: `CLRS.Chapter04.mem_nonemptySubarrays_iff`,

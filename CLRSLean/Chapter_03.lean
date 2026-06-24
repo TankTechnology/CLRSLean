@@ -22,8 +22,9 @@ Proves concrete growth comparisons that matter for algorithm analysis:
 * logarithm `log n` vs polynomial `n^ε`
 * exponential base comparisons `a^n = o(b^n)` for `0 ≤ a < b`
 * harmonic numbers `H_n ~ log n` and `H_n = Θ(log n)`
-* factorial upper bound and exponential-vs-factorial comparison
-* floor / ceiling Θ-behavior
+* factorial upper/lower bounds, exponential-vs-factorial comparison, and
+  `n! = o(n^n)`
+* floor / ceiling Θ-behavior, including half-scale floor and ceiling
 
 Notation: we use `|·|` (absolute value) rather than `‖·‖` for readability.
 -/
