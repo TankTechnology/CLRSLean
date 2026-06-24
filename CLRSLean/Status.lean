@@ -106,8 +106,9 @@ navigating the deployed pages.
   current results {lit}`CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,
   {lit}`CLRS.Chapter13.RBTree.inTree_rotateRight_iff`,
   {lit}`CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`,
-  {lit}`CLRS.Chapter13.RBTree.noRedRed_repaint_black`, and
-  {lit}`CLRS.Chapter13.RBTree.balancedBlackHeight_repaintRoot`;
+  {lit}`CLRS.Chapter13.RBTree.noRedRed_repaint_black`,
+  {lit}`CLRS.Chapter13.RBTree.balancedBlackHeight_repaintRoot`, and
+  {lit}`CLRS.Chapter13.RBTree.redBlackShape_repaint_black`;
   remaining gap: full RB insertion/deletion fixup algorithms are not yet
   mechanized.
 * 16.1 Activity selection:

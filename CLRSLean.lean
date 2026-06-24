@@ -55,7 +55,8 @@ Start with the chapter pages in the sidebar.
   chained-hash-table lookup facts.
 * Chapter 12 - Binary Search Trees: search, minimum/maximum, insertion
   membership, and ordering invariant preservation for an inductive BST model.
-* Chapter 13 - Red-Black Trees: local rotation and recoloring invariant lemmas.
+* Chapter 13 - Red-Black Trees: local rotation, recoloring, and red-black shape
+  invariant lemmas.
 * Chapter 16 - Greedy Algorithms: activity-selection exchange infrastructure
   and the complete Huffman optimality proof, currently the flagship greedy case
   study.
@@ -130,7 +131,8 @@ Start with the chapter pages in the sidebar.
 * 13.1 Red-black trees: `partial`.
   Current results: `CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,
   `CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`,
-  `CLRS.Chapter13.RBTree.noRedRed_repaint_black`.
+  `CLRS.Chapter13.RBTree.noRedRed_repaint_black`,
+  `CLRS.Chapter13.RBTree.redBlackShape_repaint_black`.
 * 16.1 Activity selection: `partial`.
   Current results: `CLRS.ActivitySelection.earliest_finish_minFinish`,
   `CLRS.ActivitySelection.greedy_choice_optimal_from_certificate`.

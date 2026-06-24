@@ -290,6 +290,7 @@ exactly one key while preserving the BST ordering invariant.
   - `CLRS.Chapter13.RBTree.red_node_children_black`
   - `CLRS.Chapter13.RBTree.noRedRed_repaint_black`
   - `CLRS.Chapter13.RBTree.balancedBlackHeight_repaintRoot`
+  - `CLRS.Chapter13.RBTree.redBlackShape_repaint_black`
 - Proof pattern: local colored-tree invariants, rotations, root recoloring
 - Current gap: full `RB-INSERT`, `RB-INSERT-FIXUP`, `RB-DELETE`, and
   `RB-DELETE-FIXUP` are not mechanized

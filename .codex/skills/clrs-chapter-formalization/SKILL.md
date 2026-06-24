@@ -204,6 +204,10 @@ end CLRS
   equivalence and extremal-key bounds before successor/deletion.  For local
   tree transformations, prove both invariant preservation and membership
   preservation so the public interface is complete enough for later algorithms.
+- Proof-status audit pass: remove prose that implies imported files may contain
+  `sorry`; record unfinished theorem targets in status ledgers instead.  When a
+  chapter has several small local invariants, add a bundled predicate/theorem so
+  later algorithm proofs have one clear interface rather than scattered facts.
 
 ## Honesty Rules
 

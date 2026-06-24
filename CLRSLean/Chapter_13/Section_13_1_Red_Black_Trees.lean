@@ -8,7 +8,8 @@ rotation facts.  It does not yet formalize the full insertion or deletion
 algorithms.  Instead it proves reusable lemmas that those algorithms will need:
 rotations preserve membership, repainting the root black preserves the no-red-red
 property, repainting the root preserves membership, and repainting the root
-preserves child black-height balance.
+preserves child black-height balance.  It also bundles the local red-black shape
+invariants into one reusable predicate.
 
 Main results:
 
@@ -22,6 +23,8 @@ Main results:
   membership.
 - Theorem {lit}`RBTree.balancedBlackHeight_repaintRoot`: repainting the root
   preserves balanced child black heights.
+- Theorem {lit}`RBTree.redBlackShape_repaint_black`: repainting the root black
+  establishes the bundled local red-black shape invariant.
 
 Current gaps:
 
@@ -81,6 +84,13 @@ def BalancedBlackHeight : RBTree → Prop
   | node _ left _ right =>
       BalancedBlackHeight left ∧ BalancedBlackHeight right ∧
         blackHeight left = blackHeight right
+
+/--
+The local red-black shape invariant used by this first model: the root is black,
+there is no red-red edge, and child black heights are balanced at every node.
+-/
+def RedBlackShape (t : RBTree) : Prop :=
+  RootBlack t ∧ NoRedRed t ∧ BalancedBlackHeight t
 
 /-! ## Rotations preserve membership -/
 
@@ -164,6 +174,19 @@ theorem balancedBlackHeight_repaintRoot (color : Color) {t : RBTree}
 theorem rootBlack_repaint_black (t : RBTree) :
     RootBlack (repaintRoot Color.black t) := by
   cases t <;> simp [repaintRoot, RootBlack]
+
+/--
+Repainting the root black establishes the bundled local red-black shape
+invariant, provided the no-red-red and black-height invariants already hold.
+-/
+theorem redBlackShape_repaint_black {t : RBTree}
+    (hNoRed : NoRedRed t) (hBalanced : BalancedBlackHeight t) :
+    RedBlackShape (repaintRoot Color.black t) := by
+  exact ⟨
+    rootBlack_repaint_black t,
+    noRedRed_repaint_black hNoRed,
+    balancedBlackHeight_repaintRoot Color.black hBalanced
+  ⟩
 
 end RBTree
 

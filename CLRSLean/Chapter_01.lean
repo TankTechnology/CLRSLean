@@ -51,7 +51,8 @@ To build and browse the site locally:
 
 * **0-indexed**: lists and sequences start at 0, for Mathlib compatibility.
 * **Total functions**: partial operations return junk values, not `Option`.
-* **Unfinished proofs**: marked `sorry` with a comment explaining the gap.
+* **Unfinished theorem targets**: kept out of imported proof files and recorded
+  as `partial`, `blocked-design`, or `future-work` in the status pages.
   Each chapter page lists exactly what is missing.
 
 ## Repository
