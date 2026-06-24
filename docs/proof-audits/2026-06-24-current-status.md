@@ -61,13 +61,19 @@ the imported CLRS-Lean source, not experimental worktrees.
   `greedySelect`:
   `CLRS.ActivitySelection.finishSorted_greedyChoiceCertificate` and
   `CLRS.ActivitySelection.greedySelect_maxCardinality`.
+- Chapter 4.1 now proves the CLRS maximum-subarray crossing-helper layer:
+  `CLRS.Chapter04.mem_crossingSubarrays_iff` and
+  `CLRS.Chapter04.maxCrossingSubarray_correct`; the helper result is also
+  connected back to the ordinary subarray spec by
+  `CLRS.Chapter04.maxCrossingSubarray_isNonemptySubarray_append`.
 
 ## Next Proof Priorities
 
 1. Chapter 23.2: add the sorted-prefix invariant needed to turn Kruskal's edge
    order into lightness certificates.
-2. Chapter 4.1: connect the CLRS divide-and-conquer maximum-subarray pseudocode
-   to the proved exhaustive-search specification.
+2. Chapter 4.1: prove the recursive left/right/crossing composition for the
+   CLRS divide-and-conquer maximum-subarray pseudocode; the crossing helper is
+   now proved.
 3. Chapter 13.1: mechanize executable `RB-INSERT-FIXUP` on top of the local
    rotation/repaint repair certificates.
 

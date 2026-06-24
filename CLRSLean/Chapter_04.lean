@@ -13,10 +13,12 @@ and 4.4 provide the proof-method infrastructure used by the Master-method file
 and by future divide-and-conquer runtime proofs.
 
 * Section 4.1 - The maximum-subarray problem: {lit}`proved` for the exhaustive
-  finite-search specification.
+  finite-search specification and the CLRS crossing helper.
   The file proves that the candidate enumerator contains exactly the nonempty
   contiguous subarrays, and that {lit}`maxSubarray` returns a candidate with
-  maximum sum.  The CLRS divide-and-conquer pseudocode remains a refinement
+  maximum sum.  It also proves that {lit}`maxCrossingSubarray` returns a
+  maximum-sum candidate among all candidates crossing a split.  The recursive
+  left/right/crossing divide-and-conquer composition remains a refinement
   target against this specification.
 * Section 4.2 - Strassen's algorithm for matrix multiplication:
   {lit}`future-work`.

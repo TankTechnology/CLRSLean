@@ -50,13 +50,14 @@ class OptimizeLiterateHtmlTests(unittest.TestCase):
         self.assertIn("localStorage", text)
         self.assertIn("sessionStorage", text)
         self.assertIn("details.open = true", text)
-        self.assertIn("clrs.nav.state.v4", text)
-        self.assertIn("clrs.nav.scroll.v4", text)
-        self.assertNotIn("clrs.nav.state.v3", text)
-        self.assertNotIn("clrs.nav.scroll.v3", text)
+        self.assertIn("clrs.nav.state.v5", text)
+        self.assertIn("clrs.nav.scroll.v5", text)
+        self.assertNotIn("clrs.nav.state.v4", text)
+        self.assertNotIn("clrs.nav.scroll.v4", text)
         self.assertIn("stableNavPath", text)
         self.assertIn("new URL(raw, document.baseURI)", text)
         self.assertIn("CLRS-Lean", text)
+        self.assertIn('replace(/^.*\\/CLRSLean\\//, "/CLRS-Lean/")', text)
         self.assertIn("saveStateNow();", text)
         self.assertIn('window.addEventListener("pagehide"', text)
 
@@ -118,7 +119,7 @@ class OptimizeLiterateHtmlTests(unittest.TestCase):
     <nav class="module-tree">
       <details><summary><a href="CLRSLean/Chapter_02/">Chapter 2</a></summary></details>
     </nav>
-    <script id="clrs-nav-state-script">const oldKey = "clrs.nav.state.v3";</script>
+    <script id="clrs-nav-state-script">const oldKey = "clrs.nav.state.v4";</script>
   </body>
 </html>
 """,
@@ -130,8 +131,8 @@ class OptimizeLiterateHtmlTests(unittest.TestCase):
 
         self.assertTrue(stats.changed)
         self.assertEqual(text.count("clrs-nav-state-script"), 1)
-        self.assertIn("clrs.nav.state.v4", text)
-        self.assertNotIn("clrs.nav.state.v3", text)
+        self.assertIn("clrs.nav.state.v5", text)
+        self.assertNotIn("clrs.nav.state.v4", text)
 
 
 if __name__ == "__main__":

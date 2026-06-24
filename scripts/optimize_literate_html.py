@@ -54,8 +54,8 @@ NAV_STATE_SCRIPT_RE = re.compile(
 NAV_STATE_SCRIPT = r"""
 <script id="clrs-nav-state-script">
 (() => {
-  const STATE_KEY = "clrs.nav.state.v4";
-  const SCROLL_KEY = "clrs.nav.scroll.v4";
+  const STATE_KEY = "clrs.nav.state.v5";
+  const SCROLL_KEY = "clrs.nav.scroll.v5";
 
   function storageArea() {
     try {
@@ -100,6 +100,7 @@ NAV_STATE_SCRIPT = r"""
     try {
       const path = new URL(raw, document.baseURI).pathname
         .replace(/\/(?:index\.html)?$/, "")
+        .replace(/^.*\/CLRSLean\//, "/CLRS-Lean/")
         .replace(/^.*\/CLRS-Lean\//, "/CLRS-Lean/");
       return path || raw;
     } catch (_err) {
@@ -144,6 +145,7 @@ NAV_STATE_SCRIPT = r"""
       if (savedState && Object.prototype.hasOwnProperty.call(savedState, key)) {
         details.open = Boolean(savedState[key]);
       } else {
+        /* New readers should see the full project inventory immediately. */
         details.open = true;
       }
     });

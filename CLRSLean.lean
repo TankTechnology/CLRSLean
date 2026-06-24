@@ -95,9 +95,13 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter03.isBigTheta_nat_ceil_coerce`,
   `CLRS.Chapter03.factorial_upper_bound`,
   `CLRS.Chapter03.isLittleO_exp_vs_factorial`.
-* 4.1 Maximum subarray: `proved` for the exhaustive-search specification.
+* 4.1 Maximum subarray: `proved` for the exhaustive-search specification plus
+  crossing helper.
   Public results: `CLRS.Chapter04.mem_nonemptySubarrays_iff`,
   `CLRS.Chapter04.bestCandidate_correct`,
+  `CLRS.Chapter04.mem_crossingSubarrays_iff`,
+  `CLRS.Chapter04.maxCrossingSubarray_correct`,
+  `CLRS.Chapter04.maxCrossingSubarray_isNonemptySubarray_append`,
   `CLRS.Chapter04.maxSubarray_exists_of_ne_nil`,
   `CLRS.Chapter04.maxSubarray_correct`.
 * 4.2 Strassen's algorithm: `future-work`.

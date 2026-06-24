@@ -53,9 +53,12 @@ all-input floor/ceiling bridge for the full Master Theorem.  Sections 4.3 and
 
 The exhaustive-search specification is now compiler-clean:
 `CLRS.Chapter04.maxSubarray_correct` proves that the executable selector returns
-a nonempty contiguous subarray of maximum sum.  The remaining CLRS refinement is
-to prove the divide-and-conquer pseudocode against this specification and add
-its runtime recurrence.
+a nonempty contiguous subarray of maximum sum.  The crossing-helper layer is
+also compiler-clean:
+`CLRS.Chapter04.maxCrossingSubarray_correct` proves optimality among candidates
+crossing a split.  The remaining CLRS refinement is to prove the recursive
+left/right/crossing composition against this specification and add its runtime
+recurrence.
 
 ### Concrete MST Exchange Edge
 

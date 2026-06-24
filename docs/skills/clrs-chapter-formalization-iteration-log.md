@@ -114,6 +114,17 @@ chapters.
   not leave the section marked `partial` after the public sorted-list theorem
   `greedySelect_maxCardinality` compiles.
 
+## 2026-06-24 - After Chapter 4.1 Crossing Helper
+
+- For maximum subarray, the next useful divide-and-conquer layer after the
+  exhaustive specification is the crossing helper, not the whole recursive
+  algorithm at once.  Define nonempty suffixes, crossing candidates as
+  suffix-left plus prefix-right, prove the crossing enumerator exact, and reuse
+  the finite argmax selector for `maxCrossingSubarray_correct`.
+- This leaves a sharper remaining target: prove that every nonempty subarray of
+  `left ++ right` is either left-only, right-only, or crossing, then compose the
+  recursive left/right/crossing winners.
+
 ## 2026-06-24 - Complete Chapter Proof Workflow
 
 - Upgraded the skill from a general chapter loop to a complete-chapter workflow:

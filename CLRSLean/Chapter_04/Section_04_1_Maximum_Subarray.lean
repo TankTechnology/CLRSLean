@@ -18,8 +18,14 @@ Main results:
 
 - Theorem {lit}`mem_nonemptySubarrays_iff`: the candidate enumerator contains
   exactly the nonempty contiguous subarrays.
+- Theorem {lit}`mem_crossingSubarrays_iff`: the crossing-candidate enumerator
+  contains exactly the nonempty suffix/prefix candidates that cross a split.
 - Theorem {lit}`bestCandidate_correct`: the generic finite argmax selector
   returns a member whose sum is at least every listed candidate.
+- Theorem {lit}`maxCrossingSubarray_correct`: the crossing helper returns a
+  maximum-sum candidate among all candidates crossing a split.
+- Theorem {lit}`maxCrossingSubarray_isNonemptySubarray_append`: the crossing
+  helper returns a valid nonempty subarray of the concatenated input.
 - Theorem {lit}`maxSubarray_exists_of_ne_nil`: nonempty inputs have a selected
   maximum-subarray candidate.
 - Theorem {lit}`maxSubarray_correct`: the executable maximum-subarray selector
@@ -28,8 +34,9 @@ Main results:
 
 Current gaps:
 
-- The divide-and-conquer CLRS pseudocode is not yet proved as an implementation
-  refinement of this specification.
+- The crossing-helper layer of the CLRS divide-and-conquer pseudocode is now
+  proved.  The remaining refinement is the recursive left/right/crossing
+  composition theorem for the full pseudocode.
 - Runtime and RAM-cost analysis are future strengthening targets.
 -/
 
@@ -58,10 +65,46 @@ The witnesses are the elements before and after the contiguous segment.
 def IsNonemptySubarray (sub xs : List Int) : Prop :=
   sub ≠ [] ∧ ∃ before after, xs = before ++ sub ++ after
 
+/--
+{lit}`suf` is a nonempty suffix of {lit}`xs`.
+
+This is the right half of the CLRS crossing-subarray helper: a crossing subarray
+uses a nonempty suffix of the left half and a nonempty prefix of the right half.
+-/
+def IsNonemptySuffix (suf xs : List Int) : Prop :=
+  suf ≠ [] ∧ ∃ before, xs = before ++ suf
+
+/--
+{lit}`sub` crosses the split between {lit}`left` and {lit}`right` when it is a
+nonempty suffix of the left side followed by a nonempty prefix of the right
+side.
+-/
+def IsCrossingSubarray (sub left right : List Int) : Prop :=
+  ∃ suf pre,
+    IsNonemptySuffix suf left ∧ IsNonemptyPrefix pre right ∧ sub = suf ++ pre
+
 /-- Enumerate all nonempty prefixes of a list. -/
 def nonemptyPrefixes : List Int → List (List Int)
   | [] => []
   | x :: xs => [x] :: (nonemptyPrefixes xs).map (fun pre => x :: pre)
+
+/-- Enumerate all nonempty suffixes of a list. -/
+def nonemptySuffixes : List Int → List (List Int)
+  | [] => []
+  | x :: xs => (x :: xs) :: nonemptySuffixes xs
+
+/-- Enumerate all subarrays crossing a fixed split. -/
+def crossingSubarrays (left right : List Int) : List (List Int) :=
+  (nonemptySuffixes left).flatMap
+    (fun suf => (nonemptyPrefixes right).map (fun pre => suf ++ pre))
+
+private theorem flatMap_nil {α β : Type} (xs : List α) :
+    xs.flatMap (fun _ => ([] : List β)) = [] := by
+  induction xs with
+  | nil =>
+      rfl
+  | cons _ xs ih =>
+      simp [List.flatMap]
 
 /-- Enumerate all nonempty contiguous subarrays of a list. -/
 def nonemptySubarrays : List Int → List (List Int)
@@ -100,6 +143,76 @@ theorem mem_nonemptyPrefixes_iff {pre xs : List Int} :
                 have htailMem : (z :: zs) ∈ nonemptyPrefixes xs := by
                   exact ih.mpr ⟨by simp, ⟨rest, htail⟩⟩
                 simp [nonemptyPrefixes, htailMem]
+
+/-- The suffix enumerator is exact. -/
+theorem mem_nonemptySuffixes_iff {suf xs : List Int} :
+    suf ∈ nonemptySuffixes xs ↔ IsNonemptySuffix suf xs := by
+  induction xs generalizing suf with
+  | nil =>
+      simp [nonemptySuffixes, IsNonemptySuffix]
+  | cons x xs ih =>
+      constructor
+      · intro h
+        simp [nonemptySuffixes] at h
+        rcases h with hAll | hTail
+        · subst suf
+          exact ⟨by simp, ⟨[], by simp⟩⟩
+        · rcases ih.mp hTail with ⟨hsufNonempty, before, hEq⟩
+          exact ⟨hsufNonempty, ⟨x :: before, by simp [hEq]⟩⟩
+      · intro h
+        rcases h with ⟨hsufNonempty, before, hEq⟩
+        cases before with
+        | nil =>
+            have hEq' : suf = x :: xs := by
+              simpa using hEq.symm
+            subst suf
+            simp [nonemptySuffixes]
+        | cons y beforeTail =>
+            simp [List.cons_append] at hEq
+            rcases hEq with ⟨hxy, htail⟩
+            subst y
+            have htailMem : suf ∈ nonemptySuffixes xs :=
+              ih.mpr ⟨hsufNonempty, ⟨beforeTail, htail⟩⟩
+            simp [nonemptySuffixes, htailMem]
+
+/-- The crossing-subarray enumerator is exact for a fixed split. -/
+theorem mem_crossingSubarrays_iff {sub left right : List Int} :
+    sub ∈ crossingSubarrays left right ↔
+      IsCrossingSubarray sub left right := by
+  constructor
+  · intro h
+    unfold crossingSubarrays at h
+    rcases (List.mem_flatMap.mp h) with ⟨suf, hsufMem, hsubMem⟩
+    rcases (List.mem_map.mp hsubMem) with ⟨pre, hpreMem, hsubEq⟩
+    exact ⟨suf, pre,
+      mem_nonemptySuffixes_iff.mp hsufMem,
+      mem_nonemptyPrefixes_iff.mp hpreMem,
+      hsubEq.symm⟩
+  · intro h
+    rcases h with ⟨suf, pre, hsuf, hpre, rfl⟩
+    unfold crossingSubarrays
+    exact (List.mem_flatMap.mpr
+      ⟨suf, mem_nonemptySuffixes_iff.mpr hsuf,
+        (List.mem_map.mpr ⟨pre, mem_nonemptyPrefixes_iff.mpr hpre, rfl⟩)⟩)
+
+/--
+Every crossing candidate is a nonempty contiguous subarray of the concatenated
+input.
+-/
+theorem crossingSubarray_isNonemptySubarray_append {sub left right : List Int}
+    (hcross : IsCrossingSubarray sub left right) :
+    IsNonemptySubarray sub (left ++ right) := by
+  rcases hcross with ⟨suf, pre, hsuf, hpre, rfl⟩
+  rcases hsuf with ⟨hsufNonempty, before, hleft⟩
+  rcases hpre with ⟨_hpreNonempty, after, hright⟩
+  constructor
+  · intro hnil
+    cases suf with
+    | nil =>
+        exact hsufNonempty rfl
+    | cons _ _ =>
+        simp at hnil
+  · exact ⟨before, after, by simp [hleft, hright, List.append_assoc]⟩
 
 /-- The contiguous-subarray enumerator is exact. -/
 theorem mem_nonemptySubarrays_iff {sub xs : List Int} :
@@ -216,6 +329,68 @@ theorem bestCandidate_exists_of_ne_nil {candidates : List (List Int)}
           exact ⟨cand, rfl⟩
       | some restBest =>
           exact ⟨betterCandidate cand restBest, rfl⟩
+
+/-! ## Crossing-subarray helper -/
+
+/--
+Choose a maximum-sum subarray that crosses the split between {lit}`left` and
+{lit}`right`.  If either side is empty there is no crossing candidate.
+-/
+def maxCrossingSubarray (left right : List Int) : Option (List Int) :=
+  bestCandidate (crossingSubarrays left right)
+
+/-- Empty left sides have no crossing candidate. -/
+theorem maxCrossingSubarray_nil_left (right : List Int) :
+    maxCrossingSubarray [] right = none := by
+  rfl
+
+/-- Empty right sides have no crossing candidate. -/
+theorem maxCrossingSubarray_nil_right (left : List Int) :
+    maxCrossingSubarray left [] = none := by
+  simp [maxCrossingSubarray, crossingSubarrays, nonemptyPrefixes, flatMap_nil,
+    bestCandidate]
+
+/-- Nonempty left and right sides have at least one crossing candidate. -/
+theorem maxCrossingSubarray_exists_of_ne_nil {left right : List Int}
+    (hleft : left ≠ []) (hright : right ≠ []) :
+    ∃ best, maxCrossingSubarray left right = some best := by
+  unfold maxCrossingSubarray
+  apply bestCandidate_exists_of_ne_nil
+  cases left with
+  | nil =>
+      exact False.elim (hleft rfl)
+  | cons x xs =>
+      cases right with
+      | nil =>
+          exact False.elim (hright rfl)
+      | cons y ys =>
+          simp [crossingSubarrays, nonemptySuffixes, nonemptyPrefixes]
+
+/--
+Correctness of the CLRS crossing helper: whenever it returns a candidate, that
+candidate crosses the split and has maximum sum among all crossing candidates.
+-/
+theorem maxCrossingSubarray_correct {left right best : List Int}
+    (hbest : maxCrossingSubarray left right = some best) :
+    IsCrossingSubarray best left right ∧
+      ∀ cand, IsCrossingSubarray cand left right →
+        subarraySum cand ≤ subarraySum best := by
+  unfold maxCrossingSubarray at hbest
+  rcases bestCandidate_correct hbest with ⟨hbestMem, hbestOptimal⟩
+  constructor
+  · exact mem_crossingSubarrays_iff.mp hbestMem
+  · intro cand hcand
+    exact hbestOptimal cand (mem_crossingSubarrays_iff.mpr hcand)
+
+/--
+The crossing helper returns an ordinary nonempty contiguous subarray of the
+concatenated input.
+-/
+theorem maxCrossingSubarray_isNonemptySubarray_append {left right best : List Int}
+    (hbest : maxCrossingSubarray left right = some best) :
+    IsNonemptySubarray best (left ++ right) := by
+  exact crossingSubarray_isNonemptySubarray_append
+    (maxCrossingSubarray_correct hbest).1
 
 /-! ## Maximum-subarray selector -/
 
