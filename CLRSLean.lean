@@ -137,17 +137,23 @@ Start with the chapter pages in the sidebar.
   Public results: `CLRS.Chapter05.hireProbability_eq`,
   `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,
   `CLRS.Chapter05.expectedHires_isBigTheta_log`.
-* 6.1-6.4 Heaps and heapsort: `proved` for the functional descending-list heap
-  model and `partial` for the CLRS array refinement.
-  Public results: `CLRS.Chapter06.buildMaxHeap_orderedDesc`,
-  `CLRS.Chapter06.buildMaxHeap_perm`,
-  `CLRS.Chapter06.buildMaxHeap_max`,
-  `CLRS.Chapter06.heapSort_orderedAsc`,
-  `CLRS.Chapter06.heapSort_perm`,
-  `CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`,
+* 6.1 Heaps: `partial` for the CLRS array refinement.
+  Public results: `CLRS.Chapter06.parent_lt_self`,
+  `CLRS.Chapter06.eq_left_or_right_parent`,
+  `CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`,
+  `CLRS.Chapter06.orderedDesc_arrayMaxHeap`.
+* 6.2 Maintaining the heap property: `partial`.
+  Public results: `CLRS.Chapter06.swapAt_perm`,
   `CLRS.Chapter06.maxHeapifyFuel_perm`,
-  `CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`,
-  `CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`.
+  `CLRS.Chapter06.valAt_i_le_maxChildIndex`,
+  `CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`.
+* 6.3 Building a heap: `partial`.
+  Public results: `CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`,
+  `CLRS.Chapter06.arrayBuildMaxHeap_perm`.
+* 6.4 The heapsort algorithm: `proved` for the functional heapsort model and
+  `partial` for the in-place CLRS loop refinement.
+  Public results: `CLRS.Chapter06.arrayHeapSort_orderedAsc`,
+  `CLRS.Chapter06.arrayHeapSort_perm`.
 * 6.5 Priority queues: `proved` for the functional heap interface plus
   array-level `HEAP-MAXIMUM`.
   Public results: `CLRS.Chapter06.heapInsert_orderedDesc`,

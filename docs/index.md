@@ -18,8 +18,10 @@ CLRSLean/Chapter_04/Section_04_3_Substitution_Method.lean
 CLRSLean/Chapter_04/Section_04_4_Recursion_Tree_Method.lean
 CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean
 CLRSLean/Chapter_05/Section_05_1_Hiring_Problem.lean
-CLRSLean/Chapter_06/Section_06_1_Heapsort.lean
-CLRSLean/Chapter_06/Section_06_1_Array_Heaps.lean
+CLRSLean/Chapter_06/Section_06_1_Heaps.lean
+CLRSLean/Chapter_06/Section_06_2_Maintaining_Heap_Property.lean
+CLRSLean/Chapter_06/Section_06_3_Building_A_Heap.lean
+CLRSLean/Chapter_06/Section_06_4_Heapsort.lean
 CLRSLean/Chapter_06/Section_06_5_Priority_Queues.lean
 CLRSLean/Chapter_10/Section_10_1_Stacks_And_Queues.lean
 CLRSLean/Chapter_10/Section_10_2_Linked_Lists.lean
@@ -45,8 +47,10 @@ In prose and on the future website, these appear as:
 - Section 4.4 - The recursion-tree method
 - Section 4.5 - The master method
 - Section 5.1 - The hiring problem
-- Section 6.1-6.4 - Heaps and heapsort
-- Section 6.1-6.4 - Array heap layer
+- Section 6.1 - Heaps
+- Section 6.2 - Maintaining the heap property
+- Section 6.3 - Building a heap
+- Section 6.4 - The heapsort algorithm
 - Section 6.5 - Priority queues
 - Section 10.1 - Stacks and queues
 - Section 10.2 - Linked lists
@@ -78,7 +82,10 @@ should remain import-friendly.
 | Section 4.5 - The master method | `CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean` | `proved` for exact powers | `CLRS.Chapter04.master_case1_geometric`, `CLRS.Chapter04.master_case2_constant_forcing`, `CLRS.Chapter04.master_case3_tail_dominated` |
 | Section 4.6 - Proof of the master theorem | not yet created | `future-work` | planned extension from exact powers to all input sizes |
 | Section 5.1 - The hiring problem | `CLRSLean/Chapter_05/Section_05_1_Hiring_Problem.lean` | `proved` for finite rank symmetry | `CLRS.Chapter05.hireProbability_eq`, `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`, `CLRS.Chapter05.expectedHires_isBigTheta_log` |
-| Section 6.1-6.4 - Heaps and heapsort | `CLRSLean/Chapter_06/Section_06_1_Heapsort.lean`, `CLRSLean/Chapter_06/Section_06_1_Array_Heaps.lean` | `proved` for the functional heap model; `partial` for the CLRS array refinement | `CLRS.Chapter06.buildMaxHeap_orderedDesc`, `CLRS.Chapter06.heapSort_perm`, `CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`, `CLRS.Chapter06.maxHeapifyFuel_perm`, `CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`, `CLRS.Chapter06.ArrayMaxHeap.getElem_le_root` |
+| Section 6.1 - Heaps | `CLRSLean/Chapter_06/Section_06_1_Heaps.lean` | `partial` for the CLRS array refinement | `CLRS.Chapter06.parent_lt_self`, `CLRS.Chapter06.eq_left_or_right_parent`, `CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`, `CLRS.Chapter06.orderedDesc_arrayMaxHeap` |
+| Section 6.2 - Maintaining the heap property | `CLRSLean/Chapter_06/Section_06_2_Maintaining_Heap_Property.lean` | `partial` | `CLRS.Chapter06.swapAt_perm`, `CLRS.Chapter06.maxHeapifyFuel_perm`, `CLRS.Chapter06.valAt_i_le_maxChildIndex`, `CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self` |
+| Section 6.3 - Building a heap | `CLRSLean/Chapter_06/Section_06_3_Building_A_Heap.lean` | `partial` | `CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`, `CLRS.Chapter06.arrayBuildMaxHeap_perm` |
+| Section 6.4 - The heapsort algorithm | `CLRSLean/Chapter_06/Section_06_4_Heapsort.lean` | `proved` for the functional heapsort model; `partial` for the in-place CLRS loop refinement | `CLRS.Chapter06.arrayHeapSort_orderedAsc`, `CLRS.Chapter06.arrayHeapSort_perm` |
 | Section 6.5 - Priority queues | `CLRSLean/Chapter_06/Section_06_5_Priority_Queues.lean` | `proved` for the functional heap interface plus array maximum | `CLRS.Chapter06.heapInsert_orderedDesc`, `CLRS.Chapter06.heapIncreaseKey_orderedDesc`, `CLRS.Chapter06.heapDelete_orderedDesc`, `CLRS.Chapter06.arrayHeapMaximum?_max` |
 | Section 10.1 - Stacks and queues | `CLRSLean/Chapter_10/Section_10_1_Stacks_And_Queues.lean` | `proved` | `CLRS.Chapter10.pop_push`, `CLRS.Chapter10.dequeue_enqueue_nonempty` |
 | Section 10.2 - Linked lists | `CLRSLean/Chapter_10/Section_10_2_Linked_Lists.lean` | `proved` | `CLRS.Chapter10.listSearch_sound`, `CLRS.Chapter10.mem_listDeleteAll_iff` |

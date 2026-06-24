@@ -43,8 +43,10 @@ description = "A Lean 4 companion for CLRS-style algorithm correctness proofs."
   "CLRSLean.Chapter_05.Section_05_1_Hiring_Problem",
 ]
 "CLRSLean.Chapter_06" = [
-  "CLRSLean.Chapter_06.Section_06_1_Heapsort",
-  "CLRSLean.Chapter_06.Section_06_1_Array_Heaps",
+  "CLRSLean.Chapter_06.Section_06_1_Heaps",
+  "CLRSLean.Chapter_06.Section_06_2_Maintaining_Heap_Property",
+  "CLRSLean.Chapter_06.Section_06_3_Building_A_Heap",
+  "CLRSLean.Chapter_06.Section_06_4_Heapsort",
   "CLRSLean.Chapter_06.Section_06_5_Priority_Queues",
 ]
 "CLRSLean.Chapter_10" = [
@@ -145,11 +147,17 @@ title = "4.5. The Master Method"
 [modules."CLRSLean.Chapter_05.Section_05_1_Hiring_Problem"]
 title = "5.1. The Hiring Problem"
 
-[modules."CLRSLean.Chapter_06.Section_06_1_Heapsort"]
-title = "6.1-6.4. Heaps and Heapsort"
+[modules."CLRSLean.Chapter_06.Section_06_1_Heaps"]
+title = "6.1. Heaps"
 
-[modules."CLRSLean.Chapter_06.Section_06_1_Array_Heaps"]
-title = "6.1-6.4. Array Heap Layer"
+[modules."CLRSLean.Chapter_06.Section_06_2_Maintaining_Heap_Property"]
+title = "6.2. Maintaining the Heap Property"
+
+[modules."CLRSLean.Chapter_06.Section_06_3_Building_A_Heap"]
+title = "6.3. Building a Heap"
+
+[modules."CLRSLean.Chapter_06.Section_06_4_Heapsort"]
+title = "6.4. The Heapsort Algorithm"
 
 [modules."CLRSLean.Chapter_06.Section_06_5_Priority_Queues"]
 title = "6.5. Priority Queues"

@@ -66,14 +66,22 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter05.expectedHires_eq_harmonic`,
   {lit}`CLRS.Chapter05.harmonic_isBigTheta_log`, and
   {lit}`CLRS.Chapter05.expectedHires_isBigTheta_log`.
-* 6.1-6.4 Heaps and heapsort, functional descending-list heap model:
-  {lit}`CLRS.Chapter06.buildMaxHeap_orderedDesc`,
-  {lit}`CLRS.Chapter06.buildMaxHeap_perm`,
-  {lit}`CLRS.Chapter06.buildMaxHeap_max`,
-  {lit}`CLRS.Chapter06.heapExtractMax?_orderedDesc`,
-  {lit}`CLRS.Chapter06.heapExtractMax?_max`,
-  {lit}`CLRS.Chapter06.heapSort_orderedAsc`, and
-  {lit}`CLRS.Chapter06.heapSort_perm`.
+* 6.1 Heaps, indexed heap predicate and root maximum:
+  {lit}`CLRS.Chapter06.parent_lt_self`,
+  {lit}`CLRS.Chapter06.eq_left_or_right_parent`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`, and
+  {lit}`CLRS.Chapter06.orderedDesc_arrayMaxHeap`.
+* 6.2 Maintaining the heap property, partial array heapify layer:
+  {lit}`CLRS.Chapter06.swapAt_perm`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_perm`,
+  {lit}`CLRS.Chapter06.valAt_i_le_maxChildIndex`, and
+  {lit}`CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`.
+* 6.3 Building a heap, functional builder exposed through the array predicate:
+  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap` and
+  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_perm`.
+* 6.4 The heapsort algorithm, functional heapsort model:
+  {lit}`CLRS.Chapter06.arrayHeapSort_orderedAsc` and
+  {lit}`CLRS.Chapter06.arrayHeapSort_perm`.
 * 6.5 Priority queues, functional heap interface:
   {lit}`CLRS.Chapter06.heapInsert_orderedDesc`,
   {lit}`CLRS.Chapter06.heapInsert_perm`,

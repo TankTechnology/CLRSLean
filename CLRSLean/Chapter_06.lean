@@ -1,5 +1,7 @@
-import CLRSLean.Chapter_06.Section_06_1_Heapsort
-import CLRSLean.Chapter_06.Section_06_1_Array_Heaps
+import CLRSLean.Chapter_06.Section_06_1_Heaps
+import CLRSLean.Chapter_06.Section_06_2_Maintaining_Heap_Property
+import CLRSLean.Chapter_06.Section_06_3_Building_A_Heap
+import CLRSLean.Chapter_06.Section_06_4_Heapsort
 import CLRSLean.Chapter_06.Section_06_5_Priority_Queues
 
 /-!
@@ -10,22 +12,30 @@ The current CLRS-Lean pass has two layers.  The compact functional layer proves
 the mathematical heapsort specification: heap construction preserves elements,
 the heap maximum is genuinely maximal, and heapsort returns an ascending
 permutation.  The array layer adds the zero-based CLRS child/parent formulas,
-an indexed heap predicate, `MAX-HEAPIFY`'s `largest` choice facts, no-swap
-repair, swap permutation/read lemmas, and the array-level `HEAP-MAXIMUM`
+an indexed heap predicate, {lit}`MAX-HEAPIFY`'s {lit}`largest` choice facts,
+no-swap repair, swap permutation/read lemmas, and the array-level
+{lit}`HEAP-MAXIMUM`
 theorem.
 
 ## Sections
 
-* 6.1-6.4 Heaps and heapsort: {lit}`proved` for the functional descending-list
-  model and {lit}`partial` for the CLRS array refinement.  Main results:
-  {lit}`CLRS.Chapter06.buildMaxHeap_orderedDesc`,
-  {lit}`CLRS.Chapter06.buildMaxHeap_perm`,
-  {lit}`CLRS.Chapter06.buildMaxHeap_max`,
-  {lit}`CLRS.Chapter06.heapSort_orderedAsc`, and
-  {lit}`CLRS.Chapter06.heapSort_perm`; array-layer results include
-  {lit}`CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`,
+* 6.1 Heaps: {lit}`partial` for the CLRS array refinement.  Main results:
+  {lit}`CLRS.Chapter06.parent_lt_self`,
+  {lit}`CLRS.Chapter06.eq_left_or_right_parent`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`, and
+  {lit}`CLRS.Chapter06.orderedDesc_arrayMaxHeap`.
+* 6.2 Maintaining the heap property: {lit}`partial`.  Main results:
+  {lit}`CLRS.Chapter06.swapAt_perm`,
   {lit}`CLRS.Chapter06.maxHeapifyFuel_perm`, and
   {lit}`CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`.
+* 6.3 Building a heap: {lit}`partial`, using the functional builder as the
+  current executable model.  Main results:
+  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap` and
+  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_perm`.
+* 6.4 The heapsort algorithm: {lit}`proved` for the functional heapsort model,
+  and {lit}`partial` for the in-place CLRS loop refinement.  Main results:
+  {lit}`CLRS.Chapter06.arrayHeapSort_orderedAsc` and
+  {lit}`CLRS.Chapter06.arrayHeapSort_perm`.
 * 6.5 Priority queues: {lit}`proved` for the functional heap interface, with an
   array-level maximum theorem.  Main results:
   {lit}`CLRS.Chapter06.heapInsert_orderedDesc`,

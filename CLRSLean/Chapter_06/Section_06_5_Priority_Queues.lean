@@ -1,4 +1,4 @@
-import CLRSLean.Chapter_06.Section_06_1_Array_Heaps
+import CLRSLean.Chapter_06.Section_06_4_Heapsort
 
 /-!
 # CLRS Section 6.5 - Priority Queues
@@ -92,7 +92,7 @@ theorem heapDelete_perm (key : Nat) (h : List Nat) :
 /-! ## Array-level maximum operation -/
 
 /--
-Array-level `HEAP-MAXIMUM`: return the root when the heap prefix is nonempty
+Array-level {lit}`HEAP-MAXIMUM`: return the root when the heap prefix is nonempty
 and within the backing list.
 -/
 def arrayHeapMaximum? (a : List Nat) (heapSize : Nat) : Option Nat :=

@@ -225,48 +225,66 @@ all-input Master Theorem still need separate models.
 
 ## Chapter 6 - Heapsort
 
-### Sections 6.1-6.4 - Heaps and heapsort
+### Section 6.1 - Heaps
 
-- Lean source: `CLRSLean/Chapter_06/Section_06_1_Heapsort.lean`
-- Array source: `CLRSLean/Chapter_06/Section_06_1_Array_Heaps.lean`
-- Status: `proved` for the functional descending-list heap model; `partial`
-  for the CLRS array/in-place refinement
+- Lean source: `CLRSLean/Chapter_06/Section_06_1_Heaps.lean`
+- Status: `partial` for the CLRS array refinement
 - Main proved theorems:
-  - `CLRS.Chapter06.buildMaxHeap_orderedDesc`
-  - `CLRS.Chapter06.buildMaxHeap_perm`
-  - `CLRS.Chapter06.buildMaxHeap_max`
-  - `CLRS.Chapter06.heapExtractMax?_orderedDesc`
-  - `CLRS.Chapter06.heapExtractMax?_max`
-  - `CLRS.Chapter06.heapSort_orderedAsc`
-  - `CLRS.Chapter06.heapSort_perm`
+  - `CLRS.Chapter06.parent_lt_self`
+  - `CLRS.Chapter06.eq_left_or_right_parent`
+  - `CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`
   - `CLRS.Chapter06.orderedDesc_arrayMaxHeap`
-  - `CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`
+- Proof pattern: define zero-based parent/left/right arithmetic, state the
+  indexed max-heap predicate, prove every node reaches the root through smaller
+  parents, and transfer the compact descending-list heap model to the indexed
+  predicate.
+- Current gap: none for the current heap predicate and root-maximum theorem;
+  full CLRS array correctness continues in Sections 6.2--6.4.
+
+### Section 6.2 - Maintaining the heap property
+
+- Lean source: `CLRSLean/Chapter_06/Section_06_2_Maintaining_Heap_Property.lean`
+- Status: `partial`
+- Main proved theorems:
+  - `CLRS.Chapter06.swapAt_perm`
+  - `CLRS.Chapter06.valAt_swapAt_left`
+  - `CLRS.Chapter06.valAt_swapAt_right`
   - `CLRS.Chapter06.maxHeapifyFuel_length`
   - `CLRS.Chapter06.maxHeapifyFuel_perm`
   - `CLRS.Chapter06.valAt_i_le_maxChildIndex`
   - `CLRS.Chapter06.valAt_left_le_maxChildIndex`
   - `CLRS.Chapter06.valAt_right_le_maxChildIndex`
-  - `CLRS.Chapter06.valAt_swapAt_left`
-  - `CLRS.Chapter06.valAt_swapAt_right`
   - `CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`
-  - `CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`
-- Proof pattern: represent an abstract max-heap as a descending list, prove
-  descending insertion preserves order and permutation, prove the heap head is
-  maximal, then reverse the built heap and use `List.Pairwise.reverse` for the
-  ascending heapsort result.  The array layer adds zero-based parent/child
-  arithmetic, an indexed heap predicate, `largest` selection lemmas,
-  permutation/read facts for swaps, no-swap `MAX-HEAPIFY` repair, and the
-  theorem that every heap element is bounded by the root.
-- Current gap: full recursive swap-branch repair for `MAX-HEAPIFY`,
-  bottom-up `BUILD-MAX-HEAP` as repeated heapify, the in-place heapsort loop
-  over a shrinking heap prefix plus sorted suffix, and runtime/RAM-cost
-  analysis are refinement targets.
+- Proof pattern: model array reads with a total fallback, prove swaps preserve
+  length and permutation, prove the CLRS `largest` choice dominates the root
+  and in-heap children, and prove the no-swap branch repairs the only
+  potentially bad parent.
+- Current gap: prove the recursive swap-branch repair theorem for
+  `MAX-HEAPIFY`.
 
-The section proves the mathematical correctness layer behind heapsort: heap
-construction preserves all input elements, exposes a genuine maximum, and
-heapsort returns an ascending permutation of the input.  The new array layer
-proves several central CLRS heap facts, but it still intentionally does not
-claim the in-place pseudocode has been proved line by line.
+### Section 6.3 - Building a heap
+
+- Lean source: `CLRSLean/Chapter_06/Section_06_3_Building_A_Heap.lean`
+- Status: `partial`
+- Main proved theorems:
+  - `CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`
+  - `CLRS.Chapter06.arrayBuildMaxHeap_perm`
+- Proof pattern: expose the functional builder through an array-facing name and
+  use the Section 6.1 bridge from descending lists to indexed max-heaps.
+- Current gap: refine the CLRS bottom-up loop as repeated `MAX-HEAPIFY`.
+
+### Section 6.4 - The heapsort algorithm
+
+- Lean source: `CLRSLean/Chapter_06/Section_06_4_Heapsort.lean`
+- Status: `proved` for the functional heapsort model; `partial` for the
+  in-place CLRS loop refinement
+- Main proved theorems:
+  - `CLRS.Chapter06.arrayHeapSort_orderedAsc`
+  - `CLRS.Chapter06.arrayHeapSort_perm`
+- Proof pattern: use the functional heap scaffold, where heapsort builds a
+  descending-list heap and reverses it to obtain an ascending permutation.
+- Current gap: prove the in-place loop over a shrinking heap prefix and growing
+  sorted suffix.
 
 ### Section 6.5 - Priority queues
 

@@ -1,25 +1,39 @@
 import Mathlib
 
 /-!
-# CLRS Chapter 6.1-6.4 - Heaps and Heapsort
+# CLRS Section 6.1 - Heaps
 
-This file gives the first Lean model for Chapter 6's heap proof.  Instead of
-starting with the array indices and in-place swaps of the CLRS pseudocode, it
-models a max-heap as a list sorted in descending order.  This keeps the first
-formal layer focused on the mathematical facts used by heapsort:
+This section introduces the heap layer used by the rest of Chapter 6.  It first
+records a compact functional heap scaffold based on descending lists, then
+introduces the array-indexed heap predicate and CLRS parent/child arithmetic.
+Lists play the role of arrays, and the CLRS indices use the ordinary zero-based
+formulas:
 
-- inserting into a heap preserves the heap order and the multiset of elements;
-- building a heap preserves all input elements;
-- the heap maximum really is maximal;
-- heapsort returns the same elements in ascending order.
+- left child: {lit}`2 * i + 1`;
+- right child: {lit}`2 * i + 2`;
+- parent: {lit}`(i - 1) / 2`.
 
-Current gaps:
+Main results:
 
-- The array representation, {lit}`MAX-HEAPIFY`, {lit}`BUILD-MAX-HEAP`, and the in-place
-  swap loop are refinement targets.  The current file proves the functional
-  heap interface that those implementations should refine.
-- Runtime bounds and full RAM semantics are deferred to the project-level cost
-  model.
+- Theorem {lit}`parent_lt_self`: every positive heap index has a smaller
+  parent.
+- Theorem {lit}`eq_left_or_right_parent`: every positive index is either the
+  left or right child of its parent.
+- Theorem {lit}`ArrayMaxHeap.getElem_le_root`: every element in an indexed
+  max-heap prefix is bounded by the root.
+- Theorem {lit}`orderedDesc_arrayMaxHeap`: the functional descending-list heap
+  model refines the indexed max-heap predicate.
+- Theorems {lit}`buildMaxHeap_orderedDesc`, {lit}`buildMaxHeap_perm`,
+  {lit}`buildMaxHeap_max`, {lit}`heapSort_orderedAsc`, and
+  {lit}`heapSort_perm`: the compact functional heap scaffold used by later
+  refinement wrappers.
+
+Current gap:
+
+- This section proves the mathematical heap predicate and root-maximum fact.
+  The executable {lit}`MAX-HEAPIFY`, {lit}`BUILD-MAX-HEAP`, and {lit}`HEAPSORT`
+  refinements
+  appear in Sections 6.2--6.4.
 -/
 
 namespace CLRS
@@ -167,7 +181,7 @@ theorem heapMaximum?_max {h : List Nat} {m : Nat}
       · exact Nat.le_refl _
       · exact (List.pairwise_cons.mp hord).1 x htail
 
-/--
+/-!
 The maximum of a built heap is maximal among the original input elements.
 -/
 theorem buildMaxHeap_max {xs : List Nat} {m : Nat}
@@ -224,6 +238,141 @@ theorem heapSort_orderedAsc (xs : List Nat) :
 theorem heapSort_perm (xs : List Nat) :
     (heapSort xs).Perm xs := by
   exact (List.reverse_perm (buildMaxHeap xs)).trans (buildMaxHeap_perm xs)
+
+/-! ## CLRS array indices and heap predicate -/
+
+/-- Zero-based left-child index. -/
+def left (i : Nat) : Nat :=
+  2 * i + 1
+
+/-- Zero-based right-child index. -/
+def right (i : Nat) : Nat :=
+  2 * i + 2
+
+/-- Zero-based parent index, with {lit}`parent 0 = 0` by natural subtraction. -/
+def parent (i : Nat) : Nat :=
+  (i - 1) / 2
+
+/-- Every positive zero-based heap index has a strictly smaller parent. -/
+theorem parent_lt_self {i : Nat} (hi : 0 < i) : parent i < i := by
+  unfold parent
+  omega
+
+/-- Every positive index is either the left or right child of its parent. -/
+theorem eq_left_or_right_parent {i : Nat} (hi : 0 < i) :
+    i = left (parent i) ∨ i = right (parent i) := by
+  unfold parent left right
+  omega
+
+/--
+Indexed max-heap predicate over the prefix {lit}`0 ..< heapSize` of a list-backed
+array.  Every in-heap parent is at least each in-heap child.
+-/
+structure ArrayMaxHeap (a : List Nat) (heapSize : Nat) : Prop where
+  heapSize_le_length : heapSize ≤ a.length
+  left_le : ∀ {i : Nat}, (hi : i < heapSize) → (hl : left i < heapSize) →
+    a[left i]'(Nat.lt_of_lt_of_le hl heapSize_le_length) ≤
+    a[i]'(Nat.lt_of_lt_of_le hi heapSize_le_length)
+  right_le : ∀ {i : Nat}, (hi : i < heapSize) → (hr : right i < heapSize) →
+    a[right i]'(Nat.lt_of_lt_of_le hr heapSize_le_length) ≤
+    a[i]'(Nat.lt_of_lt_of_le hi heapSize_le_length)
+
+/--
+The same heap predicate with one possible bad parent.  This is the CLRS
+precondition for {lit}`MAX-HEAPIFY`: both child subtrees are already heaps, so every
+edge except the two outgoing edges from the root under repair is valid.
+-/
+structure ArrayMaxHeapExcept (a : List Nat) (heapSize bad : Nat) : Prop where
+  heapSize_le_length : heapSize ≤ a.length
+  left_le : ∀ {i : Nat}, (hi : i < heapSize) → i ≠ bad →
+    (hl : left i < heapSize) →
+    a[left i]'(Nat.lt_of_lt_of_le hl heapSize_le_length) ≤
+    a[i]'(Nat.lt_of_lt_of_le hi heapSize_le_length)
+  right_le : ∀ {i : Nat}, (hi : i < heapSize) → i ≠ bad →
+    (hr : right i < heapSize) →
+    a[right i]'(Nat.lt_of_lt_of_le hr heapSize_le_length) ≤
+    a[i]'(Nat.lt_of_lt_of_le hi heapSize_le_length)
+
+/-- A heap remains a heap after forgetting the obligations at one parent. -/
+theorem ArrayMaxHeap.except {a : List Nat} {heapSize bad : Nat}
+    (h : ArrayMaxHeap a heapSize) : ArrayMaxHeapExcept a heapSize bad := by
+  refine ⟨h.heapSize_le_length, ?_, ?_⟩
+  · intro i hi _ hl
+    exact h.left_le hi hl
+  · intro i hi _ hr
+    exact h.right_le hi hr
+
+/--
+In an indexed max-heap, the root bounds every element in the heap prefix.  This
+is the array-level proof behind CLRS {lit}`HEAP-MAXIMUM`.
+-/
+theorem ArrayMaxHeap.getElem_le_root {a : List Nat} {heapSize : Nat}
+    (h : ArrayMaxHeap a heapSize) {i : Nat} (hi : i < heapSize) :
+    a[i]'(Nat.lt_of_lt_of_le hi h.heapSize_le_length) ≤
+      a[0]'(Nat.lt_of_lt_of_le (Nat.zero_lt_of_lt hi) h.heapSize_le_length) := by
+  induction i using Nat.strong_induction_on with
+  | h i ih =>
+      cases i with
+      | zero =>
+          simp
+      | succ k =>
+          let p := parent (Nat.succ k)
+          have hpos : 0 < Nat.succ k := Nat.succ_pos k
+          have hplt : p < Nat.succ k := parent_lt_self hpos
+          have hpheap : p < heapSize := Nat.lt_trans hplt hi
+          have hedge :
+              a[Nat.succ k]'(Nat.lt_of_lt_of_le hi h.heapSize_le_length) ≤
+                a[p]'(Nat.lt_of_lt_of_le hpheap h.heapSize_le_length) := by
+            rcases eq_left_or_right_parent hpos with hleft | hright
+            · have hchildEq : left p = Nat.succ k := hleft.symm
+              have hchild : left p < heapSize := by simpa [hchildEq] using hi
+              have hle := h.left_le hpheap hchild
+              simpa [p, hchildEq] using hle
+            · have hchildEq : right p = Nat.succ k := hright.symm
+              have hchild : right p < heapSize := by simpa [hchildEq] using hi
+              have hle := h.right_le hpheap hchild
+              simpa [p, hchildEq] using hle
+          have hparent := ih p hplt hpheap
+          exact Nat.le_trans hedge (by simpa using hparent)
+
+/--
+In a descending list, a smaller index contains a value at least as large as any
+larger index.  This bridges the first functional heap model to the indexed heap
+predicate used by the CLRS array layer.
+-/
+theorem orderedDesc_getElem_le {xs : List Nat} (hxs : OrderedDesc xs)
+    {i j : Nat} (hij : i < j) (hj : j < xs.length) : xs[j] ≤ xs[i] := by
+  induction xs generalizing i j with
+  | nil =>
+      simp at hj
+  | cons x xs ih =>
+      cases j with
+      | zero =>
+          omega
+      | succ j =>
+          cases i with
+          | zero =>
+              have hj' : j < xs.length := by simpa using hj
+              have htailmem : xs[j] ∈ xs := List.getElem_mem hj'
+              have hx := (List.pairwise_cons.mp hxs).1 (xs[j]'hj') htailmem
+              simpa using hx
+          | succ i =>
+              have htail : OrderedDesc xs := (List.pairwise_cons.mp hxs).2
+              have hij' : i < j := by omega
+              have hj' : j < xs.length := by simpa using hj
+              simpa using ih htail hij' hj'
+
+/-- A descending list is an indexed max-heap on any prefix. -/
+theorem orderedDesc_arrayMaxHeap {a : List Nat} {heapSize : Nat}
+    (hlen : heapSize ≤ a.length) (h : OrderedDesc a) :
+    ArrayMaxHeap a heapSize := by
+  refine ⟨hlen, ?_, ?_⟩
+  · intro i hi hl
+    exact orderedDesc_getElem_le h (by simp [left]; omega)
+      (Nat.lt_of_lt_of_le hl hlen)
+  · intro i hi hr
+    exact orderedDesc_getElem_le h (by simp [right]; omega)
+      (Nat.lt_of_lt_of_le hr hlen)
 
 end Chapter06
 end CLRS
