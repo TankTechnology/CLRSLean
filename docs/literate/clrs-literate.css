@@ -8,8 +8,8 @@
     --clrs-surface: #ffffff;
     --clrs-sidebar: #ffffff;
     --clrs-sidebar-2: #ffffff;
-    --clrs-sidebar-text: #18211d;
-    --clrs-sidebar-muted: #4d5a53;
+    --clrs-sidebar-text: #111915;
+    --clrs-sidebar-muted: #425149;
     --clrs-sidebar-hover: #f1f5f3;
     --clrs-sidebar-border: #d7dddb;
     --clrs-sidebar-current: #2e6584;
@@ -22,7 +22,7 @@
     --clrs-blue: #305f89;
     --clrs-shadow: 0 1px 2px rgba(23, 33, 28, 0.08);
 
-    --clrs-ui-font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "San Francisco", "Segoe UI", "Helvetica Neue", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --clrs-ui-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", "Noto Sans", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
 
     --verso-text-font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
     --verso-structure-font-family: var(--clrs-ui-font-family);
@@ -114,9 +114,9 @@ a {
 
 .module-tree {
     font-family: var(--verso-structure-font-family);
-    font-size: 0.97rem;
+    font-size: 1rem;
     font-feature-settings: "kern" 1;
-    line-height: 1.46;
+    line-height: 1.44;
 }
 
 .module-tree a {
@@ -136,7 +136,7 @@ a {
     display: flex;
     align-items: center;
     color: var(--clrs-sidebar-text);
-    font-weight: 700;
+    font-weight: 760;
 }
 
 .module-tree .nav-title a::before {
@@ -167,10 +167,10 @@ a {
 .module-tree summary,
 .module-tree .leaf {
     min-height: 38px;
-    padding: 8px 11px;
+    padding: 8px 10px;
     border-radius: 6px;
     color: var(--clrs-sidebar-text);
-    font-weight: 620;
+    font-weight: 680;
 }
 
 .module-tree summary:hover,
@@ -180,14 +180,15 @@ a {
 
 .module-tree summary a,
 .module-tree .leaf a {
-    display: inline-block;
+    display: block;
     max-width: 100%;
     color: var(--clrs-sidebar-text);
+    overflow-wrap: anywhere;
 }
 
 .module-tree .custom-title {
     font-family: var(--verso-structure-font-family);
-    font-weight: 620;
+    font-weight: 680;
 }
 
 .module-tree .current,

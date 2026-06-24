@@ -47,11 +47,15 @@ VERSO_HOVER_SCRIPT_RE = re.compile(
 )
 BODY_END_RE = re.compile(r"</body\s*>", re.IGNORECASE)
 NAV_STATE_SCRIPT_ID = "clrs-nav-state-script"
+NAV_STATE_SCRIPT_RE = re.compile(
+    rf"<script\s+id=[\"']{NAV_STATE_SCRIPT_ID}[\"'][^>]*>.*?</script>",
+    re.DOTALL | re.IGNORECASE,
+)
 NAV_STATE_SCRIPT = r"""
 <script id="clrs-nav-state-script">
 (() => {
-  const STATE_KEY = "clrs.nav.state.v3";
-  const SCROLL_KEY = "clrs.nav.scroll.v3";
+  const STATE_KEY = "clrs.nav.state.v4";
+  const SCROLL_KEY = "clrs.nav.scroll.v4";
 
   function storageArea() {
     try {
@@ -151,12 +155,22 @@ NAV_STATE_SCRIPT = r"""
       parent = parent.parentElement?.closest("details");
     }
 
-    function saveState() {
+    function saveStateNow() {
       const state = {};
       for (const details of detailsList) {
         state[details.dataset.clrsNavKey] = details.open;
       }
       writeJson(STATE_KEY, state);
+    }
+
+    let stateQueued = false;
+    function saveState() {
+      if (stateQueued) return;
+      stateQueued = true;
+      requestAnimationFrame(() => {
+        stateQueued = false;
+        saveStateNow();
+      });
     }
 
     for (const details of detailsList) {
@@ -196,7 +210,10 @@ NAV_STATE_SCRIPT = r"""
       },
       { passive: true },
     );
-    window.addEventListener("pagehide", saveScroll);
+    window.addEventListener("pagehide", () => {
+      saveStateNow();
+      saveScroll();
+    });
   });
 })();
 </script>
@@ -421,8 +438,13 @@ def iter_html_files(paths: Iterable[Path]) -> Iterable[Path]:
 
 
 def inject_nav_state_script(text: str) -> tuple[str, int]:
-    if "module-tree" not in text or NAV_STATE_SCRIPT_ID in text:
+    if "module-tree" not in text:
         return text, 0
+    if NAV_STATE_SCRIPT_ID in text:
+        match = NAV_STATE_SCRIPT_RE.search(text)
+        if not match or match.group(0) == NAV_STATE_SCRIPT:
+            return text, 0
+        return NAV_STATE_SCRIPT_RE.sub(lambda _match: NAV_STATE_SCRIPT, text, count=1), 1
     next_text, count = BODY_END_RE.subn(
         lambda _match: f"{NAV_STATE_SCRIPT}\n</body>",
         text,

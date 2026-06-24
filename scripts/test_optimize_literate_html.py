@@ -50,11 +50,15 @@ class OptimizeLiterateHtmlTests(unittest.TestCase):
         self.assertIn("localStorage", text)
         self.assertIn("sessionStorage", text)
         self.assertIn("details.open = true", text)
-        self.assertIn("clrs.nav.state.v3", text)
-        self.assertIn("clrs.nav.scroll.v3", text)
+        self.assertIn("clrs.nav.state.v4", text)
+        self.assertIn("clrs.nav.scroll.v4", text)
+        self.assertNotIn("clrs.nav.state.v3", text)
+        self.assertNotIn("clrs.nav.scroll.v3", text)
         self.assertIn("stableNavPath", text)
         self.assertIn("new URL(raw, document.baseURI)", text)
         self.assertIn("CLRS-Lean", text)
+        self.assertIn("saveStateNow();", text)
+        self.assertIn('window.addEventListener("pagehide"', text)
 
     def test_nav_script_keeps_summary_link_clicks_from_toggling(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -103,6 +107,31 @@ class OptimizeLiterateHtmlTests(unittest.TestCase):
         self.assertFalse(second.changed)
         self.assertEqual(first_text, second_text)
         self.assertEqual(second_text.count("clrs-nav-state-script"), 1)
+
+    def test_nav_state_script_replaces_stale_version(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            page = Path(tmp) / "index.html"
+            page.write_text(
+                """<!doctype html>
+<html>
+  <body>
+    <nav class="module-tree">
+      <details><summary><a href="CLRSLean/Chapter_02/">Chapter 2</a></summary></details>
+    </nav>
+    <script id="clrs-nav-state-script">const oldKey = "clrs.nav.state.v3";</script>
+  </body>
+</html>
+""",
+                encoding="utf-8",
+            )
+
+            stats = optimizer.optimize_file(page, strip_attrs_min_bytes=1_000_000)
+            text = page.read_text(encoding="utf-8")
+
+        self.assertTrue(stats.changed)
+        self.assertEqual(text.count("clrs-nav-state-script"), 1)
+        self.assertIn("clrs.nav.state.v4", text)
+        self.assertNotIn("clrs.nav.state.v3", text)
 
 
 if __name__ == "__main__":
