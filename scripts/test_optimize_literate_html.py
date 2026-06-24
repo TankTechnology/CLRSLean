@@ -47,9 +47,33 @@ class OptimizeLiterateHtmlTests(unittest.TestCase):
         self.assertTrue(stats.changed)
         self.assertIn("<details open>", text)
         self.assertIn("id=\"clrs-nav-state-script\"", text)
+        self.assertIn("localStorage", text)
         self.assertIn("sessionStorage", text)
         self.assertIn("details.open = true", text)
-        self.assertIn("clrs.nav.state", text)
+        self.assertIn("clrs.nav.state.v2", text)
+        self.assertIn("clrs.nav.scroll.v2", text)
+
+    def test_nav_script_keeps_summary_link_clicks_from_toggling(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            page = Path(tmp) / "index.html"
+            page.write_text(
+                """<!doctype html>
+<html>
+  <body>
+    <nav class="module-tree">
+      <details><summary><a href="CLRSLean/Chapter_16/" title="CLRSLean.Chapter_16">Chapter 16</a></summary></details>
+    </nav>
+  </body>
+</html>
+""",
+                encoding="utf-8",
+            )
+
+            optimizer.optimize_file(page, strip_attrs_min_bytes=1_000_000)
+            text = page.read_text(encoding="utf-8")
+
+        self.assertIn('nav.querySelectorAll("summary a")', text)
+        self.assertIn("event.stopPropagation()", text)
 
     def test_nav_state_injection_is_idempotent(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

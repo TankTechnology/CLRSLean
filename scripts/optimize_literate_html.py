@@ -50,12 +50,31 @@ NAV_STATE_SCRIPT_ID = "clrs-nav-state-script"
 NAV_STATE_SCRIPT = r"""
 <script id="clrs-nav-state-script">
 (() => {
-  const STATE_KEY = "clrs.nav.state.v1";
-  const SCROLL_KEY = "clrs.nav.scroll.v1";
+  const STATE_KEY = "clrs.nav.state.v2";
+  const SCROLL_KEY = "clrs.nav.scroll.v2";
+
+  function storageArea() {
+    try {
+      const store = window.localStorage;
+      const probe = "clrs.nav.probe";
+      store.setItem(probe, "1");
+      store.removeItem(probe);
+      return store;
+    } catch (_err) {
+      try {
+        return window.sessionStorage;
+      } catch (_fallbackErr) {
+        return null;
+      }
+    }
+  }
+
+  const storage = storageArea();
 
   function readJson(key, fallback) {
+    if (!storage) return fallback;
     try {
-      const raw = sessionStorage.getItem(key);
+      const raw = storage.getItem(key);
       return raw ? JSON.parse(raw) : fallback;
     } catch (_err) {
       return fallback;
@@ -63,8 +82,9 @@ NAV_STATE_SCRIPT = r"""
   }
 
   function writeJson(key, value) {
+    if (!storage) return;
     try {
-      sessionStorage.setItem(key, JSON.stringify(value));
+      storage.setItem(key, JSON.stringify(value));
     } catch (_err) {
       /* Storage can be unavailable in private or locked-down contexts. */
     }
@@ -75,12 +95,26 @@ NAV_STATE_SCRIPT = r"""
     return link?.getAttribute("title") || link?.getAttribute("href") || `nav-${index}`;
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  function whenReady(fn) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", fn, { once: true });
+    } else {
+      fn();
+    }
+  }
+
+  whenReady(() => {
     const nav = document.querySelector(".module-tree");
     if (!nav) return;
 
     const detailsList = Array.from(nav.querySelectorAll("details"));
     const savedState = readJson(STATE_KEY, null);
+
+    for (const link of nav.querySelectorAll("summary a")) {
+      link.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+    }
 
     detailsList.forEach((details, index) => {
       const key = navKey(details, index);

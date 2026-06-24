@@ -49,7 +49,9 @@ removing tactic-state DOM and hover metadata that make browser parsing slow on
 long files such as the Huffman proof.  The same post-processing step opens the
 module sidebar by default and injects a small navigation-state script so reader
 sidebar scroll and manual chapter collapse/expand choices persist across page
-loads.
+loads.  Chapter-title links inside the sidebar must navigate without also
+toggling their parent disclosure row; otherwise a click can accidentally save a
+collapsed state immediately before the next page loads.
 
 ## Reader Flow
 
