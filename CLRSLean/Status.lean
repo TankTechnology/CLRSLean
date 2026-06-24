@@ -66,6 +66,14 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter03.isLittleO_exp_vs_factorial`;
   remaining gap: add the full CLRS table of standard growth comparisons,
   especially logarithm-vs-polynomial and polynomial-vs-exponential facts.
+* 4.5 Master method:
+  current result {lit}`CLRS.Chapter04.h_formula`;
+  remaining gap: prove the three Master Theorem cases from the exact-power
+  recurrence expansion.
+* 5.1 Hiring problem:
+  current result {lit}`CLRS.Chapter05.expectedHires_eq_harmonic`;
+  remaining gap: formalize the probability space over random permutations and
+  derive the recurrence from indicator variables.
 * 11.2 Chained hash tables:
   current result {lit}`CLRS.Chapter11.hashSearch_hashInsert_self`;
   remaining gap: expected search time under simple uniform hashing needs a
@@ -105,12 +113,10 @@ navigating the deployed pages.
   Reason: needs a stable finite path or walk representation.
 * Full RAM semantics: `future-work`.
   Reason: requires a separate imperative machine and cost model.
-* Chapter 4 Master Theorem exploration: `blocked-design`.
-  Reason: the `chapter-1-exploration` branch contains a useful proof design,
-  but the current Lean file is not compiler-clean.
-* Chapter 5 hiring problem exploration: `blocked-mathlib`.
-  Reason: the exploration branch has a promising harmonic-number direction,
-  but the probability/asymptotics file currently fails to compile.
+* Full Chapter 4 Master Theorem cases: `blocked-design`.
+  Reason: needs a clean asymptotic-to-geometric-sum bridge for exact powers.
+* Full Chapter 5 probability proof: `blocked-mathlib`.
+  Reason: needs a stable probability-space model over random permutations.
 * General merge-sort recurrence: `future-work`.
   Reason: needs floor and ceiling arithmetic for all input sizes.
 * CLRS exercises and chapter-end problems: `future-work`.

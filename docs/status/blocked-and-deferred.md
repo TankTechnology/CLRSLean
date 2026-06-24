@@ -26,6 +26,24 @@ function.  The CLRS expected-time theorem needs a probability model over keys,
 hash functions, or random assignments before we can state simple uniform
 hashing precisely.
 
+### Full Master Theorem Cases
+
+- Related section: Section 4.5 - The master method
+- Status: `blocked-design`
+
+The exact-power recurrence expansion is compiler-clean.  The full three-case
+Master Theorem proof still needs a reusable bridge from asymptotic hypotheses
+on `f(n)` to bounds on finite geometric sums over `b^i`.
+
+### Hiring Problem Probability Space
+
+- Related section: Section 5.1 - The hiring problem
+- Status: `blocked-mathlib`
+
+The deterministic recurrence solution is compiler-clean.  The CLRS expectation
+proof still needs a probability space over random permutations and indicator
+random variables for whether candidate `i` is hired.
+
 ### Concrete MST Exchange Edge
 
 - Related section: Section 23.1 - Growing a minimum spanning tree

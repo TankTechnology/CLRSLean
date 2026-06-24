@@ -104,25 +104,25 @@ library.
 
 ### Section 4.5 - The master method
 
-- Lean source: not imported on `main`
-- Status: `blocked-design`
-- Exploration source: `worktree-chapter-1-exploration`
-- Current gap: the exploration branch contains a useful design for the exact
-  power case and the general-n extension, but the Lean file currently has
-  syntax errors and unsolved goals.  It should be repaired before being added
-  to the build.
+- Lean source: `CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean`
+- Status: `partial`
+- Main proved theorem:
+  - `CLRS.Chapter04.h_formula`
+- Proof pattern: unroll the exact-power recurrence after dividing by `a^i`
+- Current gap: the three Master Theorem cases still need a clean
+  asymptotic-to-geometric-sum bridge before they can be marked proved
 
 ## Chapter 5 - Probabilistic Analysis and Randomized Algorithms
 
 ### Section 5.1 - The hiring problem
 
-- Lean source: not imported on `main`
-- Status: `blocked-mathlib`
-- Exploration source: `worktree-chapter-1-exploration`
-- Current gap: the exploration branch sketches the harmonic-number expectation
-  route, but the Lean file currently fails to compile.  A clean import will
-  likely need a smaller deterministic harmonic-number layer before the
-  probability interface.
+- Lean source: `CLRSLean/Chapter_05/Section_05_1_Hiring_Problem.lean`
+- Status: `partial`
+- Main proved theorem:
+  - `CLRS.Chapter05.expectedHires_eq_harmonic`
+- Proof pattern: solve the deterministic expected-hire recurrence by induction
+- Current gap: formalize the random-permutation probability space and derive
+  the recurrence from indicator variables
 
 ## Chapter 10 - Elementary Data Structures
 
@@ -290,8 +290,8 @@ then the result is optimal.
 | Union-find implementation correctness | `deferred-implementation` | Not needed for the mathematical MST correctness theorem. |
 | Activity-selection sorted-order exchange certificate | `partial` | Needs a sorted-by-finish interface that derives the current certificate automatically. |
 | Sorted-order lightness for Kruskal | `partial` | Needs a list-order invariant over processed edges. |
-| Chapter 4 Master Theorem exploration | `blocked-design` | Useful design exists in `chapter-1-exploration`, but the Lean file is not compiler-clean. |
-| Chapter 5 hiring problem exploration | `blocked-mathlib` | Harmonic-number route exists in `chapter-1-exploration`, but the current file fails to compile. |
+| Full Chapter 4 Master Theorem cases | `blocked-design` | Needs a clean asymptotic-to-geometric-sum bridge for exact powers. |
+| Full Chapter 5 probability proof | `blocked-mathlib` | Needs a stable probability-space model over random permutations. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |
 | Pointer-level linked lists and free lists | `future-work` | Requires an imperative memory model. |
 | BST deletion/transplant | `future-work` | Needs either a functional deletion theorem or pointer-transplant semantics. |

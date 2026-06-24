@@ -10,6 +10,8 @@ The repository is organized by CLRS chapter and section:
 ```text
 CLRSLean.lean
 CLRSLean/Chapter_02.lean
+CLRSLean/Chapter_04.lean
+CLRSLean/Chapter_05.lean
 CLRSLean/Chapter_10.lean
 CLRSLean/Chapter_11.lean
 CLRSLean/Chapter_12.lean
@@ -21,6 +23,8 @@ CLRSLean/Workflow.lean
 CLRSLean/Chapter_02/Section_02_1_Insertion_Sort.lean
 CLRSLean/Chapter_02/Section_02_2_Analyzing_Algorithms.lean
 CLRSLean/Chapter_02/Section_02_3_Designing_Algorithms.lean
+CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean
+CLRSLean/Chapter_05/Section_05_1_Hiring_Problem.lean
 CLRSLean/Chapter_10/Section_10_1_Stacks_And_Queues.lean
 CLRSLean/Chapter_10/Section_10_2_Linked_Lists.lean
 CLRSLean/Chapter_11/Section_11_1_Direct_Address_Tables.lean
