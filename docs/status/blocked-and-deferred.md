@@ -56,9 +56,12 @@ The exhaustive-search specification is now compiler-clean:
 a nonempty contiguous subarray of maximum sum.  The crossing-helper layer is
 also compiler-clean:
 `CLRS.Chapter04.maxCrossingSubarray_correct` proves optimality among candidates
-crossing a split.  The remaining CLRS refinement is to prove the recursive
-left/right/crossing composition against this specification and add its runtime
-recurrence.
+crossing a split.  The combine-interface layer is compiler-clean as well:
+`CLRS.Chapter04.subarray_append_left_or_right_or_crossing` classifies every
+candidate as left-only, right-only, or crossing, and
+`CLRS.Chapter04.subarray_append_optimal_of_cases` packages the corresponding
+optimality argument.  The remaining CLRS refinement is to define an executable
+recursive selector against this interface and add its runtime recurrence.
 
 ### Concrete MST Exchange Edge
 

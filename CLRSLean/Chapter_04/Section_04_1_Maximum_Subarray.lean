@@ -26,6 +26,11 @@ Main results:
   maximum-sum candidate among all candidates crossing a split.
 - Theorem {lit}`maxCrossingSubarray_isNonemptySubarray_append`: the crossing
   helper returns a valid nonempty subarray of the concatenated input.
+- Theorem {lit}`subarray_append_left_or_right_or_crossing`: every nonempty
+  subarray of {lit}`left ++ right` is left-only, right-only, or crossing.
+- Theorem {lit}`subarray_append_optimal_of_cases`: a candidate that dominates
+  the left-only, right-only, and crossing cases dominates every subarray of the
+  concatenated input.
 - Theorem {lit}`maxSubarray_exists_of_ne_nil`: nonempty inputs have a selected
   maximum-subarray candidate.
 - Theorem {lit}`maxSubarray_correct`: the executable maximum-subarray selector
@@ -35,8 +40,9 @@ Main results:
 Current gaps:
 
 - The crossing-helper layer of the CLRS divide-and-conquer pseudocode is now
-  proved.  The remaining refinement is the recursive left/right/crossing
-  composition theorem for the full pseudocode.
+  proved, and the left/right/crossing case split for a recursive combine step is
+  available.  The remaining refinement is an executable recursive selector that
+  uses this combine theorem.
 - Runtime and RAM-cost analysis are future strengthening targets.
 -/
 
@@ -245,6 +251,79 @@ theorem mem_nonemptySubarrays_iff {sub xs : List Int} :
             exact ih.mpr
               ⟨hsubNonempty, ⟨beforeTail, after, by
                 simpa [List.append_assoc] using htail⟩⟩
+
+/-! ## Split classification -/
+
+/--
+Every nonempty subarray of a concatenation is either fully in the left half,
+fully in the right half, or crosses the split.
+
+This is the structural lemma needed by the CLRS divide-and-conquer proof after
+the recursive calls and the crossing helper have produced their local winners.
+-/
+theorem subarray_append_left_or_right_or_crossing {sub left right : List Int}
+    (hsub : IsNonemptySubarray sub (left ++ right)) :
+    IsNonemptySubarray sub left ∨
+      IsNonemptySubarray sub right ∨ IsCrossingSubarray sub left right := by
+  rcases hsub with ⟨hsubNonempty, before, after, hEq⟩
+  have hEq' : left ++ right = before ++ (sub ++ after) := by
+    simpa [List.append_assoc] using hEq
+  rcases (List.append_eq_append_iff.mp hEq') with
+    ⟨beforeRight, hbefore, hright⟩ | ⟨leftRest, hleft, htail⟩
+  · right
+    left
+    exact ⟨hsubNonempty, ⟨beforeRight, after, by
+      simpa [List.append_assoc] using hright⟩⟩
+  · rcases (List.append_eq_append_iff.mp htail) with
+      ⟨leftAfter, hleftRest, hafter⟩ | ⟨rightPrefix, hsubEq, hright⟩
+    · left
+      exact ⟨hsubNonempty, ⟨before, leftAfter, by
+        simp [hleft, hleftRest, List.append_assoc]⟩⟩
+    · cases leftRest with
+      | nil =>
+          simp at hsubEq
+          subst sub
+          right
+          left
+          exact ⟨hsubNonempty, ⟨[], after, by simpa using hright⟩⟩
+      | cons x xs =>
+          cases rightPrefix with
+          | nil =>
+              simp at hsubEq
+              subst sub
+              left
+              exact ⟨hsubNonempty, ⟨before, [], by
+                simpa [List.append_assoc] using hleft⟩⟩
+          | cons y ys =>
+              right
+              right
+              exact ⟨x :: xs, y :: ys,
+                ⟨by simp, ⟨before, hleft⟩⟩,
+                ⟨by simp, ⟨after, hright⟩⟩,
+                hsubEq⟩
+
+/--
+If a candidate dominates every left-only, right-only, and crossing subarray,
+then it dominates every nonempty subarray of the concatenated input.
+-/
+theorem subarray_append_optimal_of_cases {best left right : List Int}
+    (hleft :
+      ∀ cand, IsNonemptySubarray cand left →
+        subarraySum cand ≤ subarraySum best)
+    (hright :
+      ∀ cand, IsNonemptySubarray cand right →
+        subarraySum cand ≤ subarraySum best)
+    (hcross :
+      ∀ cand, IsCrossingSubarray cand left right →
+        subarraySum cand ≤ subarraySum best) :
+    ∀ cand, IsNonemptySubarray cand (left ++ right) →
+      subarraySum cand ≤ subarraySum best := by
+  intro cand hcand
+  rcases subarray_append_left_or_right_or_crossing hcand with
+    hleftCand | hrightCand | hcrossCand
+  · exact hleft cand hleftCand
+  · exact hright cand hrightCand
+  · exact hcross cand hcrossCand
 
 /-! ## Finite argmax -/
 

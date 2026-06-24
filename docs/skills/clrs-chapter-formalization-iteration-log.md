@@ -121,9 +121,12 @@ chapters.
   algorithm at once.  Define nonempty suffixes, crossing candidates as
   suffix-left plus prefix-right, prove the crossing enumerator exact, and reuse
   the finite argmax selector for `maxCrossingSubarray_correct`.
-- This leaves a sharper remaining target: prove that every nonempty subarray of
-  `left ++ right` is either left-only, right-only, or crossing, then compose the
-  recursive left/right/crossing winners.
+- After the crossing helper, prove the split-combine interface before writing
+  the executable recursion: every nonempty subarray of `left ++ right` is either
+  left-only, right-only, or crossing, and a candidate that dominates those three
+  cases dominates the whole append.  This leaves a sharper remaining target:
+  define the executable recursive selector and prove it against the combine
+  theorem.
 
 ## 2026-06-24 - Complete Chapter Proof Workflow
 

@@ -30,6 +30,8 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter04.bestCandidate_correct`,
   {lit}`CLRS.Chapter04.maxCrossingSubarray_correct`,
   {lit}`CLRS.Chapter04.maxCrossingSubarray_isNonemptySubarray_append`,
+  {lit}`CLRS.Chapter04.subarray_append_left_or_right_or_crossing`,
+  {lit}`CLRS.Chapter04.subarray_append_optimal_of_cases`,
   {lit}`CLRS.Chapter04.maxSubarray_exists_of_ne_nil`,
   {lit}`CLRS.Chapter04.maxSubarray_correct`.
 * 3.1 Asymptotic notation:
@@ -165,9 +167,9 @@ navigating the deployed pages.
   Reason: these sections are formalizable but still need their own models:
   block matrices and all-input floor/ceiling recurrence sandwiching.
 * Chapter 4 maximum-subarray divide-and-conquer refinement: `future-work`.
-  Reason: the exhaustive-search specification and crossing-helper optimality
-  theorem are proved; the recursive left/right/crossing composition and runtime
-  proof remain to be connected to that specification.
+  Reason: the exhaustive-search specification, crossing-helper optimality, and
+  left/right/crossing combine interface are proved; an executable recursive
+  selector and runtime proof remain to be connected to that specification.
 * Chapter 4 extension from exact powers to all input sizes: `future-work`.
   Reason: needs a monotone recurrence model and floor/ceiling sandwiching.
 * General merge-sort recurrence: `future-work`.
