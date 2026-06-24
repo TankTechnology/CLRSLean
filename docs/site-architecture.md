@@ -1,7 +1,11 @@
-# CLRSLean Site Architecture
+# CLRS-Lean Site Architecture
 
-This document records the Scheme B site design: CLRSLean is deployed as a
+This document records the Scheme B site design: CLRS-Lean is deployed as a
 book-style Verso site rather than as a collection of unrelated proof pages.
+
+The public project and repository name is `CLRS-Lean`.  The Lean module root
+remains `CLRSLean`, so source paths and imports continue to use `CLRSLean/...`
+and `CLRSLean.Chapter_...`.
 
 ## Goals
 

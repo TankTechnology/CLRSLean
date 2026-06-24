@@ -315,7 +315,7 @@ DP 样本。
 
 ## 8. 文件结构建议
 
-短期已经将 CLRS 方向从 `CfProofs` 拆到独立的 `CLRSLean` repository。Huffman V2
+短期已经将 CLRS 方向从 `CfProofs` 拆到独立的 `CLRS-Lean` repository。Huffman V2
 成为第 16.3 节的正式章节文件：
 
 ```text

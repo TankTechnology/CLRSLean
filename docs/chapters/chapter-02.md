@@ -1,6 +1,6 @@
 # Chapter 2 - Getting Started
 
-Chapter 2 is the first workflow pilot for `CLRSLean`.  The goal is not only to
+Chapter 2 is the first workflow pilot for `CLRS-Lean`.  The goal is not only to
 formalize one algorithm, but to establish the repeatable loop we want to use for
 the rest of CLRS:
 
@@ -173,7 +173,7 @@ needed to claim a complete first pass through the main Chapter 2 thread.
 
 ## Chapter 2 Completion Scope
 
-This chapter is complete for the first `CLRSLean` pass over the main textbook
+This chapter is complete for the first `CLRS-Lean` pass over the main textbook
 thread:
 
 - Section 2.1: insertion sort correctness;

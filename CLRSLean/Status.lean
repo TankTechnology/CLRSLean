@@ -115,6 +115,10 @@ navigating the deployed pages.
   Reason: needs a stable finite path or walk representation.
 * Full RAM semantics: `future-work`.
   Reason: requires a separate imperative machine and cost model.
+* Chapter 4 maximum subarray, Strassen, substitution, and recursion-tree
+  sections: `future-work`.
+  Reason: these sections are formalizable but still need their own models:
+  interval sums, block matrices, and reusable recurrence-tree infrastructure.
 * Chapter 4 extension from exact powers to all input sizes: `future-work`.
   Reason: needs a monotone recurrence model and floor/ceiling sandwiching.
 * Chapter 5 logarithmic harmonic-number asymptotics: `future-work`.

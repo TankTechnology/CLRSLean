@@ -1,4 +1,4 @@
-# CLRS-lean Proof Map
+# CLRS-Lean Proof Map
 
 This ledger records what is proved, what is partial, and what is currently
 deferred.  It is intended to become the website's main navigation table.
@@ -102,6 +102,47 @@ library.
 
 ## Chapter 4 - Divide and Conquer
 
+Chapter 4 is not limited to the current Master-method file.  The earlier
+sections are formalizable, but they need separate models before theorem files
+are worth creating.
+
+### Section 4.1 - The maximum-subarray problem
+
+- Lean source: not yet created
+- Status: `future-work`
+- Planned theorem target: correctness of the divide-and-conquer maximum-subarray
+  algorithm, stated over a stable list or array interval model
+- Proof pattern: interval sums, crossing-subarray decomposition, max argument
+- Current gap: choose the array/list representation and interval API
+
+### Section 4.2 - Strassen's algorithm for matrix multiplication
+
+- Lean source: not yet created
+- Status: `future-work`
+- Planned theorem target: the seven Strassen products reconstruct ordinary
+  block matrix multiplication
+- Proof pattern: block matrix algebra, ring normalization, dimension bookkeeping
+- Current gap: choose a matrix/block representation with manageable dimensions
+
+### Section 4.3 - The substitution method
+
+- Lean source: not yet created
+- Status: `future-work`
+- Planned theorem target: reusable induction principles for proving upper and
+  lower bounds on recursively defined costs
+- Proof pattern: well-founded induction, monotonicity hypotheses, asymptotic
+  bridge lemmas
+- Current gap: decide how general the recurrence interface should be
+
+### Section 4.4 - The recursion-tree method
+
+- Lean source: not yet created
+- Status: `future-work`
+- Planned theorem target: finite recursion-tree expansion and level-sum lemmas
+- Proof pattern: finite tree or level-indexed sum expansion
+- Current gap: avoid duplicating the normalized-sum machinery already used in
+  Section 4.5
+
 ### Section 4.5 - The master method
 
 - Lean source: `CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean`
@@ -115,6 +156,17 @@ library.
   then prove bounded, constant, and tail-dominated normalized-forcing criteria
 - Current gap: extending exact powers `n = b^i` to all input sizes needs a
   monotone recurrence model and floor/ceiling sandwiching
+
+### Section 4.6 - Proof of the master theorem
+
+- Lean source: not yet created
+- Status: `future-work`
+- Planned theorem target: full CLRS Master Theorem for all natural input sizes,
+  derived from the exact-power core plus floor/ceiling bounds
+- Proof pattern: monotone recurrence sandwiching, regularity hypotheses,
+  asymptotic transfer from powers to all inputs
+- Current gap: the exact-power cases compile, but the all-input-size bridge is
+  not yet mechanized
 
 ## Chapter 5 - Probabilistic Analysis and Randomized Algorithms
 

@@ -1,4 +1,4 @@
-# CLRSLean Verso 部署设计
+# CLRS-Lean Verso 部署设计
 
 日期: 2026-06-23
 状态: 已批准
@@ -6,7 +6,7 @@
 
 ## 目标
 
-将 CLRSLean 的网站从手写静态 HTML 迁移到 Verso 文学编程引擎，
+将 CLRS-Lean 的网站从手写静态 HTML 迁移到 Verso 文学编程引擎，
 实现与 `teorth/analysis` 同等的书本式阅读体验。
 
 ## 架构

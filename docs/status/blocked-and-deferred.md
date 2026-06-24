@@ -8,7 +8,7 @@ This page records work that is not hidden but also not claimed as complete.
 
 - Related section: Section 23.2 - Kruskal and Prim
 - Status: `deferred-implementation`
-- Current decision: do not prove it in the first CLRS-lean phase.
+- Current decision: do not prove it in the first CLRS-Lean phase.
 
 The current MST proof uses `ComponentOracle` and `CycleTestImplementation` as
 interfaces.  A future union-find implementation can refine this interface
@@ -35,6 +35,16 @@ The exact-power recurrence expansion and three exact-power Master-style cases
 are compiler-clean.  The remaining strengthening is to extend the theorem from
 inputs `n = b^i` to arbitrary natural input sizes using a monotone recurrence
 model and floor/ceiling sandwiching.
+
+### Other Chapter 4 Sections
+
+- Related sections: Sections 4.1, 4.2, 4.3, 4.4, and 4.6
+- Status: `future-work`
+
+These sections are not excluded from CLRS-Lean.  They are pending because they
+need distinct representation choices: intervals for maximum subarray, block
+matrices for Strassen, and reusable recurrence or recursion-tree
+infrastructure for the proof-method sections.
 
 ### Hiring Problem Harmonic Asymptotics
 

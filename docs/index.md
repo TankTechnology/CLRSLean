@@ -1,6 +1,6 @@
-# CLRS-lean
+# CLRS-Lean
 
-`CLRS-lean` is a chapter-by-chapter Lean companion project for CLRS-style
+`CLRS-Lean` is a chapter-by-chapter Lean companion project for CLRS-style
 algorithm correctness proofs.
 
 The project is organized by the book order, not by implementation topic.  A
@@ -59,7 +59,12 @@ should remain import-friendly.
 | Section 2.3 - Designing algorithms | `CLRSLean/Chapter_02/Section_02_3_Designing_Algorithms.lean` | `proved` | `CLRS.Chapter02.mergeSort_sortedLE`, `CLRS.Chapter02.mergeSort_perm`, `CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm` |
 | Section 3.1 - Asymptotic notation | `CLRSLean/Chapter_03/Section_03_1_Asymptotic_Notation.lean` | `proved` | `CLRS.Chapter03.isBigO_iff`, `CLRS.Chapter03.isLittleO_iff`, `CLRS.Chapter03.isBigTheta_trans` |
 | Section 3.2 - Standard functions | `CLRSLean/Chapter_03/Section_03_2_Standard_Functions.lean` | `partial` | `CLRS.Chapter03.isLittleO_pow_pow`, `CLRS.Chapter03.isLittleO_exp_vs_factorial` |
+| Section 4.1 - Maximum subarray | not yet created | `future-work` | planned divide-and-conquer correctness proof |
+| Section 4.2 - Strassen's algorithm | not yet created | `future-work` | planned block-matrix correctness proof |
+| Section 4.3 - Substitution method | not yet created | `future-work` | planned recurrence-bound induction lemmas |
+| Section 4.4 - Recursion-tree method | not yet created | `future-work` | planned finite tree expansion and level-sum lemmas |
 | Section 4.5 - The master method | `CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean` | `proved` for exact powers | `CLRS.Chapter04.master_case1_geometric`, `CLRS.Chapter04.master_case2_constant_forcing`, `CLRS.Chapter04.master_case3_tail_dominated` |
+| Section 4.6 - Proof of the master theorem | not yet created | `future-work` | planned extension from exact powers to all input sizes |
 | Section 5.1 - The hiring problem | `CLRSLean/Chapter_05/Section_05_1_Hiring_Problem.lean` | `proved` for finite rank symmetry | `CLRS.Chapter05.hireProbability_eq`, `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic` |
 | Section 10.1 - Stacks and queues | `CLRSLean/Chapter_10/Section_10_1_Stacks_And_Queues.lean` | `proved` | `CLRS.Chapter10.pop_push`, `CLRS.Chapter10.dequeue_enqueue_nonempty` |
 | Section 10.2 - Linked lists | `CLRSLean/Chapter_10/Section_10_2_Linked_Lists.lean` | `proved` | `CLRS.Chapter10.listSearch_sound`, `CLRS.Chapter10.mem_listDeleteAll_iff` |

@@ -10,7 +10,7 @@ like in Lean.
 
 ## An algorithm is a function … with a proof
 
-In CLRSLean, *algorithm* means two things that live side by side:
+In CLRS-Lean, *algorithm* means two things that live side by side:
 
 1. A Lean function that computes something — the executable part.
 2. A theorem that states what the function guarantees — the proof part.
@@ -56,7 +56,7 @@ To build and browse the site locally:
 
 ## Repository
 
-[TankTechnology/CLRSLean](https://github.com/TankTechnology/CLRSLean)
+[TankTechnology/CLRS-Lean](https://github.com/TankTechnology/CLRS-Lean)
 -/
 
 namespace CLRS

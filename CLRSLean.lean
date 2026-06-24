@@ -13,9 +13,9 @@ import CLRSLean.Status
 import CLRSLean.Workflow
 
 /-!
-# CLRSLean
+# CLRS-Lean
 
-CLRSLean is a Lean 4 companion to CLRS-style algorithm proofs.  The project is
+CLRS-Lean is a Lean 4 companion to CLRS-style algorithm proofs.  The project is
 organized as a readable online book: each chapter has a short guide page, and
 each selected textbook section has a literate Lean page containing the formal
 model, the public theorem interface, and the proof.
@@ -38,12 +38,17 @@ This keeps the site useful for three kinds of readers:
 
 Start with the chapter pages in the sidebar.
 
-* Chapter 1 - Algorithms: the project reading contract and the way CLRSLean
+* Chapter 1 - Algorithms: the project reading contract and the way CLRS-Lean
   turns textbook claims into Lean definitions plus theorems.
 * Chapter 2 - Getting Started: sorting correctness, a lightweight runtime bound,
   and a merge-sort recurrence.
 * Chapter 3 - Growth of Functions: CLRS-style wrappers around Mathlib
   asymptotics plus selected standard growth facts.
+* Chapter 4 - Divide-and-Conquer: planned tracks for maximum subarray,
+  Strassen, substitution, recursion trees, and the proved exact-power Master
+  method core.
+* Chapter 5 - Probabilistic Analysis: the finite rank-symmetry proof for the
+  hiring problem.
 * Chapter 10 - Elementary Data Structures: functional stack, queue, and
   linked-list operation proofs.
 * Chapter 11 - Hash Tables: direct-address table correctness and deterministic
@@ -80,10 +85,20 @@ Start with the chapter pages in the sidebar.
   Current results: `CLRS.Chapter03.isLittleO_pow_pow`,
   `CLRS.Chapter03.factorial_upper_bound`,
   `CLRS.Chapter03.isLittleO_exp_vs_factorial`.
+* 4.1 Maximum subarray: `future-work`.
+  Planned target: correctness of the divide-and-conquer maximum-subarray
+  algorithm over a stable interval/sum model.
+* 4.2 Strassen's algorithm: `future-work`.
+  Planned target: block-matrix reconstruction correctness.
+* 4.3 Substitution method and 4.4 recursion-tree method: `future-work`.
+  Planned target: reusable recurrence-bound and finite-recursion-tree lemmas.
 * 4.5 Master method: `proved` for exact-power recurrences.
   Public results: `CLRS.Chapter04.master_case1_geometric`,
   `CLRS.Chapter04.master_case2_constant_forcing`,
   `CLRS.Chapter04.master_case3_tail_dominated`.
+* 4.6 Proof of the master theorem: `future-work`.
+  Planned target: extend the exact-power proof to all natural input sizes with
+  floor/ceiling sandwiching.
 * 5.1 Hiring problem: `proved` for the finite rank-symmetry model.
   Public results: `CLRS.Chapter05.hireProbability_eq`,
   `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`.
@@ -141,5 +156,5 @@ lake build :literateHtml
 GitHub Actions runs the same pipeline and publishes the generated `_site`
 directory to GitHub Pages.
 
-Repository: [TankTechnology/CLRSLean](https://github.com/TankTechnology/CLRSLean)
+Repository: [TankTechnology/CLRS-Lean](https://github.com/TankTechnology/CLRS-Lean)
 -/

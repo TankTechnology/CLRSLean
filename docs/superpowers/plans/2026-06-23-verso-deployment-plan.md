@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Migrate CLRSLean from hand-written static HTML to Verso literate programming — same book-quality web rendering as `teorth/analysis`.
+**Goal:** Migrate CLRS-Lean from hand-written static HTML to Verso literate programming — same book-quality web rendering as `teorth/analysis`.
 
 **Architecture:** Convert `lakefile.toml` to `lakefile.lean` with `doc.verso` option and Verso dependency, create `literate.toml` for section ordering, update `.lean` files with Verso-compatible `/-!` module doc blocks, replace static HTML in `docs/site/` with Verso-generated `_site/`, update CI to build and deploy literate HTML.
 
@@ -157,7 +157,7 @@ import CLRSLean.Chapter_23.Section_23_1_Growing_Minimum_Spanning_Trees
 import CLRSLean.Chapter_23.Section_23_2_Kruskal_And_Prim
 
 /-!
-# CLRS-lean
+# CLRS-Lean
 
 A Lean 4 companion for *Introduction to Algorithms* (CLRS), formalizing
 algorithm correctness proofs chapter by chapter.
@@ -194,7 +194,7 @@ lake build :literateHtml   # → _site/
 
 ## Repository
 
-[https://github.com/TankTechnology/CLRSLean](https://github.com/TankTechnology/CLRSLean)
+[https://github.com/TankTechnology/CLRS-Lean](https://github.com/TankTechnology/CLRS-Lean)
 -/
 ```
 
@@ -426,7 +426,7 @@ Expected: contains `index.html` (landing page) and subdirectories for each secti
 head -50 _site/index.html
 ```
 
-Expected: valid HTML with CLRSLean title and navigation.
+Expected: valid HTML with CLRS-Lean title and navigation.
 
 ---
 
@@ -441,7 +441,7 @@ git push
 - [ ] **Step 2: Watch CI runs**
 
 ```bash
-sleep 30 && gh run list --repo TankTechnology/CLRSLean --limit 5
+sleep 30 && gh run list --repo TankTechnology/CLRS-Lean --limit 5
 ```
 
 Expected: `Build and deploy Verso site` workflow queued or running.
@@ -450,7 +450,7 @@ Expected: `Build and deploy Verso site` workflow queued or running.
 
 ```bash
 # Check periodically (~2-3 minutes)
-gh run list --repo TankTechnology/CLRSLean --limit 5
+gh run list --repo TankTechnology/CLRS-Lean --limit 5
 ```
 
 Expected: `Build and deploy Verso site` → `completed success`.
@@ -458,14 +458,14 @@ Expected: `Build and deploy Verso site` → `completed success`.
 - [ ] **Step 4: Verify live site**
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}" https://tanktechnology.github.io/CLRSLean/
+curl -s -o /dev/null -w "%{http_code}" https://tanktechnology.github.io/CLRS-Lean/
 ```
 
 Expected: `200`.
 
 - [ ] **Step 5: Verify page content**
 
-Visit `https://tanktechnology.github.io/CLRSLean/` and confirm:
+Visit `https://tanktechnology.github.io/CLRS-Lean/` and confirm:
 - Landing page shows project title, status table, conventions
 - Section pages are navigable (prev/next)
 - Chapter 2.1, 16.3, 23.1, 23.2 each have their own page

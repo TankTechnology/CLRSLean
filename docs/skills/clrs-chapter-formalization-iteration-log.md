@@ -1,7 +1,7 @@
 # CLRS Chapter Formalization Skill Iteration Log
 
 This log records concrete updates to
-`.codex/skills/clrs-chapter-formalization/SKILL.md` after using it on CLRSLean
+`.codex/skills/clrs-chapter-formalization/SKILL.md` after using it on CLRS-Lean
 chapters.
 
 ## 2026-06-24 - Initial Skill

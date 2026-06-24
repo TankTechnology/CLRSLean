@@ -61,7 +61,7 @@ environment has Mathlib available:
 ```bash
 lake env lean CLRSLean/Chapter_02/Section_02_1_Insertion_Sort.lean
 lake env lean Tests/Chapter_02_Interface.lean
-lake build CLRSLean
+lake build CLRS-Lean
 ```
 
 ## 7. Update The Map

@@ -3,7 +3,7 @@ import CLRSLean.Chapter_02
 /-!
 # Workflow
 
-CLRSLean uses a repeatable section workflow.  The goal is to make future
+CLRS-Lean uses a repeatable section workflow.  The goal is to make future
 chapters easy to audit, easy to deploy, and pleasant to read.
 
 ## Section Lifecycle

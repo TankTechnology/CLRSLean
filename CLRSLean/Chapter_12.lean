@@ -4,7 +4,7 @@ import CLRSLean.Chapter_12.Section_12_1_Binary_Search_Trees
 # Chapter 12 - Binary Search Trees
 
 Chapter 12 studies binary search trees and the operations that preserve their
-ordering invariant.  The current CLRSLean pass uses an inductive tree of natural
+ordering invariant.  The current CLRS-Lean pass uses an inductive tree of natural
 keys and proves insertion correctness for membership and ordering.
 
 ## Sections

@@ -37,7 +37,7 @@ machinery.
 
 ## Why This Page Matters
 
-Huffman is a useful benchmark for CLRSLean because it proves true optimality,
+Huffman is a useful benchmark for CLRS-Lean because it proves true optimality,
 not only functional correctness.  Activity selection is the lighter companion:
 it already has the finite-list model, executable greedy selectors, and the
 certificate theorem; the remaining strengthening is to derive the certificate

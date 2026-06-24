@@ -5,7 +5,7 @@ import CLRSLean.Chapter_11.Section_11_2_Chained_Hash_Tables
 # Chapter 11 - Hash Tables
 
 Chapter 11 introduces direct-address tables and hash tables.  The current
-CLRSLean pass separates deterministic table correctness from probabilistic
+CLRS-Lean pass separates deterministic table correctness from probabilistic
 performance analysis.
 
 ## Sections

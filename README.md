@@ -1,9 +1,13 @@
-# CLRSLean
+# CLRS-Lean
 
-`CLRSLean` is a Lean 4 companion project for CLRS-style algorithm proofs.  The
+`CLRS-Lean` is a Lean 4 companion project for CLRS-style algorithm proofs.  The
 deployed site is organized as a small online book: a project landing page,
 chapter guide pages, section-level literate Lean proofs, a proof-status ledger,
 and a contribution workflow.
+
+The public project name is `CLRS-Lean`.  The Lean library root remains
+`CLRSLean`, because Lean module names and import paths should be simple
+identifiers and cannot use the project-name hyphen directly.
 
 The repository is organized by CLRS chapter and section:
 

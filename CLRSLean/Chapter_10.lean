@@ -5,7 +5,7 @@ import CLRSLean.Chapter_10.Section_10_2_Linked_Lists
 # Chapter 10 - Elementary Data Structures
 
 Chapter 10 introduces stacks, queues, linked lists, and rooted-tree
-representations.  The current CLRSLean pass uses functional lists as the
+representations.  The current CLRS-Lean pass uses functional lists as the
 mathematical model for the first three structures.  This intentionally avoids
 pointer mutation while preserving the algebraic claims that the textbook uses
 when reasoning about the operations.
