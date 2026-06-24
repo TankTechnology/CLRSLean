@@ -223,6 +223,49 @@ all-input Master Theorem still need separate models.
 - Current gap: none for the current finite rank-symmetry model; a lower-level
   random-permutation and pseudocode execution model remains a future refinement
 
+## Chapter 6 - Heapsort
+
+### Sections 6.1-6.4 - Heaps and heapsort
+
+- Lean source: `CLRSLean/Chapter_06/Section_06_1_Heapsort.lean`
+- Status: `proved` for the functional descending-list heap model
+- Main proved theorems:
+  - `CLRS.Chapter06.buildMaxHeap_orderedDesc`
+  - `CLRS.Chapter06.buildMaxHeap_perm`
+  - `CLRS.Chapter06.buildMaxHeap_max`
+  - `CLRS.Chapter06.heapExtractMax?_orderedDesc`
+  - `CLRS.Chapter06.heapExtractMax?_max`
+  - `CLRS.Chapter06.heapSort_orderedAsc`
+  - `CLRS.Chapter06.heapSort_perm`
+- Proof pattern: represent an abstract max-heap as a descending list, prove
+  descending insertion preserves order and permutation, prove the heap head is
+  maximal, then reverse the built heap and use `List.Pairwise.reverse` for the
+  ascending heapsort result.
+- Current gap: array indices, `MAX-HEAPIFY`, `BUILD-MAX-HEAP`, in-place swaps,
+  and runtime/RAM-cost analysis are refinement targets.
+
+The section proves the mathematical correctness layer behind heapsort: heap
+construction preserves all input elements, exposes a genuine maximum, and
+heapsort returns an ascending permutation of the input.  It intentionally does
+not claim the CLRS array pseudocode has been proved line by line.
+
+### Section 6.5 - Priority queues
+
+- Lean source: `CLRSLean/Chapter_06/Section_06_5_Priority_Queues.lean`
+- Status: `proved` for the functional heap interface
+- Main proved theorems:
+  - `CLRS.Chapter06.heapInsert_orderedDesc`
+  - `CLRS.Chapter06.heapInsert_perm`
+  - `CLRS.Chapter06.heapInsert_max`
+  - `CLRS.Chapter06.heapIncreaseKey_orderedDesc`
+  - `CLRS.Chapter06.heapIncreaseKey_perm`
+  - `CLRS.Chapter06.heapDelete_orderedDesc`
+  - `CLRS.Chapter06.heapDelete_perm`
+- Proof pattern: maintain or rebuild the descending-list heap invariant and
+  state each operation's multiset behavior with `List.Perm`.
+- Current gap: index-based `HEAP-INCREASE-KEY`, `HEAP-DELETE`, and
+  implementation-level complexity remain future refinement work.
+
 ## Chapter 10 - Elementary Data Structures
 
 ### Section 10.1 - Stacks and queues
@@ -440,6 +483,7 @@ graph connectedness, and an initial forest.
 | Item | Status | Reason |
 | --- | --- | --- |
 | Union-find implementation correctness | `deferred-implementation` | Not needed for the mathematical MST correctness theorem. |
+| Chapter 6 array heap implementation | `deferred-implementation` | Functional heap correctness is proved; array `MAX-HEAPIFY`, in-place heapsort, and RAM costs remain refinement targets. |
 | Maximum-subarray runtime analysis | `future-work` | Exhaustive-search, crossing-helper optimality, the executable combine step, and recursive split-tree/fuelled selector correctness are proved; runtime recurrence and RAM-cost refinement remain. |
 | Chapter 4 extension from exact powers to all input sizes | `future-work` | Needs a monotone recurrence model and floor/ceiling sandwiching. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |

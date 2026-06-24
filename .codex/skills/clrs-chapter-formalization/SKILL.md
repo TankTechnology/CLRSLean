@@ -160,6 +160,13 @@ end CLRS
 - **Lookup-table chapters:** use association lists or direct-address functions
   as the mathematical model.  Prove lookup-after-insert and unaffected-key
   theorems before adding hashing costs.
+- **Implementation-heavy array chapters:** first prove the abstract functional
+  interface that the array implementation should refine.  For heaps, a
+  descending-list max-heap gives compact theorems for heap construction,
+  maximum correctness, heapsort sortedness/permutation, and priority-queue
+  operations.  Keep `List.Perm`-style multiset specifications public, and record
+  array `MAX-HEAPIFY`, in-place swaps, index updates, and RAM costs as explicit
+  refinement targets until the project has a shared imperative semantics.
 - **Hash-table performance chapters:** split deterministic correctness from
   expected-time analysis.  First prove bucket/update/search facts for a fixed
   hash function, including deletion/search-after-delete facts; only introduce
@@ -258,6 +265,10 @@ end CLRS
   recurrence before proving the core specification.  A finite exhaustive
   selector plus an exact contiguous-subarray enumerator gives a strong public
   theorem and a precise future refinement target.
+- Chapter 6 functional-heap pass: for array algorithms, prove the abstract
+  data-structure theorem first when it is honest and useful.  The array-level
+  implementation should be framed as a refinement of the functional spec, not
+  as a blocker for all chapter progress.
 - Chapter 4.1 executable-combine pass: after the left/right/crossing
   classification is proved, add the executable combine step immediately.
   Selecting among `maxSubarray left`, `maxSubarray right`, and

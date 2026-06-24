@@ -18,6 +18,8 @@ CLRSLean/Chapter_04/Section_04_3_Substitution_Method.lean
 CLRSLean/Chapter_04/Section_04_4_Recursion_Tree_Method.lean
 CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean
 CLRSLean/Chapter_05/Section_05_1_Hiring_Problem.lean
+CLRSLean/Chapter_06/Section_06_1_Heapsort.lean
+CLRSLean/Chapter_06/Section_06_5_Priority_Queues.lean
 CLRSLean/Chapter_10/Section_10_1_Stacks_And_Queues.lean
 CLRSLean/Chapter_10/Section_10_2_Linked_Lists.lean
 CLRSLean/Chapter_11/Section_11_1_Direct_Address_Tables.lean
@@ -42,6 +44,8 @@ In prose and on the future website, these appear as:
 - Section 4.4 - The recursion-tree method
 - Section 4.5 - The master method
 - Section 5.1 - The hiring problem
+- Section 6.1-6.4 - Heaps and heapsort
+- Section 6.5 - Priority queues
 - Section 10.1 - Stacks and queues
 - Section 10.2 - Linked lists
 - Section 11.1 - Direct-address tables
@@ -72,6 +76,8 @@ should remain import-friendly.
 | Section 4.5 - The master method | `CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean` | `proved` for exact powers | `CLRS.Chapter04.master_case1_geometric`, `CLRS.Chapter04.master_case2_constant_forcing`, `CLRS.Chapter04.master_case3_tail_dominated` |
 | Section 4.6 - Proof of the master theorem | not yet created | `future-work` | planned extension from exact powers to all input sizes |
 | Section 5.1 - The hiring problem | `CLRSLean/Chapter_05/Section_05_1_Hiring_Problem.lean` | `proved` for finite rank symmetry | `CLRS.Chapter05.hireProbability_eq`, `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`, `CLRS.Chapter05.expectedHires_isBigTheta_log` |
+| Section 6.1-6.4 - Heaps and heapsort | `CLRSLean/Chapter_06/Section_06_1_Heapsort.lean` | `proved` for the functional heap model | `CLRS.Chapter06.buildMaxHeap_orderedDesc`, `CLRS.Chapter06.buildMaxHeap_perm`, `CLRS.Chapter06.buildMaxHeap_max`, `CLRS.Chapter06.heapSort_orderedAsc`, `CLRS.Chapter06.heapSort_perm` |
+| Section 6.5 - Priority queues | `CLRSLean/Chapter_06/Section_06_5_Priority_Queues.lean` | `proved` for the functional heap interface | `CLRS.Chapter06.heapInsert_orderedDesc`, `CLRS.Chapter06.heapInsert_perm`, `CLRS.Chapter06.heapIncreaseKey_orderedDesc`, `CLRS.Chapter06.heapDelete_orderedDesc` |
 | Section 10.1 - Stacks and queues | `CLRSLean/Chapter_10/Section_10_1_Stacks_And_Queues.lean` | `proved` | `CLRS.Chapter10.pop_push`, `CLRS.Chapter10.dequeue_enqueue_nonempty` |
 | Section 10.2 - Linked lists | `CLRSLean/Chapter_10/Section_10_2_Linked_Lists.lean` | `proved` | `CLRS.Chapter10.listSearch_sound`, `CLRS.Chapter10.mem_listDeleteAll_iff` |
 | Section 11.1 - Direct-address tables | `CLRSLean/Chapter_11/Section_11_1_Direct_Address_Tables.lean` | `proved` | `CLRS.Chapter11.search_insert_same`, `CLRS.Chapter11.search_delete_same` |

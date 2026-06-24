@@ -253,3 +253,15 @@ chapters.
   concrete tree-exchange edge and a recursive wrapper that uses the
   prefix-local sorted-lightness certificate instead of a global lightness
   hypothesis.
+
+## 2026-06-25 - After Chapter 6 Functional Heaps
+
+- For implementation-heavy chapters, a first theorem-bearing pass should expose
+  an abstract functional interface instead of blocking on RAM arrays.  In
+  Chapter 6, descending lists give a compact max-heap invariant and make
+  heapsort correctness a clean `List.Pairwise.reverse` theorem.
+- Keep operation specifications multiset-oriented with `List.Perm`: insertion
+  adds one key, heap construction preserves the input, key increase is a rebuild
+  of `new :: h.erase old`, and deletion is a rebuild of `h.erase key`.
+- Record the array `MAX-HEAPIFY`/in-place heapsort layer as a refinement target,
+  not as an unproved theorem hidden inside the functional model.

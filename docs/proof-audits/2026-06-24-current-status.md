@@ -63,6 +63,17 @@ the imported CLRS-Lean source, not experimental worktrees.
   logarithmic growth:
   `CLRS.Chapter05.harmonic_isBigTheta_log` and
   `CLRS.Chapter05.expectedHires_isBigTheta_log`.
+- Chapter 6 now has a functional max-heap and heapsort layer:
+  `CLRS.Chapter06.buildMaxHeap_orderedDesc`,
+  `CLRS.Chapter06.buildMaxHeap_perm`,
+  `CLRS.Chapter06.buildMaxHeap_max`,
+  `CLRS.Chapter06.heapSort_orderedAsc`, and
+  `CLRS.Chapter06.heapSort_perm`.
+- Chapter 6.5 now has priority-queue operation specifications:
+  `CLRS.Chapter06.heapInsert_orderedDesc`,
+  `CLRS.Chapter06.heapInsert_perm`,
+  `CLRS.Chapter06.heapIncreaseKey_orderedDesc`, and
+  `CLRS.Chapter06.heapDelete_orderedDesc`.
 - Chapter 16.1 now derives the sorted-order activity-selection exchange
   certificate and proves full finite-list maximum-cardinality optimality for
   `greedySelect`:
@@ -105,9 +116,12 @@ the imported CLRS-Lean source, not experimental worktrees.
 1. Chapter 23.2/23.1: construct the concrete MST exchange edge from finite
    graph paths or cycles, and replace the finite-graph wrapper's global
    lightness hypothesis with the prefix-local sorted-order theorem.
-2. Chapter 4.1: add the runtime recurrence for the fuelled midpoint
+2. Chapter 6 refinement: prove the array-backed `MAX-HEAPIFY` layer against the
+   functional heap specification when the project is ready to spend time on
+   imperative array semantics.
+3. Chapter 4.1: add the runtime recurrence for the fuelled midpoint
    divide-and-conquer maximum-subarray selector.
-3. Chapter 13.1: mechanize executable `RB-INSERT-FIXUP` on top of the local
+4. Chapter 13.1: mechanize executable `RB-INSERT-FIXUP` on top of the local
    rotation/repaint repair certificates.
 
 ## Audit Rule

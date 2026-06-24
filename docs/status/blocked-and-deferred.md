@@ -4,6 +4,18 @@ This page records work that is not hidden but also not claimed as complete.
 
 ## Deferred Implementation
 
+### Chapter 6 Array Heap Implementation
+
+- Related section: Sections 6.1-6.5 - Heapsort and priority queues
+- Status: `deferred-implementation`
+
+The current Chapter 6 proof uses a functional descending-list max-heap.  It
+proves heap construction, maximum correctness, heapsort sortedness and
+permutation preservation, and priority-queue operation specifications.  A future
+refinement should prove the CLRS array representation, `MAX-HEAPIFY`,
+`BUILD-MAX-HEAP`, in-place heapsort swaps, index-based priority-queue updates,
+and the associated RAM-cost bounds.
+
 ### Union-Find Correctness
 
 - Related section: Section 23.2 - Kruskal and Prim

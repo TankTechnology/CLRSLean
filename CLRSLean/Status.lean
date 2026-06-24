@@ -66,6 +66,22 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter05.expectedHires_eq_harmonic`,
   {lit}`CLRS.Chapter05.harmonic_isBigTheta_log`, and
   {lit}`CLRS.Chapter05.expectedHires_isBigTheta_log`.
+* 6.1-6.4 Heaps and heapsort, functional descending-list heap model:
+  {lit}`CLRS.Chapter06.buildMaxHeap_orderedDesc`,
+  {lit}`CLRS.Chapter06.buildMaxHeap_perm`,
+  {lit}`CLRS.Chapter06.buildMaxHeap_max`,
+  {lit}`CLRS.Chapter06.heapExtractMax?_orderedDesc`,
+  {lit}`CLRS.Chapter06.heapExtractMax?_max`,
+  {lit}`CLRS.Chapter06.heapSort_orderedAsc`, and
+  {lit}`CLRS.Chapter06.heapSort_perm`.
+* 6.5 Priority queues, functional heap interface:
+  {lit}`CLRS.Chapter06.heapInsert_orderedDesc`,
+  {lit}`CLRS.Chapter06.heapInsert_perm`,
+  {lit}`CLRS.Chapter06.heapInsert_max`,
+  {lit}`CLRS.Chapter06.heapIncreaseKey_orderedDesc`,
+  {lit}`CLRS.Chapter06.heapIncreaseKey_perm`,
+  {lit}`CLRS.Chapter06.heapDelete_orderedDesc`, and
+  {lit}`CLRS.Chapter06.heapDelete_perm`.
 * 2.1 Insertion sort:
   `CLRS.Chapter02.insertionSort_sorted`,
   `CLRS.Chapter02.insertionSort_perm`.
@@ -192,6 +208,11 @@ navigating the deployed pages.
   executable left/right/crossing combine step, and recursive split-tree/fuelled
   selector correctness are proved; the runtime recurrence and RAM-cost
   refinement remain future work.
+* Chapter 6 array heaps and in-place heapsort: `deferred-implementation`.
+  Reason: the functional heap interface, maximum property, heapsort
+  sortedness/permutation, and priority-queue operation specifications are
+  proved; array indices, {lit}`MAX-HEAPIFY`, in-place swaps, and RAM-cost bounds
+  remain refinement targets.
 * Chapter 4 extension from exact powers to all input sizes: `future-work`.
   Reason: needs a monotone recurrence model and floor/ceiling sandwiching.
 * General merge-sort recurrence: `future-work`.

@@ -3,6 +3,7 @@ import CLRSLean.Chapter_02
 import CLRSLean.Chapter_03
 import CLRSLean.Chapter_04
 import CLRSLean.Chapter_05
+import CLRSLean.Chapter_06
 import CLRSLean.Chapter_10
 import CLRSLean.Chapter_11
 import CLRSLean.Chapter_12
@@ -50,6 +51,8 @@ Start with the chapter pages in the sidebar.
   planned algorithm track.
 * Chapter 5 - Probabilistic Analysis: the finite rank-symmetry proof for the
   hiring problem and its logarithmic expected-hires bound.
+* Chapter 6 - Heapsort: a functional max-heap interface, heapsort sortedness
+  and permutation correctness, plus priority-queue operation specifications.
 * Chapter 10 - Elementary Data Structures: functional stack, queue, and
   linked-list operation proofs.
 * Chapter 11 - Hash Tables: direct-address table correctness and deterministic
@@ -133,6 +136,18 @@ Start with the chapter pages in the sidebar.
   Public results: `CLRS.Chapter05.hireProbability_eq`,
   `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,
   `CLRS.Chapter05.expectedHires_isBigTheta_log`.
+* 6.1-6.4 Heaps and heapsort: `proved` for the functional descending-list heap
+  model.
+  Public results: `CLRS.Chapter06.buildMaxHeap_orderedDesc`,
+  `CLRS.Chapter06.buildMaxHeap_perm`,
+  `CLRS.Chapter06.buildMaxHeap_max`,
+  `CLRS.Chapter06.heapSort_orderedAsc`,
+  `CLRS.Chapter06.heapSort_perm`.
+* 6.5 Priority queues: `proved` for the functional heap interface.
+  Public results: `CLRS.Chapter06.heapInsert_orderedDesc`,
+  `CLRS.Chapter06.heapInsert_perm`,
+  `CLRS.Chapter06.heapIncreaseKey_orderedDesc`,
+  `CLRS.Chapter06.heapDelete_orderedDesc`.
 * 10.1 Stacks and queues: `proved` for the functional-list model.
   Public results: `CLRS.Chapter10.pop_push`,
   `CLRS.Chapter10.dequeue_enqueue_nonempty`.

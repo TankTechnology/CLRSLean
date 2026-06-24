@@ -14,6 +14,7 @@ description = "A Lean 4 companion for CLRS-style algorithm correctness proofs."
   "CLRSLean.Chapter_03",
   "CLRSLean.Chapter_04",
   "CLRSLean.Chapter_05",
+  "CLRSLean.Chapter_06",
   "CLRSLean.Chapter_10",
   "CLRSLean.Chapter_11",
   "CLRSLean.Chapter_12",
@@ -40,6 +41,10 @@ description = "A Lean 4 companion for CLRS-style algorithm correctness proofs."
 ]
 "CLRSLean.Chapter_05" = [
   "CLRSLean.Chapter_05.Section_05_1_Hiring_Problem",
+]
+"CLRSLean.Chapter_06" = [
+  "CLRSLean.Chapter_06.Section_06_1_Heapsort",
+  "CLRSLean.Chapter_06.Section_06_5_Priority_Queues",
 ]
 "CLRSLean.Chapter_10" = [
   "CLRSLean.Chapter_10.Section_10_1_Stacks_And_Queues",
@@ -81,6 +86,9 @@ title = "Chapter 4. Divide-and-Conquer"
 
 [modules."CLRSLean.Chapter_05"]
 title = "Chapter 5. Probabilistic Analysis"
+
+[modules."CLRSLean.Chapter_06"]
+title = "Chapter 6. Heapsort"
 
 [modules."CLRSLean.Chapter_10"]
 title = "Chapter 10. Elementary Data Structures"
@@ -135,6 +143,12 @@ title = "4.5. The Master Method"
 
 [modules."CLRSLean.Chapter_05.Section_05_1_Hiring_Problem"]
 title = "5.1. The Hiring Problem"
+
+[modules."CLRSLean.Chapter_06.Section_06_1_Heapsort"]
+title = "6.1-6.4. Heaps and Heapsort"
+
+[modules."CLRSLean.Chapter_06.Section_06_5_Priority_Queues"]
+title = "6.5. Priority Queues"
 
 [modules."CLRSLean.Chapter_10.Section_10_1_Stacks_And_Queues"]
 title = "10.1. Stacks and Queues"
