@@ -13,6 +13,7 @@ CLRSLean/Chapter_02/Section_02_2_Analyzing_Algorithms.lean
 CLRSLean/Chapter_02/Section_02_3_Designing_Algorithms.lean
 CLRSLean/Chapter_03/Section_03_1_Asymptotic_Notation.lean
 CLRSLean/Chapter_03/Section_03_2_Standard_Functions.lean
+CLRSLean/Chapter_04/Section_04_1_Maximum_Subarray.lean
 CLRSLean/Chapter_04/Section_04_3_Substitution_Method.lean
 CLRSLean/Chapter_04/Section_04_4_Recursion_Tree_Method.lean
 CLRSLean/Chapter_04/Section_04_5_Master_Theorem.lean
@@ -36,6 +37,7 @@ In prose and on the future website, these appear as:
 - Section 2.3 - Designing algorithms
 - Section 3.1 - Asymptotic notation
 - Section 3.2 - Standard functions
+- Section 4.1 - The maximum-subarray problem
 - Section 4.3 - The substitution method
 - Section 4.4 - The recursion-tree method
 - Section 4.5 - The master method
@@ -63,7 +65,7 @@ should remain import-friendly.
 | Section 2.3 - Designing algorithms | `CLRSLean/Chapter_02/Section_02_3_Designing_Algorithms.lean` | `proved` | `CLRS.Chapter02.mergeSort_sortedLE`, `CLRS.Chapter02.mergeSort_perm`, `CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm` |
 | Section 3.1 - Asymptotic notation | `CLRSLean/Chapter_03/Section_03_1_Asymptotic_Notation.lean` | `proved` | `CLRS.Chapter03.isBigO_iff`, `CLRS.Chapter03.isLittleO_iff`, `CLRS.Chapter03.isBigTheta_trans` |
 | Section 3.2 - Standard functions | `CLRSLean/Chapter_03/Section_03_2_Standard_Functions.lean` | `partial` | `CLRS.Chapter03.isLittleO_pow_pow`, `CLRS.Chapter03.isLittleO_exp_vs_factorial` |
-| Section 4.1 - Maximum subarray | not yet created | `future-work` | planned divide-and-conquer correctness proof |
+| Section 4.1 - Maximum subarray | `CLRSLean/Chapter_04/Section_04_1_Maximum_Subarray.lean` | `proved` for the exhaustive-search specification | `CLRS.Chapter04.mem_nonemptySubarrays_iff`, `CLRS.Chapter04.bestCandidate_correct`, `CLRS.Chapter04.maxSubarray_exists_of_ne_nil`, `CLRS.Chapter04.maxSubarray_correct` |
 | Section 4.2 - Strassen's algorithm | not yet created | `future-work` | planned block-matrix correctness proof |
 | Section 4.3 - Substitution method | `CLRSLean/Chapter_04/Section_04_3_Substitution_Method.lean` | `proved` for one-step recurrence bounds | `CLRS.Chapter04.substitution_upper_bound`, `CLRS.Chapter04.linear_substitution_upper_bound`, `CLRS.Chapter04.geometric_substitution_upper_bound` |
 | Section 4.4 - Recursion-tree method | `CLRSLean/Chapter_04/Section_04_4_Recursion_Tree_Method.lean` | `proved` for additive level-cost expansions | `CLRS.Chapter04.recursion_tree_additive_unroll`, `CLRS.Chapter04.recursion_tree_additive_upper_envelope`, `CLRS.Chapter04.recursion_tree_constant_level_cost` |

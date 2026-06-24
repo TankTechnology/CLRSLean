@@ -66,6 +66,15 @@ chapters.
   recurrence-method infrastructure as future work once compiler-clean theorem
   templates exist.
 
+## 2026-06-24 - After Chapter 4.1 Maximum Subarray
+
+- Added a divide-and-conquer selection-problem pattern: prove a clean exhaustive
+  finite-search specification before proving the textbook optimized
+  implementation.
+- For maximum subarray, the useful first theorem is not runtime analysis; it is
+  candidate-enumerator exactness plus finite argmax optimality.  The CLRS
+  divide-and-conquer pseudocode can now be treated as a refinement target.
+
 ## 2026-06-24 - Complete Chapter Proof Workflow
 
 - Upgraded the skill from a general chapter loop to a complete-chapter workflow:

@@ -48,8 +48,8 @@ the imported CLRS-Lean source, not experimental worktrees.
    be proved next.
 2. Chapter 23.2: add the sorted-prefix invariant needed to turn Kruskal's edge
    order into lightness certificates.
-3. Chapter 4.1: create the maximum-subarray model instead of leaving the section
-   as prose-only future work.
+3. Chapter 4.1: connect the CLRS divide-and-conquer maximum-subarray pseudocode
+   to the proved exhaustive-search specification.
 4. Chapter 12.1: design a parent-pointer/transplant refinement for the current
    functional tree theorem.
 

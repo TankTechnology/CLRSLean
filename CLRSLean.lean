@@ -44,9 +44,10 @@ Start with the chapter pages in the sidebar.
   and a merge-sort recurrence.
 * Chapter 3 - Growth of Functions: CLRS-style wrappers around Mathlib
   asymptotics plus selected standard growth facts.
-* Chapter 4 - Divide-and-Conquer: recurrence proof infrastructure for the
-  substitution and recursion-tree methods, plus the proved exact-power Master
-  method core; maximum subarray and Strassen remain planned algorithm tracks.
+* Chapter 4 - Divide-and-Conquer: maximum-subarray specification correctness,
+  recurrence proof infrastructure for the substitution and recursion-tree
+  methods, plus the proved exact-power Master method core; Strassen remains a
+  planned algorithm track.
 * Chapter 5 - Probabilistic Analysis: the finite rank-symmetry proof for the
   hiring problem.
 * Chapter 10 - Elementary Data Structures: functional stack, queue, and
@@ -87,9 +88,11 @@ Start with the chapter pages in the sidebar.
   Current results: `CLRS.Chapter03.isLittleO_pow_pow`,
   `CLRS.Chapter03.factorial_upper_bound`,
   `CLRS.Chapter03.isLittleO_exp_vs_factorial`.
-* 4.1 Maximum subarray: `future-work`.
-  Planned target: correctness of the divide-and-conquer maximum-subarray
-  algorithm over a stable interval/sum model.
+* 4.1 Maximum subarray: `proved` for the exhaustive-search specification.
+  Public results: `CLRS.Chapter04.mem_nonemptySubarrays_iff`,
+  `CLRS.Chapter04.bestCandidate_correct`,
+  `CLRS.Chapter04.maxSubarray_exists_of_ne_nil`,
+  `CLRS.Chapter04.maxSubarray_correct`.
 * 4.2 Strassen's algorithm: `future-work`.
   Planned target: block-matrix reconstruction correctness.
 * 4.3 Substitution method: `proved` for one-step recurrence bounds.

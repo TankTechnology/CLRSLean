@@ -36,16 +36,26 @@ are compiler-clean.  The remaining strengthening is to extend the theorem from
 inputs `n = b^i` to arbitrary natural input sizes using a monotone recurrence
 model and floor/ceiling sandwiching.
 
-### Other Chapter 4 Sections
+### Remaining Chapter 4 Sections
 
-- Related sections: Sections 4.1, 4.2, and 4.6
+- Related sections: Sections 4.2 and 4.6
 - Status: `future-work`
 
 These sections are not excluded from CLRS-Lean.  They are pending because they
-need distinct representation choices: intervals for maximum subarray, block
-matrices for Strassen, and an all-input floor/ceiling bridge for the full
-Master Theorem.  Sections 4.3 and 4.4 now provide the reusable recurrence and
-recursion-tree infrastructure.
+need distinct representation choices: block matrices for Strassen and an
+all-input floor/ceiling bridge for the full Master Theorem.  Sections 4.3 and
+4.4 now provide the reusable recurrence and recursion-tree infrastructure.
+
+### Maximum-Subarray Divide-And-Conquer Refinement
+
+- Related section: Section 4.1 - The maximum-subarray problem
+- Status: `future-work`
+
+The exhaustive-search specification is now compiler-clean:
+`CLRS.Chapter04.maxSubarray_correct` proves that the executable selector returns
+a nonempty contiguous subarray of maximum sum.  The remaining CLRS refinement is
+to prove the divide-and-conquer pseudocode against this specification and add
+its runtime recurrence.
 
 ### Hiring Problem Harmonic Asymptotics
 

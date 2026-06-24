@@ -186,6 +186,12 @@ end CLRS
   common linear or geometric recurrence bounds.  For recursion trees, prove an
   exact finite-sum unrolling theorem and envelope bounds over level costs, then
   instantiate those results for concrete algorithms.
+- **Divide-and-conquer selection problems:** when the textbook implementation is
+  harder than the mathematical specification, first prove a clean exhaustive
+  finite-search specification.  For maximum subarray, enumerate all nonempty
+  contiguous subarrays, prove the enumerator exact, prove finite argmax
+  optimality, and then use that theorem as the refinement target for the
+  divide-and-conquer pseudocode.
 
 ## Known Blockers
 
@@ -220,6 +226,10 @@ end CLRS
   pure deletion layer instead of leaving it as prose.  Useful public theorems are
   membership-after-delete and ordering preservation; keep only parent-pointer,
   transplant, and pointer mutation as the remaining CLRS refinement layer.
+- Chapter 4.1 maximum-subarray pass: do not wait for the divide-and-conquer
+  recurrence before proving the core specification.  A finite exhaustive
+  selector plus an exact contiguous-subarray enumerator gives a strong public
+  theorem and a precise future refinement target.
 
 ## Honesty Rules
 
