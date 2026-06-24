@@ -58,3 +58,15 @@ chapters.
   the all-input Master Theorem extension as future work, but do not list
   recurrence-method infrastructure as future work once compiler-clean theorem
   templates exist.
+
+## 2026-06-24 - Complete Chapter Proof Workflow
+
+- Upgraded the skill from a general chapter loop to a complete-chapter workflow:
+  enumerate every section, choose a best current theorem for each, prove
+  tractable targets before deferring, wire the site, and verify both Lean and
+  literate HTML.
+- Added explicit stop conditions: a chapter pass is not complete while a section
+  has only prose, while a useful theorem can be stated and proved now, or while
+  a blocker does not name the missing definition, lemma, or representation.
+- Added an autonomy rule: when remaining proof targets are tractable, continue
+  to the next section instead of waiting for another prompt.

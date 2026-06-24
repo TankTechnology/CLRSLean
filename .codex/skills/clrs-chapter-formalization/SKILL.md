@@ -1,40 +1,38 @@
 ---
 name: clrs-chapter-formalization
-description: Use this skill whenever working on CLRSLean chapter-scale Lean formalization, especially when the user asks to complete, extend, audit, or organize an entire CLRS chapter or a sequence of chapters. This skill guides chapter triage, Lean-friendly model selection, theorem interface design, proof implementation, status ledger updates, site wiring, verification, and post-chapter skill refinement.
+description: Use when working on CLRS-Lean chapter-scale Lean formalization, especially when asked to complete, extend, audit, organize, or plan an entire CLRS chapter or a sequence of chapters.
 ---
 
 # CLRS Chapter Formalization
 
-Use this skill to turn a CLRS chapter into a maintainable, honest, theorem-bearing
-Lean development inside CLRSLean.
+Use this skill to turn a CLRS chapter into a maintainable, honest,
+theorem-bearing Lean development inside CLRS-Lean.
 
-The goal is not to pretend that every textbook sentence has been mechanized in
-one pass.  The goal is to create a chapter track that compiles, exposes useful
-public theorem names, states remaining gaps explicitly, and can be deepened
-without redoing the site structure.
+Core principle: prove as much of the chapter as the current representation can
+honestly support.  Do not stop at a proof map when a meaningful Lean theorem can
+be stated and proved now.
 
-## Chapter Loop
+## Complete-Chapter Workflow
 
 For each chapter, run this loop in order:
 
 1. **Read the local project contract**
-   - Read `CLAUDE.md`, `CLRSLean.lean`, `literate.toml`, `CLRSLean/Status.lean`,
-     and `docs/proof-map.md`.
+   - Read `CLRSLean.lean`, `literate.toml`, `CLRSLean/Status.lean`,
+     `docs/proof-map.md`, and the relevant `CLRSLean/Chapter_NN.lean`.
    - Inspect nearby chapter files for naming, namespace, and proof style.
 
-2. **Triage the CLRS chapter**
-   - Identify the main textbook claims and the data structures or algorithms.
-   - Classify each target as one of:
-     - `proved`: can be proved now for the current Lean model;
-     - `partial`: useful theorem infrastructure can compile now, but the full
-       textbook theorem needs more representation work;
-     - `blocked-design`: the proof depends on choosing a representation such as
-       heaps, arrays, probability spaces, tree rotations, or finite paths;
-     - `deferred-implementation`: an executable implementation proof is useful
-       but not needed for the mathematical theorem.
+2. **Build a full section inventory**
+   - Enumerate every textbook section in the chapter, not only the obvious one.
+   - For each section, record: main algorithm/data structure, theorem-like
+     textbook claims, proof method, likely Lean model, and status.
+   - Do not mark a section `future-work` merely because it is hard.  First ask:
+     "Is there a smaller theorem, abstract model, certificate interface, or
+     proof-method lemma that can compile now?"
 
-3. **Choose a Lean-friendly first model**
+3. **Choose Lean-friendly first models**
    - Prefer pure inductive/list/Finset models before imperative arrays.
+   - Prefer mathematical correctness and proof-method theorems before RAM
+     semantics, pointer mutation, or low-level performance refinement.
    - For data-structure chapters, separate the mathematical interface from
      executable refinement:
      - Chapter 10: functional stacks, queues, lists, and trees before pointers.
@@ -44,29 +42,44 @@ For each chapter, run this loop in order:
        full red-black insertion/deletion.
    - Make the limitation visible in the section docstring.
 
-4. **Write the public theorem interface first**
+4. **Plan proof order**
+   - Start with sections whose definitions unlock later sections.
+   - Prove proof-method infrastructure before concrete algorithm instances when
+     that reduces duplicated work.
+   - For each section, define a "best current theorem": the strongest useful
+     theorem that should compile without hidden assumptions.
+
+5. **Write the public theorem interface first**
    - Pick theorem names that read like CLRS claims.
    - Make statements strong enough to be useful but small enough to prove.
    - Prefer several small theorems over one massive theorem with opaque
      hypotheses.
-   - Do not introduce `sorry` in a theorem that will be listed as `proved`.
+   - If exploration needs `sorry`, keep it out of imported chapter files and do
+     not list it as `proved`.
 
-5. **Implement and prove incrementally**
+6. **Implement and prove section by section**
    - Add the chapter guide file `CLRSLean/Chapter_NN.lean`.
    - Add section files under `CLRSLean/Chapter_NN/`.
    - Keep each file focused: definitions, local lemmas, public theorem block.
    - After each file, run `lake build CLRSLean.Chapter_NN...`.
-   - If a proof fails, reduce the theorem statement or expose the missing
-     certificate rather than smuggling in an unproved theorem.
+   - If a proof fails, try at least one of these before deferring:
+     - strengthen or expose an invariant;
+     - split the theorem into reusable lemmas;
+     - use a certificate/interface hypothesis for the missing textbook step;
+     - prove a simpler but still useful theorem for the current model.
 
-6. **Wire the book**
+7. **Wire the book**
    - Import the chapter from `CLRSLean.lean`.
    - Add chapter and section ordering/titles to `literate.toml`.
    - Update `CLRSLean/Status.lean`, `docs/proof-map.md`, and `docs/index.md`.
    - If the chapter is partial, the exact gap must appear in both the Lean
      status page and the proof map.
 
-7. **Verify**
+8. **Verify**
+   - Search for accidental unfinished proof markers in theorem-bearing Lean
+     files:
+     `rg -n '\b(sorry|admit|axiom)\b' CLRSLean/Chapter_NN -g '*.lean'`.
+   - Run `git diff --check`.
    - Run `lake build`.
    - For site-visible changes, run `lake build :literateHtml`.
    - If static HTML size matters, run `scripts/optimize_literate_html.py` on a
@@ -74,10 +87,29 @@ For each chapter, run this loop in order:
    - Record warnings as warnings; do not call a chapter complete because a
      different command passed.
 
-8. **Refine this skill after the chapter**
+9. **Refine this skill after the chapter**
    - Add one concrete lesson learned to the skill or to the iteration log.
    - If the chapter exposed a new reusable pattern, add it to "Chapter Patterns".
    - If the chapter showed a recurring blocker, add it to "Known Blockers".
+
+## Stop Conditions
+
+A chapter pass is complete only when every section is accounted for in source
+and status docs:
+
+- `proved`: named Lean theorem(s) compile without `sorry`.
+- `partial`: useful theorem infrastructure compiles, and the exact missing
+  theorem layer is stated in docs.
+- `blocked-design`: at least one concrete modeling/proof attempt revealed a
+  representation decision that must be made.
+- `deferred-implementation`: low-level implementation correctness is not needed
+  for the current mathematical theorem.
+- `future-work`: exercises, chapter-end Problems, or strengthenings outside the
+  main theorem path.
+
+Red flags: stop and continue proving instead of reporting completion if a
+section only has prose, a "planned theorem" could be stated today, or a gap says
+"hard" without naming the missing definition, lemma, or representation.
 
 ## Required File Shape
 
@@ -152,6 +184,8 @@ end CLRS
 ## Known Blockers
 
 - Full RAM semantics and pointer mutation are project-level future work.
+- Floor/ceiling all-input recurrence proofs need explicit monotonicity and
+  sandwich lemmas; exact-power proofs alone are not the full theorem.
 - Red-black tree insertion and deletion need a careful balancing representation;
   do not list them as `proved` until Lean proves the executable algorithm
   preserves red-black invariants.
@@ -167,3 +201,5 @@ end CLRS
 - Never import a non-compiler-clean exploration file into `CLRSLean.lean`.
 - Prefer a smaller theorem that compiles over a grand theorem with hidden
   assumptions.
+- Do not wait for the user to ask for the next section when a chapter pass has
+  remaining tractable proof targets; move to the next proof target autonomously.
