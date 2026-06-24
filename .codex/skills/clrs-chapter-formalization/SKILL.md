@@ -216,8 +216,10 @@ end CLRS
   processed edge is either selected or has connected endpoints in the current
   forest.  That theorem should derive the processed-prefix exclusion invariant
   automatically.  Then use the same accounting to prove that a complete scan of
-  a connected finite graph spans; the remaining final-tree target should be
-  forest preservation, not a vague spanning-tree assumption.
+  a connected finite graph spans.  Finish the final-tree layer by proving a
+  path-splitting lemma for one inserted edge, then use it to show that inserting
+  an edge between disconnected components preserves the edge-removal forest
+  invariant.
 
 ## Known Blockers
 
@@ -320,6 +322,12 @@ end CLRS
   connectivity in `G.edges` into connectivity in the output, proving the
   spanning part of the final-tree obligation.  Keep the next target precise:
   component-cycle-test forest preservation.
+- Chapter 23.2 forest-preservation pass: prove a reusable inserted-edge
+  path-splitting lemma before attempting acyclicity.  The key theorem shape is:
+  if a path exists after inserting edge `e`, then either it already existed
+  before insertion or it bridges through the endpoints of `e`.  This makes
+  `isForest_insert_of_not_connected` a direct contradiction argument against
+  the old forest invariant and the "endpoints disconnected" accept condition.
 
 ## Honesty Rules
 

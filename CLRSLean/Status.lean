@@ -166,12 +166,14 @@ navigating the deployed pages.
   {lit}`CLRS.MST.lightest_crossing_of_exact_component_kruskal_prefix`,
   {lit}`CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix`,
   {lit}`CLRS.MST.FiniteGraph.kruskal_subset_edges`,
+  {lit}`CLRS.MST.FiniteGraph.kruskal_forest_of_exact_component`,
   {lit}`CLRS.MST.FiniteGraph.kruskal_spans_of_complete_exact_component`,
   {lit}`CLRS.MST.FiniteGraph.kruskal_spanning_tree_of_complete_exact_component`, and
-  {lit}`CLRS.MST.kruskal_optimal`;
+  {lit}`CLRS.MST.FiniteGraph.kruskal_optimal_of_complete_exact_component_empty`;
   remaining gap: refine exact components to executable union-find if needed,
-  prove forest preservation for the component cycle test, construct concrete
-  exchange edges from graph paths/cycles, and add Prim's theorem interface.
+  construct concrete exchange edges from graph paths/cycles, discharge the
+  prefix-local sorted-lightness proof in the full recursive optimality wrapper,
+  and add Prim's theorem interface.
 
 ## Deferred or Blocked
 

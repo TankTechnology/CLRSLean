@@ -25,8 +25,13 @@ Main results:
   prefix.
 - Theorem {lit}`cut_certificate_of_exact_component_kruskal_prefix`: packages
   the exact-component prefix invariant into a sorted-order cut certificate.
+- Theorem {lit}`FiniteGraph.kruskal_forest_of_exact_component`: an
+  exact-component Kruskal pass preserves the forest invariant.
 - Theorem {lit}`FiniteGraph.kruskal_spans_of_complete_exact_component`: a
   complete Kruskal edge scan over a connected finite graph spans all vertices.
+- Theorem {lit}`FiniteGraph.kruskal_spanning_tree_of_complete_exact_component`:
+  a complete exact-component Kruskal scan starting from a forest returns a
+  spanning tree.
 - Theorem {lit}`kruskal_optimal`: safe-edge induction for the mathematical
   Kruskal pass.
 
@@ -34,9 +39,7 @@ Current gaps:
 
 - Refine the exact component model to an executable union-find implementation
   if implementation correctness becomes part of scope.
-- Prove forest preservation for the component cycle test; the subset and
-  spanning parts of the final-tree obligation are now proved for complete edge
-  scans.
+- Construct the concrete exchange edge from finite graph paths/cycles.
 - Add Prim's theorem interface.
 -/
 
@@ -151,6 +154,49 @@ theorem connected_of_edgewise_connected {G : Graph V E} {A B : Finset E}
   | tail _ hadj ih =>
       exact Graph.connected_trans ih
         (Graph.connected_of_adjIn_of_edge_connected hedge hadj)
+
+omit [DecidableEq V] in
+/--
+Any path after inserting one edge either already existed before the insertion
+or crosses the inserted edge once, with old paths on both sides.
+-/
+theorem connected_insert_edge_cases {G : Graph V E} {A : Finset E} {e : E}
+    {u v : V} (h : G.ConnectedIn (insert e A) u v) :
+    G.ConnectedIn A u v ∨
+      (G.ConnectedIn A u (G.src e) ∧ G.ConnectedIn A (G.dst e) v) ∨
+      (G.ConnectedIn A u (G.dst e) ∧ G.ConnectedIn A (G.src e) v) := by
+  induction h with
+  | refl =>
+      exact Or.inl Relation.ReflTransGen.refl
+  | tail _ hadj ih =>
+      rcases hadj with ⟨f, hf, hend⟩
+      rw [Finset.mem_insert] at hf
+      rcases hf with hfe | hfA
+      · subst f
+        rcases hend with ⟨hsrc, hdst⟩ | ⟨hsrc, hdst⟩
+        · subst hsrc
+          subst hdst
+          rcases ih with hA | ⟨⟨hus, hdy⟩ | ⟨hud, hsy⟩⟩
+          · exact Or.inr (Or.inl ⟨hA, Relation.ReflTransGen.refl⟩)
+          · have hsd : G.ConnectedIn A (G.src e) (G.dst e) :=
+              Graph.connected_trans (Graph.connected_symm hdy)
+                Relation.ReflTransGen.refl
+            exact Or.inl (Graph.connected_trans hus hsd)
+          · exact Or.inl hud
+        · subst hsrc
+          subst hdst
+          rcases ih with hA | ⟨⟨hus, hdy⟩ | ⟨hud, hsy⟩⟩
+          · exact Or.inr (Or.inr ⟨hA, Relation.ReflTransGen.refl⟩)
+          · exact Or.inl hus
+          · have hds : G.ConnectedIn A (G.dst e) (G.src e) :=
+              Graph.connected_trans (Graph.connected_symm hsy)
+                Relation.ReflTransGen.refl
+            exact Or.inl (Graph.connected_trans hud hds)
+      · have hadjA : G.AdjIn A _ _ := ⟨f, hfA, hend⟩
+        rcases ih with hA | ⟨⟨hus, hdy⟩ | ⟨hud, hsy⟩⟩
+        · exact Or.inl (Relation.ReflTransGen.tail hA hadjA)
+        · exact Or.inr (Or.inl ⟨hus, Relation.ReflTransGen.tail hdy hadjA⟩)
+        · exact Or.inr (Or.inr ⟨hud, Relation.ReflTransGen.tail hsy hadjA⟩)
 
 end Graph
 
@@ -730,6 +776,117 @@ theorem kruskal_optimal_of_cycle_test {G : Graph V E} {P : Problem E}
 
 namespace FiniteGraph
 
+/-- The empty edge set is a forest. -/
+theorem isForest_empty (G : FiniteGraph V E) :
+    G.IsForest ∅ := by
+  intro e he
+  simp at he
+
+private theorem connected_insert_erase_self_eq
+    {A : Finset E} {e : E} (heA : e ∉ A) :
+    (insert e A).erase e = A := by
+  ext x
+  by_cases hxe : x = e
+  · subst x
+    simp [heA]
+  · simp [hxe]
+
+private theorem erase_insert_comm_of_ne {A : Finset E} {e f : E}
+    (hef : e ≠ f) :
+    (insert e A).erase f = insert e (A.erase f) := by
+  ext x
+  by_cases hxf : x = f
+  · subst x
+    simp [Ne.symm hef]
+  · simp [hxf]
+
+omit [DecidableEq V] in
+private theorem connected_insert_bridge_case_left
+    {G : Graph V E} {A : Finset E} {e f : E} (hfA : f ∈ A)
+    (hleft : G.ConnectedIn (A.erase f) (G.src f) (G.src e))
+    (hright : G.ConnectedIn (A.erase f) (G.dst e) (G.dst f)) :
+    G.ConnectedIn A (G.src e) (G.dst e) := by
+  have h₁ : G.ConnectedIn A (G.src e) (G.src f) :=
+    Graph.connected_symm (Graph.connected_mono (Finset.erase_subset f A) hleft)
+  have hf : G.ConnectedIn A (G.src f) (G.dst f) :=
+    Graph.connected_of_mem_edge hfA
+  have h₂ : G.ConnectedIn A (G.dst f) (G.dst e) :=
+    Graph.connected_symm (Graph.connected_mono (Finset.erase_subset f A) hright)
+  exact Graph.connected_trans (Graph.connected_trans h₁ hf) h₂
+
+omit [DecidableEq V] in
+private theorem connected_insert_bridge_case_right
+    {G : Graph V E} {A : Finset E} {e f : E} (hfA : f ∈ A)
+    (hleft : G.ConnectedIn (A.erase f) (G.src f) (G.dst e))
+    (hright : G.ConnectedIn (A.erase f) (G.src e) (G.dst f)) :
+    G.ConnectedIn A (G.src e) (G.dst e) := by
+  have h₁ : G.ConnectedIn A (G.src e) (G.dst f) :=
+    Graph.connected_mono (Finset.erase_subset f A) hright
+  have hf : G.ConnectedIn A (G.dst f) (G.src f) :=
+    Graph.connected_symm (Graph.connected_of_mem_edge hfA)
+  have h₂ : G.ConnectedIn A (G.src f) (G.dst e) :=
+    Graph.connected_mono (Finset.erase_subset f A) hleft
+  exact Graph.connected_trans (Graph.connected_trans h₁ hf) h₂
+
+/--
+Inserting an edge whose endpoints are disconnected preserves the edge-removal
+forest invariant.
+-/
+theorem isForest_insert_of_not_connected (G : FiniteGraph V E)
+    {A : Finset E} {e : E} (hforest : G.IsForest A)
+    (hnot : ¬ G.toGraph.ConnectedIn A (G.src e) (G.dst e)) :
+    G.IsForest (insert e A) := by
+  have heA : e ∉ A := by
+    intro he
+    exact hnot (Graph.connected_of_mem_edge he)
+  intro f hf hconn
+  rw [Finset.mem_insert] at hf
+  rcases hf with hfe | hfA
+  · subst f
+    have herase : (insert e A).erase e = A :=
+      connected_insert_erase_self_eq (A := A) (e := e) heA
+    exact hnot (by simpa [herase] using hconn)
+  · have hfe : f ≠ e := by
+      intro h
+      exact heA (h ▸ hfA)
+    have hef : e ≠ f := Ne.symm hfe
+    have herase : (insert e A).erase f = insert e (A.erase f) :=
+      erase_insert_comm_of_ne hef
+    have hconn' :
+        G.toGraph.ConnectedIn (insert e (A.erase f)) (G.src f) (G.dst f) := by
+      simpa [herase] using hconn
+    rcases Graph.connected_insert_edge_cases hconn' with hbase |
+        ⟨⟨hleft, hright⟩ | ⟨hleft, hright⟩⟩
+    · exact hforest f hfA hbase
+    · exact hnot (connected_insert_bridge_case_left hfA hleft hright)
+    · exact hnot (connected_insert_bridge_case_right hfA hleft hright)
+
+/--
+An exact-component Kruskal pass preserves the forest invariant: every accepted
+edge joins two previously disconnected components.
+-/
+theorem kruskal_forest_of_exact_component (G : FiniteGraph V E)
+    (C : ComponentOracle G.toGraph) (hexact : ExactComponentOracle G.toGraph C)
+    (edges : List E) {A : Finset E} (hforest : G.IsForest A) :
+    G.IsForest (kruskal (acceptByComponent G.toGraph C) edges A) := by
+  induction edges generalizing A with
+  | nil =>
+      simpa [kruskal] using hforest
+  | cons e es ih =>
+      by_cases hacc : acceptByComponent G.toGraph C A e = true
+      · have hnot_mem : G.dst e ∉ C.component A (G.src e) :=
+          not_mem_component_of_accept hacc
+        have hnot_connected :
+            ¬ G.toGraph.ConnectedIn A (G.src e) (G.dst e) := by
+          intro hconn
+          exact hnot_mem ((hexact A (G.src e) (G.dst e)).2 hconn)
+        have hforest_insert : G.IsForest (insert e A) :=
+          G.isForest_insert_of_not_connected hforest hnot_connected
+        simpa [kruskal, hacc] using ih hforest_insert
+      · have hfalse : acceptByComponent G.toGraph C A e = false := by
+          cases h : acceptByComponent G.toGraph C A e <;> simp [h] at hacc ⊢
+        simpa [kruskal, hfalse] using ih hforest
+
 /-- A finite-graph Kruskal run selects only graph edges, provided the initial
 set and scanned list contain only graph edges. -/
 theorem kruskal_subset_edges (G : FiniteGraph V E)
@@ -755,9 +912,8 @@ theorem kruskal_spans_of_complete_exact_component (G : FiniteGraph V E)
     (hcomplete e heG)
 
 /--
-The remaining final-tree side condition for exact-component Kruskal is now only
-forest preservation: subset and spanning are derived from the complete edge
-scan and graph connectedness assumptions.
+A complete exact-component Kruskal scan starting from a forest returns a
+spanning tree of a connected finite graph.
 -/
 theorem kruskal_spanning_tree_of_complete_exact_component
     (G : FiniteGraph V E) (C : ComponentOracle G.toGraph)
@@ -766,12 +922,12 @@ theorem kruskal_spanning_tree_of_complete_exact_component
     (hA : A ⊆ G.edges) (hedges : ∀ e, e ∈ edges → e ∈ G.edges)
     (hcomplete : ∀ e, e ∈ G.edges → e ∈ edges)
     (hconnected : G.Spans G.edges)
-    (hforest : G.IsForest (kruskal (acceptByComponent G.toGraph C) edges A)) :
+    (hforest : G.IsForest A) :
     G.IsSpanningTree (kruskal (acceptByComponent G.toGraph C) edges A) := by
   exact ⟨G.kruskal_subset_edges edges hA hedges,
     G.kruskal_spans_of_complete_exact_component C hexact edges A hcomplete
       hconnected,
-    hforest⟩
+    G.kruskal_forest_of_exact_component C hexact edges hforest⟩
 
 /-- Finite-graph Kruskal optimality.  The concrete spanning-tree definition
 discharges the abstract maximality side condition. -/
@@ -808,6 +964,58 @@ theorem kruskal_optimal_of_component_oracle (G : FiniteGraph V E)
     (by
       intro T hT hsub
       exact G.spanning_tree_maximal hfinal_tree hT hsub)
+
+/--
+Finite-graph Kruskal optimality with the final spanning-tree side condition
+discharged from exact components, a complete edge scan, graph connectedness,
+and an initial forest.
+-/
+theorem kruskal_optimal_of_complete_exact_component (G : FiniteGraph V E)
+    {w : E → Nat} (C : ComponentOracle G.toGraph)
+    (hexact : ExactComponentOracle G.toGraph C)
+    (hlight :
+      ∀ A e, acceptByComponent G.toGraph C A e = true →
+        ∀ f, G.toGraph.Crosses (C.component A (G.src e)) f → w e ≤ w f)
+    (hexchange :
+      ∀ A e, acceptByComponent G.toGraph C A e = true →
+        ∀ T, IsMSTExtending G.toProblem w A T → e ∉ T →
+          ∃ f, f ∈ T ∧ G.toGraph.Crosses (C.component A (G.src e)) f ∧
+            G.IsSpanningTree (insert e (T.erase f)) ∧
+            A ⊆ insert e (T.erase f))
+    (edges : List E) {A₀ T₀ : Finset E}
+    (hstart : IsMSTExtending G.toProblem w A₀ T₀)
+    (hA₀ : A₀ ⊆ G.edges) (hforest : G.IsForest A₀)
+    (hedges : ∀ e, e ∈ edges → e ∈ G.edges)
+    (hcomplete : ∀ e, e ∈ G.edges → e ∈ edges)
+    (hconnected : G.Spans G.edges) :
+    IsMSTExtending G.toProblem w A₀
+      (kruskal (acceptByComponent G.toGraph C) edges A₀) := by
+  exact G.kruskal_optimal_of_component_oracle C hlight hexchange edges hstart
+    (G.kruskal_spanning_tree_of_complete_exact_component C hexact edges hA₀
+      hedges hcomplete hconnected hforest)
+
+/-- Standard empty-prefix form of the complete exact-component Kruskal theorem. -/
+theorem kruskal_optimal_of_complete_exact_component_empty (G : FiniteGraph V E)
+    {w : E → Nat} (C : ComponentOracle G.toGraph)
+    (hexact : ExactComponentOracle G.toGraph C)
+    (hlight :
+      ∀ A e, acceptByComponent G.toGraph C A e = true →
+        ∀ f, G.toGraph.Crosses (C.component A (G.src e)) f → w e ≤ w f)
+    (hexchange :
+      ∀ A e, acceptByComponent G.toGraph C A e = true →
+        ∀ T, IsMSTExtending G.toProblem w A T → e ∉ T →
+          ∃ f, f ∈ T ∧ G.toGraph.Crosses (C.component A (G.src e)) f ∧
+            G.IsSpanningTree (insert e (T.erase f)) ∧
+            A ⊆ insert e (T.erase f))
+    (edges : List E) {T₀ : Finset E}
+    (hstart : IsMSTExtending G.toProblem w ∅ T₀)
+    (hedges : ∀ e, e ∈ edges → e ∈ G.edges)
+    (hcomplete : ∀ e, e ∈ G.edges → e ∈ edges)
+    (hconnected : G.Spans G.edges) :
+    IsMSTExtending G.toProblem w ∅
+      (kruskal (acceptByComponent G.toGraph C) edges ∅) := by
+  exact G.kruskal_optimal_of_complete_exact_component C hexact hlight hexchange
+    edges hstart (by simp) G.isForest_empty hedges hcomplete hconnected
 
 theorem kruskal_optimal_of_cycle_test (G : FiniteGraph V E)
     {w : E → Nat} {C : ComponentOracle G.toGraph}

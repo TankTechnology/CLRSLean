@@ -409,34 +409,37 @@ certificate is supplied.
   - `CLRS.MST.lightest_crossing_of_exact_component_kruskal_prefix`
   - `CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix`
   - `CLRS.MST.FiniteGraph.kruskal_subset_edges`
+  - `CLRS.MST.FiniteGraph.kruskal_forest_of_exact_component`
   - `CLRS.MST.FiniteGraph.kruskal_spans_of_complete_exact_component`
   - `CLRS.MST.FiniteGraph.kruskal_spanning_tree_of_complete_exact_component`
+  - `CLRS.MST.FiniteGraph.kruskal_optimal_of_complete_exact_component`
+  - `CLRS.MST.FiniteGraph.kruskal_optimal_of_complete_exact_component_empty`
   - `CLRS.MST.FiniteGraph.kruskal_optimal`
 - Proof pattern: exact-component prefix accounting, sorted-order lightness,
-  complete-scan spanning, and safe-edge induction over an edge list
+  component-cycle-test forest preservation, complete-scan spanning, and
+  safe-edge induction over an edge list
 - Deferred implementation: union-find correctness
 - Current gaps:
   - refine exact components to an executable union-find implementation if
     implementation correctness becomes part of scope;
   - construct the concrete exchange edge from finite graph paths/cycles;
-  - prove forest preservation for the component cycle test; subset and spanning
-    are proved for complete exact-component scans;
+  - discharge the prefix-local sorted-lightness proof in the full recursive
+    optimality wrapper, rather than requiring a global lightness hypothesis;
   - add Prim's algorithm theorem interface.
 
 The section proves the sorted-order lightness step in two layers: first with an
 explicit processed-prefix exclusion invariant, then from exact components for a
-real Kruskal prefix.  It also proves a mathematical Kruskal skeleton: if
-accepted edges come with safe-edge certificates and the final selected set is a
-spanning tree, then the result is optimal.  For finite graphs, a complete scan
-of a connected graph is now proved to span; the remaining final-tree ingredient
-is the acyclicity/forest-preservation theorem for the component cycle test.
+real Kruskal prefix.  It also proves forest preservation for the exact-component
+cycle test and proves that a complete scan of a connected finite graph returns a
+spanning tree.  The finite-graph optimality wrapper can now discharge the final
+spanning-tree side condition from exact components, complete edge coverage,
+graph connectedness, and an initial forest.
 
 ## Deferred And Blocked Items
 
 | Item | Status | Reason |
 | --- | --- | --- |
 | Union-find implementation correctness | `deferred-implementation` | Not needed for the mathematical MST correctness theorem. |
-| Kruskal final spanning tree proof | `partial` | Sorted-order lightness, exact-component prefix exclusion, edge-subset, and complete-scan spanning are proved; forest preservation for the component cycle test remains. |
 | Maximum-subarray runtime analysis | `future-work` | Exhaustive-search, crossing-helper optimality, the executable combine step, and recursive split-tree/fuelled selector correctness are proved; runtime recurrence and RAM-cost refinement remain. |
 | Chapter 4 extension from exact powers to all input sizes | `future-work` | Needs a monotone recurrence model and floor/ceiling sandwiching. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |

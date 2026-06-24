@@ -78,11 +78,11 @@ The current theorem assumes a cut exchange certificate.  To remove that
 assumption, we need a stable finite path or walk representation and a boundary
 edge lemma for paths crossing a cut.
 
-### Kruskal Final Spanning Tree And Exchange Layer
+### Kruskal Exchange And Full Optimality Layer
 
 - Related sections: Sections 23.1 and 23.2
-- Status: `blocked-design` for concrete exchange paths; `partial` for final
-  spanning-tree construction
+- Status: `blocked-design` for concrete exchange paths; `partial` for the
+  full recursive optimality wrapper
 
 Kruskal's textbook proof relies on processing edges in nondecreasing weight.
 The Lean proof now has a compiler-clean sorted-order lightness layer:
@@ -95,14 +95,17 @@ The stronger exact-component layer is now compiler-clean as well:
 `CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal` derives the
 processed-prefix exclusion invariant for an actual Kruskal prefix, and
 `CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix` packages it with
-sorted edge order.  The finite-graph wrapper also proves the subset and
-spanning parts of the final-tree obligation:
+sorted edge order.  The finite-graph wrapper also proves the final-tree
+obligation for complete exact-component scans from an initial forest:
 `CLRS.MST.FiniteGraph.kruskal_subset_edges` and
-`CLRS.MST.FiniteGraph.kruskal_spans_of_complete_exact_component`.
+`CLRS.MST.FiniteGraph.kruskal_spans_of_complete_exact_component`,
+`CLRS.MST.FiniteGraph.kruskal_forest_of_exact_component`, and
+`CLRS.MST.FiniteGraph.kruskal_spanning_tree_of_complete_exact_component`.
 
-The remaining MST gaps are the concrete path/cycle exchange edge, forest
-preservation for the component cycle test, Prim's theorem interface, and any
-optional union-find refinement.
+The remaining MST gaps are the concrete path/cycle exchange edge, replacing the
+global lightness hypothesis in the finite-graph optimality wrapper with the
+prefix-local sorted-order theorem, Prim's theorem interface, and any optional
+union-find refinement.
 
 ## Future Work
 

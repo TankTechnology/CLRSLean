@@ -236,3 +236,20 @@ chapters.
 - After this pass, the remaining final-tree target is specifically forest
   preservation for the component cycle test, plus the separate concrete
   path/cycle exchange edge.
+
+## 2026-06-25 - After Chapter 23.2 Forest Preservation
+
+- For custom graph connectivity based on `Relation.ReflTransGen`, prove a
+  one-edge insertion splitting lemma before proving forest preservation.  The
+  useful public shape is `Graph.connected_insert_edge_cases`: a path after
+  inserting edge `e` either already exists in the old edge set or bridges
+  through the endpoints of `e`.
+- With that lemma, `FiniteGraph.isForest_insert_of_not_connected` is a compact
+  proof: if removing an old edge yields a path only because it used the inserted
+  edge, then the old edge plus the two old path fragments connect the inserted
+  edge's endpoints, contradicting the accept condition.
+- After this pass, the complete exact-component Kruskal final-tree obligation is
+  proved from an initial forest.  The remaining Kruskal proof targets are the
+  concrete tree-exchange edge and a recursive wrapper that uses the
+  prefix-local sorted-lightness certificate instead of a global lightness
+  hypothesis.

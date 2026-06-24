@@ -18,19 +18,19 @@ that constructs the exchange edge from a spanning-tree path or cycle.
 - Main theorems:
   `CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal`,
   `CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix`,
-  `CLRS.MST.FiniteGraph.kruskal_spans_of_complete_exact_component`, and
-  `CLRS.MST.kruskal_optimal`
+  `CLRS.MST.FiniteGraph.kruskal_spanning_tree_of_complete_exact_component`, and
+  `CLRS.MST.FiniteGraph.kruskal_optimal_of_complete_exact_component_empty`
 
 The current Kruskal proof is mathematical rather than implementation-level.  It
 uses an exact component oracle, sorted edge order, and safe-edge certificates.
-For finite connected graphs with a complete edge scan, Lean now proves the
-output spans all vertices and contains only graph edges; the remaining
-final-tree ingredient is forest preservation for the component cycle test.
+For finite connected graphs with a complete edge scan, Lean now proves that the
+exact-component Kruskal output preserves forests, spans all vertices, contains
+only graph edges, and therefore is a spanning tree when started from a forest.
 Union-find correctness is intentionally deferred.
 
 Open tasks:
 
 - construct the concrete exchange edge from finite graph paths or cycles;
-- prove forest preservation for the component cycle test, then compose it with
-  the existing subset/spanning theorem;
+- discharge prefix-local sorted lightness inside the full recursive optimality
+  wrapper, rather than requiring a global lightness hypothesis;
 - add the Prim theorem interface after Kruskal's mathematical version is stable.
