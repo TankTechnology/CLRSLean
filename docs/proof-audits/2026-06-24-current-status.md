@@ -52,6 +52,10 @@ the imported CLRS-Lean source, not experimental worktrees.
 - Chapter 3.2 now also proves harmonic-number growth:
   `CLRS.Chapter03.isEquivalent_harmonic_log` and
   `CLRS.Chapter03.isBigTheta_harmonic_log`.
+- Chapter 5.1 now connects the hiring-problem expectation theorem to
+  logarithmic growth:
+  `CLRS.Chapter05.harmonic_isBigTheta_log` and
+  `CLRS.Chapter05.expectedHires_isBigTheta_log`.
 
 ## Next Proof Priorities
 

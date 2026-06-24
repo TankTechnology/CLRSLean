@@ -55,7 +55,9 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter05.uniformAverage_indicator_singleton`,
   {lit}`CLRS.Chapter05.hireProbability_eq`,
   {lit}`CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,
-  {lit}`CLRS.Chapter05.expectedHires_eq_harmonic`.
+  {lit}`CLRS.Chapter05.expectedHires_eq_harmonic`,
+  {lit}`CLRS.Chapter05.harmonic_isBigTheta_log`, and
+  {lit}`CLRS.Chapter05.expectedHires_isBigTheta_log`.
 * 2.1 Insertion sort:
   `CLRS.Chapter02.insertionSort_sorted`,
   `CLRS.Chapter02.insertionSort_perm`.
@@ -167,10 +169,6 @@ navigating the deployed pages.
   specification.
 * Chapter 4 extension from exact powers to all input sizes: `future-work`.
   Reason: needs a monotone recurrence model and floor/ceiling sandwiching.
-* Chapter 5 logarithmic expected-hires asymptotics: `future-work`.
-  Reason: Chapter 3.2 now proves the harmonic-number growth fact; Chapter 5
-  still needs a section-level theorem connecting the expected-hiring result to
-  that asymptotic wrapper.
 * General merge-sort recurrence: `future-work`.
   Reason: needs floor and ceiling arithmetic for all input sizes.
 * CLRS exercises and chapter-end problems: `future-work`.

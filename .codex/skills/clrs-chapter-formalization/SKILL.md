@@ -258,9 +258,15 @@ end CLRS
   materially shrink a `partial` gap.
 - Chapter 3.2 harmonic-number pass: use Mathlib convergence/bounds theorems to
   prove CLRS-facing asymptotic wrappers, then update downstream chapter gaps
-  that depended on the missing standard-function fact.  In particular, once
-  `H_n = Θ(log n)` is proved in Chapter 3.2, Chapter 5's remaining work is the
-  expected-hires wrapper, not the harmonic asymptotic itself.
+  that depended on the missing standard-function fact.  In particular, after
+  `H_n = Θ(log n)` is proved in Chapter 3.2, Chapter 5 should expose its own
+  expected-hires Θ theorem or remove the old future-work item once that wrapper
+  exists.
+- Downstream asymptotic-wrapper pass: when a section has already proved an
+  exact closed form and another chapter proves that closed form's asymptotics,
+  add the section-level theorem immediately.  Do not leave a `future-work`
+  entry saying "connect these" once the bridge is a short equality plus
+  `isBigTheta_trans`.
 
 ## Honesty Rules
 

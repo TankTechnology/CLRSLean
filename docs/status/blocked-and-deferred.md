@@ -57,15 +57,6 @@ a nonempty contiguous subarray of maximum sum.  The remaining CLRS refinement is
 to prove the divide-and-conquer pseudocode against this specification and add
 its runtime recurrence.
 
-### Hiring Problem Harmonic Asymptotics
-
-- Related section: Section 5.1 - The hiring problem
-- Status: `future-work`
-
-The finite rank-symmetry expectation proof is compiler-clean.  A future
-strengthening should add logarithmic asymptotic bounds for the harmonic-number
-closed form.
-
 ### Concrete MST Exchange Edge
 
 - Related section: Section 23.1 - Growing a minimum spanning tree

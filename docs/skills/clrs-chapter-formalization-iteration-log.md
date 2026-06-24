@@ -132,3 +132,12 @@ chapters.
 - After `CLRS.Chapter03.isBigTheta_harmonic_log`, downstream Chapter 5 status
   should ask for an expected-hires asymptotic wrapper, not for the harmonic
   asymptotic itself.
+
+## 2026-06-24 - After Chapter 5 Expected-Hires Asymptotics
+
+- Added a downstream-wrapper pattern: when one section proves an exact closed
+  form and another section proves the closed form's asymptotics, add the
+  section-level Θ theorem instead of keeping a "connect these" future-work item.
+- For Chapter 5, the bridge is `expectedHires = harmonic`, the equality between
+  the section's real harmonic sum and Mathlib's harmonic numbers, and
+  Chapter 3.2's `CLRS.Chapter03.isBigTheta_harmonic_log`.

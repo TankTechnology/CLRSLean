@@ -49,7 +49,7 @@ Start with the chapter pages in the sidebar.
   methods, plus the proved exact-power Master method core; Strassen remains a
   planned algorithm track.
 * Chapter 5 - Probabilistic Analysis: the finite rank-symmetry proof for the
-  hiring problem.
+  hiring problem and its logarithmic expected-hires bound.
 * Chapter 10 - Elementary Data Structures: functional stack, queue, and
   linked-list operation proofs.
 * Chapter 11 - Hash Tables: direct-address table correctness and deterministic
@@ -120,7 +120,8 @@ Start with the chapter pages in the sidebar.
   floor/ceiling sandwiching.
 * 5.1 Hiring problem: `proved` for the finite rank-symmetry model.
   Public results: `CLRS.Chapter05.hireProbability_eq`,
-  `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`.
+  `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,
+  `CLRS.Chapter05.expectedHires_isBigTheta_log`.
 * 10.1 Stacks and queues: `proved` for the functional-list model.
   Public results: `CLRS.Chapter10.pop_push`,
   `CLRS.Chapter10.dequeue_enqueue_nonempty`.

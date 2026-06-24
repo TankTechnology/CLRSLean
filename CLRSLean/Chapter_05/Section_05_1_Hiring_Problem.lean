@@ -1,6 +1,8 @@
+import CLRSLean.Chapter_03.Section_03_2_Standard_Functions
 import Mathlib
 
 open Finset
+open Filter
 open scoped BigOperators
 
 /-!
@@ -22,11 +24,13 @@ Main result:
   the indicator expectations gives the harmonic number.
 - Theorem {lit}`CLRS.Chapter05.expectedHires_eq_harmonic`: the equivalent
   recurrence solution equals the harmonic number.
+- Theorem {lit}`CLRS.Chapter05.expectedHires_isBigTheta_log`: expected hires
+  grow logarithmically.
 
 Current gaps:
 
-- The logarithmic asymptotic bounds for harmonic numbers are future work for a
-  stronger Chapter 5 pass.
+- None for the current finite rank-symmetry model.  A lower-level model of
+  random permutations and pseudocode execution remains a future refinement.
 -/
 
 namespace CLRS
@@ -135,6 +139,44 @@ theorem expectedHires_eq_harmonic (n : ℕ) : expectedHires n = harmonic n := by
 theorem expectedHires_eq_expectedHiresByIndicators (n : ℕ) :
     expectedHires n = expectedHiresByIndicators n := by
   rw [expectedHires_eq_harmonic, expectedHiresByIndicators_eq_harmonic]
+
+/-! ## Asymptotic growth -/
+
+/--
+The real harmonic sum used in this section agrees with Mathlib's rational
+harmonic numbers after casting to `ℝ`.
+-/
+theorem harmonic_eq_mathlib_harmonic (n : ℕ) :
+    harmonic n = (_root_.harmonic n : ℝ) := by
+  simp [harmonic, _root_.harmonic, one_div]
+
+/-- The real harmonic sum in this section has logarithmic growth. -/
+theorem harmonic_isBigTheta_log :
+    Chapter03.isBigTheta (fun n : ℕ => harmonic n) (fun n : ℕ => Real.log (n : ℝ)) := by
+  have heq :
+      (fun n : ℕ => harmonic n) =ᶠ[atTop] (fun n : ℕ => (_root_.harmonic n : ℝ)) := by
+    filter_upwards with n
+    exact harmonic_eq_mathlib_harmonic n
+  have hO :
+      Chapter03.isBigO (fun n : ℕ => harmonic n) (fun n : ℕ => Real.log (n : ℝ)) := by
+    unfold Chapter03.isBigO
+    exact heq.trans_isBigO Chapter03.isBigTheta_harmonic_log.1
+  have hΩ :
+      Chapter03.isBigOmega (fun n : ℕ => harmonic n) (fun n : ℕ => Real.log (n : ℝ)) := by
+    unfold Chapter03.isBigOmega
+    exact Chapter03.isBigTheta_harmonic_log.2.trans_eventuallyEq heq.symm
+  exact ⟨hO, hΩ⟩
+
+/-- The CLRS expected number of hires is logarithmic: `E[X] = Θ(log n)`. -/
+theorem expectedHires_isBigTheta_log :
+    Chapter03.isBigTheta expectedHires (fun n : ℕ => Real.log (n : ℝ)) := by
+  have heq : expectedHires =ᶠ[atTop] harmonic := by
+    filter_upwards with n
+    exact expectedHires_eq_harmonic n
+  have hExpectedHarmonic : Chapter03.isBigTheta expectedHires harmonic := by
+    unfold Chapter03.isBigTheta Chapter03.isBigO Chapter03.isBigOmega
+    exact ⟨heq.isBigO, heq.symm.isBigO⟩
+  exact Chapter03.isBigTheta_trans hExpectedHarmonic harmonic_isBigTheta_log
 
 end Chapter05
 end CLRS

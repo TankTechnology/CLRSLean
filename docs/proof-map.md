@@ -201,10 +201,13 @@ all-input Master Theorem still need separate models.
   - `CLRS.Chapter05.hireProbability_eq`
   - `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`
   - `CLRS.Chapter05.expectedHires_eq_harmonic`
+  - `CLRS.Chapter05.harmonic_isBigTheta_log`
+  - `CLRS.Chapter05.expectedHires_isBigTheta_log`
 - Proof pattern: compute singleton probability in a finite uniform rank space,
-  sum indicator expectations, and prove the equivalent recurrence by induction
-- Current gap: a section-level asymptotic expected-hiring theorem should now
-  connect this finite equality to the Chapter 3.2 harmonic-number growth result
+  sum indicator expectations, prove the equivalent recurrence by induction, and
+  transfer the Chapter 3.2 harmonic-number Θ theorem to expected hires
+- Current gap: none for the current finite rank-symmetry model; a lower-level
+  random-permutation and pseudocode execution model remains a future refinement
 
 ## Chapter 10 - Elementary Data Structures
 
@@ -405,7 +408,6 @@ then the result is optimal.
 | Sorted-order lightness for Kruskal | `partial` | Needs a list-order invariant over processed edges. |
 | Maximum-subarray divide-and-conquer refinement | `future-work` | Exhaustive-search optimality is proved; the CLRS pseudocode and runtime recurrence still need to refine that specification. |
 | Chapter 4 extension from exact powers to all input sizes | `future-work` | Needs a monotone recurrence model and floor/ceiling sandwiching. |
-| Chapter 5 expected-hires logarithmic asymptotics | `future-work` | Connects the finite rank-symmetry expectation theorem to the Chapter 3.2 harmonic-number growth result. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |
 | Pointer-level linked lists and free lists | `future-work` | Requires an imperative memory model. |
 | BST transplant and parent-pointer navigation | `future-work` | Functional successor/predecessor queries and functional deletion are proved; pointer-transplant semantics remain. |
