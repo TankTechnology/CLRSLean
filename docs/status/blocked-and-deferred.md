@@ -128,8 +128,8 @@ sentinels, allocation, and free lists require a shared imperative memory model.
 - Related section: Section 12.1 - Binary search trees
 - Status: `future-work`
 
-Insertion membership and ordering preservation are proved.  Search,
-minimum/maximum, successor/predecessor, transplant, and deletion are the next
+Search, minimum/maximum, insertion membership, and ordering preservation are
+proved.  Successor/predecessor, transplant, and deletion are the next
 functional-tree layer before any pointer-level refinement.
 
 ### Full Red-Black Insertion And Deletion

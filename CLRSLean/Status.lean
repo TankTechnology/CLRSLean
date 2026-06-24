@@ -88,17 +88,24 @@ navigating the deployed pages.
   remaining gap: add the full CLRS table of standard growth comparisons,
   especially logarithm-vs-polynomial and polynomial-vs-exponential facts.
 * 11.2 Chained hash tables:
-  current result {lit}`CLRS.Chapter11.hashSearch_hashInsert_self`;
+  current results {lit}`CLRS.Chapter11.hashSearch_hashInsert_self` and
+  {lit}`CLRS.Chapter11.hashSearch_hashInsert_iff`;
   remaining gap: expected search time under simple uniform hashing needs a
   probability model over keys or hash functions.
 * 12.1 Binary search trees:
-  current results {lit}`CLRS.Chapter12.BSTree.inTree_insert_iff` and
+  current results {lit}`CLRS.Chapter12.BSTree.search_eq_true_iff`,
+  {lit}`CLRS.Chapter12.BSTree.minimum?_inTree`,
+  {lit}`CLRS.Chapter12.BSTree.minimum?_le_of_ordered`,
+  {lit}`CLRS.Chapter12.BSTree.maximum?_inTree`,
+  {lit}`CLRS.Chapter12.BSTree.le_maximum?_of_ordered`,
+  {lit}`CLRS.Chapter12.BSTree.inTree_insert_iff`, and
   {lit}`CLRS.Chapter12.BSTree.insert_ordered`;
-  remaining gap: search, minimum/maximum, successor/predecessor, and deletion
-  remain future section targets.
+  remaining gap: successor/predecessor, transplant, deletion, and pointer-level
+  mutation remain future section targets.
 * 13.1 Red-black trees:
   current results {lit}`CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,
   {lit}`CLRS.Chapter13.RBTree.inTree_rotateRight_iff`,
+  {lit}`CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`,
   {lit}`CLRS.Chapter13.RBTree.noRedRed_repaint_black`, and
   {lit}`CLRS.Chapter13.RBTree.balancedBlackHeight_repaintRoot`;
   remaining gap: full RB insertion/deletion fixup algorithms are not yet

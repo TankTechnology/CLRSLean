@@ -248,6 +248,7 @@ stack top is list head, and queue front is list head with enqueue at the back.
   - `CLRS.Chapter11.bucket_hashInsert_same`
   - `CLRS.Chapter11.bucket_hashInsert_other`
   - `CLRS.Chapter11.hashSearch_hashInsert_self`
+  - `CLRS.Chapter11.hashSearch_hashInsert_iff`
 - Proof pattern: deterministic bucket update for a fixed hash function
 - Current gap: expected search time under simple uniform hashing requires a
   probability model over keys or hash functions
@@ -259,15 +260,22 @@ stack top is list head, and queue front is list head with enqueue at the back.
 - Lean source: `CLRSLean/Chapter_12/Section_12_1_Binary_Search_Trees.lean`
 - Status: `partial`
 - Main proved theorems:
+  - `CLRS.Chapter12.BSTree.search_eq_true_iff`
+  - `CLRS.Chapter12.BSTree.minimum?_inTree`
+  - `CLRS.Chapter12.BSTree.minimum?_le_of_ordered`
+  - `CLRS.Chapter12.BSTree.maximum?_inTree`
+  - `CLRS.Chapter12.BSTree.le_maximum?_of_ordered`
   - `CLRS.Chapter12.BSTree.inTree_insert_iff`
   - `CLRS.Chapter12.BSTree.inTree_insert_self`
   - `CLRS.Chapter12.BSTree.insert_ordered`
-- Proof pattern: inductive tree membership, bound predicates, ordered invariant
-- Current gap: search, minimum/maximum, successor/predecessor, and deletion
-  remain future section targets
+- Proof pattern: inductive tree membership, bound predicates, ordered invariant,
+  and extremal-path recursion
+- Current gap: successor/predecessor, transplant, deletion, and pointer-level
+  mutation remain future section targets
 
-This section proves the core insertion invariant: insertion adds exactly one key
-to the membership relation and preserves the BST ordering invariant.
+This section proves the core ordered-tree interface: search is equivalent to
+membership, minimum/maximum return actual extremal keys, and insertion adds
+exactly one key while preserving the BST ordering invariant.
 
 ## Chapter 13 - Red-Black Trees
 
@@ -278,6 +286,7 @@ to the membership relation and preserves the BST ordering invariant.
 - Main proved theorems:
   - `CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`
   - `CLRS.Chapter13.RBTree.inTree_rotateRight_iff`
+  - `CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`
   - `CLRS.Chapter13.RBTree.red_node_children_black`
   - `CLRS.Chapter13.RBTree.noRedRed_repaint_black`
   - `CLRS.Chapter13.RBTree.balancedBlackHeight_repaintRoot`
@@ -365,7 +374,7 @@ then the result is optimal.
 | Chapter 5 harmonic logarithmic asymptotics | `future-work` | Strengthens the finite rank-symmetry expectation theorem. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |
 | Pointer-level linked lists and free lists | `future-work` | Requires an imperative memory model. |
-| BST deletion/transplant | `future-work` | Needs either a functional deletion theorem or pointer-transplant semantics. |
+| BST successor/predecessor and deletion/transplant | `future-work` | Needs either a functional navigation/deletion theorem or pointer-transplant semantics. |
 | Full red-black insertion/deletion | `blocked-design` | Needs a balancing representation and invariant-preservation proof across fixup cases. |
 | Concrete MST exchange edge from paths | `blocked-design` | Needs a stable finite path/walk representation. |
 | Prim's algorithm | `statement` | Section file exists only through the Chapter 23.2 target; theorem interface has not been added yet. |

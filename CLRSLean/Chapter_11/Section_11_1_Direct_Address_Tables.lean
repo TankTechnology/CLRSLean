@@ -37,12 +37,12 @@ def emptyDirectAddressTable : DirectAddressTable V :=
 def directSearch (T : DirectAddressTable V) (key : Nat) : Option V :=
   T key
 
-/-- Insert overwrites the slot at `key`. -/
+/-- Insert overwrites the slot at {lit}`key`. -/
 def directInsert (key : Nat) (value : V)
     (T : DirectAddressTable V) : DirectAddressTable V :=
   fun j => if j = key then some value else T j
 
-/-- Delete clears the slot at `key`. -/
+/-- Delete clears the slot at {lit}`key`. -/
 def directDelete (key : Nat)
     (T : DirectAddressTable V) : DirectAddressTable V :=
   fun j => if j = key then none else T j
@@ -61,7 +61,7 @@ theorem search_insert_other {key other : Nat} (h : other ≠ key)
     directSearch (directInsert key value T) other = directSearch T other := by
   simp [directSearch, directInsert, h]
 
-/-- Deleting a key makes search at that key return `none`. -/
+/-- Deleting a key makes search at that key return {lit}`none`. -/
 theorem search_delete_same (key : Nat) (T : DirectAddressTable V) :
     directSearch (directDelete key T) key = none := by
   simp [directSearch, directDelete]
@@ -72,7 +72,7 @@ theorem search_delete_other {key other : Nat} (h : other ≠ key)
     directSearch (directDelete key T) other = directSearch T other := by
   simp [directSearch, directDelete, h]
 
-/-- Searching an empty direct-address table returns `none`. -/
+/-- Searching an empty direct-address table returns {lit}`none`. -/
 theorem search_empty (key : Nat) :
     directSearch (emptyDirectAddressTable : DirectAddressTable V) key = none := by
   rfl

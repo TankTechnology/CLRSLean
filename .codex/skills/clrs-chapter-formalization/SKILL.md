@@ -168,7 +168,9 @@ end CLRS
   invariant, and theorem names for insertion membership and invariant
   preservation.  Prove a membership-after-insert equivalence before proving
   ordering preservation; it turns bound-preservation lemmas into short
-  case splits.
+  case splits.  After insertion, prove search correctness and minimum/maximum
+  membership plus bound theorems before deferring navigation or deletion; these
+  proofs are usually just structural recursion over the ordered-tree invariant.
 - **Balanced-tree chapters:** begin with invariants that can be checked locally:
   node color, no red-red edge, black height, and local rotations.  Full
   insertion/deletion should be marked partial until the balancing algorithm is
@@ -193,6 +195,15 @@ end CLRS
   and deterministic collision-chain correctness can be proved before that.
 - Chapter-end exercises and Problems belong to a second track after the main
   chapter interface is stable.
+
+## Iteration Log
+
+- Chapter 11/12/13 cleanup pass: do not leave deterministic query theorems in
+  prose once the functional model exists.  For hash tables, prove an
+  insertion-search iff before moving to probability.  For BSTs, prove search
+  equivalence and extremal-key bounds before successor/deletion.  For local
+  tree transformations, prove both invariant preservation and membership
+  preservation so the public interface is complete enough for later algorithms.
 
 ## Honesty Rules
 

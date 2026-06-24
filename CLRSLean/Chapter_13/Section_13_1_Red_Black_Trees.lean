@@ -7,7 +7,8 @@ This section starts the red-black-tree development with local invariants and
 rotation facts.  It does not yet formalize the full insertion or deletion
 algorithms.  Instead it proves reusable lemmas that those algorithms will need:
 rotations preserve membership, repainting the root black preserves the no-red-red
-property, and repainting the root preserves child black-height balance.
+property, repainting the root preserves membership, and repainting the root
+preserves child black-height balance.
 
 Main results:
 
@@ -17,6 +18,8 @@ Main results:
   membership.
 - Theorem {lit}`RBTree.noRedRed_repaint_black`: repainting the root black
   preserves the no-red-red invariant.
+- Theorem {lit}`RBTree.inTree_repaintRoot_iff`: repainting the root preserves
+  membership.
 - Theorem {lit}`RBTree.balancedBlackHeight_repaintRoot`: repainting the root
   preserves balanced child black heights.
 
@@ -125,6 +128,11 @@ theorem inTree_rotateRight_iff (x : Nat) (t : RBTree) :
 def repaintRoot (color : Color) : RBTree → RBTree
   | empty => empty
   | node _ left key right => node color left key right
+
+/-- Repainting the root preserves membership of keys. -/
+theorem inTree_repaintRoot_iff (color : Color) (x : Nat) (t : RBTree) :
+    InTree x (repaintRoot color t) ↔ InTree x t := by
+  cases t <;> simp [repaintRoot, InTree]
 
 /-- A red node satisfying {lit}`NoRedRed` has black children. -/
 theorem red_node_children_black {left right : RBTree} {key : Nat}

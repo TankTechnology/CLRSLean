@@ -13,6 +13,7 @@ no-red-red property, black-height balance, and root recoloring.
 * 13.1 Red-black trees: `partial`.
   Main results: {lit}`CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,
   {lit}`CLRS.Chapter13.RBTree.inTree_rotateRight_iff`,
+  {lit}`CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`,
   {lit}`CLRS.Chapter13.RBTree.noRedRed_repaint_black`,
   {lit}`CLRS.Chapter13.RBTree.balancedBlackHeight_repaintRoot`.
 

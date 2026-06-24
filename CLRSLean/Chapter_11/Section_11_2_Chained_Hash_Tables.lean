@@ -15,6 +15,8 @@ Main results:
   unchanged.
 - Theorem {lit}`hashSearch_hashInsert_self`: after insertion, searching for the
   inserted key succeeds.
+- Theorem {lit}`hashSearch_hashInsert_iff`: after insertion, searching for any
+  query succeeds exactly when it is the inserted key or was already present.
 
 Current gaps:
 
@@ -58,6 +60,20 @@ theorem hashSearch_hashInsert_self (h : K → Nat)
     (T : ChainedHashTable K) (x : K) :
     hashSearch h (hashInsert h x T) x := by
   exact bucket_hashInsert_same h T x
+
+/--
+Searching after insertion succeeds exactly when the query is the inserted key or
+the query already appeared in its own hash bucket.
+-/
+theorem hashSearch_hashInsert_iff (h : K → Nat)
+    (T : ChainedHashTable K) (x y : K) :
+    hashSearch h (hashInsert h y T) x ↔ x = y ∨ hashSearch h T x := by
+  by_cases hxy : h x = h y
+  · simp [hashSearch, hashInsert, hxy]
+  · have hxne : x ≠ y := by
+      intro hkey
+      exact hxy (by rw [hkey])
+    simp [hashSearch, hashInsert, hxy, hxne]
 
 end Chapter11
 end CLRS

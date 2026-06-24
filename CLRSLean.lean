@@ -53,8 +53,8 @@ Start with the chapter pages in the sidebar.
   linked-list operation proofs.
 * Chapter 11 - Hash Tables: direct-address table correctness and deterministic
   chained-hash-table lookup facts.
-* Chapter 12 - Binary Search Trees: insertion membership and ordering
-  invariant preservation for an inductive BST model.
+* Chapter 12 - Binary Search Trees: search, minimum/maximum, insertion
+  membership, and ordering invariant preservation for an inductive BST model.
 * Chapter 13 - Red-Black Trees: local rotation and recoloring invariant lemmas.
 * Chapter 16 - Greedy Algorithms: activity-selection exchange infrastructure
   and the complete Huffman optimality proof, currently the flagship greedy case
@@ -119,12 +119,17 @@ Start with the chapter pages in the sidebar.
   Public results: `CLRS.Chapter11.search_insert_same`,
   `CLRS.Chapter11.search_delete_same`.
 * 11.2 Chained hash tables: `partial`.
-  Current result: `CLRS.Chapter11.hashSearch_hashInsert_self`.
+  Current results: `CLRS.Chapter11.hashSearch_hashInsert_self`,
+  `CLRS.Chapter11.hashSearch_hashInsert_iff`.
 * 12.1 Binary search trees: `partial`.
-  Current results: `CLRS.Chapter12.BSTree.inTree_insert_iff`,
+  Current results: `CLRS.Chapter12.BSTree.search_eq_true_iff`,
+  `CLRS.Chapter12.BSTree.minimum?_le_of_ordered`,
+  `CLRS.Chapter12.BSTree.le_maximum?_of_ordered`,
+  `CLRS.Chapter12.BSTree.inTree_insert_iff`,
   `CLRS.Chapter12.BSTree.insert_ordered`.
 * 13.1 Red-black trees: `partial`.
   Current results: `CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,
+  `CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`,
   `CLRS.Chapter13.RBTree.noRedRed_repaint_black`.
 * 16.1 Activity selection: `partial`.
   Current results: `CLRS.ActivitySelection.earliest_finish_minFinish`,

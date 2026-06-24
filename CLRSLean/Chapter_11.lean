@@ -10,13 +10,14 @@ performance analysis.
 
 ## Sections
 
-* 11.1 Direct-address tables: `proved` for the functional table model.
+* 11.1 Direct-address tables: {lit}`proved` for the functional table model.
   Main results: {lit}`CLRS.Chapter11.search_insert_same`,
   {lit}`CLRS.Chapter11.search_insert_other`,
   {lit}`CLRS.Chapter11.search_delete_same`.
-* 11.2 Hash tables: `partial`.
+* 11.2 Hash tables: {lit}`partial`.
   Main results: {lit}`CLRS.Chapter11.bucket_hashInsert_same`,
   {lit}`CLRS.Chapter11.hashSearch_hashInsert_self`,
+  {lit}`CLRS.Chapter11.hashSearch_hashInsert_iff`,
   {lit}`CLRS.Chapter11.bucket_hashInsert_other`.
 
 ## Current Gaps
