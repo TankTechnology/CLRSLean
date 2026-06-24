@@ -8,8 +8,8 @@
     --clrs-surface: #ffffff;
     --clrs-sidebar: #ffffff;
     --clrs-sidebar-2: #ffffff;
-    --clrs-sidebar-text: #252a2e;
-    --clrs-sidebar-muted: #5f686f;
+    --clrs-sidebar-text: #18211d;
+    --clrs-sidebar-muted: #4d5a53;
     --clrs-sidebar-hover: #f1f5f3;
     --clrs-sidebar-border: #d7dddb;
     --clrs-sidebar-current: #2e6584;
@@ -22,7 +22,7 @@
     --clrs-blue: #305f89;
     --clrs-shadow: 0 1px 2px rgba(23, 33, 28, 0.08);
 
-    --clrs-ui-font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    --clrs-ui-font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "San Francisco", "Segoe UI", "Helvetica Neue", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
 
     --verso-text-font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
     --verso-structure-font-family: var(--clrs-ui-font-family);
@@ -102,7 +102,7 @@ a {
 }
 
 .sidebar {
-    width: 320px;
+    width: 336px;
     background: var(--clrs-sidebar);
     border-right: 1px solid var(--clrs-sidebar-border);
     box-shadow: 1px 0 0 rgba(23, 33, 28, 0.035);
@@ -114,9 +114,9 @@ a {
 
 .module-tree {
     font-family: var(--verso-structure-font-family);
-    font-size: 0.94rem;
+    font-size: 0.97rem;
     font-feature-settings: "kern" 1;
-    line-height: 1.42;
+    line-height: 1.46;
 }
 
 .module-tree a {
@@ -161,16 +161,16 @@ a {
 
 .module-tree details details,
 .module-tree details .leaf {
-    margin-left: 12px;
+    margin-left: 14px;
 }
 
 .module-tree summary,
 .module-tree .leaf {
-    min-height: 36px;
-    padding: 8px 10px;
+    min-height: 38px;
+    padding: 8px 11px;
     border-radius: 6px;
     color: var(--clrs-sidebar-text);
-    font-weight: 500;
+    font-weight: 620;
 }
 
 .module-tree summary:hover,
@@ -180,12 +180,14 @@ a {
 
 .module-tree summary a,
 .module-tree .leaf a {
+    display: inline-block;
+    max-width: 100%;
     color: var(--clrs-sidebar-text);
 }
 
 .module-tree .custom-title {
     font-family: var(--verso-structure-font-family);
-    font-weight: 500;
+    font-weight: 620;
 }
 
 .module-tree .current,

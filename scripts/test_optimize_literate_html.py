@@ -50,8 +50,11 @@ class OptimizeLiterateHtmlTests(unittest.TestCase):
         self.assertIn("localStorage", text)
         self.assertIn("sessionStorage", text)
         self.assertIn("details.open = true", text)
-        self.assertIn("clrs.nav.state.v2", text)
-        self.assertIn("clrs.nav.scroll.v2", text)
+        self.assertIn("clrs.nav.state.v3", text)
+        self.assertIn("clrs.nav.scroll.v3", text)
+        self.assertIn("stableNavPath", text)
+        self.assertIn("new URL(raw, document.baseURI)", text)
+        self.assertIn("CLRS-Lean", text)
 
     def test_nav_script_keeps_summary_link_clicks_from_toggling(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -50,8 +50,8 @@ NAV_STATE_SCRIPT_ID = "clrs-nav-state-script"
 NAV_STATE_SCRIPT = r"""
 <script id="clrs-nav-state-script">
 (() => {
-  const STATE_KEY = "clrs.nav.state.v2";
-  const SCROLL_KEY = "clrs.nav.scroll.v2";
+  const STATE_KEY = "clrs.nav.state.v3";
+  const SCROLL_KEY = "clrs.nav.scroll.v3";
 
   function storageArea() {
     try {
@@ -90,9 +90,27 @@ NAV_STATE_SCRIPT = r"""
     }
   }
 
+  function stableNavPath(link) {
+    const raw = link?.getAttribute("href");
+    if (!raw) return "";
+    try {
+      const path = new URL(raw, document.baseURI).pathname
+        .replace(/\/(?:index\.html)?$/, "")
+        .replace(/^.*\/CLRS-Lean\//, "/CLRS-Lean/");
+      return path || raw;
+    } catch (_err) {
+      return raw;
+    }
+  }
+
   function navKey(details, index) {
     const link = details.querySelector(":scope > summary a");
-    return link?.getAttribute("title") || link?.getAttribute("href") || `nav-${index}`;
+    const title = link?.getAttribute("title")?.trim();
+    if (title) return title;
+    const path = stableNavPath(link);
+    if (path) return path;
+    const label = link?.textContent?.trim().replace(/\s+/g, " ");
+    return label || `nav-${index}`;
   }
 
   function whenReady(fn) {
@@ -405,7 +423,11 @@ def iter_html_files(paths: Iterable[Path]) -> Iterable[Path]:
 def inject_nav_state_script(text: str) -> tuple[str, int]:
     if "module-tree" not in text or NAV_STATE_SCRIPT_ID in text:
         return text, 0
-    next_text, count = BODY_END_RE.subn(f"{NAV_STATE_SCRIPT}\n</body>", text, count=1)
+    next_text, count = BODY_END_RE.subn(
+        lambda _match: f"{NAV_STATE_SCRIPT}\n</body>",
+        text,
+        count=1,
+    )
     return next_text, min(count, 1)
 
 
