@@ -78,20 +78,25 @@ The current theorem assumes a cut exchange certificate.  To remove that
 assumption, we need a stable finite path or walk representation and a boundary
 edge lemma for paths crossing a cut.
 
-### Sorted-Order Lightness
+### Kruskal Final Spanning Tree And Exchange Layer
 
-- Related section: Section 23.2 - Kruskal and Prim
-- Status: `partial`
+- Related sections: Sections 23.1 and 23.2
+- Status: `blocked-design` for concrete exchange paths; `partial` for final
+  spanning-tree construction
 
 Kruskal's textbook proof relies on processing edges in nondecreasing weight.
 The Lean proof now has a compiler-clean sorted-order lightness layer:
 `CLRS.MST.lightest_crossing_of_sorted_prefix` proves that a sorted edge list
 makes the current edge light once all crossing candidates are in the current
 suffix, and `CLRS.MST.cut_certificate_of_component_oracle_sorted_prefix`
-packages that fact as a component-oracle cut certificate.  The remaining gap is
-to derive the processed-prefix exclusion invariant from a stronger exact
-cycle-test/component model, showing that previously processed edges cannot
-cross the current component cut.
+packages that fact as a component-oracle cut certificate.
+
+The stronger exact-component layer is now compiler-clean as well:
+`CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal` derives the
+processed-prefix exclusion invariant for an actual Kruskal prefix, and
+`CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix` packages it with
+sorted edge order.  The remaining MST gaps are the concrete path/cycle exchange
+edge, the final spanning-tree proof, and any optional union-find refinement.
 
 ## Future Work
 

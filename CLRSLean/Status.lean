@@ -155,16 +155,20 @@ navigating the deployed pages.
   remaining gap: full RB insertion/deletion fixup algorithms are not yet
   mechanized.
 * 23.1 Growing a minimum spanning tree:
-  current result `CLRS.MST.safe_edge_of_lightest_crossing`;
+  current result {lit}`CLRS.MST.safe_edge_of_lightest_crossing`;
   remaining gap: construct the concrete exchange edge from finite graph paths
   or cycles.
 * 23.2 Kruskal and Prim:
-  current results `CLRS.MST.lightest_crossing_of_sorted_prefix`,
-  `CLRS.MST.cut_certificate_of_component_oracle_sorted_prefix`, and
-  `CLRS.MST.kruskal_optimal`;
-  remaining gap: derive the processed-prefix exclusion invariant from a
-  stronger exact cycle-test/component model and prove the final selected set is
-  a spanning tree.
+  current results {lit}`CLRS.MST.lightest_crossing_of_sorted_prefix`,
+  {lit}`CLRS.MST.cut_certificate_of_component_oracle_sorted_prefix`,
+  {lit}`CLRS.MST.processed_edge_mem_or_connected_of_exact_component_kruskal`,
+  {lit}`CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal`,
+  {lit}`CLRS.MST.lightest_crossing_of_exact_component_kruskal_prefix`,
+  {lit}`CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix`, and
+  {lit}`CLRS.MST.kruskal_optimal`;
+  remaining gap: refine exact components to executable union-find if needed,
+  prove the final selected set is a spanning tree, and add Prim's theorem
+  interface.
 
 ## Deferred or Blocked
 

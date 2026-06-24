@@ -20,13 +20,18 @@ Main results:
   cut.
 - Theorem {lit}`cut_certificate_of_component_oracle_sorted_prefix`: packages
   that sorted-order lightness proof into a component-oracle cut certificate.
+- Theorem {lit}`processed_prefix_excludes_of_exact_component_kruskal`: exact
+  components derive the processed-prefix exclusion invariant for a Kruskal
+  prefix.
+- Theorem {lit}`cut_certificate_of_exact_component_kruskal_prefix`: packages
+  the exact-component prefix invariant into a sorted-order cut certificate.
 - Theorem {lit}`kruskal_optimal`: safe-edge induction for the mathematical
   Kruskal pass.
 
 Current gaps:
 
-- Derive the processed-prefix exclusion invariant from a stronger exact
-  component/cycle-test model.
+- Refine the exact component model to an executable union-find implementation
+  if implementation correctness becomes part of scope.
 - Prove the final selected edge set is a spanning tree from connectedness and
   a complete edge scan.
 - Add Prim's theorem interface.
@@ -61,6 +66,51 @@ theorem respects (C : ComponentOracle G) (A : Finset E) (root : V) :
 
 end ComponentOracle
 
+/-! ## Exact component oracles -/
+
+/--
+An exact component oracle returns precisely the vertices connected to the root
+by the currently selected edge set.
+-/
+def ExactComponentOracle (G : Graph V E) (C : ComponentOracle G) : Prop :=
+  ∀ A root v, v ∈ C.component A root ↔ G.ConnectedIn A root v
+
+namespace Graph
+
+omit [DecidableEq V] [DecidableEq E] in
+/-- The undirected adjacency relation is symmetric. -/
+theorem adjIn_symm {G : Graph V E} {A : Finset E} {u v : V}
+    (h : G.AdjIn A u v) :
+    G.AdjIn A v u := by
+  rcases h with ⟨e, heA, hend⟩
+  refine ⟨e, heA, ?_⟩
+  rcases hend with ⟨hsrc, hdst⟩ | ⟨hsrc, hdst⟩
+  · exact Or.inr ⟨hsrc, hdst⟩
+  · exact Or.inl ⟨hsrc, hdst⟩
+
+omit [DecidableEq V] [DecidableEq E] in
+/-- Connectivity induced by selected undirected edges is symmetric. -/
+theorem connected_symm {G : Graph V E} {A : Finset E} {u v : V}
+    (h : G.ConnectedIn A u v) :
+    G.ConnectedIn A v u := by
+  induction h with
+  | refl =>
+      exact Relation.ReflTransGen.refl
+  | tail hpath hadj ih =>
+      exact Relation.ReflTransGen.trans
+        (Relation.ReflTransGen.tail Relation.ReflTransGen.refl
+          (Graph.adjIn_symm hadj))
+        ih
+
+omit [DecidableEq V] [DecidableEq E] in
+/-- Connectivity induced by selected edges is transitive. -/
+theorem connected_trans {G : Graph V E} {A : Finset E} {u v x : V}
+    (huv : G.ConnectedIn A u v) (hvx : G.ConnectedIn A v x) :
+    G.ConnectedIn A u x :=
+  Relation.ReflTransGen.trans huv hvx
+
+end Graph
+
 /-- The executable-style cycle test induced by a component oracle: accept an
 edge iff its destination is outside the source component. -/
 def acceptByComponent (G : Graph V E) (C : ComponentOracle G)
@@ -72,6 +122,15 @@ private theorem not_mem_component_of_accept {G : Graph V E} {C : ComponentOracle
     {A : Finset E} {e : E} (h : acceptByComponent G C A e = true) :
     G.dst e ∉ C.component A (G.src e) := by
   simpa [acceptByComponent] using h
+
+omit [DecidableEq E] in
+private theorem mem_component_of_reject {G : Graph V E} {C : ComponentOracle G}
+    {A : Finset E} {e : E} (h : acceptByComponent G C A e = false) :
+    G.dst e ∈ C.component A (G.src e) := by
+  by_contra hmem
+  have htrue : acceptByComponent G C A e = true := by
+    simp [acceptByComponent, hmem]
+  simp [h] at htrue
 
 /-- Accepted component edges induce the cut used in the CLRS proof. -/
 theorem cut_certificate_of_component_oracle {G : Graph V E} {P : Problem E}
@@ -87,6 +146,45 @@ theorem cut_certificate_of_component_oracle {G : Graph V E} {P : Problem E}
     CutCertificate G P w A (C.component A (G.src e)) e := by
   refine ⟨?_, C.respects A (G.src e), hlight, hexchange⟩
   exact Or.inl ⟨C.mem_self A (G.src e), not_mem_component_of_accept haccept⟩
+
+omit [DecidableEq V] [DecidableEq E] in
+/--
+An edge whose endpoints are already connected by the current selected edge set
+cannot cross any exact component cut for that selected edge set.
+-/
+theorem not_crosses_component_of_connected {G : Graph V E}
+    {C : ComponentOracle G} (hexact : ExactComponentOracle G C)
+    {A : Finset E} {root : V} {e : E}
+    (hconn : G.ConnectedIn A (G.src e) (G.dst e)) :
+    ¬ G.Crosses (C.component A root) e := by
+  intro hcross
+  rcases hcross with ⟨hsrc, hdst⟩ | ⟨hdst, hsrc⟩
+  · have hrootSrc : G.ConnectedIn A root (G.src e) :=
+      (hexact A root (G.src e)).1 hsrc
+    have hrootDst : G.ConnectedIn A root (G.dst e) :=
+      Graph.connected_trans hrootSrc hconn
+    exact hdst ((hexact A root (G.dst e)).2 hrootDst)
+  · have hrootDst : G.ConnectedIn A root (G.dst e) :=
+      (hexact A root (G.dst e)).1 hdst
+    have hdstSrc : G.ConnectedIn A (G.dst e) (G.src e) :=
+      Graph.connected_symm hconn
+    have hrootSrc : G.ConnectedIn A root (G.src e) :=
+      Graph.connected_trans hrootDst hdstSrc
+    exact hsrc ((hexact A root (G.src e)).2 hrootSrc)
+
+omit [DecidableEq V] [DecidableEq E] in
+/--
+If an edge is either selected already or internally connected by the selected
+edge set, it cannot cross an exact component cut.
+-/
+theorem not_crosses_component_of_mem_or_connected {G : Graph V E}
+    {C : ComponentOracle G} (hexact : ExactComponentOracle G C)
+    {A : Finset E} {root : V} {e : E}
+    (haccounted : e ∈ A ∨ G.ConnectedIn A (G.src e) (G.dst e)) :
+    ¬ G.Crosses (C.component A root) e := by
+  rcases haccounted with heA | hconn
+  · exact C.respects A root e heA
+  · exact not_crosses_component_of_connected hexact hconn
 
 /-! ## Sorted-order lightness certificates -/
 
@@ -200,7 +298,7 @@ theorem cut_certificate_of_component_oracle_sorted_prefix
 
 /-- A mathematical Kruskal pass over a fixed edge order.
 
-The Boolean `accept A e` abstracts the cycle test: when it returns true, the
+The Boolean {lit}`accept A e` abstracts the cycle test: when it returns true, the
 edge is inserted into the current forest; otherwise it is skipped.
 -/
 def kruskal (accept : Finset E → E → Bool) : List E → Finset E → Finset E
@@ -261,6 +359,134 @@ theorem kruskal_extends_start (accept : Finset E → E → Bool)
       · have hfalse : accept A e = false := by
           cases h : accept A e <;> simp [h] at hacc ⊢
         simpa [kruskal, hfalse] using ih A
+
+/--
+After a Kruskal prefix has been processed by an exact component oracle, every
+processed edge is accounted for: it is either selected in the current forest or
+its endpoints are already connected in that forest.
+-/
+theorem processed_edge_mem_or_connected_of_exact_component_kruskal
+    {G : Graph V E} (C : ComponentOracle G)
+    (hexact : ExactComponentOracle G C) (processed : List E)
+    (A : Finset E) :
+    ∀ f, f ∈ processed →
+      f ∈ kruskal (acceptByComponent G C) processed A ∨
+        G.ConnectedIn (kruskal (acceptByComponent G C) processed A)
+          (G.src f) (G.dst f) := by
+  induction processed generalizing A with
+  | nil =>
+      intro f hf
+      simp at hf
+  | cons e es ih =>
+      intro f hf
+      rw [List.mem_cons] at hf
+      by_cases hacc : acceptByComponent G C A e = true
+      · rcases hf with hfe | hfes
+        · left
+          subst f
+          have heInsert : e ∈ insert e A := Finset.mem_insert_self e A
+          have hsubset :
+              insert e A ⊆ kruskal (acceptByComponent G C) es (insert e A) :=
+            kruskal_extends_start (acceptByComponent G C) es (insert e A)
+          simpa [kruskal, hacc] using hsubset heInsert
+        · simpa [kruskal, hacc] using ih (insert e A) f hfes
+      · have hfalse : acceptByComponent G C A e = false := by
+          cases h : acceptByComponent G C A e <;> simp [h] at hacc ⊢
+        rcases hf with hfe | hfes
+        · right
+          subst f
+          have hmem : G.dst e ∈ C.component A (G.src e) :=
+            mem_component_of_reject hfalse
+          have hconnA : G.ConnectedIn A (G.src e) (G.dst e) :=
+            (hexact A (G.src e) (G.dst e)).1 hmem
+          have hsubset : A ⊆ kruskal (acceptByComponent G C) es A :=
+            kruskal_extends_start (acceptByComponent G C) es A
+          have hconnFinal :
+              G.ConnectedIn (kruskal (acceptByComponent G C) es A)
+                (G.src e) (G.dst e) :=
+            Graph.connected_mono hsubset hconnA
+          simpa [kruskal, hfalse] using hconnFinal
+        · simpa [kruskal, hfalse] using ih A f hfes
+
+/--
+Exact components derive the processed-prefix exclusion invariant needed by the
+sorted-order Kruskal lightness proof.
+-/
+theorem processed_prefix_excludes_of_exact_component_kruskal
+    {G : Graph V E} (C : ComponentOracle G)
+    (hexact : ExactComponentOracle G C) (processed : List E)
+    (A : Finset E) (root : V) :
+    ∀ f, f ∈ processed →
+      ¬ G.Crosses
+        (C.component (kruskal (acceptByComponent G C) processed A) root) f := by
+  intro f hf
+  exact not_crosses_component_of_mem_or_connected hexact
+    (processed_edge_mem_or_connected_of_exact_component_kruskal C hexact
+      processed A f hf)
+
+/--
+Kruskal's sorted edge order proves lightness without a standalone prefix
+exclusion hypothesis when the component oracle is exact.
+-/
+theorem lightest_crossing_of_exact_component_kruskal_prefix
+    {G : Graph V E} {w : E → Nat} (C : ComponentOracle G)
+    (hexact : ExactComponentOracle G C)
+    {processed suffix : List E} {A : Finset E} {e : E}
+    (hsorted : WeightSorted w (processed ++ e :: suffix))
+    (hall :
+      ∀ f,
+        G.Crosses
+            (C.component (kruskal (acceptByComponent G C) processed A)
+              (G.src e)) f →
+          f ∈ processed ++ e :: suffix) :
+    ∀ f,
+      G.Crosses
+          (C.component (kruskal (acceptByComponent G C) processed A)
+            (G.src e)) f →
+        w e ≤ w f := by
+  exact lightest_crossing_of_sorted_prefix hsorted hall
+    (processed_prefix_excludes_of_exact_component_kruskal C hexact
+      processed A (G.src e))
+
+/--
+Exact-component cut certificate for the current Kruskal edge.  This packages
+the derived processed-prefix exclusion invariant with the sorted edge order.
+-/
+theorem cut_certificate_of_exact_component_kruskal_prefix
+    {G : Graph V E} {P : Problem E} {w : E → Nat} (C : ComponentOracle G)
+    (hexact : ExactComponentOracle G C)
+    {processed suffix : List E} {A : Finset E} {e : E}
+    (haccept :
+      acceptByComponent G C
+          (kruskal (acceptByComponent G C) processed A) e = true)
+    (hsorted : WeightSorted w (processed ++ e :: suffix))
+    (hall :
+      ∀ f,
+        G.Crosses
+            (C.component (kruskal (acceptByComponent G C) processed A)
+              (G.src e)) f →
+          f ∈ processed ++ e :: suffix)
+    (hexchange :
+      ∀ T,
+        IsMSTExtending P w
+            (kruskal (acceptByComponent G C) processed A) T →
+          e ∉ T →
+            ∃ f, f ∈ T ∧
+              G.Crosses
+                  (C.component
+                    (kruskal (acceptByComponent G C) processed A)
+                    (G.src e)) f ∧
+                P.IsSpanningTree (insert e (T.erase f)) ∧
+                kruskal (acceptByComponent G C) processed A ⊆
+                  insert e (T.erase f)) :
+    CutCertificate G P w
+      (kruskal (acceptByComponent G C) processed A)
+      (C.component (kruskal (acceptByComponent G C) processed A) (G.src e))
+      e := by
+  exact cut_certificate_of_component_oracle C haccept
+    (lightest_crossing_of_exact_component_kruskal_prefix C hexact
+      hsorted hall)
+    hexchange
 
 private theorem optimal_for_smaller_prefix {P : Problem E} {w : E → Nat}
     {A₀ A T T' : Finset E} (hA₀A : A₀ ⊆ A)
@@ -358,7 +584,7 @@ theorem kruskal_optimal_of_component_oracle {G : Graph V E} {P : Problem E}
     edges hstart hfinal_tree hfinal_maximal
 
 /-- A verified executable cycle test.  A union-find implementation should
-provide an `accept` function and prove that it agrees with the component oracle. -/
+provide an {lit}`accept` function and prove that it agrees with the component oracle. -/
 structure CycleTestImplementation (G : Graph V E) (C : ComponentOracle G) where
   accept : Finset E → E → Bool
   correct : ∀ A e, accept A e = acceptByComponent G C A e

@@ -211,7 +211,10 @@ end CLRS
   tree maximality.  If component exactness is not yet available, still prove the
   sorted-order lemma with an explicit processed-prefix exclusion invariant; this
   prevents the section from hiding all of Kruskal's weight-order argument inside
-  a certificate hypothesis.
+  a certificate hypothesis.  Once exact components are available, prove a prefix
+  accounting theorem: every processed edge is either selected or has connected
+  endpoints in the current forest.  That theorem should derive the
+  processed-prefix exclusion invariant automatically.
 
 ## Known Blockers
 
@@ -302,6 +305,13 @@ end CLRS
   implies the current edge is light, then package it as a component-oracle cut
   certificate.  The next real gap becomes deriving that prefix exclusion from
   cycle-test/component exactness, not sortedness itself.
+- Chapter 23.2 exact-component pass: after the sorted-lightness layer, add a
+  prefix accounting theorem for the real Kruskal recursion.  With exact
+  components, a rejected processed edge has connected endpoints, and an accepted
+  processed edge remains in the growing forest; either way it cannot cross the
+  current exact component cut.  This moves the remaining MST gap to concrete
+  exchange edges, final spanning-tree construction, and optional union-find
+  refinement.
 
 ## Honesty Rules
 

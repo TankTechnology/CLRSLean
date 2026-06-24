@@ -210,3 +210,15 @@ chapters.
 - This makes the remaining MST gap sharper: the next theorem should derive the
   processed-prefix exclusion invariant from an exact component/cycle-test model,
   while union-find implementation correctness can remain deferred.
+
+## 2026-06-24 - After Chapter 23.2 Exact Components
+
+- Once exact components are available, prove prefix accounting over the actual
+  Kruskal recursion.  Each processed edge is either still selected in the
+  current forest or has endpoints connected by that forest.
+- Use that accounting theorem to derive processed-prefix exclusion instead of
+  keeping it as a caller-supplied hypothesis.  The sorted-order theorem remains
+  useful, but exact-component Kruskal should expose a stronger wrapper:
+  `cut_certificate_of_exact_component_kruskal_prefix`.
+- After this pass, the honest MST frontier is concrete path/cycle exchange,
+  final spanning-tree construction, and optional union-find refinement.

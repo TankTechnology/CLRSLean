@@ -84,14 +84,18 @@ the imported CLRS-Lean source, not experimental worktrees.
   `CLRS.Chapter04.maxSubarrayDivideFuel_correct` for a fuelled midpoint splitter.
 - Chapter 23.2 now proves the sorted-order lightness layer for Kruskal:
   `CLRS.MST.lightest_crossing_of_sorted_prefix` and
-  `CLRS.MST.cut_certificate_of_component_oracle_sorted_prefix`.  The remaining
-  lightness gap is deriving the processed-prefix exclusion invariant from a
-  stronger exact cycle-test/component model.
+  `CLRS.MST.cut_certificate_of_component_oracle_sorted_prefix`.
+- Chapter 23.2 now also derives the processed-prefix exclusion invariant from
+  an exact component oracle for a real Kruskal prefix:
+  `CLRS.MST.processed_edge_mem_or_connected_of_exact_component_kruskal`,
+  `CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal`,
+  `CLRS.MST.lightest_crossing_of_exact_component_kruskal_prefix`, and
+  `CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix`.
 
 ## Next Proof Priorities
 
-1. Chapter 23.2: derive processed-prefix exclusion from an exact cycle-test or
-   component model, then feed it into the sorted-order lightness theorem.
+1. Chapter 23.2/23.1: construct the concrete MST exchange edge from finite
+   graph paths or cycles, then feed it into the cut-certificate layer.
 2. Chapter 4.1: add the runtime recurrence for the fuelled midpoint
    divide-and-conquer maximum-subarray selector.
 3. Chapter 13.1: mechanize executable `RB-INSERT-FIXUP` on top of the local

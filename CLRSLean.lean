@@ -179,7 +179,10 @@ Start with the chapter pages in the sidebar.
 * 23.1 Growing a minimum spanning tree: `partial`.
   Current result: `CLRS.MST.safe_edge_of_lightest_crossing`.
 * 23.2 Kruskal and Prim: `partial`.
-  Current result: `CLRS.MST.kruskal_optimal`.
+  Current results:
+  {lit}`CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal`,
+  {lit}`CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix`,
+  {lit}`CLRS.MST.kruskal_optimal`.
 
 ## Status Policy
 

@@ -15,15 +15,18 @@ that constructs the exchange edge from a spanning-tree path or cycle.
 
 - Lean source: `CLRSLean/Chapter_23/Section_23_2_Kruskal_And_Prim.lean`
 - Status: `partial`
-- Main theorem: `CLRS.MST.kruskal_optimal`
+- Main theorems:
+  `CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal`,
+  `CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix`, and
+  `CLRS.MST.kruskal_optimal`
 
 The current Kruskal proof is mathematical rather than implementation-level.  It
-uses an abstract cycle test and safe-edge certificates.  Union-find correctness
-is intentionally deferred.
+uses an exact component oracle, sorted edge order, and safe-edge certificates.
+Union-find correctness is intentionally deferred.
 
 Open tasks:
 
-- prove sorted edge order implies the accepted edge is light across its cut;
+- construct the concrete exchange edge from finite graph paths or cycles;
 - prove the final Kruskal output is a spanning tree under the usual connected
   graph and complete edge list assumptions;
 - add the Prim theorem interface after Kruskal's mathematical version is stable.
