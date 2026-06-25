@@ -27,7 +27,7 @@ def MonotoneAbs (T : ℕ → ℝ) : Prop :=
 /--
 Eventual one-step control for a comparison scale across one multiplication by
 the Master-theorem base.  This is the local regularity assumption that turns
-the adjacent-power interval `b^i ≤ n < b^(i+1)` into the global power-sandwich
+the adjacent-power interval {lit}`b^i ≤ n < b^(i+1)` into the global power-sandwich
 hypotheses below.
 -/
 def EventuallyPowerStepBound (b : ℕ) (g : ℕ → ℝ) : Prop :=
@@ -352,10 +352,10 @@ theorem criticalPowerLogScale_isBigTheta_polynomialLogScale
 /-! ## Real-logarithmic comparison scales -/
 
 /--
-The real-valued exponent `log_b a = log a / log b`.  This is the exponent that
-appears in the standard CLRS Master-theorem statement as `n^(log_b a)`.
+The real-valued exponent {lit}`log_b a = log a / log b`.  This is the exponent that
+appears in the standard CLRS Master-theorem statement as {lit}`n^(log_b a)`.
 
-When `a = b^p` for natural `p`, this reduces to `(p : ℝ)`, and the
+When {lit}`a = b^p` for natural {lit}`p`, this reduces to {lit}`(p : ℝ)`, and the
 {name}`criticalPowerScale_isBigTheta_polynomialScale` comparison above is a
 special case of the general comparison proved here.
 -/
@@ -363,7 +363,7 @@ noncomputable def realLogExponent (a b : ℕ) : ℝ :=
   Real.log (a : ℝ) / Real.log (b : ℝ)
 
 /--
-The real-log comparison scale `n^(log_b a)`.  This is the textbook scale used in
+The real-log comparison scale {lit}`n^(log_b a)`.  This is the textbook scale used in
 the standard CLRS statement of the Master theorem: the homogeneous-solution
 growth rate without floors and ceilings.
 
@@ -374,13 +374,13 @@ noncomputable def realLogScale (a b : ℕ) (n : ℕ) : ℝ :=
   (n : ℝ) ^ (realLogExponent a b)
 
 /--
-When `1 ≤ a` and `1 < b`, the discrete critical-power scale
-`a^(⌊log_b n⌋)` is asymptotically equivalent to the real-log scale
-`n^(log_b a)`.
+When {lit}`1 ≤ a` and {lit}`1 < b`, the discrete critical-power scale
+{lit}`a^(⌊log_b n⌋)` is asymptotically equivalent to the real-log scale
+{lit}`n^(log_b a)`.
 
 This is the main bridge between the discrete all-input Master-theorem proof
-and the standard CLRS statement in terms of `n^(log_b a)`.  The constant
-factor is at most `a` in the Ω direction and `1` in the O direction, so the
+and the standard CLRS statement in terms of {lit}`n^(log_b a)`.  The constant
+factor is at most {lit}`a` in the Ω direction and {lit}`1` in the O direction, so the
 asymptotic class is exact.
 -/
 theorem criticalPowerScale_isBigTheta_realLogScale
@@ -530,14 +530,14 @@ theorem criticalPowerScale_isBigTheta_realLogScale
 
 /--
 All-input floor-division form of the Master-theorem recurrence:
-`T(n) = a T(⌊n / b⌋) + f(n)`.
+{lit}`T(n) = a T(⌊n / b⌋) + f(n)`.
 -/
 structure FloorDivideRecurrence (a b : ℕ) (f T : ℕ → ℝ) : Prop where
   step : ∀ n : ℕ, T n = (a : ℝ) * T (n / b) + f n
 
 /--
 All-input ceiling-division form of the Master-theorem recurrence:
-`T(n) = a T(⌈n / b⌉) + f(n)`, represented over natural numbers as
+{lit}`T(n) = a T(⌈n / b⌉) + f(n)`, represented over natural numbers as
 {lit}`(n + b - 1) / b`.
 -/
 structure CeilDivideRecurrence (a b : ℕ) (f T : ℕ → ℝ) : Prop where
@@ -1029,7 +1029,7 @@ theorem ceilDivide_allInput_masterCase1_polynomialScale
 /--
 All-input wrapper for exact-power Master case 2, using the discrete
 {name}`criticalPowerLogScale`.  This is the all-input analogue of the exact
-power theorem `T(b^i) = Θ((i+1)a^i)`.
+power theorem {lit}`T(b^i) = Θ((i+1)a^i)`.
 -/
 theorem exactPower_allInput_masterCase2_criticalPowerLogScale
     (a b : ℕ) (f T : ℕ → ℝ)
@@ -1049,7 +1049,7 @@ theorem exactPower_allInput_masterCase2_criticalPowerLogScale
 
 /--
 Floor-division all-input Master case 2 wrapper.  It extracts the exact-power
-recurrence from `T(n) = a T(⌊n/b⌋) + f(n)`, applies exact-power case 2, and
+recurrence from {lit}`T(n) = a T(⌊n/b⌋) + f(n)`, applies exact-power case 2, and
 transfers the result to every natural input through the discrete log scale.
 -/
 theorem floorDivide_allInput_masterCase2_criticalPowerLogScale

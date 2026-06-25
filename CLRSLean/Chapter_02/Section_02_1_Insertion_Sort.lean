@@ -19,7 +19,7 @@ does not change the multiset of elements.
 namespace CLRS
 namespace Chapter02
 
-/-- Every element of `xs` is at least `lower`. -/
+/-- Every element of {lit}`xs` is at least {lit}`lower`. -/
 def AllLe (lower : Nat) (xs : List Nat) : Prop :=
   ∀ x ∈ xs, lower ≤ x
 

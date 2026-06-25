@@ -9,17 +9,17 @@ open scoped BigOperators
 # 5.1. The Hiring Problem
 
 This file proves the finite symmetry calculation behind the CLRS hiring
-problem.  At step `n+1`, the new candidate is hired exactly when the best among
-the first `n+1` candidates is in the new candidate's position.  Under the
-uniform rank model, that event has probability `1/(n+1)`.  Summing these
+problem.  At step {lit}`n+1`, the new candidate is hired exactly when the best among
+the first {lit}`n+1` candidates is in the new candidate's position.  Under the
+uniform rank model, that event has probability {lit}`1/(n+1)`.  Summing these
 indicator expectations gives the harmonic number.
 
 Main result:
 
 - Theorem {lit}`CLRS.Chapter05.uniformAverage_indicator_singleton`: a singleton
-  event in a finite uniform space has probability `1/m`.
+  event in a finite uniform space has probability {lit}`1/m`.
 - Theorem {lit}`CLRS.Chapter05.hireProbability_eq`: the hire probability at
-  step `n+1` is `1/(n+1)`.
+  step {lit}`n+1` is {lit}`1/(n+1)`.
 - Theorem {lit}`CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`: summing
   the indicator expectations gives the harmonic number.
 - Theorem {lit}`CLRS.Chapter05.expectedHires_eq_harmonic`: the equivalent
@@ -38,15 +38,15 @@ namespace Chapter05
 
 /-! ## Finite uniform expectation model -/
 
-/-- Uniform average over the finite sample space `{0, ..., m-1}`. -/
+/-- Uniform average over the finite sample space {lit}`{0, ..., m-1}`. -/
 noncomputable def uniformAverageRange (m : ℕ) (X : ℕ → ℝ) : ℝ :=
   (∑ i ∈ range m, X i) / (m : ℝ)
 
-/-- A `0/1` indicator as a real-valued random variable. -/
+/-- A {lit}`0/1` indicator as a real-valued random variable. -/
 def indicator (P : Prop) [Decidable P] : ℝ :=
   if P then 1 else 0
 
-/-- In a finite uniform space of size `m`, a singleton event has probability `1/m`. -/
+/-- In a finite uniform space of size {lit}`m`, a singleton event has probability {lit}`1/m`. -/
 theorem uniformAverage_indicator_singleton {m j : ℕ} (hj : j ∈ range m) :
     uniformAverageRange m (fun i => indicator (i = j)) = 1 / (m : ℝ) := by
   classical
@@ -62,8 +62,8 @@ theorem uniformAverage_indicator_singleton {m j : ℕ} (hj : j ∈ range m) :
 /-! ## Hiring probabilities from symmetry -/
 
 /--
-At step `n+1`, index `n` is the new candidate's position in a rank-symmetry
-sample space of size `n+1`.
+At step {lit}`n+1`, index {lit}`n` is the new candidate's position in a rank-symmetry
+sample space of size {lit}`n+1`.
 -/
 def newCandidateIsBest (n rankOfBest : ℕ) : Prop :=
   rankOfBest = n
@@ -72,11 +72,11 @@ instance newCandidateIsBestDecidable (n rankOfBest : ℕ) :
     Decidable (newCandidateIsBest n rankOfBest) :=
   inferInstanceAs (Decidable (rankOfBest = n))
 
-/-- The probability that the new candidate is the best among the first `n+1`. -/
+/-- The probability that the new candidate is the best among the first {lit}`n+1`. -/
 noncomputable def hireProbability (n : ℕ) : ℝ :=
   uniformAverageRange (n + 1) (fun rankOfBest => indicator (rankOfBest = n))
 
-/-- The single-step hiring probability is `1/(n+1)` by finite symmetry. -/
+/-- The single-step hiring probability is {lit}`1/(n+1)` by finite symmetry. -/
 theorem hireProbability_eq (n : ℕ) :
     hireProbability n = 1 / ((n : ℝ) + 1) := by
   classical
@@ -89,7 +89,7 @@ theorem hireProbability_eq (n : ℕ) :
 
 /-! ## Harmonic numbers -/
 
-/-- The {lit}`n`-th harmonic number, written as `Σ_{i=0}^{n-1} 1/(i+1)`. -/
+/-- The {lit}`n`-th harmonic number, written as {lit}`Σ_{i=0}^{n-1} 1/(i+1)`. -/
 noncomputable def harmonic (n : ℕ) : ℝ :=
   ∑ i ∈ range n, 1 / ((i : ℝ) + 1)
 
@@ -144,7 +144,7 @@ theorem expectedHires_eq_expectedHiresByIndicators (n : ℕ) :
 
 /--
 The real harmonic sum used in this section agrees with Mathlib's rational
-harmonic numbers after casting to `ℝ`.
+harmonic numbers after casting to {lit}`ℝ`.
 -/
 theorem harmonic_eq_mathlib_harmonic (n : ℕ) :
     harmonic n = (_root_.harmonic n : ℝ) := by
@@ -167,7 +167,7 @@ theorem harmonic_isBigTheta_log :
     exact Chapter03.isBigTheta_harmonic_log.2.trans_eventuallyEq heq.symm
   exact ⟨hO, hΩ⟩
 
-/-- The CLRS expected number of hires is logarithmic: `E[X] = Θ(log n)`. -/
+/-- The CLRS expected number of hires is logarithmic: {lit}`E[X] = Θ(log n)`. -/
 theorem expectedHires_isBigTheta_log :
     Chapter03.isBigTheta expectedHires (fun n : ℕ => Real.log (n : ℝ)) := by
   have heq : expectedHires =ᶠ[atTop] harmonic := by

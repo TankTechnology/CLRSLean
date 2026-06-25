@@ -188,8 +188,8 @@ theorem exists_crossing_tree_edge_of_cut (G : FiniteGraph V E)
       (hT.2.1 (G.dst e) hdst (G.src e) hsrc) hdstS hsrcNot
 
 /--
-If the cut respects a prefix `A`, then the crossing tree edge found on the tree
-path is outside `A`.  Consequently deleting it while inserting the crossing
+If the cut respects a prefix {lit}`A`, then the crossing tree edge found on the tree
+path is outside {lit}`A`.  Consequently deleting it while inserting the crossing
 edge preserves the prefix edge set.
 -/
 theorem exists_crossing_tree_edge_preserving_prefix (G : FiniteGraph V E)
@@ -222,7 +222,7 @@ def toProblem (G : FiniteGraph V E) : Problem E where
 
 end FiniteGraph
 
-/-- `T` is a minimum feasible tree among all trees extending `A`. -/
+/-- {lit}`T` is a minimum feasible tree among all trees extending {lit}`A`. -/
 structure IsMSTExtending (P : Problem E) (w : E → Nat)
     (A T : Finset E) : Prop where
   tree : P.IsSpanningTree T
@@ -270,8 +270,8 @@ theorem minimumSpanningTree_iff_mstExtending_empty (G : FiniteGraph V E)
 
 end FiniteGraph
 
-/-- An edge is safe for `A` if every optimum extending `A` can be turned into
-an optimum extending `A ∪ {e}` without losing optimality for the old prefix.
+/-- An edge is safe for {lit}`A` if every optimum extending {lit}`A` can be turned into
+an optimum extending {lit}`A ∪ {e}` without losing optimality for the old prefix.
 
 The second conjunct is what lets a Kruskal-style induction keep global
 optimality for the original prefix, not only optimality for the growing prefix.
@@ -305,8 +305,8 @@ private lemma weight_insert_erase_le (w : E → Nat) {T : Finset E} {e f : E}
           unfold weight
           exact Finset.add_sum_erase T w hf
 
-/-- The CLRS exchange step: if adding `e` and dropping `f` gives another
-spanning tree and `e` is no heavier than `f`, then the exchanged tree is still
+/-- The CLRS exchange step: if adding {lit}`e` and dropping {lit}`f` gives another
+spanning tree and {lit}`e` is no heavier than {lit}`f`, then the exchanged tree is still
 minimum. -/
 theorem mst_exchange_preserves_prefix {P : Problem E} {w : E → Nat} {A T : Finset E}
     {e f : E} (hT : IsMSTExtending P w A T)
@@ -332,10 +332,10 @@ theorem mst_exchange_step {P : Problem E} {w : E → Nat} {A T : Finset E}
 
 /-- A cut certificate packages the graph-specific part of the CLRS proof.
 
-For every optimum tree extending `A` that does not already contain `e`, the
-certificate provides a tree edge `f` crossing the same cut such that replacing
-`f` by `e` is feasible and preserves `A`.  The light-edge condition then gives
-`w e ≤ w f`.
+For every optimum tree extending {lit}`A` that does not already contain {lit}`e`, the
+certificate provides a tree edge {lit}`f` crossing the same cut such that replacing
+{lit}`f` by {lit}`e` is feasible and preserves {lit}`A`.  The light-edge condition then gives
+{lit}`w e ≤ w f`.
 -/
 structure CutCertificate (G : Graph V E) (P : Problem E) (w : E → Nat)
     (A : Finset E) (S : Finset V) (e : E) : Prop where

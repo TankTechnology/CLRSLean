@@ -12,11 +12,11 @@ when reasoning about the operations.
 
 ## Sections
 
-* 10.1 Stacks and queues: `proved` for the functional-list model.
+* 10.1 Stacks and queues: {lit}`proved` for the functional-list model.
   Main results: {lit}`CLRS.Chapter10.pop_push`,
   {lit}`CLRS.Chapter10.dequeue_enqueue_empty`,
   {lit}`CLRS.Chapter10.dequeue_enqueue_nonempty`.
-* 10.2 Linked lists: `proved` for the functional-list model.
+* 10.2 Linked lists: {lit}`proved` for the functional-list model.
   Main results: {lit}`CLRS.Chapter10.listSearch_sound`,
   {lit}`CLRS.Chapter10.mem_listDeleteAll_iff`.
 

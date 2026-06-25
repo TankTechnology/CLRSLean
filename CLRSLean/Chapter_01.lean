@@ -15,8 +15,8 @@ In CLRS-Lean, *algorithm* means two things that live side by side:
 1. A Lean function that computes something — the executable part.
 2. A theorem that states what the function guarantees — the proof part.
 
-For example, insertion sort is a pair `(f, P)` where `f` sorts a list and
-`P` says that the result is ordered and permutes the input — see
+For example, insertion sort is a pair {lit}`(f, P)` where {lit}`f` sorts a list and
+{lit}`P` says that the result is ordered and permutes the input — see
 Chapter 2 for the real Lean version.
 
 Every section in later chapters follows this pattern: define the computation,
@@ -44,15 +44,15 @@ The cost is precision: every case must be handled, every inequality justified.
 
 To build and browse the site locally:
 
-* `lake build` compiles everything.
-* `lake build :literateHtml` generates this website.
+* {lit}`lake build` compiles everything.
+* {lit}`lake build :literateHtml` generates this website.
 
 ## Conventions
 
 * **0-indexed**: lists and sequences start at 0, for Mathlib compatibility.
-* **Total functions**: partial operations return junk values, not `Option`.
+* **Total functions**: partial operations return junk values, not {lit}`Option`.
 * **Unfinished theorem targets**: kept out of imported proof files and recorded
-  as `partial`, `blocked-design`, or `future-work` in the status pages.
+  as {lit}`partial`, {lit}`blocked-design`, or {lit}`future-work` in the status pages.
   Each chapter page lists exactly what is missing.
 
 ## Repository

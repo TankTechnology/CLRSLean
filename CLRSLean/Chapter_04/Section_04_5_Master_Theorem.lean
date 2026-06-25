@@ -9,8 +9,8 @@ open scoped BigOperators
 
 This file proves the exact-power algebraic core of the Chapter 4 Master Theorem.
 For recurrences on exact powers,
-`T(b^(i+1)) = a * T(b^i) + f(b^(i+1))`, the normalized quantity
-`T(b^i) / a^i` unfolds into the initial value plus a finite sum of normalized
+{lit}`T(b^(i+1)) = a * T(b^i) + f(b^(i+1))`, the normalized quantity
+{lit}`T(b^i) / a^i` unfolds into the initial value plus a finite sum of normalized
 forcing terms.  The three Master-style exact-power criteria below then turn
 bounded, constant, or tail-dominated normalized forcing into the expected
 asymptotic conclusions.
@@ -20,15 +20,15 @@ Main result:
 - Theorem {lit}`CLRS.Chapter04.h_formula`: the normalized exact-power recurrence
   expansion.
 - Theorem {lit}`CLRS.Chapter04.master_case1_geometric`: bounded normalized
-  forcing, obtained from a geometric upper bound, gives `T(b^i) = Θ(a^i)`.
+  forcing, obtained from a geometric upper bound, gives {lit}`T(b^i) = Θ(a^i)`.
 - Theorem {lit}`CLRS.Chapter04.master_case2_constant_forcing`: constant
-  normalized forcing gives `T(b^i) = Θ((i+1)a^i)`.
+  normalized forcing gives {lit}`T(b^i) = Θ((i+1)a^i)`.
 - Theorem {lit}`CLRS.Chapter04.master_case3_tail_dominated`: tail-dominated
   normalized forcing gives the third Master-style exact-power case.
 
 Current gaps:
 
-- The extension from exact powers `n = b^i` to all natural input sizes is future
+- The extension from exact powers {lit}`n = b^i` to all natural input sizes is future
   work.  That layer needs a monotone recurrence model and floor/ceiling
   sandwiching.
 -/
@@ -42,11 +42,11 @@ namespace Chapter04
 structure ExactPowerRecurrence (a b : ℕ) (f T : ℕ → ℝ) : Prop where
   step : ∀ i : ℕ, T (b ^ (i + 1)) = (a : ℝ) * T (b ^ i) + f (b ^ (i + 1))
 
-/-- The normalized value `T(b^i) / a^i`. -/
+/-- The normalized value {lit}`T(b^i) / a^i`. -/
 noncomputable def normalizedValue (a b : ℕ) (T : ℕ → ℝ) (i : ℕ) : ℝ :=
   T (b ^ i) / ((a : ℝ) ^ i)
 
-/-- The normalized forcing term contributed at the step from `i` to `i+1`. -/
+/-- The normalized forcing term contributed at the step from {lit}`i` to {lit}`i+1`. -/
 noncomputable def normalizedForcing (a b : ℕ) (f : ℕ → ℝ) (i : ℕ) : ℝ :=
   f (b ^ (i + 1)) / ((a : ℝ) ^ (i + 1))
 
@@ -94,7 +94,7 @@ private theorem isBigTheta_of_eventual_bounds {f g : ℕ → ℝ}
 
 /--
 If the normalized recurrence values are eventually within constant multiples of
-a nonnegative scale `s`, then the original exact-power recurrence is `Θ(s(i)a^i)`.
+a nonnegative scale {lit}`s`, then the original exact-power recurrence is {lit}`Θ(s(i)a^i)`.
 -/
 theorem theta_of_normalized_by_scale (a b : ℕ) (T : ℕ → ℝ) (scale : ℕ → ℝ)
     (ha_pos : 0 < (a : ℝ))
@@ -176,7 +176,7 @@ private lemma geometric_sum_le_tsum_bound {r : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt
 
 /--
 Master case 1, exact-power form: if the normalized forcing terms are bounded by
-a convergent geometric sequence, then `T(b^i) = Θ(a^i)`.
+a convergent geometric sequence, then {lit}`T(b^i) = Θ(a^i)`.
 -/
 theorem master_case1_geometric (a b : ℕ) (f T : ℕ → ℝ)
     (h_rec : ExactPowerRecurrence a b f T) (ha_pos : 0 < (a : ℝ))
@@ -237,7 +237,7 @@ theorem master_case1_geometric (a b : ℕ) (f T : ℕ → ℝ)
 
 /--
 Master case 2, exact-power form: if the normalized forcing terms are trapped
-between positive constants, then `T(b^i) = Θ((i+1)a^i)`.
+between positive constants, then {lit}`T(b^i) = Θ((i+1)a^i)`.
 -/
 theorem master_case2_constant_forcing (a b : ℕ) (f T : ℕ → ℝ)
     (h_rec : ExactPowerRecurrence a b f T) (ha_pos : 0 < (a : ℝ))

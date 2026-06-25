@@ -47,7 +47,7 @@ Main results:
   recursion tree for any cost function satisfying the CLRS subproblem-size
   bounds.
 * Theorem {lit}`medianOfMedians_linear_bound`: a concrete instantiation with
-  the standard median-of-medians branch sizes `n/5` and `(7n+12)/10`,
+  the standard median-of-medians branch sizes {lit}`n/5` and {lit}`(7n+12)/10`,
   proving linear cost whenever the per-element work coefficient is bounded
   relative to the overall constant.
 
@@ -56,9 +56,9 @@ Current gaps:
 * The recurrence induction above closes the substitution-method half, but
   this is still not the full CLRS linear-time median-of-medians cost theorem.
   The remaining step is a concrete cost semantics (operational or
-  denotational) for `medianOfMediansSelect?` that maps list input to a
-  `Nat` cost, together with proofs that the concrete cost satisfies the
-  hypotheses of `medianOfMedians_linear_bound`.
+  denotational) for {lit}`medianOfMediansSelect?` that maps list input to a
+  {lit}`Nat` cost, together with proofs that the concrete cost satisfies the
+  hypotheses of {lit}`medianOfMedians_linear_bound`.
 -/
 
 namespace CLRS
@@ -976,20 +976,20 @@ theorem medianOfMediansPivot?_high_branch_linear_work_step
 /--
 **Recurrence induction for median-of-medians cost.**
 
-Given a cost function `T : Nat → Nat`, subproblem-size functions `g` (median
-subproblem) and `h` (strict recursive branch), a local-work function `f`, and
-a base threshold `t`, this theorem proves `T n ≤ C * n` for all `n` whenever
-the following hold for all `n ≥ t`:
+Given a cost function {lit}`T : Nat → Nat`, subproblem-size functions {lit}`g` (median
+subproblem) and {lit}`h` (strict recursive branch), a local-work function {lit}`f`, and
+a base threshold {lit}`t`, this theorem proves {lit}`T n ≤ C * n` for all {lit}`n` whenever
+the following hold for all {lit}`n ≥ t`:
 
 1. The subproblem sizes satisfy the CLRS partition bounds:
-   `5 * g n ≤ n` and `10 * h n ≤ 7 * n + 12`;
+   {lit}`5 * g n ≤ n` and {lit}`10 * h n ≤ 7 * n + 12`;
 2. The local work is small enough:
-   `10 * f n + 12 * C ≤ C * n`;
-3. `T` satisfies the one-level recurrence
-   `T n ≤ T (g n) + T (h n) + f n`;
-4. Base cases `n < t` respect the linear bound: `T n ≤ C * n`.
+   {lit}`10 * f n + 12 * C ≤ C * n`;
+3. {lit}`T` satisfies the one-level recurrence
+   {lit}`T n ≤ T (g n) + T (h n) + f n`;
+4. Base cases {lit}`n < t` respect the linear bound: {lit}`T n ≤ C * n`.
 
-The proof chains `selectRecurrence_linear_step` through strong induction
+The proof chains {lit}`selectRecurrence_linear_step` through strong induction
 to lift the single-level substitution to the full recursion tree.
 
 Corresponds to the substitution-method closure in CLRS Section 9.3.
@@ -1044,9 +1044,9 @@ theorem selectRecurrence_linear_induction
 /--
 **Concrete linear bound for the median-of-medians recurrence.**
 
-Corollary of `selectRecurrence_linear_induction` with the standard CLRS
-subproblem sizes: the median subproblem is `⌊n/5⌋`, the strict branch is
-`⌊(7n+12)/10⌋`, and the local work is bounded by `a*n` where `20*a ≤ C`
+Corollary of {lit}`selectRecurrence_linear_induction` with the standard CLRS
+subproblem sizes: the median subproblem is {lit}`⌊n/5⌋`, the strict branch is
+{lit}`⌊(7n+12)/10⌋`, and the local work is bounded by {lit}`a*n` where {lit}`20*a ≤ C`
 (so that the one-level algebraic slack closes).
 
 The base threshold is 50, which is large enough to absorb the additive

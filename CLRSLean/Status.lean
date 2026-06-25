@@ -2,24 +2,24 @@
 # Proof Status
 
 This page is the public status ledger for the web site.  It mirrors the longer
-maintainer notes in `docs/proof-map.md`, but is written for readers who are
+maintainer notes in {lit}`docs/proof-map.md`, but is written for readers who are
 navigating the deployed pages.
 
 ## Status Labels
 
-* `proved`: the named section theorem is proved in Lean for the current
+* {lit}`proved`: the named section theorem is proved in Lean for the current
   specification.
-* `expository`: a reader-facing guide page with no theorem target.
-* `partial`: important theorem infrastructure exists, but the full textbook
+* {lit}`expository`: a reader-facing guide page with no theorem target.
+* {lit}`partial`: important theorem infrastructure exists, but the full textbook
   claim is not complete.
-* `statement`: the intended theorem interface exists, but proof work has not
+* {lit}`statement`: the intended theorem interface exists, but proof work has not
   started.
-* `blocked-design`: progress depends on choosing a stable representation.
-* `blocked-mathlib`: progress depends on missing or inconvenient Mathlib
+* {lit}`blocked-design`: progress depends on choosing a stable representation.
+* {lit}`blocked-mathlib`: progress depends on missing or inconvenient Mathlib
   infrastructure.
-* `deferred-implementation`: the mathematical proof is in scope, but a
+* {lit}`deferred-implementation`: the mathematical proof is in scope, but a
   low-level implementation proof is postponed.
-* `future-work`: exercises, chapter-end problems, or strengthening passes
+* {lit}`future-work`: exercises, chapter-end problems, or strengthening passes
   outside the current main track.
 
 ## Planning Board
@@ -141,11 +141,11 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter04.Matrix2.strassen_eq_mul` and
   {lit}`CLRS.Chapter04.strassen2x2_correct`.
 * 3.1 Asymptotic notation:
-  `CLRS.Chapter03.isBigO_iff`,
-  `CLRS.Chapter03.isLittleO_iff`,
-  `CLRS.Chapter03.isBigOmega_iff`,
-  `CLRS.Chapter03.isLittleOmega_iff`,
-  `CLRS.Chapter03.isBigTheta_trans`.
+  {lit}`CLRS.Chapter03.isBigO_iff`,
+  {lit}`CLRS.Chapter03.isLittleO_iff`,
+  {lit}`CLRS.Chapter03.isBigOmega_iff`,
+  {lit}`CLRS.Chapter03.isLittleOmega_iff`,
+  {lit}`CLRS.Chapter03.isBigTheta_trans`.
 * 4.5 Master method, exact-power model:
   {lit}`CLRS.Chapter04.h_formula`,
   {lit}`CLRS.Chapter04.master_case1_geometric`,
@@ -373,14 +373,14 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter09.medianOfMediansSelect?_rankCorrect`, and
   {lit}`CLRS.Chapter09.medianOfMediansSelect?_correct`.
 * 2.1 Insertion sort:
-  `CLRS.Chapter02.insertionSort_sorted`,
-  `CLRS.Chapter02.insertionSort_perm`.
+  {lit}`CLRS.Chapter02.insertionSort_sorted`,
+  {lit}`CLRS.Chapter02.insertionSort_perm`.
 * 2.2 Analyzing algorithms:
-  `CLRS.Chapter02.insertionSortWorstComparisons_quadratic`.
+  {lit}`CLRS.Chapter02.insertionSortWorstComparisons_quadratic`.
 * 2.3 Designing algorithms:
-  `CLRS.Chapter02.mergeSort_sortedLE`,
-  `CLRS.Chapter02.mergeSort_perm`,
-  `CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm`.
+  {lit}`CLRS.Chapter02.mergeSort_sortedLE`,
+  {lit}`CLRS.Chapter02.mergeSort_perm`,
+  {lit}`CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm`.
 * 16.3 Huffman codes:
   {lit}`CLRS.HuffmanV2.optimum_huffman_freqs`,
   {lit}`CLRS.HuffmanV2.huffmanOfFreqs_correct`, and
@@ -405,18 +405,18 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.ActivitySelection.activitySelection_cons_correct`, and
   {lit}`CLRS.ActivitySelection.activitySelection_correct`.
 * 10.1 Stacks and queues:
-  `CLRS.Chapter10.pop_push`,
-  `CLRS.Chapter10.dequeue_enqueue_empty`,
-  `CLRS.Chapter10.dequeue_enqueue_nonempty`.
+  {lit}`CLRS.Chapter10.pop_push`,
+  {lit}`CLRS.Chapter10.dequeue_enqueue_empty`,
+  {lit}`CLRS.Chapter10.dequeue_enqueue_nonempty`.
 * 10.2 Linked lists:
-  `CLRS.Chapter10.listSearch_sound`,
-  `CLRS.Chapter10.mem_listInsert_self`,
-  `CLRS.Chapter10.mem_listDeleteAll_iff`.
+  {lit}`CLRS.Chapter10.listSearch_sound`,
+  {lit}`CLRS.Chapter10.mem_listInsert_self`,
+  {lit}`CLRS.Chapter10.mem_listDeleteAll_iff`.
 * 11.1 Direct-address tables:
-  `CLRS.Chapter11.search_insert_same`,
-  `CLRS.Chapter11.search_insert_other`,
-  `CLRS.Chapter11.search_delete_same`,
-  `CLRS.Chapter11.search_delete_other`.
+  {lit}`CLRS.Chapter11.search_insert_same`,
+  {lit}`CLRS.Chapter11.search_insert_other`,
+  {lit}`CLRS.Chapter11.search_delete_same`,
+  {lit}`CLRS.Chapter11.search_delete_other`.
 
 ## Partial
 
@@ -519,17 +519,17 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
 
 ## Deferred or Blocked
 
-* Union-find correctness: `deferred-implementation`.
+* Union-find correctness: {lit}`deferred-implementation`.
   Reason: not needed for the mathematical MST proof.
-* Automatic MST exchange-path extraction: `blocked-design`.
+* Automatic MST exchange-path extraction: {lit}`blocked-design`.
   Reason: the cut-crossing tree-edge, prefix-preservation lemma, and
   certificate-based replacement spanning-tree theorem are proved; deriving
   the inserted-edge connection automatically still needs a stable finite simple
   path/cycle API.
-* Full RAM semantics: `future-work`.
+* Full RAM semantics: {lit}`future-work`.
   Reason: requires a separate imperative machine and cost model.
 * Chapter 4 full Master Theorem instantiation:
-  `future-work`.
+  {lit}`future-work`.
   Reason: exact powers, floor/ceiling exact-power extraction, the generic
   all-input transfer bridge, and adjacent-power sandwich generation from
   one-step comparison-scale bounds are proved; the discrete
@@ -539,15 +539,15 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   exact-power Master cases 1, 2, and 3.  Analytic comparison scales still need
   to be packaged for the textbook-facing statements.
 * Chapter 4 Strassen recursive refinement:
-  `future-work`.
+  {lit}`future-work`.
   Reason: the 2 by 2 block algebra is proved; recursive splitting,
   dimension bookkeeping, and runtime analysis remain separate refinements.
-* Chapter 4 maximum-subarray runtime analysis: `future-work`.
+* Chapter 4 maximum-subarray runtime analysis: {lit}`future-work`.
   Reason: the exhaustive-search specification, crossing-helper optimality,
   executable left/right/crossing combine step, and recursive split-tree/fuelled
   selector correctness are proved; the runtime recurrence and RAM-cost
   refinement remain future work.
-* Chapter 6 priority-queue RAM costs: `deferred-implementation`.
+* Chapter 6 priority-queue RAM costs: {lit}`deferred-implementation`.
   Reason: the functional heap specification, recursive {lit}`MAX-HEAPIFY`
   repair, bottom-up {lit}`BUILD-MAX-HEAP` refinement, in-place heapsort loop
   scaffold, exact-shrink invariant, loop permutation/length facts, root-to-
@@ -557,27 +557,27 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`HEAP-INCREASE-KEY`, {lit}`HEAP-EXTRACT-MAX`, and index-based
   {lit}`HEAP-DELETE` state correctness are also proved.  The remaining
   implementation layer is the line-by-line RAM-cost model.
-* Chapter 7 mutable-array partition and randomized analysis: `future-work`.
+* Chapter 7 mutable-array partition and randomized analysis: {lit}`future-work`.
   Reason: Section 7.1 now proves the pure partition/quicksort correctness
   spine, a scan-state partition-loop invariant, and a returned pivot-index
   wrapper with an adjacent-swap trace; the harder refinements are the
-  index-level CLRS array `PARTITION` loop, recurrence analysis, randomized
+  index-level CLRS array {lit}`PARTITION` loop, recurrence analysis, randomized
   quicksort, and expected running time.
-* Chapter 4 concrete all-input Master-theorem instantiations: `future-work`.
+* Chapter 4 concrete all-input Master-theorem instantiations: {lit}`future-work`.
   Reason: the discrete critical-power, log-critical, and tail-dominated scales
   now have all-input wrappers for cases 1, 2, and 3, and the natural-exponent
   special case {lit}`a = b^p` has polynomial and polynomial-log wrappers for
   cases 1 and 2.  The remaining comparison work is the general
   {lit}`n^(log_b a)` layer, real-log packaging, and the case-3 forcing scale.
-* General merge-sort recurrence: `future-work`.
+* General merge-sort recurrence: {lit}`future-work`.
   Reason: needs floor and ceiling arithmetic for all input sizes.
-* CLRS exercises and chapter-end problems: `future-work`.
+* CLRS exercises and chapter-end problems: {lit}`future-work`.
   Reason: kept separate from the first main-theorem pass.
 
 ## Reader Contract
 
 The status table is intentionally conservative.  A section is not marked
-`proved` merely because the algorithm idea is clear; it needs a named Lean
-theorem that compiles for the stated model.  A section marked `partial` should
+{lit}`proved` merely because the algorithm idea is clear; it needs a named Lean
+theorem that compiles for the stated model.  A section marked {lit}`partial` should
 say exactly which mathematical or representation layer remains.
 -/

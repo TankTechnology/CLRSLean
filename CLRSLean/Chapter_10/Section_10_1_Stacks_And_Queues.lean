@@ -38,7 +38,7 @@ def emptyStack : Stack α :=
 def push (x : α) (s : Stack α) : Stack α :=
   x :: s
 
-/-- Pop the top element from a stack, returning `none` on underflow. -/
+/-- Pop the top element from a stack, returning {lit}`none` on underflow. -/
 def pop : Stack α → Option (α × Stack α)
   | [] => none
   | x :: xs => some (x, xs)
@@ -70,7 +70,7 @@ def emptyQueue : Queue α :=
 def enqueue (x : α) (q : Queue α) : Queue α :=
   q ++ [x]
 
-/-- Dequeue the front element, returning `none` on underflow. -/
+/-- Dequeue the front element, returning {lit}`none` on underflow. -/
 def dequeue : Queue α → Option (α × Queue α)
   | [] => none
   | x :: xs => some (x, xs)

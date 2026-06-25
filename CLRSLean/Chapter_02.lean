@@ -8,25 +8,23 @@ import CLRSLean.Chapter_02.Section_02_3_Designing_Algorithms
 Chapter 2 is the first complete workflow pilot for CLRSLean.  It establishes the
 basic pattern used throughout the project:
 
-```
-textbook claim
--> Lean-friendly mathematical model
--> public theorem interface
--> local proof
--> status map update
-```
+1. Textbook claim.
+2. Lean-friendly mathematical model.
+3. Public theorem interface.
+4. Local proof.
+5. Status map update.
 
 ## Sections
 
-* 2.1 Insertion sort: `proved`.
-  Main results: `CLRS.Chapter02.insertionSort_sorted`,
-  `CLRS.Chapter02.insertionSort_perm`.
-* 2.2 Analyzing algorithms: `proved`.
-  Main result: `CLRS.Chapter02.insertionSortWorstComparisons_quadratic`.
-* 2.3 Designing algorithms: `proved`.
-  Main results: `CLRS.Chapter02.mergeSort_sortedLE`,
-  `CLRS.Chapter02.mergeSort_perm`,
-  `CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm`.
+* 2.1 Insertion sort: {lit}`proved`.
+  Main results: {lit}`CLRS.Chapter02.insertionSort_sorted`,
+  {lit}`CLRS.Chapter02.insertionSort_perm`.
+* 2.2 Analyzing algorithms: {lit}`proved`.
+  Main result: {lit}`CLRS.Chapter02.insertionSortWorstComparisons_quadratic`.
+* 2.3 Designing algorithms: {lit}`proved`.
+  Main results: {lit}`CLRS.Chapter02.mergeSort_sortedLE`,
+  {lit}`CLRS.Chapter02.mergeSort_perm`,
+  {lit}`CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm`.
 
 ## Proof Themes
 

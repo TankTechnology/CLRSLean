@@ -6,7 +6,7 @@ open Asymptotics
 /-!
 # 3.1. Asymptotic Notation
 
-CLRS-compatible wrappers for mathlib's filter-based asymptotics on `ℕ → ℝ`.
+CLRS-compatible wrappers for mathlib's filter-based asymptotics on {lit}`ℕ → ℝ`.
 Proves equivalence between the CLRS discrete definition and the filter
 definition, plus standard algebraic properties.
 -/

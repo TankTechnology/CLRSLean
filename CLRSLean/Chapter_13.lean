@@ -11,7 +11,7 @@ red-black shape predicate.
 
 ## Sections
 
-* 13.1 Red-black trees: `partial`.
+* 13.1 Red-black trees: {lit}`partial`.
   Main results: {lit}`CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,
   {lit}`CLRS.Chapter13.RBTree.inTree_rotateRight_iff`,
   {lit}`CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`,

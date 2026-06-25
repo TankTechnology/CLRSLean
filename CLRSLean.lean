@@ -96,315 +96,315 @@ Start with the chapter pages in the sidebar.
 
 ## Current Coverage
 
-* Chapter 1: `expository`.
+* Chapter 1: {lit}`expository`.
   No theorem target; this page explains the project conventions.
-* 2.1 Insertion sort: `proved`.
-  Public results: `CLRS.Chapter02.insertionSort_sorted`,
-  `CLRS.Chapter02.insertionSort_perm`.
-* 2.2 Analyzing algorithms: `proved`.
-  Public result: `CLRS.Chapter02.insertionSortWorstComparisons_quadratic`.
-* 2.3 Designing algorithms: `proved`.
-  Public results: `CLRS.Chapter02.mergeSort_sortedLE`,
-  `CLRS.Chapter02.mergeSort_perm`,
-  `CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm`.
-* 3.1 Asymptotic notation: `proved`.
-  Public results: `CLRS.Chapter03.isBigO_iff`,
-  `CLRS.Chapter03.isLittleO_iff`,
-  `CLRS.Chapter03.isBigTheta_trans`.
-* 3.2 Standard functions: `partial`.
-  Current results: `CLRS.Chapter03.isLittleO_pow_pow`,
-  `CLRS.Chapter03.isLittleO_pow_const_exp`,
-  `CLRS.Chapter03.isLittleO_log_rpow`,
-  `CLRS.Chapter03.isLittleO_log_pow_rpow`,
-  `CLRS.Chapter03.isBigO_log_pow_rpow`,
-  `CLRS.Chapter03.isLittleO_exp_exp_of_lt`,
-  `CLRS.Chapter03.isEquivalent_harmonic_log`,
-  `CLRS.Chapter03.isBigTheta_harmonic_log`,
-  `CLRS.Chapter03.isBigTheta_nat_floor_coerce`,
-  `CLRS.Chapter03.isBigTheta_nat_ceil_coerce`,
-  `CLRS.Chapter03.isBigTheta_nat_floor_half_coerce`,
-  `CLRS.Chapter03.isBigTheta_nat_ceil_half_coerce`,
-  `CLRS.Chapter03.factorial_upper_bound`,
-  `CLRS.Chapter03.factorial_lower_bound_offset`,
-  `CLRS.Chapter03.factorial_lower_bound_half_pow`,
-  `CLRS.Chapter03.isLittleO_exp_vs_factorial`,
-  `CLRS.Chapter03.isLittleO_factorial_pow_self`.
-* 4.1 Maximum subarray: `proved` for the exhaustive-search specification,
+* 2.1 Insertion sort: {lit}`proved`.
+  Public results: {lit}`CLRS.Chapter02.insertionSort_sorted`,
+  {lit}`CLRS.Chapter02.insertionSort_perm`.
+* 2.2 Analyzing algorithms: {lit}`proved`.
+  Public result: {lit}`CLRS.Chapter02.insertionSortWorstComparisons_quadratic`.
+* 2.3 Designing algorithms: {lit}`proved`.
+  Public results: {lit}`CLRS.Chapter02.mergeSort_sortedLE`,
+  {lit}`CLRS.Chapter02.mergeSort_perm`,
+  {lit}`CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm`.
+* 3.1 Asymptotic notation: {lit}`proved`.
+  Public results: {lit}`CLRS.Chapter03.isBigO_iff`,
+  {lit}`CLRS.Chapter03.isLittleO_iff`,
+  {lit}`CLRS.Chapter03.isBigTheta_trans`.
+* 3.2 Standard functions: {lit}`partial`.
+  Current results: {lit}`CLRS.Chapter03.isLittleO_pow_pow`,
+  {lit}`CLRS.Chapter03.isLittleO_pow_const_exp`,
+  {lit}`CLRS.Chapter03.isLittleO_log_rpow`,
+  {lit}`CLRS.Chapter03.isLittleO_log_pow_rpow`,
+  {lit}`CLRS.Chapter03.isBigO_log_pow_rpow`,
+  {lit}`CLRS.Chapter03.isLittleO_exp_exp_of_lt`,
+  {lit}`CLRS.Chapter03.isEquivalent_harmonic_log`,
+  {lit}`CLRS.Chapter03.isBigTheta_harmonic_log`,
+  {lit}`CLRS.Chapter03.isBigTheta_nat_floor_coerce`,
+  {lit}`CLRS.Chapter03.isBigTheta_nat_ceil_coerce`,
+  {lit}`CLRS.Chapter03.isBigTheta_nat_floor_half_coerce`,
+  {lit}`CLRS.Chapter03.isBigTheta_nat_ceil_half_coerce`,
+  {lit}`CLRS.Chapter03.factorial_upper_bound`,
+  {lit}`CLRS.Chapter03.factorial_lower_bound_offset`,
+  {lit}`CLRS.Chapter03.factorial_lower_bound_half_pow`,
+  {lit}`CLRS.Chapter03.isLittleO_exp_vs_factorial`,
+  {lit}`CLRS.Chapter03.isLittleO_factorial_pow_self`.
+* 4.1 Maximum subarray: {lit}`proved` for the exhaustive-search specification,
   crossing helper, and left/right/crossing combine interface.
-  Public results: `CLRS.Chapter04.mem_nonemptySubarrays_iff`,
-  `CLRS.Chapter04.bestCandidate_correct`,
-  `CLRS.Chapter04.mem_crossingSubarrays_iff`,
-  `CLRS.Chapter04.maxCrossingSubarray_correct`,
-  `CLRS.Chapter04.maxCrossingSubarray_isNonemptySubarray_append`,
-  `CLRS.Chapter04.subarray_append_left_or_right_or_crossing`,
-  `CLRS.Chapter04.subarray_append_optimal_of_cases`,
-  `CLRS.Chapter04.maxSubarray_exists_of_ne_nil`,
-  `CLRS.Chapter04.maxSubarray_correct`.
-* 4.2 Strassen's algorithm: `proved` for 2 by 2 block algebra.
-  Public result: `CLRS.Chapter04.strassen2x2_correct`.
-* 4.3 Substitution method: `proved` for one-step recurrence bounds.
-  Public results: `CLRS.Chapter04.substitution_upper_bound`,
-  `CLRS.Chapter04.substitution_lower_bound`,
-  `CLRS.Chapter04.linear_substitution_upper_bound`,
-  `CLRS.Chapter04.geometric_substitution_upper_bound`.
-* 4.4 Recursion-tree method: `proved` for additive level-cost expansions.
-  Public results: `CLRS.Chapter04.recursion_tree_additive_unroll`,
-  `CLRS.Chapter04.recursion_tree_additive_upper_envelope`,
-  `CLRS.Chapter04.recursion_tree_constant_level_cost`.
-* 4.5 Master method: `proved` for exact-power recurrences.
-  Public results: `CLRS.Chapter04.master_case1_geometric`,
-  `CLRS.Chapter04.master_case2_constant_forcing`,
-  `CLRS.Chapter04.master_case3_tail_dominated`.
-* 4.6 Proof of the master theorem: `partial`.
-  Current results: `CLRS.Chapter04.FloorDivideRecurrence`,
-  `CLRS.Chapter04.CeilDivideRecurrence`,
-  `CLRS.Chapter04.exactPowerRecurrence_of_floorDivideRecurrence`,
-  `CLRS.Chapter04.exactPowerRecurrence_of_ceilDivideRecurrence`,
-  `CLRS.Chapter04.powerInterval_of_pos`,
-  `CLRS.Chapter04.eventuallyPowerUpperSandwich_of_powerStep`,
-  `CLRS.Chapter04.eventuallyPowerLowerSandwich_of_powerStep`,
-  `CLRS.Chapter04.allInput_bigO_of_power_upper_sandwich`,
-  `CLRS.Chapter04.allInput_bigOmega_of_power_lower_sandwich`,
-  `CLRS.Chapter04.allInput_bigTheta_of_power_sandwich`, and
-  `CLRS.Chapter04.allInput_bigTheta_of_powerStep`,
-  `CLRS.Chapter04.criticalPowerScale`, and
-  `CLRS.Chapter04.allInput_bigTheta_of_criticalPowerScale`,
-  `CLRS.Chapter04.criticalPowerLogScale`,
-  `CLRS.Chapter04.allInput_bigTheta_of_criticalPowerLogScale`,
-  `CLRS.Chapter04.tailDominatedScale`,
-  `CLRS.Chapter04.allInput_bigTheta_of_tailDominatedScale`,
-  `CLRS.Chapter04.polynomialScale`,
-  `CLRS.Chapter04.polynomialLogScale`,
-  `CLRS.Chapter04.criticalPowerScale_isBigTheta_polynomialScale`,
-  `CLRS.Chapter04.criticalPowerLogScale_isBigTheta_polynomialLogScale`,
-  `CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`,
-  `CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`, and
-  `CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`;
-  `CLRS.Chapter04.exactPower_allInput_masterCase1_polynomialScale`,
-  `CLRS.Chapter04.floorDivide_allInput_masterCase1_polynomialScale`, and
-  `CLRS.Chapter04.ceilDivide_allInput_masterCase1_polynomialScale`;
-  `CLRS.Chapter04.exactPower_allInput_masterCase2_criticalPowerLogScale`,
-  `CLRS.Chapter04.floorDivide_allInput_masterCase2_criticalPowerLogScale`,
-  and `CLRS.Chapter04.ceilDivide_allInput_masterCase2_criticalPowerLogScale`;
-  `CLRS.Chapter04.exactPower_allInput_masterCase2_polynomialLogScale`,
-  `CLRS.Chapter04.floorDivide_allInput_masterCase2_polynomialLogScale`, and
-  `CLRS.Chapter04.ceilDivide_allInput_masterCase2_polynomialLogScale`;
-  `CLRS.Chapter04.exactPower_allInput_masterCase3_tailDominatedScale`,
-  `CLRS.Chapter04.floorDivide_allInput_masterCase3_tailDominatedScale`,
-  and `CLRS.Chapter04.ceilDivide_allInput_masterCase3_tailDominatedScale`.
+  Public results: {lit}`CLRS.Chapter04.mem_nonemptySubarrays_iff`,
+  {lit}`CLRS.Chapter04.bestCandidate_correct`,
+  {lit}`CLRS.Chapter04.mem_crossingSubarrays_iff`,
+  {lit}`CLRS.Chapter04.maxCrossingSubarray_correct`,
+  {lit}`CLRS.Chapter04.maxCrossingSubarray_isNonemptySubarray_append`,
+  {lit}`CLRS.Chapter04.subarray_append_left_or_right_or_crossing`,
+  {lit}`CLRS.Chapter04.subarray_append_optimal_of_cases`,
+  {lit}`CLRS.Chapter04.maxSubarray_exists_of_ne_nil`,
+  {lit}`CLRS.Chapter04.maxSubarray_correct`.
+* 4.2 Strassen's algorithm: {lit}`proved` for 2 by 2 block algebra.
+  Public result: {lit}`CLRS.Chapter04.strassen2x2_correct`.
+* 4.3 Substitution method: {lit}`proved` for one-step recurrence bounds.
+  Public results: {lit}`CLRS.Chapter04.substitution_upper_bound`,
+  {lit}`CLRS.Chapter04.substitution_lower_bound`,
+  {lit}`CLRS.Chapter04.linear_substitution_upper_bound`,
+  {lit}`CLRS.Chapter04.geometric_substitution_upper_bound`.
+* 4.4 Recursion-tree method: {lit}`proved` for additive level-cost expansions.
+  Public results: {lit}`CLRS.Chapter04.recursion_tree_additive_unroll`,
+  {lit}`CLRS.Chapter04.recursion_tree_additive_upper_envelope`,
+  {lit}`CLRS.Chapter04.recursion_tree_constant_level_cost`.
+* 4.5 Master method: {lit}`proved` for exact-power recurrences.
+  Public results: {lit}`CLRS.Chapter04.master_case1_geometric`,
+  {lit}`CLRS.Chapter04.master_case2_constant_forcing`,
+  {lit}`CLRS.Chapter04.master_case3_tail_dominated`.
+* 4.6 Proof of the master theorem: {lit}`partial`.
+  Current results: {lit}`CLRS.Chapter04.FloorDivideRecurrence`,
+  {lit}`CLRS.Chapter04.CeilDivideRecurrence`,
+  {lit}`CLRS.Chapter04.exactPowerRecurrence_of_floorDivideRecurrence`,
+  {lit}`CLRS.Chapter04.exactPowerRecurrence_of_ceilDivideRecurrence`,
+  {lit}`CLRS.Chapter04.powerInterval_of_pos`,
+  {lit}`CLRS.Chapter04.eventuallyPowerUpperSandwich_of_powerStep`,
+  {lit}`CLRS.Chapter04.eventuallyPowerLowerSandwich_of_powerStep`,
+  {lit}`CLRS.Chapter04.allInput_bigO_of_power_upper_sandwich`,
+  {lit}`CLRS.Chapter04.allInput_bigOmega_of_power_lower_sandwich`,
+  {lit}`CLRS.Chapter04.allInput_bigTheta_of_power_sandwich`, and
+  {lit}`CLRS.Chapter04.allInput_bigTheta_of_powerStep`,
+  {lit}`CLRS.Chapter04.criticalPowerScale`, and
+  {lit}`CLRS.Chapter04.allInput_bigTheta_of_criticalPowerScale`,
+  {lit}`CLRS.Chapter04.criticalPowerLogScale`,
+  {lit}`CLRS.Chapter04.allInput_bigTheta_of_criticalPowerLogScale`,
+  {lit}`CLRS.Chapter04.tailDominatedScale`,
+  {lit}`CLRS.Chapter04.allInput_bigTheta_of_tailDominatedScale`,
+  {lit}`CLRS.Chapter04.polynomialScale`,
+  {lit}`CLRS.Chapter04.polynomialLogScale`,
+  {lit}`CLRS.Chapter04.criticalPowerScale_isBigTheta_polynomialScale`,
+  {lit}`CLRS.Chapter04.criticalPowerLogScale_isBigTheta_polynomialLogScale`,
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`, and
+  {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`;
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_polynomialScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_polynomialScale`, and
+  {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_polynomialScale`;
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase2_criticalPowerLogScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase2_criticalPowerLogScale`,
+  and {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase2_criticalPowerLogScale`;
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase2_polynomialLogScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase2_polynomialLogScale`, and
+  {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase2_polynomialLogScale`;
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase3_tailDominatedScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase3_tailDominatedScale`,
+  and {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase3_tailDominatedScale`.
   Remaining target: general {lit}`n^(log_b a)`, real-log, and case-3
   comparison scales for the textbook-facing asymptotic statements.
-* 5.1 Hiring problem: `proved` for the finite rank-symmetry model.
-  Public results: `CLRS.Chapter05.hireProbability_eq`,
-  `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,
-  `CLRS.Chapter05.expectedHires_isBigTheta_log`.
-* 6.1 Heaps: `proved` for the indexed heap predicate and root maximum.
-  Public results: `CLRS.Chapter06.parent_lt_self`,
-  `CLRS.Chapter06.eq_left_or_right_parent`,
-  `CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`,
-  `CLRS.Chapter06.orderedDesc_arrayMaxHeap`.
-* 6.2 Maintaining the heap property: `proved` for fuelled `MAX-HEAPIFY`
+* 5.1 Hiring problem: {lit}`proved` for the finite rank-symmetry model.
+  Public results: {lit}`CLRS.Chapter05.hireProbability_eq`,
+  {lit}`CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,
+  {lit}`CLRS.Chapter05.expectedHires_isBigTheta_log`.
+* 6.1 Heaps: {lit}`proved` for the indexed heap predicate and root maximum.
+  Public results: {lit}`CLRS.Chapter06.parent_lt_self`,
+  {lit}`CLRS.Chapter06.eq_left_or_right_parent`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`,
+  {lit}`CLRS.Chapter06.orderedDesc_arrayMaxHeap`.
+* 6.2 Maintaining the heap property: {lit}`proved` for fuelled {lit}`MAX-HEAPIFY`
   recursive repair.
-  Public results: `CLRS.Chapter06.swapAt_perm`,
-  `CLRS.Chapter06.maxHeapifyFuel_perm`,
-  `CLRS.Chapter06.valAt_i_le_maxChildIndex`,
-  `CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`,
-  `CLRS.Chapter06.maxHeapifyFuel_swap_branch_repair`,
-  `CLRS.Chapter06.maxHeapifyFuel_repair_subtree`,
-  `CLRS.Chapter06.maxHeapifyFuel_root_isMaxHeap`.
-* 6.3 Building a heap: `proved` for bottom-up repeated heapify.
-  Public results: `CLRS.Chapter06.buildMaxHeapLoop_isMaxHeap`,
-  `CLRS.Chapter06.buildMaxHeapLoop_perm`,
-  `CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`,
-  `CLRS.Chapter06.arrayBuildMaxHeap_correct`.
-* 6.4 The heapsort algorithm: `proved` for the in-place CLRS loop refinement.
-  Public results: `CLRS.Chapter06.arrayHeapSortInPlaceLoop_perm`,
-  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_length`,
-  `CLRS.Chapter06.arrayHeapSortInPlace_perm`,
-  `CLRS.Chapter06.arrayHeapSortInPlace_length`,
-  `CLRS.Chapter06.arrayHeapSortStep_suffix_head_eq_root`,
-  `CLRS.Chapter06.arrayHeapSortStep_suffix_head_bounds_prefix`,
-  `CLRS.Chapter06.HeapSortLoopInvariant.step`,
-  `CLRS.Chapter06.arrayHeapSortStep_state_correct`,
-  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_terminal_invariant`,
-  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_orderedAsc`,
-  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_state_correct`,
-  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_exact_state_correct`,
-  `CLRS.Chapter06.arrayHeapSortInPlace_terminal_invariant`,
-  `CLRS.Chapter06.arrayHeapSortInPlace_orderedAsc`,
-  `CLRS.Chapter06.arrayHeapSortInPlace_state_correct`,
-  `CLRS.Chapter06.arrayHeapSortInPlace_exact_state_correct`,
-  `CLRS.Chapter06.arrayHeapSortInPlace_correct`,
-  `CLRS.Chapter06.arrayHeapSort_terminal_invariant`,
-  `CLRS.Chapter06.arrayHeapSort_state_correct`,
-  `CLRS.Chapter06.arrayHeapSort_exact_state_correct`,
-  `CLRS.Chapter06.arrayHeapSort_orderedAsc`,
-  `CLRS.Chapter06.arrayHeapSort_perm`,
-  `CLRS.Chapter06.arrayHeapSort_correct`.
-* 6.5 Priority queues: `proved` for the functional heap interface plus
-  array-level `HEAP-MAXIMUM`, full fuelled `HEAP-INCREASE-KEY`, and
-  `HEAP-EXTRACT-MAX` / `HEAP-DELETE`.
-  Public results: `CLRS.Chapter06.heapInsert_orderedDesc`,
-  `CLRS.Chapter06.heapInsert_perm`,
-  `CLRS.Chapter06.heapIncreaseKey_orderedDesc`,
-  `CLRS.Chapter06.heapDelete_orderedDesc`,
-  `CLRS.Chapter06.arrayHeapMaximum?_max`,
-  `CLRS.Chapter06.ArrayMaxHeap.set_increased_except_up`,
-  `CLRS.Chapter06.ArrayMaxHeapExceptUp.bubble_step`,
-  `CLRS.Chapter06.ArrayMaxHeapExceptUp.bubbleUpFuel_global`,
-  `CLRS.Chapter06.arrayHeapIncreaseKey?_state_correct`,
-  `CLRS.Chapter06.arrayHeapIncreaseKeyNoBubble?_state_correct`,
-  `CLRS.Chapter06.arrayHeapExtractMax?_state_correct`,
-  `CLRS.Chapter06.arrayHeapDelete?_state_correct`.
-* 7.1 Description of quicksort: `proved` for the functional-list model,
+  Public results: {lit}`CLRS.Chapter06.swapAt_perm`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_perm`,
+  {lit}`CLRS.Chapter06.valAt_i_le_maxChildIndex`,
+  {lit}`CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_swap_branch_repair`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_repair_subtree`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_root_isMaxHeap`.
+* 6.3 Building a heap: {lit}`proved` for bottom-up repeated heapify.
+  Public results: {lit}`CLRS.Chapter06.buildMaxHeapLoop_isMaxHeap`,
+  {lit}`CLRS.Chapter06.buildMaxHeapLoop_perm`,
+  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`,
+  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_correct`.
+* 6.4 The heapsort algorithm: {lit}`proved` for the in-place CLRS loop refinement.
+  Public results: {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_perm`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_length`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_perm`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_length`,
+  {lit}`CLRS.Chapter06.arrayHeapSortStep_suffix_head_eq_root`,
+  {lit}`CLRS.Chapter06.arrayHeapSortStep_suffix_head_bounds_prefix`,
+  {lit}`CLRS.Chapter06.HeapSortLoopInvariant.step`,
+  {lit}`CLRS.Chapter06.arrayHeapSortStep_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_orderedAsc`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_exact_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_orderedAsc`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_exact_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_exact_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_orderedAsc`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_perm`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_correct`.
+* 6.5 Priority queues: {lit}`proved` for the functional heap interface plus
+  array-level {lit}`HEAP-MAXIMUM`, full fuelled {lit}`HEAP-INCREASE-KEY`, and
+  {lit}`HEAP-EXTRACT-MAX` / {lit}`HEAP-DELETE`.
+  Public results: {lit}`CLRS.Chapter06.heapInsert_orderedDesc`,
+  {lit}`CLRS.Chapter06.heapInsert_perm`,
+  {lit}`CLRS.Chapter06.heapIncreaseKey_orderedDesc`,
+  {lit}`CLRS.Chapter06.heapDelete_orderedDesc`,
+  {lit}`CLRS.Chapter06.arrayHeapMaximum?_max`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeap.set_increased_except_up`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeapExceptUp.bubble_step`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeapExceptUp.bubbleUpFuel_global`,
+  {lit}`CLRS.Chapter06.arrayHeapIncreaseKey?_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapIncreaseKeyNoBubble?_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapExtractMax?_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapDelete?_state_correct`.
+* 7.1 Description of quicksort: {lit}`proved` for the functional-list model,
   scan-state partition loop, and returned pivot-index wrapper with an explicit
   adjacent-swap trace.
-  Public results: `CLRS.Chapter07.partitionAround_left_eq_filter`,
-  `CLRS.Chapter07.partitionAround_right_eq_filter`,
-  `CLRS.Chapter07.mem_partitionAround_left_iff`,
-  `CLRS.Chapter07.mem_partitionAround_right_iff`,
-  `CLRS.Chapter07.partitionAround_correct`,
-  `CLRS.Chapter07.partitionAround_perm`,
-  `CLRS.Chapter07.partitionAround_left_allLeUpper`,
-  `CLRS.Chapter07.partitionAround_right_allGt`,
-  `CLRS.Chapter07.AdjacentSwapTrace.to_perm`,
-  `CLRS.Chapter07.AdjacentSwapTrace.of_perm`,
-  `CLRS.Chapter07.partitionLoop_invariant`,
-  `CLRS.Chapter07.partitionLoop_correct`,
-  `CLRS.Chapter07.clrsPartition_correct`,
-  `CLRS.Chapter07.clrsPartitionArray_pivot`,
-  `CLRS.Chapter07.clrsPartitionArray_left_bound`,
-  `CLRS.Chapter07.clrsPartitionArray_right_bound`,
-  `CLRS.Chapter07.clrsPartitionArray_perm`,
-  `CLRS.Chapter07.clrsPartitionArray_swapTrace`,
-  `CLRS.Chapter07.clrsPartitionArray_correct`,
-  `CLRS.Chapter07.clrsPartitionArray_correct_with_trace`,
-  `CLRS.Chapter07.quickSort_perm`, `CLRS.Chapter07.quickSort_ordered`,
-  `CLRS.Chapter07.quickSort_correct`.
-* 7.2-7.4 Quicksort performance and randomized quicksort: `future-work`.
-  Planned targets: index-level mutable-array `PARTITION`, deterministic
+  Public results: {lit}`CLRS.Chapter07.partitionAround_left_eq_filter`,
+  {lit}`CLRS.Chapter07.partitionAround_right_eq_filter`,
+  {lit}`CLRS.Chapter07.mem_partitionAround_left_iff`,
+  {lit}`CLRS.Chapter07.mem_partitionAround_right_iff`,
+  {lit}`CLRS.Chapter07.partitionAround_correct`,
+  {lit}`CLRS.Chapter07.partitionAround_perm`,
+  {lit}`CLRS.Chapter07.partitionAround_left_allLeUpper`,
+  {lit}`CLRS.Chapter07.partitionAround_right_allGt`,
+  {lit}`CLRS.Chapter07.AdjacentSwapTrace.to_perm`,
+  {lit}`CLRS.Chapter07.AdjacentSwapTrace.of_perm`,
+  {lit}`CLRS.Chapter07.partitionLoop_invariant`,
+  {lit}`CLRS.Chapter07.partitionLoop_correct`,
+  {lit}`CLRS.Chapter07.clrsPartition_correct`,
+  {lit}`CLRS.Chapter07.clrsPartitionArray_pivot`,
+  {lit}`CLRS.Chapter07.clrsPartitionArray_left_bound`,
+  {lit}`CLRS.Chapter07.clrsPartitionArray_right_bound`,
+  {lit}`CLRS.Chapter07.clrsPartitionArray_perm`,
+  {lit}`CLRS.Chapter07.clrsPartitionArray_swapTrace`,
+  {lit}`CLRS.Chapter07.clrsPartitionArray_correct`,
+  {lit}`CLRS.Chapter07.clrsPartitionArray_correct_with_trace`,
+  {lit}`CLRS.Chapter07.quickSort_perm`, {lit}`CLRS.Chapter07.quickSort_ordered`,
+  {lit}`CLRS.Chapter07.quickSort_correct`.
+* 7.2-7.4 Quicksort performance and randomized quicksort: {lit}`future-work`.
+  Planned targets: index-level mutable-array {lit}`PARTITION`, deterministic
   recurrence analysis, randomized quicksort, and expected running time.
-* 8.2 Counting sort: `proved` for the stable bucket specification.
-  Public results: `CLRS.Chapter08.countingSortBy_ordered`,
-  `CLRS.Chapter08.countingSortBy_bucket_eq`,
-  `CLRS.Chapter08.countingSortBy_mem_iff`,
-  `CLRS.Chapter08.countingSortBy_perm`, and
-  `CLRS.Chapter08.countingSortBy_correct`.
-* 8.3 Radix sort: `proved` for the abstract stable digit-pass model with
-  complete digit-signature stability plus a concrete base-`b` natural-key
+* 8.2 Counting sort: {lit}`proved` for the stable bucket specification.
+  Public results: {lit}`CLRS.Chapter08.countingSortBy_ordered`,
+  {lit}`CLRS.Chapter08.countingSortBy_bucket_eq`,
+  {lit}`CLRS.Chapter08.countingSortBy_mem_iff`,
+  {lit}`CLRS.Chapter08.countingSortBy_perm`, and
+  {lit}`CLRS.Chapter08.countingSortBy_correct`.
+* 8.3 Radix sort: {lit}`proved` for the abstract stable digit-pass model with
+  complete digit-signature stability plus a concrete base-{lit}`b` natural-key
   wrapper, including key-order packaging and the bounded fixed-width arithmetic
   bridge.
-  Public results: `CLRS.Chapter08.radixPass_orderedRel`,
-  `CLRS.Chapter08.radixSortBy_ordered`,
-  `CLRS.Chapter08.radixSortBy_stable`,
-  `CLRS.Chapter08.radixSortBy_mem_iff`,
-  `CLRS.Chapter08.radixSortBy_perm`,
-  `CLRS.Chapter08.radixSortBy_correct_stable`,
-  `CLRS.Chapter08.baseDigitsLow_allDigitsLe`,
-  `CLRS.Chapter08.radixSortNatBy_correct_stable`,
-  `CLRS.Chapter08.radixSortNatBy_correct_keyOrdered_of_digitOrder`,
-  `CLRS.Chapter08.radixDigitOrderRespectsKey_of_bounded`, and
-  `CLRS.Chapter08.radixSortNatBy_correct_keyOrdered_of_bounded`.
-* 8.4 Bucket sort: `proved` for deterministic bucket-index correctness.
-  Public results: `CLRS.Chapter08.bucketSortBy_ordered`,
-  `CLRS.Chapter08.bucketSortBy_perm`,
-  `CLRS.Chapter08.bucketSortBy_correct`, and
-  `CLRS.Chapter08.bucketSortByRank_correct`.
-* 9.2 Selection by rank: `proved` for the specification selector and
+  Public results: {lit}`CLRS.Chapter08.radixPass_orderedRel`,
+  {lit}`CLRS.Chapter08.radixSortBy_ordered`,
+  {lit}`CLRS.Chapter08.radixSortBy_stable`,
+  {lit}`CLRS.Chapter08.radixSortBy_mem_iff`,
+  {lit}`CLRS.Chapter08.radixSortBy_perm`,
+  {lit}`CLRS.Chapter08.radixSortBy_correct_stable`,
+  {lit}`CLRS.Chapter08.baseDigitsLow_allDigitsLe`,
+  {lit}`CLRS.Chapter08.radixSortNatBy_correct_stable`,
+  {lit}`CLRS.Chapter08.radixSortNatBy_correct_keyOrdered_of_digitOrder`,
+  {lit}`CLRS.Chapter08.radixDigitOrderRespectsKey_of_bounded`, and
+  {lit}`CLRS.Chapter08.radixSortNatBy_correct_keyOrdered_of_bounded`.
+* 8.4 Bucket sort: {lit}`proved` for deterministic bucket-index correctness.
+  Public results: {lit}`CLRS.Chapter08.bucketSortBy_ordered`,
+  {lit}`CLRS.Chapter08.bucketSortBy_perm`,
+  {lit}`CLRS.Chapter08.bucketSortBy_correct`, and
+  {lit}`CLRS.Chapter08.bucketSortByRank_correct`.
+* 9.2 Selection by rank: {lit}`proved` for the specification selector and
   pivot-style quickselect.
-  Public results: `CLRS.Chapter09.selectByRank?_mem`,
-  `CLRS.Chapter09.selectByRank?_rankCorrect`,
-  `CLRS.Chapter09.selectByRank?_correct`,
-  `CLRS.Chapter09.quickSelect?_mem`,
-  `CLRS.Chapter09.quickSelect?_rankCorrect`,
-  `CLRS.Chapter09.quickSelect?_correct`.
-* 9.3 Deterministic selection: `proved` for a pivot-parametric SELECT interface,
+  Public results: {lit}`CLRS.Chapter09.selectByRank?_mem`,
+  {lit}`CLRS.Chapter09.selectByRank?_rankCorrect`,
+  {lit}`CLRS.Chapter09.selectByRank?_correct`,
+  {lit}`CLRS.Chapter09.quickSelect?_mem`,
+  {lit}`CLRS.Chapter09.quickSelect?_rankCorrect`,
+  {lit}`CLRS.Chapter09.quickSelect?_correct`.
+* 9.3 Deterministic selection: {lit}`proved` for a pivot-parametric SELECT interface,
   the five-element median certificate, executable five-element grouping,
   grouped split-count bounds, deterministic median-pivot instance, and
   median-of-medians pivot/select wrapper.
-  Public results: `CLRS.Chapter09.selectWithPivot?_correct`,
-  `CLRS.Chapter09.medianOfFive?_certificate`,
-  `CLRS.Chapter09.medianOfFive?_isSome_of_length_eq_five`,
-  `CLRS.Chapter09.fullGroupsOfFive_medianGroupCertificates`,
-  `CLRS.Chapter09.fullGroupsOfFive_medianPivot_split_counts`,
-  `CLRS.Chapter09.fullGroupsOfFive_medianPivot_fullInput_split_counts`,
-  `CLRS.Chapter09.fullGroupsOfFive_medianPivot_partition_size_bound`,
-  `CLRS.Chapter09.medianGroupCertificates_selectPivot_split_counts`,
-  `CLRS.Chapter09.medianOfFiveGroups?_mem_flatten`,
-  `CLRS.Chapter09.fullGroupsOfFive_medianOfFiveGroups?_isSome`,
-  `CLRS.Chapter09.medianOfMediansPivot?_mem`,
-  `CLRS.Chapter09.medianOfMediansPivot?_partition_size_bound`,
-  `CLRS.Chapter09.medianOfMediansSelect?_correct`.
-* 9.3-9.4 Linear-time selection refinements: `future-work`.
-  Planned targets: connect the proved `7n/10` partition-size theorem to the
+  Public results: {lit}`CLRS.Chapter09.selectWithPivot?_correct`,
+  {lit}`CLRS.Chapter09.medianOfFive?_certificate`,
+  {lit}`CLRS.Chapter09.medianOfFive?_isSome_of_length_eq_five`,
+  {lit}`CLRS.Chapter09.fullGroupsOfFive_medianGroupCertificates`,
+  {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_split_counts`,
+  {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_fullInput_split_counts`,
+  {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_partition_size_bound`,
+  {lit}`CLRS.Chapter09.medianGroupCertificates_selectPivot_split_counts`,
+  {lit}`CLRS.Chapter09.medianOfFiveGroups?_mem_flatten`,
+  {lit}`CLRS.Chapter09.fullGroupsOfFive_medianOfFiveGroups?_isSome`,
+  {lit}`CLRS.Chapter09.medianOfMediansPivot?_mem`,
+  {lit}`CLRS.Chapter09.medianOfMediansPivot?_partition_size_bound`,
+  {lit}`CLRS.Chapter09.medianOfMediansSelect?_correct`.
+* 9.3-9.4 Linear-time selection refinements: {lit}`future-work`.
+  Planned targets: connect the proved {lit}`7n/10` partition-size theorem to the
   relevant worst-case runtime recurrence.
-* 10.1 Stacks and queues: `proved` for the functional-list model.
-  Public results: `CLRS.Chapter10.pop_push`,
-  `CLRS.Chapter10.dequeue_enqueue_nonempty`.
-* 10.2 Linked lists: `proved` for the functional-list model.
-  Public results: `CLRS.Chapter10.listSearch_sound`,
-  `CLRS.Chapter10.mem_listDeleteAll_iff`.
-* 11.1 Direct-address tables: `proved` for the functional table model.
-  Public results: `CLRS.Chapter11.search_insert_same`,
-  `CLRS.Chapter11.search_delete_same`.
-* 11.2 Chained hash tables: `partial`.
-  Current results: `CLRS.Chapter11.hashSearch_hashInsert_self`,
-  `CLRS.Chapter11.hashSearch_hashInsert_iff`,
-  `CLRS.Chapter11.hashSearch_hashDelete_self`,
-  `CLRS.Chapter11.hashSearch_hashDelete_iff`.
-* 12.1 Binary search trees: `partial`.
-  Current results: `CLRS.Chapter12.BSTree.search_eq_true_iff`,
-  `CLRS.Chapter12.BSTree.minimum?_le_of_ordered`,
-  `CLRS.Chapter12.BSTree.le_maximum?_of_ordered`,
-  `CLRS.Chapter12.BSTree.successor?_least_greater`,
-  `CLRS.Chapter12.BSTree.predecessor?_greatest_less`,
-  `CLRS.Chapter12.BSTree.inTree_insert_iff`,
-  `CLRS.Chapter12.BSTree.insert_ordered`,
-  `CLRS.Chapter12.BSTree.inTree_delete_iff`,
-  `CLRS.Chapter12.BSTree.delete_ordered`.
-* 13.1 Red-black trees: `partial`.
-  Current results: `CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,
-  `CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`,
-  `CLRS.Chapter13.RBTree.noRedRed_repaint_black`,
-  `CLRS.Chapter13.RBTree.balancedBlackHeight_rotateLeft_red_red`,
-  `CLRS.Chapter13.RBTree.balancedBlackHeight_rotateRight_red_red`,
-  `CLRS.Chapter13.RBTree.redBlackShape_repaint_rotateLeft_red_red`,
-  `CLRS.Chapter13.RBTree.redBlackShape_repaint_rotateRight_red_red`,
-  `CLRS.Chapter13.RBTree.redBlackShape_repaint_black`.
-* 16.1 Activity selection: `proved` for finite sorted lists.
-  Current results: `CLRS.ActivitySelection.earliest_finish_minFinish`,
-  `CLRS.ActivitySelection.finishSorted_head_minFinish`,
-  `CLRS.ActivitySelection.finishSorted_greedyChoiceCertificate`,
-  `CLRS.ActivitySelection.activitySelection`,
-  `CLRS.ActivitySelection.activitySelection_cons_eq`,
-  `CLRS.ActivitySelection.greedySelect_cons_eq`,
-  `CLRS.ActivitySelection.greedySelect_sublist`,
-  `CLRS.ActivitySelection.greedySelect_feasible`,
-  `CLRS.ActivitySelection.greedy_choice_optimal_from_certificate`,
-  `CLRS.ActivitySelection.greedySelect_after_maxCardinality`,
-  `CLRS.ActivitySelection.greedySelect_cons_maxCardinality`,
-  `CLRS.ActivitySelection.greedySelect_maxCardinality`,
-  `CLRS.ActivitySelection.activitySelection_cons_maxCardinality`,
-  `CLRS.ActivitySelection.activitySelection_maxCardinality`,
-  `CLRS.ActivitySelection.greedySelect_optimal_length`,
-  `CLRS.ActivitySelection.greedySelect_cons_recursive_correct`,
-  `CLRS.ActivitySelection.activitySelection_cons_recursive_correct`,
-  `CLRS.ActivitySelection.activitySelection_cons_correct`,
-  `CLRS.ActivitySelection.activitySelection_correct`.
-* 16.3 Huffman codes: `proved`.
-  Public results: `CLRS.HuffmanV2.optimum_huffman_freqs`,
-  `CLRS.HuffmanV2.huffmanOfFreqs_correct`, and
-  `CLRS.HuffmanV2.huffmanOfFreqs_cost_le`.
-* 23.1 Growing a minimum spanning tree: `partial`.
+* 10.1 Stacks and queues: {lit}`proved` for the functional-list model.
+  Public results: {lit}`CLRS.Chapter10.pop_push`,
+  {lit}`CLRS.Chapter10.dequeue_enqueue_nonempty`.
+* 10.2 Linked lists: {lit}`proved` for the functional-list model.
+  Public results: {lit}`CLRS.Chapter10.listSearch_sound`,
+  {lit}`CLRS.Chapter10.mem_listDeleteAll_iff`.
+* 11.1 Direct-address tables: {lit}`proved` for the functional table model.
+  Public results: {lit}`CLRS.Chapter11.search_insert_same`,
+  {lit}`CLRS.Chapter11.search_delete_same`.
+* 11.2 Chained hash tables: {lit}`partial`.
+  Current results: {lit}`CLRS.Chapter11.hashSearch_hashInsert_self`,
+  {lit}`CLRS.Chapter11.hashSearch_hashInsert_iff`,
+  {lit}`CLRS.Chapter11.hashSearch_hashDelete_self`,
+  {lit}`CLRS.Chapter11.hashSearch_hashDelete_iff`.
+* 12.1 Binary search trees: {lit}`partial`.
+  Current results: {lit}`CLRS.Chapter12.BSTree.search_eq_true_iff`,
+  {lit}`CLRS.Chapter12.BSTree.minimum?_le_of_ordered`,
+  {lit}`CLRS.Chapter12.BSTree.le_maximum?_of_ordered`,
+  {lit}`CLRS.Chapter12.BSTree.successor?_least_greater`,
+  {lit}`CLRS.Chapter12.BSTree.predecessor?_greatest_less`,
+  {lit}`CLRS.Chapter12.BSTree.inTree_insert_iff`,
+  {lit}`CLRS.Chapter12.BSTree.insert_ordered`,
+  {lit}`CLRS.Chapter12.BSTree.inTree_delete_iff`,
+  {lit}`CLRS.Chapter12.BSTree.delete_ordered`.
+* 13.1 Red-black trees: {lit}`partial`.
+  Current results: {lit}`CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,
+  {lit}`CLRS.Chapter13.RBTree.inTree_repaintRoot_iff`,
+  {lit}`CLRS.Chapter13.RBTree.noRedRed_repaint_black`,
+  {lit}`CLRS.Chapter13.RBTree.balancedBlackHeight_rotateLeft_red_red`,
+  {lit}`CLRS.Chapter13.RBTree.balancedBlackHeight_rotateRight_red_red`,
+  {lit}`CLRS.Chapter13.RBTree.redBlackShape_repaint_rotateLeft_red_red`,
+  {lit}`CLRS.Chapter13.RBTree.redBlackShape_repaint_rotateRight_red_red`,
+  {lit}`CLRS.Chapter13.RBTree.redBlackShape_repaint_black`.
+* 16.1 Activity selection: {lit}`proved` for finite sorted lists.
+  Current results: {lit}`CLRS.ActivitySelection.earliest_finish_minFinish`,
+  {lit}`CLRS.ActivitySelection.finishSorted_head_minFinish`,
+  {lit}`CLRS.ActivitySelection.finishSorted_greedyChoiceCertificate`,
+  {lit}`CLRS.ActivitySelection.activitySelection`,
+  {lit}`CLRS.ActivitySelection.activitySelection_cons_eq`,
+  {lit}`CLRS.ActivitySelection.greedySelect_cons_eq`,
+  {lit}`CLRS.ActivitySelection.greedySelect_sublist`,
+  {lit}`CLRS.ActivitySelection.greedySelect_feasible`,
+  {lit}`CLRS.ActivitySelection.greedy_choice_optimal_from_certificate`,
+  {lit}`CLRS.ActivitySelection.greedySelect_after_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.greedySelect_cons_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.greedySelect_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.activitySelection_cons_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.activitySelection_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.greedySelect_optimal_length`,
+  {lit}`CLRS.ActivitySelection.greedySelect_cons_recursive_correct`,
+  {lit}`CLRS.ActivitySelection.activitySelection_cons_recursive_correct`,
+  {lit}`CLRS.ActivitySelection.activitySelection_cons_correct`,
+  {lit}`CLRS.ActivitySelection.activitySelection_correct`.
+* 16.3 Huffman codes: {lit}`proved`.
+  Public results: {lit}`CLRS.HuffmanV2.optimum_huffman_freqs`,
+  {lit}`CLRS.HuffmanV2.huffmanOfFreqs_correct`, and
+  {lit}`CLRS.HuffmanV2.huffmanOfFreqs_cost_le`.
+* 23.1 Growing a minimum spanning tree: {lit}`partial`.
   Current results:
-  `CLRS.MST.Graph.connected_crosses_cut`,
-  `CLRS.MST.FiniteGraph.minimumSpanningTree_of_mstExtending_empty`,
-  `CLRS.MST.FiniteGraph.mstExtending_empty_of_minimumSpanningTree`,
-  `CLRS.MST.FiniteGraph.minimumSpanningTree_iff_mstExtending_empty`,
-  `CLRS.MST.FiniteGraph.exists_crossing_tree_edge_of_cut`,
-  `CLRS.MST.FiniteGraph.exists_crossing_tree_edge_preserving_prefix`, and
-  `CLRS.MST.safe_edge_of_lightest_crossing`.
-* 23.2 Kruskal and Prim: `partial`.
+  {lit}`CLRS.MST.Graph.connected_crosses_cut`,
+  {lit}`CLRS.MST.FiniteGraph.minimumSpanningTree_of_mstExtending_empty`,
+  {lit}`CLRS.MST.FiniteGraph.mstExtending_empty_of_minimumSpanningTree`,
+  {lit}`CLRS.MST.FiniteGraph.minimumSpanningTree_iff_mstExtending_empty`,
+  {lit}`CLRS.MST.FiniteGraph.exists_crossing_tree_edge_of_cut`,
+  {lit}`CLRS.MST.FiniteGraph.exists_crossing_tree_edge_preserving_prefix`, and
+  {lit}`CLRS.MST.safe_edge_of_lightest_crossing`.
+* 23.2 Kruskal and Prim: {lit}`partial`.
   Current results:
   {lit}`CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal`,
   {lit}`CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix`,
@@ -421,27 +421,25 @@ Start with the chapter pages in the sidebar.
 
 The site uses explicit status labels instead of hiding incomplete work.
 
-* `proved`: the named theorem is proved in Lean without relying on `sorry`.
-* `expository`: the page is a reader guide rather than a theorem-bearing
+* {lit}`proved`: the named theorem is proved in Lean without relying on {lit}`sorry`.
+* {lit}`expository`: the page is a reader guide rather than a theorem-bearing
   section.
-* `partial`: important theorem infrastructure exists, but the full textbook
+* {lit}`partial`: important theorem infrastructure exists, but the full textbook
   section is not yet complete.
-* `blocked-design`: progress needs a representation decision, such as paths,
+* {lit}`blocked-design`: progress needs a representation decision, such as paths,
   walks, heaps, arrays, or cost semantics.
-* `deferred-implementation`: a low-level implementation proof is useful but not
+* {lit}`deferred-implementation`: a low-level implementation proof is useful but not
   required for the current mathematical theorem.
-* `future-work`: valuable extensions, exercises, or chapter-end problems.
+* {lit}`future-work`: valuable extensions, exercises, or chapter-end problems.
 
 ## Build and Deployment
 
 The deployed site is generated from the Lean source by Verso:
 
-```
-lake build
-lake build :literateHtml
-```
+* {lit}`lake build` compiles the Lean library.
+* {lit}`lake build :literateHtml` generates the website.
 
-GitHub Actions runs the same pipeline and publishes the generated `_site`
+GitHub Actions runs the same pipeline and publishes the generated {lit}`_site`
 directory to GitHub Pages.
 
 Repository: [TankTechnology/CLRS-Lean](https://github.com/TankTechnology/CLRS-Lean)

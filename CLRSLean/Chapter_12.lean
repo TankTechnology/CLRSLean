@@ -11,7 +11,7 @@ ordering.
 
 ## Sections
 
-* 12.1 Binary search trees: `partial`.
+* 12.1 Binary search trees: {lit}`partial`.
   Main results: {lit}`CLRS.Chapter12.BSTree.search_eq_true_iff`,
   {lit}`CLRS.Chapter12.BSTree.minimum?_le_of_ordered`,
   {lit}`CLRS.Chapter12.BSTree.le_maximum?_of_ordered`,

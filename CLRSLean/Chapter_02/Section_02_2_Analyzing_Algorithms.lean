@@ -12,7 +12,7 @@ sum and proves a quadratic upper bound.
 namespace CLRS
 namespace Chapter02
 
-/-- The triangular sum `1 + 2 + ... + n`. -/
+/-- The triangular sum {lit}`1 + 2 + ... + n`. -/
 def triangular : Nat → Nat
   | 0 => 0
   | n + 1 => triangular n + (n + 1)
@@ -21,7 +21,7 @@ def triangular : Nat → Nat
 def EventuallyBoundedBy (f g : Nat → Nat) : Prop :=
   ∃ c n₀, 0 < c ∧ ∀ n, n₀ ≤ n → f n ≤ c * g n
 
-/-- The usual worst-case comparison count for insertion sort on `n` elements. -/
+/-- The usual worst-case comparison count for insertion sort on {lit}`n` elements. -/
 def insertionSortWorstComparisons (n : Nat) : Nat :=
   triangular (n - 1)
 

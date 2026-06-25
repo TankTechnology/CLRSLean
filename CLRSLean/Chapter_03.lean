@@ -11,22 +11,22 @@ textbook definitions to mathlib's filter-based asymptotics library.
 ## 3.1 Asymptotic Notation
 
 Defines O, Ω, Θ, o, ω as CLRS-style wrappers around mathlib's
-`=O[atTop]` / `=o[atTop]`.  Proves equivalence between the CLRS discrete
-definition (`∃ c n₀`) and the filter-based one.  Collects algebraic
+{lit}`=O[atTop]` / {lit}`=o[atTop]`.  Proves equivalence between the CLRS discrete
+definition ({lit}`∃ c n₀`) and the filter-based one.  Collects algebraic
 properties: reflexivity, transitivity, sum and product rules.
 
 ## 3.2 Standard Functions
 
 Proves concrete growth comparisons that matter for algorithm analysis:
-* polynomial `n^a` vs exponential `c^n` for every `c > 1`
-* logarithm powers `(log n)^a` vs polynomial `n^ε`
-* exponential base comparisons `a^n = o(b^n)` for `0 ≤ a < b`
-* harmonic numbers `H_n ~ log n` and `H_n = Θ(log n)`
+* polynomial {lit}`n^a` vs exponential {lit}`c^n` for every {lit}`c > 1`
+* logarithm powers {lit}`(log n)^a` vs polynomial {lit}`n^ε`
+* exponential base comparisons {lit}`a^n = o(b^n)` for {lit}`0 ≤ a < b`
+* harmonic numbers {lit}`H_n ~ log n` and {lit}`H_n = Θ(log n)`
 * factorial upper/lower bounds, exponential-vs-factorial comparison, and
-  `n! = o(n^n)`
+  {lit}`n! = o(n^n)`
 * floor / ceiling Θ-behavior, including half-scale floor and ceiling
 
-Notation: we use `|·|` (absolute value) rather than `‖·‖` for readability.
+Notation: we use {lit}`|·|` (absolute value) rather than {lit}`‖·‖` for readability.
 -/
 
 namespace CLRS

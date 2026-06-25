@@ -33,7 +33,7 @@ def AllKeysLt (key : α → Nat) (xs : List α) (upper : Nat) : Prop :=
 /--
 Bucket sort with an abstract per-bucket sorter.
 
-The buckets are scanned in increasing order `0, 1, ..., bucketCount - 1`.
+The buckets are scanned in increasing order {lit}`0, 1, ..., bucketCount - 1`.
 -/
 def bucketSortBy (bucketCount : Nat) (bucketOf : α → Nat)
     (sortBucket : List α → List α) (xs : List α) : List α :=

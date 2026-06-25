@@ -11,16 +11,16 @@ open scoped Topology
 
 Concrete asymptotic comparisons for algorithm analysis.
 
-* `nᵃ = o(nᵇ)` when `a < b`
-* `nᵃ = o(cⁿ)` when `1 < c`
-* `log n = o(nʳ)` when `0 < r`
-* `(log n)ᵃ = o(nʳ)` when `0 < r`
-* `aⁿ = o(bⁿ)` when `0 ≤ a < b`
-* the harmonic numbers satisfy `Hₙ ~ log n` and `Hₙ = Θ(log n)`
-* `⌊n⌋ = Θ(n)` and `⌈n⌉ = Θ(n)` on ℕ
-* `⌊n/2⌋ = Θ(n)` and `⌈n/2⌉ = Θ(n)` on ℕ
+* {lit}`nᵃ = o(nᵇ)` when {lit}`a < b`
+* {lit}`nᵃ = o(cⁿ)` when {lit}`1 < c`
+* {lit}`log n = o(nʳ)` when {lit}`0 < r`
+* {lit}`(log n)ᵃ = o(nʳ)` when {lit}`0 < r`
+* {lit}`aⁿ = o(bⁿ)` when {lit}`0 ≤ a < b`
+* the harmonic numbers satisfy {lit}`Hₙ ~ log n` and {lit}`Hₙ = Θ(log n)`
+* {lit}`⌊n⌋ = Θ(n)` and {lit}`⌈n⌉ = Θ(n)` on ℕ
+* {lit}`⌊n/2⌋ = Θ(n)` and {lit}`⌈n/2⌉ = Θ(n)` on ℕ
 * lower and upper factorial bounds
-* `aⁿ = o(n!)` and `n! = o(nⁿ)`
+* {lit}`aⁿ = o(n!)` and {lit}`n! = o(nⁿ)`
 -/
 
 namespace CLRS
@@ -28,7 +28,7 @@ namespace Chapter03
 
 /-! ## Polynomial comparisons -/
 
-/-- `nᵃ = o(nᵇ)` when `a < b`. -/
+/-- {lit}`nᵃ = o(nᵇ)` when {lit}`a < b`. -/
 theorem isLittleO_pow_pow {a b : ℕ} (h : a < b) :
     isLittleO (fun n : ℕ => (n : ℝ) ^ a) (fun n : ℕ => (n : ℝ) ^ b) := by
   unfold isLittleO
@@ -37,7 +37,7 @@ theorem isLittleO_pow_pow {a b : ℕ} (h : a < b) :
   exact (h_ℝ.comp_tendsto tendsto_natCast_atTop_atTop).congr
     (by simp) (by simp)
 
-/-- `nᵃ = O(nᵇ)` when `a ≤ b`. -/
+/-- {lit}`nᵃ = O(nᵇ)` when {lit}`a ≤ b`. -/
 theorem isBigO_pow_pow {a b : ℕ} (h : a ≤ b) :
     isBigO (fun n : ℕ => (n : ℝ) ^ a) (fun n : ℕ => (n : ℝ) ^ b) := by
   rcases Nat.eq_or_lt_of_le h with (rfl | hlt)
@@ -46,20 +46,20 @@ theorem isBigO_pow_pow {a b : ℕ} (h : a ≤ b) :
 
 /-! ## Polynomial, logarithmic, and exponential comparisons -/
 
-/-- For any natural exponent `a` and real base `c > 1`, `nᵃ = o(cⁿ)`. -/
+/-- For any natural exponent {lit}`a` and real base {lit}`c > 1`, {lit}`nᵃ = o(cⁿ)`. -/
 theorem isLittleO_pow_const_exp {a : ℕ} {c : ℝ} (hc : 1 < c) :
     isLittleO (fun n : ℕ => (n : ℝ) ^ a) (fun n : ℕ => c ^ n) := by
   unfold isLittleO
   exact isLittleO_pow_const_const_pow_of_one_lt (R := ℝ) a hc
 
-/-- For every positive real exponent `r`, `log n = o(nʳ)`. -/
+/-- For every positive real exponent {lit}`r`, {lit}`log n = o(nʳ)`. -/
 theorem isLittleO_log_rpow {r : ℝ} (hr : 0 < r) :
     isLittleO (fun n : ℕ => Real.log (n : ℝ)) (fun n : ℕ => (n : ℝ) ^ r) := by
   unfold isLittleO
   exact (isLittleO_log_rpow_atTop hr).comp_tendsto tendsto_natCast_atTop_atTop
 
-/-- For every fixed natural exponent `a` and positive real exponent `r`,
-`(log n)ᵃ = o(nʳ)`. -/
+/-- For every fixed natural exponent {lit}`a` and positive real exponent {lit}`r`,
+{lit}`(log n)ᵃ = o(nʳ)`. -/
 theorem isLittleO_log_pow_rpow {a : ℕ} {r : ℝ} (hr : 0 < r) :
     isLittleO (fun n : ℕ => Real.log (n : ℝ) ^ a) (fun n : ℕ => (n : ℝ) ^ r) := by
   unfold isLittleO
@@ -69,12 +69,12 @@ theorem isLittleO_log_pow_rpow {a : ℕ} {r : ℝ} (hr : 0 < r) :
   simpa [Function.comp_def, Real.rpow_natCast] using
     hreal.comp_tendsto tendsto_natCast_atTop_atTop
 
-/-- Weak `O` form of `isLittleO_log_pow_rpow`. -/
+/-- Weak {lit}`O` form of {lit}`isLittleO_log_pow_rpow`. -/
 theorem isBigO_log_pow_rpow {a : ℕ} {r : ℝ} (hr : 0 < r) :
     isBigO (fun n : ℕ => Real.log (n : ℝ) ^ a) (fun n : ℕ => (n : ℝ) ^ r) :=
   (isLittleO_log_pow_rpow (a := a) hr).isBigO
 
-/-- If `0 ≤ a < b`, then `aⁿ = o(bⁿ)`. -/
+/-- If {lit}`0 ≤ a < b`, then {lit}`aⁿ = o(bⁿ)`. -/
 theorem isLittleO_exp_exp_of_lt {a b : ℝ} (ha : 0 ≤ a) (hab : a < b) :
     isLittleO (fun n : ℕ => a ^ n) (fun n : ℕ => b ^ n) := by
   unfold isLittleO
@@ -82,7 +82,7 @@ theorem isLittleO_exp_exp_of_lt {a b : ℝ} (ha : 0 ≤ a) (hab : a < b) :
 
 /-! ## Harmonic numbers -/
 
-/-- The harmonic numbers are asymptotic to `log n`. -/
+/-- The harmonic numbers are asymptotic to {lit}`log n`. -/
 theorem isEquivalent_harmonic_log :
     (fun n : ℕ => (harmonic n : ℝ)) ~[atTop] (fun n : ℕ => Real.log (n : ℝ)) := by
   have hdiffO :
@@ -94,7 +94,7 @@ theorem isEquivalent_harmonic_log :
     exact Real.isLittleO_const_log_atTop.comp_tendsto tendsto_natCast_atTop_atTop
   exact hdiffO.trans_isLittleO hconst
 
-/-- The harmonic numbers have logarithmic growth, `Hₙ = Θ(log n)`. -/
+/-- The harmonic numbers have logarithmic growth, {lit}`Hₙ = Θ(log n)`. -/
 theorem isBigTheta_harmonic_log :
     isBigTheta (fun n : ℕ => (harmonic n : ℝ)) (fun n : ℕ => Real.log (n : ℝ)) := by
   have htheta :
@@ -139,7 +139,7 @@ private theorem self_le_two_mul_ceil_half_nat (n : ℕ) :
     Nat.div_add_mod (n + 1) 2
   omega
 
-/-- Natural-number floor half-scale: `⌊n/2⌋ = Θ(n)`. -/
+/-- Natural-number floor half-scale: {lit}`⌊n/2⌋ = Θ(n)`. -/
 theorem isBigTheta_nat_floor_half_coerce :
     isBigTheta (fun n : ℕ => ((n / 2 : ℕ) : ℝ)) (fun n : ℕ => (n : ℝ)) := by
   constructor
@@ -157,7 +157,7 @@ theorem isBigTheta_nat_floor_half_coerce :
     have hreal : (n : ℝ) ≤ 4 * ((n / 2 : ℕ) : ℝ) := by exact_mod_cast hnat
     simpa using hreal
 
-/-- Natural-number ceiling half-scale, represented as `(n+1)/2`: `⌈n/2⌉ = Θ(n)`. -/
+/-- Natural-number ceiling half-scale, represented as {lit}`(n+1)/2`: {lit}`⌈n/2⌉ = Θ(n)`. -/
 theorem isBigTheta_nat_ceil_half_coerce :
     isBigTheta (fun n : ℕ => (((n + 1) / 2 : ℕ) : ℝ)) (fun n : ℕ => (n : ℝ)) := by
   constructor
@@ -177,17 +177,17 @@ theorem isBigTheta_nat_ceil_half_coerce :
 
 /-! ## Factorial bound -/
 
-/-- `n! ≤ nⁿ` for all `n`.  Proof on `ℕ`: each factor 1..n ≤ n. -/
+/-- {lit}`n! ≤ nⁿ` for all {lit}`n`.  Proof on {lit}`ℕ`: each factor 1..n ≤ n. -/
 theorem factorial_upper_bound_nat (n : ℕ) : Nat.factorial n ≤ n ^ n := by
   exact Nat.factorial_le_pow n
 
-/-- `n! ≤ nⁿ` for all `n`, real version. -/
+/-- {lit}`n! ≤ nⁿ` for all {lit}`n`, real version. -/
 theorem factorial_upper_bound (n : ℕ) : (Nat.factorial n : ℝ) ≤ (n : ℝ) ^ n := by
   exact_mod_cast factorial_upper_bound_nat n
 
 /--
-For any offset `m`, the last `k` factors in `(m+k)!` are each at least `m+1`,
-so `(m+1)^k ≤ (m+k)!`.
+For any offset {lit}`m`, the last {lit}`k` factors in {lit}`(m+k)!` are each at least {lit}`m+1`,
+so {lit}`(m+1)^k ≤ (m+k)!`.
 -/
 theorem factorial_lower_bound_offset_nat (m k : ℕ) :
     (m + 1) ^ k ≤ Nat.factorial (m + k) := by
@@ -196,14 +196,14 @@ theorem factorial_lower_bound_offset_nat (m k : ℕ) :
     Nat.le_mul_of_pos_left ((m + 1) ^ k) (Nat.factorial_pos m)
   exact le_trans hle h
 
-/-- Real-valued version of `factorial_lower_bound_offset_nat`. -/
+/-- Real-valued version of {lit}`factorial_lower_bound_offset_nat`. -/
 theorem factorial_lower_bound_offset (m k : ℕ) :
     ((m + 1 : ℕ) : ℝ) ^ k ≤ (Nat.factorial (m + k) : ℝ) := by
   exact_mod_cast factorial_lower_bound_offset_nat m k
 
 /--
-A CLRS-style half-scale lower bound: the upper half of the factors in `n!`
-contributes at least `(⌊n/2⌋+1)^(n-⌊n/2⌋)`.
+A CLRS-style half-scale lower bound: the upper half of the factors in {lit}`n!`
+contributes at least {lit}`(⌊n/2⌋+1)^(n-⌊n/2⌋)`.
 -/
 theorem factorial_lower_bound_half_pow_nat (n : ℕ) :
     (n / 2 + 1) ^ (n - n / 2) ≤ Nat.factorial n := by
@@ -212,21 +212,21 @@ theorem factorial_lower_bound_half_pow_nat (n : ℕ) :
     Nat.add_sub_of_le (Nat.div_le_self n 2)
   simpa [hsum] using h
 
-/-- Real-valued version of `factorial_lower_bound_half_pow_nat`. -/
+/-- Real-valued version of {lit}`factorial_lower_bound_half_pow_nat`. -/
 theorem factorial_lower_bound_half_pow (n : ℕ) :
     (((n / 2 + 1 : ℕ) : ℝ) ^ (n - n / 2)) ≤ (Nat.factorial n : ℝ) := by
   exact_mod_cast factorial_lower_bound_half_pow_nat n
 
 /-! ## Exponential vs factorial -/
 
-/-- `aⁿ = o(n!)` as `n → ∞`.  Follows from `FloorSemiring.tendsto_pow_div_factorial_atTop`,
-the standard lemma that `cⁿ / n! → 0` for any real `c`. -/
+/-- {lit}`aⁿ = o(n!)` as {lit}`n → ∞`.  Follows from {lit}`FloorSemiring.tendsto_pow_div_factorial_atTop`,
+the standard lemma that {lit}`cⁿ / n! → 0` for any real {lit}`c`. -/
 theorem isLittleO_exp_vs_factorial (a : ℝ) :
     isLittleO (fun n : ℕ => a ^ n) (fun n : ℕ => (Nat.factorial n : ℝ)) := by
   -- The key lemma: a^n / n! → 0 as n → ∞ (standard result in mathlib)
   have h_tendsto : Tendsto (fun n : ℕ => a ^ n / ((Nat.factorial n : ℕ) : ℝ)) atTop (𝓝 0) := by
     -- FloorSemiring.tendsto_pow_div_factorial_atTop gives a^n / n! → 0 in ℝ
-    -- where n! is the ℝ factorial via the factorial notation `n !`
+    -- where n! is the ℝ factorial via the factorial notation {lit}`n !`
     simpa using FloorSemiring.tendsto_pow_div_factorial_atTop (K := ℝ) a
   -- Use isLittleO_iff_tendsto: f =o[atTop] g  ↔  f/g → 0  (when g=0 → f=0)
   have h_cond : ∀ n : ℕ, ((Nat.factorial n : ℝ) = 0) → a ^ n = 0 := by
@@ -238,7 +238,7 @@ theorem isLittleO_exp_vs_factorial (a : ℝ) :
   exact h_tendsto
 
 /--
-CLRS standard growth-table fact: `n! = o(nⁿ)`.
+CLRS standard growth-table fact: {lit}`n! = o(nⁿ)`.
 -/
 theorem isLittleO_factorial_pow_self :
     isLittleO (fun n : ℕ => (Nat.factorial n : ℝ)) (fun n : ℕ => (n : ℝ) ^ n) := by

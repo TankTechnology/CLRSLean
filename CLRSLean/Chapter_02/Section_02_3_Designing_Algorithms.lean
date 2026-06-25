@@ -13,7 +13,7 @@ workflow focused on the algorithmic contract:
 * merge sort preserves the input elements.
 
 It also records the exact solution of the textbook recurrence on powers of two:
-`T(1) = 1` and `T(2^(k+1)) = 2 * T(2^k) + 2^(k+1)`.
+{lit}`T(1) = 1` and {lit}`T(2^(k+1)) = 2 * T(2^k) + 2^(k+1)`.
 
 A later strengthening can inline the merge routine and prove the split/merge
 lemmas locally if we want a from-scratch artifact.
@@ -26,7 +26,7 @@ namespace Chapter02
 def mergeSort (xs : List Nat) : List Nat :=
   xs.mergeSort (· ≤ ·)
 
-/-- Merge sort returns a list sorted in Mathlib's standard `SortedLE` sense. -/
+/-- Merge sort returns a list sorted in Mathlib's standard {lit}`SortedLE` sense. -/
 theorem mergeSort_sortedLE (xs : List Nat) : (mergeSort xs).SortedLE := by
   simpa [mergeSort] using (List.sortedLE_mergeSort (l := xs))
 
@@ -35,10 +35,10 @@ theorem mergeSort_perm (xs : List Nat) : (mergeSort xs).Perm xs := by
   simpa [mergeSort] using (List.mergeSort_perm xs (· ≤ ·))
 
 /--
-The merge-sort recurrence restricted to inputs of size `2^k`.
+The merge-sort recurrence restricted to inputs of size {lit}`2^k`.
 
-The index `k` represents the input length `2^k`; thus the successor equation is
-the CLRS recurrence `T(2^(k+1)) = 2 * T(2^k) + 2^(k+1)` with unit base cost.
+The index {lit}`k` represents the input length {lit}`2^k`; thus the successor equation is
+the CLRS recurrence {lit}`T(2^(k+1)) = 2 * T(2^k) + 2^(k+1)` with unit base cost.
 -/
 def mergeSortRecurrenceOnPowersOfTwo : Nat → Nat
   | 0 => 1

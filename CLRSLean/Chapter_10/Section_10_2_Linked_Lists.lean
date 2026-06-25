@@ -37,7 +37,7 @@ def listSearch (p : α → Bool) : List α → Option α
 def listInsert (x : α) (xs : List α) : List α :=
   x :: xs
 
-/-- Delete every node whose key equals `x`. -/
+/-- Delete every node whose key equals {lit}`x`. -/
 def listDeleteAll [DecidableEq α] (x : α) (xs : List α) : List α :=
   xs.filter fun y => y != x
 
@@ -78,7 +78,7 @@ theorem mem_listDeleteAll_iff [DecidableEq α] {x y : α} {xs : List α} :
     y ∈ listDeleteAll x xs ↔ y ∈ xs ∧ y ≠ x := by
   simp [listDeleteAll]
 
-/-- Deleting all copies of `x` removes `x`. -/
+/-- Deleting all copies of {lit}`x` removes {lit}`x`. -/
 theorem not_mem_listDeleteAll_self [DecidableEq α] (x : α) (xs : List α) :
     x ∉ listDeleteAll x xs := by
   simp [listDeleteAll]

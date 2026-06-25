@@ -42,12 +42,10 @@ with the recursive subproblem.
 
 For Huffman, the key move is a split-leaf transformation:
 
-```
-merge the two least frequent symbols
--> use the inductive optimum for the merged instance
--> split the merged leaf back into the two original leaves
--> compare costs against every competing tree
-```
+1. Merge the two least frequent symbols.
+2. Use the inductive optimum for the merged instance.
+3. Split the merged leaf back into the two original leaves.
+4. Compare costs against every competing tree.
 
 The final public theorems are stated over a frequency table.  Readers can use
 {name}`CLRS.HuffmanV2.huffmanOfFreqs_correct` for the bundled correctness

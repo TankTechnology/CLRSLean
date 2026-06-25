@@ -8,21 +8,19 @@ chapters easy to audit, easy to deploy, and pleasant to read.
 
 ## Section Lifecycle
 
-```
-1. Textbook map
-2. Algorithm model
-3. Mathematical proof plan
-4. Lean theorem interface
-5. Lean proof
-6. Verification
-7. Site and status update
-```
+1. Textbook map.
+2. Algorithm model.
+3. Mathematical proof plan.
+4. Lean theorem interface.
+5. Lean proof.
+6. Verification.
+7. Site and status update.
 
 ## 1. Textbook Map
 
 Record the section number, algorithm, main theorem-like claims, proof method,
 and any exercises or chapter-end problems.  Exercises are normally marked
-`future-work` until the main theorem interface is stable.
+{lit}`future-work` until the main theorem interface is stable.
 
 ## 2. Algorithm Model
 
@@ -69,14 +67,12 @@ single algorithm.
 
 Use narrow checks while editing, then a project-level build before publishing:
 
-```
-lake env lean CLRSLean/Chapter_02/Section_02_1_Insertion_Sort.lean
-lake env lean Tests/Chapter_02_Interface.lean
-lake build
-lake build :literateHtml
-```
+* {lit}`lake env lean CLRSLean/Chapter_02/Section_02_1_Insertion_Sort.lean`
+* {lit}`lake env lean Tests/Chapter_02_Interface.lean`
+* {lit}`lake build`
+* {lit}`lake build :literateHtml`
 
-When local `literateHtml` generation is too slow, the Lean build and static
+When local {lit}`literateHtml` generation is too slow, the Lean build and static
 configuration checks still provide useful evidence, and the GitHub Pages build
 becomes the final deployment gate.
 
@@ -84,8 +80,8 @@ becomes the final deployment gate.
 
 Every user-facing section change should update the book structure:
 
-* the relevant `CLRSLean/Chapter_XX.lean` chapter page;
-* `CLRSLean/Status.lean` if the proof status changed;
-* `literate.toml` if a new module should appear in the navigation;
-* `docs/proof-map.md` for the longer maintainer ledger.
+* the relevant {lit}`CLRSLean/Chapter_XX.lean` chapter page;
+* {lit}`CLRSLean/Status.lean` if the proof status changed;
+* {lit}`literate.toml` if a new module should appear in the navigation;
+* {lit}`docs/proof-map.md` for the longer maintainer ledger.
 -/
