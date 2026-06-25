@@ -9,9 +9,9 @@ When the CSV changes, regenerate this page with
 ## Snapshot
 
 * CLRS chapters tracked: 35.
-* Chapters represented in Lean: 15.
-* Tracked reader-facing theorem entries: 334.
-* Proved tracked theorem entries: 334.
+* Chapters represented in Lean: 19.
+* Tracked reader-facing theorem entries: 365.
+* Proved tracked theorem entries: 365.
 * Remaining core theorem groups: 45.
 
 Tracked theorem entries count the public theorem groups currently represented
@@ -23,8 +23,8 @@ are not yet represented or not yet complete.
 * {lit}`main-proof-complete`: 2 chapters.
 * {lit}`main-proof-complete-for-correctness`: 1 chapter.
 * {lit}`selected-section-complete`: 3 chapters.
-* {lit}`partial`: 8 chapters.
-* {lit}`not-started`: 20 chapters.
+* {lit}`partial`: 12 chapters.
+* {lit}`not-started`: 16 chapters.
 * {lit}`expository`: 1 chapter.
 
 ## Chapter Matrix
@@ -48,10 +48,10 @@ Ch  Chapter                                                     Status          
 14  14. Augmenting Data Structures                              not-started                          not represented                     0        1
 15  15. Dynamic Programming                                     not-started                          not represented                     0        1
 16  16. Greedy Algorithms                                       selected-section-complete            16.1;16.3                          21        2
-17  17. Amortized Analysis                                      not-started                          not represented                     0        1
-18  18. B-Trees                                                 not-started                          not represented                     0        1
-19  19. Fibonacci Heaps                                         not-started                          not represented                     0        1
-20  20. van Emde Boas Trees                                     not-started                          not represented                     0        1
+17  17. Amortized Analysis                                      partial                              17.1-17.3;17.2;17.4                 8        1
+18  18. B-Trees                                                 partial                              18.1;18.2                           5        1
+19  19. Fibonacci Heaps                                         partial                              19.1                                8        1
+20  20. van Emde Boas Trees                                     partial                              20.1;20.2                          10        1
 21  21. Data Structures for Disjoint Sets                       not-started                          not represented                     0        1
 22  22. Elementary Graph Algorithms                             not-started                          not represented                     0        1
 23  23. Minimum Spanning Trees                                  partial                              23.1;23.2                          31        3

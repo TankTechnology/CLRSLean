@@ -1,0 +1,24 @@
+# Chapter 20 - van Emde Boas Trees
+
+- Status: `partial`
+- Lean entry: `CLRSLean/Chapter_20.lean`
+- Interface test: `Tests/Chapter_20_Interface.lean`
+
+## Proved First-Pass Surface
+
+- `CLRS.Chapter20.VEB.index_high_low`
+- `CLRS.Chapter20.VEB.high_lt`
+- `CLRS.Chapter20.VEB.low_lt`
+- `CLRS.Chapter20.VEB.member_correct`
+- `CLRS.Chapter20.VEB.minimum_correct`
+- `CLRS.Chapter20.VEB.maximum_correct`
+- `CLRS.Chapter20.VEB.successor_correct`
+- `CLRS.Chapter20.VEB.insert_correct`
+- `CLRS.Chapter20.VEB.delete_correct`
+- `CLRS.Chapter20.VEB.operationDepth_linear`
+
+## Remaining Work
+
+The current chapter proves side-length universe arithmetic and finite-set
+operation specifications.  Recursive summary/cluster state, predecessor,
+word-RAM base cases, and a full `O(log log u)` asymptotic bridge are still open.

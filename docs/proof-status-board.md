@@ -43,6 +43,10 @@ CLRS theorem is not yet internalized.
 | Chapter 11, Section 11.2 | Deterministic chained-hash-table insert/delete/search facts for a fixed hash function are proved. | Expected search time under a simple-uniform-hashing probability model. |
 | Chapter 12, Section 12.1 | Functional BST search, minimum/maximum, successor/predecessor, insertion, deletion, and ordering preservation are proved. | Parent-pointer procedures, transplant, and imperative mutation refinement. |
 | Chapter 13, Section 13.1 | Local red-black tree rotations, recoloring, red-red repair certificates, black-height, and shape facts are proved. | Full `RB-INSERT`, `RB-INSERT-FIXUP`, `RB-DELETE`, and `RB-DELETE-FIXUP`. |
+| Chapter 17, Sections 17.1-17.4 | Finite-prefix aggregate/accounting/potential theorems, `MULTIPOP`, binary-counter, and abstract dynamic-table amortized wrappers are proved. | Exact trailing-one counter proof, concrete resize transitions, allocator/RAM cost semantics. |
+| Chapter 18, Sections 18.1-18.2 | A mathematical B-tree model, search correctness, minimum-key height expression, split-child preservation, and insertion membership theorem are proved. | Full separator/same-depth invariant stack, deletion, disk-page and mutation refinement. |
+| Chapter 19, Section 19.1 | Abstract Fibonacci-heap finite-set operations, minimum/extract/decrease/delete specs, heap potential telescoping, and conservative degree budget are proved. | Pointer forest, handles, cascading cuts, consolidation arrays, and true Fibonacci logarithmic degree theorem. |
+| Chapter 20, Sections 20.1-20.2 | vEB high/low/index arithmetic and finite-set specs for member/min/max/successor/insert/delete are proved. | Recursive summary/cluster representation, predecessor, word-RAM base cases, and `O(log log u)` asymptotic bridge. |
 | Chapter 23, Sections 23.1-23.2 | The cut property, safe-edge theorem, exact-component Kruskal scan facts, forest/spanning wrappers, and certificate-based Kruskal optimality interfaces exist. | Automatic simple path/cycle exchange extraction, fully prefix-local sorted-lightness wrapper, and Prim's theorem interface. |
 
 ## Missing Core Theorem
@@ -59,10 +63,6 @@ section file yet or only enough scaffolding to identify the intended theorem.
 | Chapter 12 pointer-level BST layer | CLRS parent-pointer search/min/max/successor/predecessor/transplant/delete refinement. |
 | Chapter 13 full red-black algorithms | Full insertion/deletion fixup correctness and height theorem. |
 | Chapter 14-15 and 21-22 | Not yet represented in the current Lean tree. |
-| Chapter 17 Amortized Analysis | First-pass acceptance standard is fixed: generic aggregate/accounting/potential theorems plus `MULTIPOP`, binary counter, and dynamic-table examples. No Lean module exists yet. |
-| Chapter 18 B-Trees | First-pass acceptance standard is fixed: B-tree invariant, height theorem, search correctness, split-child correctness, and insertion correctness. No Lean module exists yet. |
-| Chapter 19 Fibonacci Heaps | First-pass acceptance standard is fixed: abstract operation correctness, potential-method amortized bounds, and logarithmic degree bound. No Lean module exists yet. |
-| Chapter 20 van Emde Boas Trees | First-pass acceptance standard is fixed: universe decomposition, representation invariant, operation correctness, and `O(log log u)` recurrence wrapper. No Lean module exists yet. |
 | Chapter 23 Prim | Prim's algorithm theorem interface and proof have not been added yet. |
 | Chapter 24 onward | Not yet represented in the current Lean tree. |
 

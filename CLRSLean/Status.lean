@@ -89,6 +89,18 @@ which areas should not yet be counted as proof-complete.
   pointers, transplant, and mutation remain.
 * Chapter 13, Section 13.1: local red-black rotation/recoloring invariants are
   proved; full insertion and deletion fixup algorithms remain.
+* Chapter 17, Sections 17.1-17.4: finite-prefix aggregate/accounting/potential
+  theorems plus {lit}`MULTIPOP`, binary-counter, and abstract dynamic-table
+  wrappers are proved; exact counter and table-transition refinements remain.
+* Chapter 18, Sections 18.1-18.2: a mathematical B-tree model has search,
+  minimum-key height-expression, split-child, and insertion theorem surfaces;
+  full separator/same-depth/deletion and disk-page refinements remain.
+* Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations and
+  heap-potential telescoping are proved; pointer handles, cascading cuts, and
+  the true Fibonacci logarithmic degree theorem remain.
+* Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic and finite-set
+  operation specs are proved; recursive cluster representation, predecessor,
+  and the {lit}`O(log log u)` bridge remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
   exact-component Kruskal scan facts, forest/spanning wrappers, and
   certificate-based Kruskal optimality interfaces exist; automatic simple
@@ -114,18 +126,6 @@ which areas should not yet be counted as proof-complete.
 * Chapter 13 full red-black algorithms: insertion/deletion fixup correctness
   and height theorem.
 * Chapters 14-15 and 21-22: not yet represented.
-* Chapter 17 Amortized Analysis: first-pass acceptance standard is fixed:
-  generic aggregate/accounting/potential theorems plus {lit}`MULTIPOP`, binary
-  counter, and dynamic-table examples.  No Lean module exists yet.
-* Chapter 18 B-Trees: first-pass acceptance standard is fixed: B-tree invariant,
-  height theorem, search correctness, split-child correctness, and insertion
-  correctness.  No Lean module exists yet.
-* Chapter 19 Fibonacci Heaps: first-pass acceptance standard is fixed: abstract
-  operation correctness, potential-method amortized bounds, and logarithmic
-  degree bound.  No Lean module exists yet.
-* Chapter 20 van Emde Boas Trees: first-pass acceptance standard is fixed:
-  universe decomposition, representation invariant, operation correctness, and
-  {lit}`O(log log u)` recurrence wrapper.  No Lean module exists yet.
 * Chapter 23 Prim: theorem interface and proof have not been added.
 * Chapter 24 onward: not yet represented.
 
@@ -488,6 +488,49 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter13.RBTree.redBlackShape_repaint_black`;
   remaining gap: full RB insertion/deletion fixup algorithms are not yet
   mechanized.
+* 17.1-17.4 Amortized analysis:
+  current results {lit}`CLRS.Chapter17.aggregate_bound_of_prefix_bound`,
+  {lit}`CLRS.Chapter17.accounting_totalCost_eq_totalCharge_sub_delta`,
+  {lit}`CLRS.Chapter17.accounting_totalCost_le_totalCharge`,
+  {lit}`CLRS.Chapter17.potential_totalCost_eq_totalAmortized_sub_delta`,
+  {lit}`CLRS.Chapter17.potential_totalCost_le_totalAmortized`,
+  {lit}`CLRS.Chapter17.multiPop_totalCost_le`,
+  {lit}`CLRS.Chapter17.binaryCounter_totalFlips_le`, and
+  {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`;
+  remaining gap: exact trailing-one counter cost, concrete dynamic-table
+  transitions, and RAM/allocation constants.
+* 18.1-18.2 B-trees:
+  current results {lit}`CLRS.Chapter18.BTree.search_correct`,
+  {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.insert_preserves_model`, and
+  {lit}`CLRS.Chapter18.BTree.insert_mem_iff`;
+  remaining gap: full occupancy/separator/same-depth invariants, deletion, and
+  disk-page/mutation semantics.
+* 19.1 Fibonacci heaps:
+  current results {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.union_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.delete_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.heapPotential_telescope`, and
+  {lit}`CLRS.Chapter19.FibHeap.degree_bound_log`;
+  remaining gap: pointer handles, cascading cuts, consolidation arrays, and
+  the true Fibonacci subtree-size/logarithmic degree proof.
+* 20.1-20.2 van Emde Boas trees:
+  current results {lit}`CLRS.Chapter20.VEB.index_high_low`,
+  {lit}`CLRS.Chapter20.VEB.high_lt`,
+  {lit}`CLRS.Chapter20.VEB.low_lt`,
+  {lit}`CLRS.Chapter20.VEB.member_correct`,
+  {lit}`CLRS.Chapter20.VEB.minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_correct`, and
+  {lit}`CLRS.Chapter20.VEB.operationDepth_linear`;
+  remaining gap: recursive summary/cluster state, predecessor, word-RAM base
+  cases, and the explicit {lit}`O(log log u)` asymptotic bridge.
 * 23.1 Growing a minimum spanning tree:
   current results {lit}`CLRS.MST.Graph.connected_crosses_cut`,
   {lit}`CLRS.MST.FiniteGraph.minimumSpanningTree_of_mstExtending_empty`,

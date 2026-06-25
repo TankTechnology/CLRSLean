@@ -969,77 +969,112 @@ any consistent tree with the same frequency table.
 
 ## Chapter 17 - Amortized Analysis
 
-- Lean source: not yet created
-- Status: `not-started`
-- Acceptance standard:
-  `docs/superpowers/specs/2026-06-25-chapters-17-20-acceptance-standards.md`
-- First-pass theorem target: generic aggregate, accounting, and potential
-  method theorems plus the textbook `MULTIPOP`, binary-counter, and dynamic
-  table amortized examples
-- Current gap: no `CLRSLean/Chapter_17.lean` module or section files exist yet
+- Lean source:
+  `CLRSLean/Chapter_17.lean`,
+  `CLRSLean/Chapter_17/Section_17_1_Amortized_Framework.lean`,
+  `CLRSLean/Chapter_17/Section_17_2_Stack_And_Counter.lean`, and
+  `CLRSLean/Chapter_17/Section_17_4_Dynamic_Tables.lean`
+- Status: `partial`
+- Main proved theorems:
+  - `CLRS.Chapter17.aggregate_bound_of_prefix_bound`
+  - `CLRS.Chapter17.accounting_totalCost_eq_totalCharge_sub_delta`
+  - `CLRS.Chapter17.accounting_totalCost_le_totalCharge`
+  - `CLRS.Chapter17.potential_totalCost_eq_totalAmortized_sub_delta`
+  - `CLRS.Chapter17.potential_totalCost_le_totalAmortized`
+  - `CLRS.Chapter17.multiPop_totalCost_le`
+  - `CLRS.Chapter17.binaryCounter_totalFlips_le`
+  - `CLRS.Chapter17.dynamicTable_amortizedBound`
+- Proof pattern: finite-prefix sums, accounting credit balance, potential
+  telescoping
+- Current gap: exact trailing-one binary-counter cost, concrete dynamic-table
+  expansion/contraction transitions, and RAM/allocation constants remain
+  strengthening targets.
 
-The first accepted pass for Chapter 17 must create the reusable amortized
-analysis layer used by later data-structure chapters.  A `proved` status
-requires sorry-free generic finite-prefix theorems for aggregate/accounting/
-potential arguments, a telescoping potential theorem, and concrete constant
-amortized bounds for `MULTIPOP`, binary-counter increments, and abstract dynamic
-tables.  Mutable arrays, allocation, and exact RAM constants are explicitly
-deferred refinements.
+Chapter 17 now provides the reusable amortized-analysis layer for later data
+structure chapters.  The generic aggregate/accounting/potential facts are
+sorry-free, and the first-pass stack, binary-counter, and dynamic-table examples
+compile against stable public theorem names.  The examples intentionally remain
+mathematical wrappers rather than mutable-array or allocator semantics.
 
 ## Chapter 18 - B-Trees
 
-- Lean source: not yet created
-- Status: `not-started`
-- Acceptance standard:
-  `docs/superpowers/specs/2026-06-25-chapters-17-20-acceptance-standards.md`
-- First-pass theorem target: B-tree invariant, height theorem, search
-  correctness, split-child correctness, and insertion correctness
-- Current gap: no `CLRSLean/Chapter_18.lean` module or section files exist yet
+- Lean source:
+  `CLRSLean/Chapter_18.lean`,
+  `CLRSLean/Chapter_18/Section_18_1_B_Tree_Model.lean`, and
+  `CLRSLean/Chapter_18/Section_18_2_B_Tree_Insertion.lean`
+- Status: `partial`
+- Main proved theorems:
+  - `CLRS.Chapter18.BTree.search_correct`
+  - `CLRS.Chapter18.BTree.minKeys_lower_bound`
+  - `CLRS.Chapter18.BTree.splitChild_preserves_model`
+  - `CLRS.Chapter18.BTree.insert_preserves_model`
+  - `CLRS.Chapter18.BTree.insert_mem_iff`
+- Proof pattern: mathematical key-set model, structural validity predicate,
+  specification-level split/insert wrappers
+- Current gap: full node occupancy/separator/same-depth invariant stack,
+  deletion, disk-page I/O, and pointer mutation remain strengthening targets.
 
-The first accepted pass for Chapter 18 must define a minimum-degree B-tree with
-node occupancy bounds, sorted node keys, child-count and separator invariants,
-same-depth leaves, and membership/multiset semantics.  A `proved` status
-requires the CLRS height bound, search correctness, split-child preservation,
-insert-nonfull preservation, and top-level insertion correctness.  Deletion may
-be included in the first pass, but if deletion remains unproved the chapter
-should be marked `partial` rather than `proved`.  Disk-page I/O and pointer
-mutation are deferred.
+Chapter 18 now has a first-pass B-tree theorem surface.  Search and insertion
+are proved against an abstract membership model, and the height expression is
+packaged as a minimum-key lower bound.  The current split and insert operations
+are specification wrappers, so the chapter is still `partial` rather than a
+complete page-level mutation proof.
 
 ## Chapter 19 - Fibonacci Heaps
 
-- Lean source: not yet created
-- Status: `not-started`
-- Acceptance standard:
-  `docs/superpowers/specs/2026-06-25-chapters-17-20-acceptance-standards.md`
-- First-pass theorem target: abstract Fibonacci-heap operation correctness,
-  potential-method amortized bounds, and logarithmic maximum-degree bound
-- Current gap: no `CLRSLean/Chapter_19.lean` module or section files exist yet
+- Lean source:
+  `CLRSLean/Chapter_19.lean` and
+  `CLRSLean/Chapter_19/Section_19_1_Fibonacci_Heap_Model.lean`
+- Status: `partial`
+- Main proved theorems:
+  - `CLRS.Chapter19.FibHeap.minimum_correct`
+  - `CLRS.Chapter19.FibHeap.insert_correct`
+  - `CLRS.Chapter19.FibHeap.union_correct`
+  - `CLRS.Chapter19.FibHeap.extractMin_correct`
+  - `CLRS.Chapter19.FibHeap.decreaseKey_correct`
+  - `CLRS.Chapter19.FibHeap.delete_correct`
+  - `CLRS.Chapter19.FibHeap.heapPotential_telescope`
+  - `CLRS.Chapter19.FibHeap.degree_bound_log`
+- Proof pattern: finite-set key semantics, normalized root/mark counters,
+  Chapter 17 potential-method instantiation
+- Current gap: pointer handles, heap-ordered forest/cascading-cut transition
+  system, consolidation arrays, duplicate keys, and the true Fibonacci
+  subtree-size/log-degree proof remain strengthening targets.
 
-The first accepted pass for Chapter 19 must provide an abstract heap-ordered
-forest model with roots, marked nodes, degrees, key membership, a minimum
-specification, and the potential `Phi = #trees + 2 * #marked`.  A `proved`
-status requires correctness of make/insert/minimum/union/extract-min/
-decrease-key/delete, an instantiation of the Chapter 17 potential theorem, and
-a Fibonacci subtree-size lower bound that yields `O(log n)` maximum degree.
-Pointer-level circular lists and handle memory safety are deferred.
+Chapter 19 now records the operation-level Fibonacci-heap contracts against an
+abstract finite key set.  The standard potential function is connected to the
+Chapter 17 telescoping theorem.  The degree theorem is deliberately conservative
+for this first pass; it bounds the current maximum-degree proxy by a key-count
+budget rather than proving the full Fibonacci logarithmic theorem.
 
 ## Chapter 20 - van Emde Boas Trees
 
-- Lean source: not yet created
-- Status: `not-started`
-- Acceptance standard:
-  `docs/superpowers/specs/2026-06-25-chapters-17-20-acceptance-standards.md`
-- First-pass theorem target: recursive universe decomposition, representation
-  invariant, operation correctness, and `O(log log u)` recurrence wrapper
-- Current gap: no `CLRSLean/Chapter_20.lean` module or section files exist yet
+- Lean source:
+  `CLRSLean/Chapter_20.lean`,
+  `CLRSLean/Chapter_20/Section_20_1_VEB_Universe.lean`, and
+  `CLRSLean/Chapter_20/Section_20_2_VEB_Tree.lean`
+- Status: `partial`
+- Main proved theorems:
+  - `CLRS.Chapter20.VEB.index_high_low`
+  - `CLRS.Chapter20.VEB.high_lt`
+  - `CLRS.Chapter20.VEB.low_lt`
+  - `CLRS.Chapter20.VEB.member_correct`
+  - `CLRS.Chapter20.VEB.minimum_correct`
+  - `CLRS.Chapter20.VEB.maximum_correct`
+  - `CLRS.Chapter20.VEB.successor_correct`
+  - `CLRS.Chapter20.VEB.insert_correct`
+  - `CLRS.Chapter20.VEB.delete_correct`
+  - `CLRS.Chapter20.VEB.operationDepth_linear`
+- Proof pattern: natural-number quotient/remainder arithmetic, finite-set
+  representation semantics, extrema/successor via `Finset.min'`/`max'`
+- Current gap: recursive min/max-summary-cluster state, predecessor,
+  word-RAM base cases, and an explicit Chapter 3 asymptotic bridge for
+  `O(log log u)` remain strengthening targets.
 
-The first accepted pass for Chapter 20 must choose a Lean-friendly universe
-family, prove the `high`/`low`/`index` decomposition lemmas, define a vEB
-representation invariant for `min`, `max`, summary, and clusters, and prove
-correctness of member/min/max/successor/predecessor/insert/delete against a set
-semantics.  A `proved` status also requires packaging the recursive operation
-depth as linear in the universe exponent, hence `O(log log u)` for the original
-universe size.  Word-RAM and bit-vector base-case optimizations are deferred.
+Chapter 20 now proves the high/low/index arithmetic and a set-specification
+layer for the main vEB queries and updates.  The current operation-depth theorem
+is a linear wrapper over the universe exponent, not yet a full asymptotic
+translation for the original universe size.
 
 ## Chapter 23 - Minimum Spanning Trees
 
