@@ -1047,25 +1047,29 @@ and delete operations are specification wrappers, so the chapter is still
 - Main proved theorems:
   - `CLRS.Chapter19.FibHeap.makeHeap_correct`
   - `CLRS.Chapter19.FibHeap.minimum_correct`
+  - `CLRS.Chapter19.FibHeap.minimum_none_iff`
   - `CLRS.Chapter19.FibHeap.insert_correct`
   - `CLRS.Chapter19.FibHeap.union_correct`
   - `CLRS.Chapter19.FibHeap.extractMin_correct`
+  - `CLRS.Chapter19.FibHeap.extractMin_none_iff`
   - `CLRS.Chapter19.FibHeap.decreaseKey_correct`
   - `CLRS.Chapter19.FibHeap.delete_correct`
   - `CLRS.Chapter19.FibHeap.heapPotential_telescope`
   - `CLRS.Chapter19.FibHeap.fibLowerBound_step`
   - `CLRS.Chapter19.FibHeap.degree_bound_log`
 - Proof pattern: finite-set key semantics, normalized root/mark counters,
-  Chapter 17 potential-method instantiation, Fibonacci lower-bound recurrence
+  empty-result query characterization, Chapter 17 potential-method
+  instantiation, Fibonacci lower-bound recurrence
 - Current gap: pointer handles, heap-ordered forest/cascading-cut transition
   system, consolidation arrays, duplicate keys, and the subtree-size induction
   leading to the true Fibonacci log-degree proof remain strengthening targets.
 
 Chapter 19 now records the operation-level Fibonacci-heap contracts against an
-abstract finite key set, including empty-heap construction.  The standard
-potential function is connected to the Chapter 17 telescoping theorem, and the
-Fibonacci lower-bound sequence now exposes its local recurrence.  The degree
-theorem is deliberately conservative for this first pass; it bounds the current
+abstract finite key set, including empty-heap construction and empty-result
+minimum/extract-min specifications.  The standard potential function is
+connected to the Chapter 17 telescoping theorem, and the Fibonacci lower-bound
+sequence now exposes its local recurrence.  The degree theorem is deliberately
+conservative for this first pass; it bounds the current
 maximum-degree proxy by a key-count budget rather than proving the full
 Fibonacci logarithmic theorem.
 

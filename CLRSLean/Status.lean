@@ -99,9 +99,9 @@ which areas should not yet be counted as proof-complete.
   and search-after-update theorem surfaces; full separator/same-depth,
   node-level-deletion, and disk-page refinements remain.
 * Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
-  empty-heap construction, heap-potential telescoping, and a Fibonacci
-  lower-bound recurrence are proved; pointer handles, cascading cuts, and the
-  true Fibonacci logarithmic degree theorem remain.
+  empty-heap construction, empty-result query specs, heap-potential telescoping,
+  and a Fibonacci lower-bound recurrence are proved; pointer handles,
+  cascading cuts, and the true Fibonacci logarithmic degree theorem remain.
 * Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic and finite-set
   operation specs, including successor/predecessor positive and empty-result
   cases, are proved; recursive cluster representation and the
@@ -528,9 +528,11 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
 * 19.1 Fibonacci heaps:
   current results {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.extractMin_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
   {lit}`CLRS.Chapter19.FibHeap.delete_correct`,
   {lit}`CLRS.Chapter19.FibHeap.heapPotential_telescope`,

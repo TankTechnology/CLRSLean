@@ -13,6 +13,8 @@ Main results:
 
 - Theorem {lit}`FibHeap.minimum_correct`: a returned minimum is represented and
   is no larger than any represented key.
+- Theorem {lit}`FibHeap.minimum_none_iff`: no minimum is returned exactly when
+  the represented key set is empty.
 - Theorem {lit}`FibHeap.makeHeap_correct`: the empty heap represents the empty
   key set.
 - Theorems {lit}`FibHeap.insert_correct`, {lit}`FibHeap.union_correct`,
@@ -89,6 +91,24 @@ theorem minimum_correct {h : FibHeap} {s : Finset Int} {x : Int}
       exact Finset.min'_le h.keys y hyh
   · simp [hne] at hmin
 
+/-- No minimum is returned exactly when the represented key set is empty. -/
+theorem minimum_none_iff {h : FibHeap} {s : Finset Int}
+    (hrep : Represents h s) :
+    minimum h = none <-> s = ∅ := by
+  unfold minimum
+  constructor
+  · intro hnone
+    by_cases hne : h.keys.Nonempty
+    · simp [hne] at hnone
+    · have hkeysEmpty : h.keys = ∅ := Finset.not_nonempty_iff_eq_empty.mp hne
+      simpa [hrep.1] using hkeysEmpty
+  · intro hs
+    have hkeysEmpty : h.keys = ∅ := by
+      simpa [hrep.1] using hs
+    have hne : ¬ h.keys.Nonempty := by
+      simpa [Finset.not_nonempty_iff_eq_empty] using hkeysEmpty
+    simp [hne]
+
 /-- Insert a key.  Counter fields are normalized to the represented key count. -/
 def insert (x : Int) (h : FibHeap) : FibHeap :=
   let ks := Insert.insert x h.keys
@@ -146,6 +166,24 @@ theorem extractMin_correct {h h' : FibHeap} {s : Finset Int} {x : Int}
       · simp [hrep.1]
       · simp [Valid]
   · simp [hne] at hextract
+
+/-- Extract-min returns nothing exactly when the represented key set is empty. -/
+theorem extractMin_none_iff {h : FibHeap} {s : Finset Int}
+    (hrep : Represents h s) :
+    extractMin h = none <-> s = ∅ := by
+  unfold extractMin
+  constructor
+  · intro hnone
+    by_cases hne : h.keys.Nonempty
+    · simp [hne] at hnone
+    · have hkeysEmpty : h.keys = ∅ := Finset.not_nonempty_iff_eq_empty.mp hne
+      simpa [hrep.1] using hkeysEmpty
+  · intro hs
+    have hkeysEmpty : h.keys = ∅ := by
+      simpa [hrep.1] using hs
+    have hne : ¬ h.keys.Nonempty := by
+      simpa [Finset.not_nonempty_iff_eq_empty] using hkeysEmpty
+    simp [hne]
 
 /-- Decrease a key by replacing an old key with a new key. -/
 def decreaseKey (oldKey newKey : Int) (h : FibHeap) : FibHeap :=

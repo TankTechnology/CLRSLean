@@ -449,9 +449,11 @@ Start with the chapter pages in the sidebar.
 * 19.1 Fibonacci heaps: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.extractMin_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
   {lit}`CLRS.Chapter19.FibHeap.delete_correct`,
   {lit}`CLRS.Chapter19.FibHeap.heapPotential_telescope`,

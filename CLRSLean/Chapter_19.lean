@@ -8,7 +8,8 @@ Lean surface represents a heap by a finite set of integer keys plus root/mark
 counters, proves operation-level set specifications, exposes the standard
 potential function, and packages a conservative degree-bound wrapper for later
 subtree-size strengthening, together with a Fibonacci-style lower-bound
-recurrence.
+recurrence.  The query surface includes empty-result specifications for
+minimum and extract-min.
 
 ## Sections
 
@@ -16,9 +17,11 @@ recurrence.
   Main results:
   {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.extractMin_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
   {lit}`CLRS.Chapter19.FibHeap.delete_correct`,
   {lit}`CLRS.Chapter19.FibHeap.heapPotential_telescope`,

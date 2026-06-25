@@ -8,9 +8,11 @@
 
 - `CLRS.Chapter19.FibHeap.makeHeap_correct`
 - `CLRS.Chapter19.FibHeap.minimum_correct`
+- `CLRS.Chapter19.FibHeap.minimum_none_iff`
 - `CLRS.Chapter19.FibHeap.insert_correct`
 - `CLRS.Chapter19.FibHeap.union_correct`
 - `CLRS.Chapter19.FibHeap.extractMin_correct`
+- `CLRS.Chapter19.FibHeap.extractMin_none_iff`
 - `CLRS.Chapter19.FibHeap.decreaseKey_correct`
 - `CLRS.Chapter19.FibHeap.delete_correct`
 - `CLRS.Chapter19.FibHeap.heapPotential_telescope`
