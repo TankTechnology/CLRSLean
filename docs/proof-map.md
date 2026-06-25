@@ -1191,13 +1191,18 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.high_lt`
   - `CLRS.Chapter20.VEB.low_lt`
   - `CLRS.Chapter20.VEB.member_correct`
+  - `CLRS.Chapter20.VEB.member_lt_univ`
   - `CLRS.Chapter20.VEB.minimum_correct`
+  - `CLRS.Chapter20.VEB.minimum_lt_univ`
   - `CLRS.Chapter20.VEB.minimum_none_iff`
   - `CLRS.Chapter20.VEB.maximum_correct`
+  - `CLRS.Chapter20.VEB.maximum_lt_univ`
   - `CLRS.Chapter20.VEB.maximum_none_iff`
   - `CLRS.Chapter20.VEB.successor_correct`
+  - `CLRS.Chapter20.VEB.successor_lt_univ`
   - `CLRS.Chapter20.VEB.successor_none_iff`
   - `CLRS.Chapter20.VEB.predecessor_correct`
+  - `CLRS.Chapter20.VEB.predecessor_lt_univ`
   - `CLRS.Chapter20.VEB.predecessor_none_iff`
   - `CLRS.Chapter20.VEB.insert_correct`
   - `CLRS.Chapter20.VEB.insert_member_iff`
@@ -1230,9 +1235,10 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.operationDepth_strict_mono`
 - Proof pattern: natural-number quotient/remainder arithmetic, bounded
   high/low recomposition, finite-set representation semantics,
-  extrema/successor via `Finset.min'`/`max'`, direct updated-key and old-key
-  preservation member queries, and definition unfolding for first-pass
-  operation-depth recurrence and monotonicity facts
+  extrema/successor via `Finset.min'`/`max'`, successful-query universe-bound
+  bridges, direct updated-key and old-key preservation member queries, and
+  definition unfolding for first-pass operation-depth recurrence and
+  monotonicity facts
 - Current gap: recursive min/max-summary-cluster state, word-RAM base cases,
   and an explicit Chapter 3 asymptotic bridge for `O(log log u)` remain
   strengthening targets.
@@ -1240,8 +1246,9 @@ Fibonacci logarithmic theorem.
 Chapter 20 now proves the high/low/index arithmetic, including both directions
 of bounded high/low recomposition, and a set-specification layer for the main
 vEB queries and updates.  This includes both positive and empty-result
-extrema/successor/predecessor cases plus membership-after-update,
-direct updated-key and old-key member-preservation corollaries,
+extrema/successor/predecessor cases plus successful-query universe-bound
+corollaries, membership-after-update, direct updated-key and old-key
+member-preservation corollaries,
 positive and empty-result extrema-after-update, and both positive and
 no-neighbor specifications for neighbor queries after updates.  The
 current operation-depth facts expose the base case, successor step, and a

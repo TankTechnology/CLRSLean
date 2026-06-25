@@ -13,13 +13,18 @@
 - `CLRS.Chapter20.VEB.high_lt`
 - `CLRS.Chapter20.VEB.low_lt`
 - `CLRS.Chapter20.VEB.member_correct`
+- `CLRS.Chapter20.VEB.member_lt_univ`
 - `CLRS.Chapter20.VEB.minimum_correct`
+- `CLRS.Chapter20.VEB.minimum_lt_univ`
 - `CLRS.Chapter20.VEB.minimum_none_iff`
 - `CLRS.Chapter20.VEB.maximum_correct`
+- `CLRS.Chapter20.VEB.maximum_lt_univ`
 - `CLRS.Chapter20.VEB.maximum_none_iff`
 - `CLRS.Chapter20.VEB.successor_correct`
+- `CLRS.Chapter20.VEB.successor_lt_univ`
 - `CLRS.Chapter20.VEB.successor_none_iff`
 - `CLRS.Chapter20.VEB.predecessor_correct`
+- `CLRS.Chapter20.VEB.predecessor_lt_univ`
 - `CLRS.Chapter20.VEB.predecessor_none_iff`
 - `CLRS.Chapter20.VEB.insert_correct`
 - `CLRS.Chapter20.VEB.insert_member_iff`
@@ -56,8 +61,9 @@
 The current chapter proves side-length universe arithmetic, including bounded
 high/low recomposition facts, and finite-set operation specifications.
 It also records direct member-query corollaries for inserted/deleted keys and
-old-key preservation, positive and empty-result extrema-after-update specs,
-positive and no-neighbor update-query specs, plus the first-pass
-operation-depth base, step, linear, and monotonicity facts.
+old-key preservation, successful-query universe-bound corollaries, positive and
+empty-result extrema-after-update specs, positive and no-neighbor update-query
+specs, plus the first-pass operation-depth base, step, linear, and monotonicity
+facts.
 Recursive summary/cluster state, word-RAM base cases, and a full `O(log log u)`
 asymptotic bridge are still open.

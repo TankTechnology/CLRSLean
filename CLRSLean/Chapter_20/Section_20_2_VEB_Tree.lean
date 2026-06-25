@@ -14,6 +14,10 @@ Main results:
   set.
 - Theorems {lit}`VEB.minimum_correct` and {lit}`VEB.maximum_correct`: returned
   extrema are represented keys with the expected order property.
+- Theorems {lit}`VEB.member_lt_univ`, {lit}`VEB.minimum_lt_univ`,
+  {lit}`VEB.maximum_lt_univ`, {lit}`VEB.successor_lt_univ`, and
+  {lit}`VEB.predecessor_lt_univ`: successful queries return keys inside the
+  represented universe.
 - Theorems {lit}`VEB.minimum_none_iff` and {lit}`VEB.maximum_none_iff`:
   extrema queries return no key exactly when the represented set is empty.
 - Theorem {lit}`VEB.successor_correct`: a returned successor is represented,
@@ -82,6 +86,12 @@ theorem member_correct {t : Tree} {s : Finset Nat} {x : Nat}
     member x t = true <-> x ∈ s := by
   simp [member, hrep.1]
 
+/-- A successful membership query returns a key inside the represented universe. -/
+theorem member_lt_univ {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) (hmem : member x t = true) :
+    x < t.univSize := by
+  exact hrep.2 x ((member_correct (t := t) (s := s) (x := x) hrep).mp hmem)
+
 /-- Minimum represented key, if the tree is nonempty. -/
 def minimum (t : Tree) : Option Nat :=
   if h : t.elems.Nonempty then
@@ -111,6 +121,12 @@ theorem minimum_correct {t : Tree} {s : Finset Nat} {x : Nat}
         simpa [hrep.1] using hy
       exact Finset.min'_le t.elems y hyt
   · simp [hne] at hmin
+
+/-- A returned minimum lies inside the represented universe. -/
+theorem minimum_lt_univ {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) (hmin : minimum t = some x) :
+    x < t.univSize := by
+  exact hrep.2 x (minimum_correct (t := t) (s := s) (x := x) hrep hmin).1
 
 /-- No minimum is returned exactly when the represented set is empty. -/
 theorem minimum_none_iff {t : Tree} {s : Finset Nat}
@@ -146,6 +162,12 @@ theorem maximum_correct {t : Tree} {s : Finset Nat} {x : Nat}
         simpa [hrep.1] using hy
       exact Finset.le_max' t.elems y hyt
   · simp [hne] at hmax
+
+/-- A returned maximum lies inside the represented universe. -/
+theorem maximum_lt_univ {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) (hmax : maximum t = some x) :
+    x < t.univSize := by
+  exact hrep.2 x (maximum_correct (t := t) (s := s) (x := x) hrep hmax).1
 
 /-- No maximum is returned exactly when the represented set is empty. -/
 theorem maximum_none_iff {t : Tree} {s : Finset Nat}
@@ -200,6 +222,13 @@ theorem successor_correct {t : Tree} {s : Finset Nat} {x y : Nat}
       exact Finset.min'_le (successorCandidates x t) z hzCand
   · simp [hne] at hsucc
 
+/-- A returned successor lies inside the represented universe. -/
+theorem successor_lt_univ {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hsucc : successor x t = some y) :
+    y < t.univSize := by
+  exact hrep.2 y
+    (successor_correct (t := t) (s := s) (x := x) (y := y) hrep hsucc).1
+
 /-- No successor is returned exactly when no represented key is greater. -/
 theorem successor_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
     (hrep : Represents t s) :
@@ -252,6 +281,13 @@ theorem predecessor_correct {t : Tree} {s : Finset Nat} {x y : Nat}
         simp [predecessorCandidates, hrep.1, hz, hzx]
       exact Finset.le_max' (predecessorCandidates x t) z hzCand
   · simp [hne] at hpred
+
+/-- A returned predecessor lies inside the represented universe. -/
+theorem predecessor_lt_univ {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hpred : predecessor x t = some y) :
+    y < t.univSize := by
+  exact hrep.2 y
+    (predecessor_correct (t := t) (s := s) (x := x) (y := y) hrep hpred).1
 
 /-- No predecessor is returned exactly when no represented key is smaller. -/
 theorem predecessor_none_iff {t : Tree} {s : Finset Nat} {x : Nat}

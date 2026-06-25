@@ -113,8 +113,8 @@ Start with the chapter pages in the sidebar.
   degree-to-binary-log wrappers, and a conservative degree-bound wrapper.
 * Chapter 20 - van Emde Boas Trees: high/low universe decomposition with
   bounded recomposition facts and a finite-set specification layer for
-  membership, extrema, successor,
-  predecessor, empty-result extrema/successor/predecessor queries, insert, and
+  membership, extrema, successor, predecessor, successful-query universe
+  bounds, empty-result extrema/successor/predecessor queries, insert, and
   delete, including membership-, extrema-, and neighbor-query-after-update
   positive/no-neighbor specs, extrema empty-after-update specs, direct
   member-query preservation corollaries, and operation-depth
@@ -534,13 +534,18 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter20.VEB.index_lt`,
   {lit}`CLRS.Chapter20.VEB.high_lt`, {lit}`CLRS.Chapter20.VEB.low_lt`,
   {lit}`CLRS.Chapter20.VEB.member_correct`,
+  {lit}`CLRS.Chapter20.VEB.member_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.minimum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.successor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.predecessor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_member_iff`,

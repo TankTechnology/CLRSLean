@@ -10,10 +10,10 @@ arithmetic, including bounded high/low recomposition facts, and the correctness
 of membership, extrema, successor, predecessor, insert, and delete against a
 represented finite set, including empty-result specifications for extrema,
 successor, and predecessor plus membership-, extrema-, and
-neighbor-query-after-update positive and no-neighbor specifications, extrema
-empty-after-update specifications, direct inserted/deleted key and old-key
-member-preservation corollaries, and operation-depth base/step/linear and
-monotonicity wrappers.
+neighbor-query-after-update positive and no-neighbor specifications,
+successful-query universe-bound corollaries, extrema empty-after-update
+specifications, direct inserted/deleted key and old-key member-preservation
+corollaries, and operation-depth base/step/linear and monotonicity wrappers.
 
 ## Sections
 
@@ -29,13 +29,18 @@ monotonicity wrappers.
 * 20.2 Tree specification: {lit}`partial`.
   Main results:
   {lit}`CLRS.Chapter20.VEB.member_correct`,
+  {lit}`CLRS.Chapter20.VEB.member_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.minimum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.successor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.predecessor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_member_iff`,
