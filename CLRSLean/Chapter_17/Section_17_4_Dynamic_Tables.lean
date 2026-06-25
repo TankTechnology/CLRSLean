@@ -37,6 +37,9 @@ Main results:
   preserves the table-size invariant.
 - Theorem {lit}`dynamicTableDelete_valid`: the first-pass deletion/contraction
   transition preserves the table-size invariant.
+- Theorems {lit}`dynamicTableInsert_num`, {lit}`dynamicTableInsert_size`,
+  {lit}`dynamicTableDelete_num`, and {lit}`dynamicTableDelete_size`: direct
+  post-state field equations for the transition wrappers.
 - Theorems {lit}`dynamicTableInsert_num_gt`,
   {lit}`dynamicTableInsert_num_ge`, {lit}`dynamicTableDelete_num_le`,
   {lit}`dynamicTableDelete_num_empty`, and
@@ -168,6 +171,11 @@ theorem dynamicTableInsert_num (s : DynamicTableState) :
     (dynamicTableInsert s).num = s.num + 1 := by
   rfl
 
+/-- Dynamic-table insertion sets the post-state capacity to the insertion capacity choice. -/
+theorem dynamicTableInsert_size (s : DynamicTableState) :
+    (dynamicTableInsert s).size = dynamicTableInsertSize s := by
+  rfl
+
 /-- Dynamic-table insertion strictly increases the stored-element count. -/
 theorem dynamicTableInsert_num_gt (s : DynamicTableState) :
     s.num < (dynamicTableInsert s).num := by
@@ -290,6 +298,11 @@ theorem dynamicTableDeleteSize_le_size (s : DynamicTableState)
 /-- Dynamic-table deletion decrements the stored-element count, saturating at zero. -/
 theorem dynamicTableDelete_num (s : DynamicTableState) :
     (dynamicTableDelete s).num = s.num - 1 := by
+  rfl
+
+/-- Dynamic-table deletion sets the post-state capacity to the deletion capacity choice. -/
+theorem dynamicTableDelete_size (s : DynamicTableState) :
+    (dynamicTableDelete s).size = dynamicTableDeleteSize s := by
   rfl
 
 /-- Dynamic-table deletion never increases the stored-element count. -/

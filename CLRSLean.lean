@@ -97,7 +97,8 @@ Start with the chapter pages in the sidebar.
   potential-method telescoping theorems, plus stack/counter/table examples with
   an executable multi-step counter trace bound and size-level dynamic-table
   potential, actual-cost and capacity-choice case specs, capacity-direction,
-  stored-count direction, post-state capacity, and transition wrappers.
+  post-state field equations, stored-count direction, post-state capacity, and
+  transition wrappers.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
   height-expression base/positivity/recurrence/monotonicity, split, split
   membership/search preservation, insertion, deletion, search-after-update
@@ -455,6 +456,7 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num_gt`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num_ge`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_fits`,
@@ -470,6 +472,7 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_valid`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_le`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_empty`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty`,

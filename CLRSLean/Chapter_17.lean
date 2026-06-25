@@ -13,7 +13,8 @@ binary-counter one-step potential proof plus a multi-step executable trace
 bound, and size-level dynamic-table insertion/deletion capacity and transition
 wrappers with capacity-direction and actual-cost upper-bound facts plus an
 explicit nonnegative potential fact, actual-cost and capacity-choice case
-specifications, and direct post-state stored-count and capacity corollaries.
+specifications, direct post-state field equations, and direct post-state
+stored-count and capacity corollaries.
 
 ## Sections
 
@@ -44,6 +45,7 @@ specifications, and direct post-state stored-count and capacity corollaries.
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num_gt`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num_ge`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_fits`,
@@ -59,6 +61,7 @@ specifications, and direct post-state stored-count and capacity corollaries.
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_valid`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_le`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_empty`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty`,
