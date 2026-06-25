@@ -15,9 +15,10 @@ digit signature, and hence captures the CLRS stable-pass proof spine.
 
 The final layer instantiates the abstract digit interface with concrete
 base-{lit}`b` digits for natural-number keys, packages ordinary key ordering
-behind a named digit-order bridge, and discharges that bridge for the one-digit
-case where every key is smaller than the base.  The remaining multi-digit
-numeric-order theorem is a focused arithmetic refinement.
+behind a named digit-order bridge, and discharges that bridge for bounded
+fixed-width keys.  The final concrete theorem therefore says radix sort returns
+a list ordered by the ordinary natural-number key when every key is represented
+inside the supplied digit window.
 -/
 
 namespace CLRS
@@ -408,6 +409,157 @@ theorem baseDigitsLow_allDigitsLe
   exact baseDigit_le_max base i (key x) hbase
 
 /--
+Reinterpreting the first {lit}`digitCount` extracted low-to-high digits gives
+the corresponding residue modulo {lit}`base ^ digitCount`.
+-/
+theorem baseDigitsLow_value_eq_mod_pow
+    (base digitCount : Nat) (key : α → Nat) (x : α) :
+    Nat.ofDigits base
+        ((baseDigitsLow base digitCount key).map fun digit => digit x) =
+      key x % base ^ digitCount := by
+  simp [baseDigitsLow]
+  induction digitCount with
+  | zero =>
+      simp [Nat.mod_one]
+  | succ k ih =>
+      rw [List.range_succ, List.map_append, Nat.ofDigits_append, ih]
+      simp [baseDigit, Nat.pow_succ]
+      conv_rhs =>
+        rw [← Nat.mod_add_div ((key x) % (base ^ k * base)) (base ^ k)]
+      rw [Nat.mod_mul_right_mod, Nat.mod_mul_right_div_self]
+
+/--
+If a key fits into the declared fixed-width digit window, the extracted digits
+reconstruct the key exactly.
+-/
+theorem baseDigitsLow_value_eq_self_of_lt
+    (base digitCount : Nat) (key : α → Nat) (x : α)
+    (hkey : key x < base ^ digitCount) :
+    Nat.ofDigits base
+        ((baseDigitsLow base digitCount key).map fun digit => digit x) =
+      key x := by
+  rw [baseDigitsLow_value_eq_mod_pow, Nat.mod_eq_of_lt hkey]
+
+/--
+Accumulator form of the radix lexicographic value lemma.  The accumulator
+{lit}`low` stores lower-priority digits and is assumed to be smaller than the
+current place-value scale.
+-/
+theorem radixRel_accValue_le
+    (base scale : Nat) (digitsLow : List (α → Nat))
+    (low : α → Nat) (rel : α → α → Prop)
+    (hbase : 0 < base) (hscale : 0 < scale)
+    (hlow : ∀ z, low z < scale)
+    (hrel : ∀ ⦃x y⦄, rel x y → low x ≤ low y)
+    (hdigits : ∀ digit ∈ digitsLow, ∀ z, digit z < base) :
+    ∀ ⦃x y : α⦄,
+      RadixRel digitsLow rel x y →
+        low x + scale * Nat.ofDigits base
+            (digitsLow.map fun digit => digit x) ≤
+        low y + scale * Nat.ofDigits base
+            (digitsLow.map fun digit => digit y) := by
+  induction digitsLow generalizing low rel scale with
+  | nil =>
+      intro x y hxy
+      simpa using hrel hxy
+  | cons digit digits ih =>
+      intro x y hxy
+      have hdigit : ∀ z, digit z < base := hdigits digit (by simp)
+      have hdigits_tail : ∀ d ∈ digits, ∀ z, d z < base := by
+        intro d hd z
+        exact hdigits d (by simp [hd]) z
+      have hscale' : 0 < scale * base := Nat.mul_pos hscale hbase
+      have hlow' :
+          ∀ z, low z + scale * digit z < scale * base := by
+        intro z
+        have hlt1 :
+            low z + scale * digit z < scale * (digit z + 1) := by
+          simpa [Nat.mul_succ, Nat.add_comm, Nat.add_left_comm,
+            Nat.add_assoc] using
+            Nat.add_lt_add_right (hlow z) (scale * digit z)
+        have hle2 : scale * (digit z + 1) ≤ scale * base :=
+          Nat.mul_le_mul_left scale (Nat.succ_le_of_lt (hdigit z))
+        exact Nat.lt_of_lt_of_le hlt1 hle2
+      have hrel' :
+          ∀ ⦃a b⦄, LexWith digit rel a b →
+            low a + scale * digit a ≤ low b + scale * digit b := by
+        intro a b hab
+        rcases hab with hlt | ⟨heq, hr⟩
+        · have hlt1 :
+              low a + scale * digit a < scale * (digit a + 1) := by
+            simpa [Nat.mul_succ, Nat.add_comm, Nat.add_left_comm,
+              Nat.add_assoc] using
+              Nat.add_lt_add_right (hlow a) (scale * digit a)
+          have hle2 : scale * (digit a + 1) ≤ scale * digit b :=
+            Nat.mul_le_mul_left scale (Nat.succ_le_of_lt hlt)
+          exact Nat.le_trans (Nat.le_of_lt hlt1)
+            (Nat.le_trans hle2 (Nat.le_add_left _ _))
+        · rw [heq]
+          exact Nat.add_le_add_right (hrel hr) _
+      have hmain := ih (low := fun z => low z + scale * digit z)
+        (rel := LexWith digit rel) (scale := scale * base)
+        hscale' hlow' hrel' hdigits_tail hxy
+      simpa [Nat.ofDigits, Nat.mul_add, Nat.mul_assoc, Nat.add_assoc,
+        Nat.add_comm, Nat.add_left_comm] using hmain
+
+/--
+Radix lexicographic order on bounded digits is monotone for the natural number
+obtained by reinterpreting the low-to-high digit list.
+-/
+theorem radixLex_value_le
+    (base : Nat) (digitsLow : List (α → Nat)) (x y : α)
+    (hbase : 0 < base)
+    (hdigits : ∀ digit ∈ digitsLow, ∀ z, digit z < base)
+    (hxy : RadixLex digitsLow x y) :
+    Nat.ofDigits base (digitsLow.map fun digit => digit x) ≤
+      Nat.ofDigits base (digitsLow.map fun digit => digit y) := by
+  have hmain := radixRel_accValue_le base 1 digitsLow
+    (fun _ : α => 0) (fun _ _ : α => True)
+    hbase (by decide) (by intro _; decide)
+    (by intro _ _ _; exact Nat.zero_le _) hdigits hxy
+  simpa using hmain
+
+/--
+Concrete base digits satisfy the bounded-digit side condition needed by
+{name}`radixLex_value_le`.
+-/
+theorem baseDigitsLow_digits_lt
+    (base digitCount : Nat) (key : α → Nat) (hbase : 0 < base) :
+    ∀ digit ∈ baseDigitsLow base digitCount key, ∀ z, digit z < base := by
+  intro digit hdigit z
+  rw [baseDigitsLow] at hdigit
+  rcases List.mem_map.mp hdigit with ⟨i, _hi, rfl⟩
+  simpa [baseDigit] using Nat.mod_lt (key z / base ^ i) hbase
+
+/--
+The arithmetic bridge needed to turn digit-lexicographic order into ordinary
+key order on a concrete input domain.
+-/
+def RadixDigitOrderRespectsKey
+    (base digitCount : Nat) (key : α → Nat) (domain : List α) : Prop :=
+  ∀ x ∈ domain, ∀ y ∈ domain,
+    RadixLex (baseDigitsLow base digitCount key) x y → key x ≤ key y
+
+/--
+For fixed-width bounded keys, the concrete radix digit order respects ordinary
+natural-number key order.
+-/
+theorem radixDigitOrderRespectsKey_of_bounded
+    (base digitCount : Nat) (key : α → Nat) (xs : List α)
+    (hbase : 0 < base)
+    (hkeys : ∀ x ∈ xs, key x < base ^ digitCount) :
+    RadixDigitOrderRespectsKey base digitCount key xs := by
+  intro x hx y hy hxy
+  have hvalue := radixLex_value_le base
+    (baseDigitsLow base digitCount key) x y hbase
+    (baseDigitsLow_digits_lt base digitCount key hbase) hxy
+  rw [baseDigitsLow_value_eq_self_of_lt base digitCount key x
+      (hkeys x hx),
+    baseDigitsLow_value_eq_self_of_lt base digitCount key y
+      (hkeys y hy)] at hvalue
+  exact hvalue
+
+/--
 Concrete radix sort for natural-number keys, using the low-to-high base digits
 of {lit}`key`.
 -/
@@ -436,18 +588,6 @@ theorem radixSortNatBy_correct_stable [DecidableEq α]
   simpa [radixSortNatBy] using
     radixSortBy_correct_stable (base - 1) (baseDigitsLow base digitCount key)
       xs (baseDigitsLow_allDigitsLe base digitCount key xs hbase)
-
-/--
-The arithmetic bridge needed to turn digit-lexicographic order into ordinary
-key order on a concrete input domain.
-
-For bounded natural-number keys and enough digits, a later theorem should
-derive this predicate from base-{lit}`b` arithmetic.
--/
-def RadixDigitOrderRespectsKey
-    (base digitCount : Nat) (key : α → Nat) (domain : List α) : Prop :=
-  ∀ x ∈ domain, ∀ y ∈ domain,
-    RadixLex (baseDigitsLow base digitCount key) x y → key x ≤ key y
 
 /--
 If every key in the input fits in one base-{lit}`base` digit, then the concrete
@@ -528,6 +668,25 @@ theorem radixSortNatBy_correct_keyOrdered_singleDigit [DecidableEq α]
       (radixSortNatBy base 1 key xs).Perm xs :=
   radixSortNatBy_correct_keyOrdered_of_digitOrder base 1 key xs hbase
     (radixDigitOrderRespectsKey_singleDigit base key xs hkeys)
+
+/--
+Concrete fixed-width radix-sort correctness for bounded natural-number keys.
+The bound {lit}`key x < base ^ digitCount` says the supplied digit window is
+wide enough to represent every input key.
+-/
+theorem radixSortNatBy_correct_keyOrdered_of_bounded [DecidableEq α]
+    (base digitCount : Nat) (key : α → Nat) (xs : List α)
+    (hbase : 0 < base)
+    (hkeys : ∀ x ∈ xs, key x < base ^ digitCount) :
+    OrderedBy key (radixSortNatBy base digitCount key xs) ∧
+      (∀ sample,
+        digitClass (baseDigitsLow base digitCount key) sample
+          (radixSortNatBy base digitCount key xs) =
+          digitClass (baseDigitsLow base digitCount key) sample xs) ∧
+      (∀ x, x ∈ radixSortNatBy base digitCount key xs ↔ x ∈ xs) ∧
+      (radixSortNatBy base digitCount key xs).Perm xs :=
+  radixSortNatBy_correct_keyOrdered_of_digitOrder base digitCount key xs hbase
+    (radixDigitOrderRespectsKey_of_bounded base digitCount key xs hbase hkeys)
 
 end Chapter08
 end CLRS

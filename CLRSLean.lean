@@ -257,7 +257,8 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter08.countingSortBy_correct`.
 * 8.3 Radix sort: `proved` for the abstract stable digit-pass model with
   complete digit-signature stability plus a concrete base-`b` natural-key
-  wrapper, including key-order packaging and the one-digit arithmetic case.
+  wrapper, including key-order packaging and the bounded fixed-width arithmetic
+  bridge.
   Public results: `CLRS.Chapter08.radixPass_orderedRel`,
   `CLRS.Chapter08.radixSortBy_ordered`,
   `CLRS.Chapter08.radixSortBy_stable`,
@@ -266,8 +267,9 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter08.radixSortBy_correct_stable`,
   `CLRS.Chapter08.baseDigitsLow_allDigitsLe`,
   `CLRS.Chapter08.radixSortNatBy_correct_stable`,
-  `CLRS.Chapter08.radixSortNatBy_correct_keyOrdered_of_digitOrder`, and
-  `CLRS.Chapter08.radixSortNatBy_correct_keyOrdered_singleDigit`.
+  `CLRS.Chapter08.radixSortNatBy_correct_keyOrdered_of_digitOrder`,
+  `CLRS.Chapter08.radixDigitOrderRespectsKey_of_bounded`, and
+  `CLRS.Chapter08.radixSortNatBy_correct_keyOrdered_of_bounded`.
 * 8.4 Bucket sort: `proved` for deterministic bucket-index correctness.
   Public results: `CLRS.Chapter08.bucketSortBy_ordered`,
   `CLRS.Chapter08.bucketSortBy_perm`,

@@ -85,7 +85,5 @@ The theorem layer proves:
 
 - Array-level `COUNTING-SORT`: requires count-array and prefix-sum invariants
   and a refinement theorem to the stable bucket specification.
-- Concrete radix keys: requires base-`b` digit extraction for natural-number
-  keys and a refinement theorem to the abstract digit-function interface.
 - Bucket sort expected time: requires a probability model for the input
   distribution.
