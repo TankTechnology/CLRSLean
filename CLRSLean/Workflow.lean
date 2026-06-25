@@ -15,6 +15,7 @@ chapters easy to audit, easy to deploy, and pleasant to read.
 5. Lean proof.
 6. Verification.
 7. Site and status update.
+8. Progress CSV update.
 
 ## 1. Textbook Map
 
@@ -83,5 +84,29 @@ Every user-facing section change should update the book structure:
 * the relevant {lit}`CLRSLean/Chapter_XX.lean` chapter page;
 * {lit}`CLRSLean/Status.lean` if the proof status changed;
 * {lit}`literate.toml` if a new module should appear in the navigation;
-* {lit}`docs/proof-map.md` for the longer maintainer ledger.
+* {lit}`docs/proof-map.md` for the longer maintainer ledger;
+* {lit}`CLRSLean/Progress.lean` if public dashboard totals or rows changed.
+
+## 8. Progress CSV Update
+
+The proof-progress CSV is the machine-readable ledger for agents and the public
+dashboard.  Any agent that changes reader-facing theorem coverage should update
+{lit}`docs/clrs-proof-progress.csv` in the same commit.
+
+Rule of thumb:
+
+* new public theorem group: increment {lit}`tracked_key_theorems` and
+  {lit}`proved_tracked_theorems`;
+* closed gap: reduce {lit}`missing_core_groups`, update {lit}`repo_status`, and
+  move the item from {lit}`remaining_core_groups` to
+  {lit}`proved_key_theorem_groups`;
+* new chapter or section page: update {lit}`represented_sections`,
+  {lit}`evidence_source`, {lit}`literate.toml`, and the chapter guide page;
+* deferred or blocked theorem group: record it in {lit}`remaining_core_groups`
+  instead of silently dropping it.
+
+Before committing proof-status changes, run:
+
+* {lit}`python3 scripts/check_progress_csv.py --write-dashboard`
+* {lit}`lake build CLRSLean`
 -/

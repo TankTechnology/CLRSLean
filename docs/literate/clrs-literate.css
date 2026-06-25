@@ -374,6 +374,75 @@ a {
     margin-bottom: 0.35rem;
 }
 
+.code-content > .verso-text.mod-doc table,
+.code-content > .md-text.mod-doc table {
+    display: block;
+    width: 100%;
+    max-width: 1120px;
+    margin: 18px 0 26px;
+    overflow-x: auto;
+    border: 1px solid var(--clrs-line);
+    border-radius: 8px;
+    border-spacing: 0;
+    background: var(--clrs-surface);
+    box-shadow: var(--clrs-shadow);
+    font-family: var(--verso-structure-font-family);
+    font-size: 0.94rem;
+    line-height: 1.5;
+}
+
+.code-content > .verso-text.mod-doc thead,
+.code-content > .md-text.mod-doc thead {
+    background: color-mix(in srgb, var(--clrs-green-soft) 72%, transparent);
+}
+
+.code-content > .verso-text.mod-doc th,
+.code-content > .md-text.mod-doc th,
+.code-content > .verso-text.mod-doc td,
+.code-content > .md-text.mod-doc td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--clrs-line);
+    color: var(--clrs-ink);
+    vertical-align: top;
+}
+
+.code-content > .verso-text.mod-doc th,
+.code-content > .md-text.mod-doc th {
+    color: var(--clrs-ink);
+    font-weight: 820;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.code-content > .verso-text.mod-doc tr:last-child td,
+.code-content > .md-text.mod-doc tr:last-child td {
+    border-bottom: 0;
+}
+
+.code-content > .verso-text.mod-doc td:nth-child(n + 4),
+.code-content > .md-text.mod-doc td:nth-child(n + 4) {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.code-content > .verso-text.mod-doc pre,
+.code-content > .md-text.mod-doc pre {
+    max-width: 1120px;
+    margin: 18px 0 26px;
+    overflow-x: auto;
+    border: 1px solid var(--clrs-line);
+    border-left: 4px solid var(--clrs-green);
+    border-radius: 8px;
+    background: var(--verso-code-box-background-color);
+    color: var(--clrs-ink);
+    padding: 16px 18px;
+    box-shadow: var(--clrs-shadow);
+    font-family: var(--verso-code-font-family);
+    font-size: 0.88rem;
+    line-height: 1.58;
+    font-variant-numeric: tabular-nums;
+}
+
 .code-box,
 .imports-list {
     max-width: 1160px;

@@ -13,6 +13,7 @@ import CLRSLean.Chapter_12
 import CLRSLean.Chapter_13
 import CLRSLean.Chapter_16
 import CLRSLean.Chapter_23
+import CLRSLean.Progress
 import CLRSLean.Status
 import CLRSLean.Workflow
 
@@ -90,6 +91,8 @@ Start with the chapter pages in the sidebar.
   study.
 * Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
   Kruskal skeleton, and finite-graph MST wrappers.
+* Progress Dashboard: a compact, generated chapter-by-chapter view of current
+  coverage, backed by {lit}`docs/clrs-proof-progress.csv`.
 * Proof Status: a planning board plus a compact ledger of proved, partial,
   blocked, and deferred work.
 * Workflow: the contribution loop for adding or strengthening a CLRS section.

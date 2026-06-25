@@ -24,6 +24,7 @@ description = "A Lean 4 companion for CLRS-style algorithm correctness proofs."
   "CLRSLean.Chapter_13",
   "CLRSLean.Chapter_16",
   "CLRSLean.Chapter_23",
+  "CLRSLean.Progress",
   "CLRSLean.Status",
   "CLRSLean.Workflow",
 ]
@@ -137,6 +138,9 @@ title = "Chapter 16. Greedy Algorithms"
 
 [modules."CLRSLean.Chapter_23"]
 title = "Chapter 23. Minimum Spanning Trees"
+
+[modules."CLRSLean.Progress"]
+title = "Progress Dashboard"
 
 [modules."CLRSLean.Status"]
 title = "Proof Status"
