@@ -103,8 +103,9 @@ Start with the chapter pages in the sidebar.
 * Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
   make-heap, operation-level correctness, direct
   insert/union/extract-min/decrease-key/delete membership facts, heap potential
-  telescoping, a Fibonacci lower-bound recurrence with positivity and
-  monotonicity facts, and a conservative degree-bound wrapper.
+  zero/nonnegativity and telescoping facts, a Fibonacci lower-bound recurrence
+  with positivity and monotonicity facts, and a conservative degree-bound
+  wrapper.
 * Chapter 20 - van Emde Boas Trees: high/low universe decomposition with
   bounded recomposition facts and a finite-set specification layer for
   membership, extrema, successor,
@@ -457,6 +458,8 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.delete_search_iff`.
 * 19.1 Fibonacci heaps: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.potential_makeHeap`,
+  {lit}`CLRS.Chapter19.FibHeap.potential_nonneg`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_correct`,

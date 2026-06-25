@@ -1054,6 +1054,8 @@ mutation proof.
 - Status: `partial`
 - Main proved theorems:
   - `CLRS.Chapter19.FibHeap.makeHeap_correct`
+  - `CLRS.Chapter19.FibHeap.potential_makeHeap`
+  - `CLRS.Chapter19.FibHeap.potential_nonneg`
   - `CLRS.Chapter19.FibHeap.minimum_correct`
   - `CLRS.Chapter19.FibHeap.minimum_none_iff`
   - `CLRS.Chapter19.FibHeap.insert_correct`
@@ -1074,8 +1076,8 @@ mutation proof.
   - `CLRS.Chapter19.FibHeap.fibLowerBound_monotone`
   - `CLRS.Chapter19.FibHeap.degree_bound_log`
 - Proof pattern: finite-set key semantics, normalized root/mark counters,
-  empty-result query characterization, Chapter 17 potential-method
-  instantiation, Fibonacci lower-bound recurrence
+  empty-result query characterization, heap-potential nonnegativity and
+  Chapter 17 potential-method instantiation, Fibonacci lower-bound recurrence
 - Current gap: pointer handles, heap-ordered forest/cascading-cut transition
   system, consolidation arrays, duplicate keys, and the subtree-size induction
   leading to the true Fibonacci log-degree proof remain strengthening targets.
@@ -1084,8 +1086,8 @@ Chapter 19 now records the operation-level Fibonacci-heap contracts against an
 abstract finite key set, including empty-heap construction and empty-result
 minimum/extract-min specifications plus direct
 insert/union/extract-min/decrease-key/delete membership facts.  The standard
-potential function is connected to the Chapter 17 telescoping theorem, and the
-Fibonacci lower-bound
+potential function now has zero-initial and nonnegativity facts and is connected
+to the Chapter 17 telescoping theorem, and the Fibonacci lower-bound
 sequence now exposes its local recurrence, positivity, and adjacent
 monotonicity, plus the derived arbitrary-index monotonicity theorem.  The
 degree theorem is deliberately conservative for this first pass; it bounds the current

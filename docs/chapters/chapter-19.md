@@ -7,6 +7,8 @@
 ## Proved First-Pass Surface
 
 - `CLRS.Chapter19.FibHeap.makeHeap_correct`
+- `CLRS.Chapter19.FibHeap.potential_makeHeap`
+- `CLRS.Chapter19.FibHeap.potential_nonneg`
 - `CLRS.Chapter19.FibHeap.minimum_correct`
 - `CLRS.Chapter19.FibHeap.minimum_none_iff`
 - `CLRS.Chapter19.FibHeap.insert_correct`
@@ -29,7 +31,8 @@
 
 ## Remaining Work
 
-The current chapter is an abstract finite-key-set specification.  It defers
-pointer handles, heap-ordered forests, cascading cuts, consolidation arrays,
-duplicate keys, and the subtree-size induction leading to the true Fibonacci
-logarithmic degree theorem.
+The current chapter is an abstract finite-key-set specification with the
+standard heap potential's zero-initial, nonnegative, and telescoping facts.  It
+defers pointer handles, heap-ordered forests, cascading cuts, consolidation
+arrays, duplicate keys, and the subtree-size induction leading to the true
+Fibonacci logarithmic degree theorem.

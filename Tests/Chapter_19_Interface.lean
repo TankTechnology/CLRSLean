@@ -3,6 +3,9 @@ import CLRSLean.Chapter_19.Section_19_1_Fibonacci_Heap_Model
 #check CLRS.Chapter19.FibHeap.Valid
 #check CLRS.Chapter19.FibHeap.Represents
 #check CLRS.Chapter19.FibHeap.makeHeap_correct
+#check CLRS.Chapter19.FibHeap.potential
+#check CLRS.Chapter19.FibHeap.potential_makeHeap
+#check CLRS.Chapter19.FibHeap.potential_nonneg
 #check CLRS.Chapter19.FibHeap.minimum_correct
 #check CLRS.Chapter19.FibHeap.minimum_none_iff
 #check CLRS.Chapter19.FibHeap.insert_correct

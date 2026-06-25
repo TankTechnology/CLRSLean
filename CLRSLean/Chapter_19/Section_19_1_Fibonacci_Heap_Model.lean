@@ -17,6 +17,8 @@ Main results:
   the represented key set is empty.
 - Theorem {lit}`FibHeap.makeHeap_correct`: the empty heap represents the empty
   key set.
+- Theorem {lit}`FibHeap.potential_makeHeap`: the empty heap has zero potential.
+- Theorem {lit}`FibHeap.potential_nonneg`: heap potential is nonnegative.
 - Theorems {lit}`FibHeap.insert_correct`, {lit}`FibHeap.union_correct`,
   {lit}`FibHeap.extractMin_correct`, {lit}`FibHeap.decreaseKey_correct`, and
   {lit}`FibHeap.delete_correct`: operations match finite-set specifications.
@@ -76,6 +78,18 @@ theorem makeHeap_correct :
 /-- The standard Fibonacci-heap potential {lit}`roots + 2 * marked`. -/
 def potential (h : FibHeap) : Int :=
   Int.ofNat h.roots + 2 * Int.ofNat h.marked
+
+/-- The empty heap has zero Fibonacci-heap potential. -/
+theorem potential_makeHeap :
+    potential makeHeap = 0 := by
+  simp [potential, makeHeap]
+
+/-- Fibonacci-heap potential is always nonnegative. -/
+theorem potential_nonneg (h : FibHeap) :
+    0 <= potential h := by
+  unfold potential
+  exact add_nonneg (Int.natCast_nonneg h.roots)
+    (mul_nonneg (by norm_num) (Int.natCast_nonneg h.marked))
 
 /-- Minimum key, if the heap is nonempty. -/
 def minimum (h : FibHeap) : Option Int :=
