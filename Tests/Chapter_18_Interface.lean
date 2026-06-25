@@ -11,6 +11,8 @@ import CLRSLean.Chapter_18.Section_18_3_B_Tree_Deletion
 #check CLRS.Chapter18.BTree.minKeys
 #check CLRS.Chapter18.BTree.minKeys_lower_bound
 #check CLRS.Chapter18.BTree.minKeys_succ
+#check CLRS.Chapter18.BTree.minKeys_le_succ
+#check CLRS.Chapter18.BTree.minKeys_monotone_height
 #check CLRS.Chapter18.BTree.splitChild
 #check CLRS.Chapter18.BTree.splitChild_preserves_model
 #check CLRS.Chapter18.BTree.splitChild_mem_iff

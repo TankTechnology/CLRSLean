@@ -95,7 +95,7 @@ which areas should not yet be counted as proof-complete.
   dynamic-table potential nonnegativity, capacity facts, and insertion/deletion
   wrappers are proved; allocator and RAM refinements remain.
 * Chapter 18, Sections 18.1-18.3: a mathematical B-tree model has search,
-  minimum-key height-expression and recurrence, split-child preservation,
+  minimum-key height-expression recurrence and monotonicity, split-child preservation,
   split-child search preservation, insertion/deletion membership, and
   search-after-update theorem surfaces; full separator/same-depth,
   node-level-deletion, and disk-page refinements remain.
@@ -527,6 +527,8 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   current results {lit}`CLRS.Chapter18.BTree.search_correct`,
   {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
   {lit}`CLRS.Chapter18.BTree.minKeys_succ`,
+  {lit}`CLRS.Chapter18.BTree.minKeys_le_succ`,
+  {lit}`CLRS.Chapter18.BTree.minKeys_monotone_height`,
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,

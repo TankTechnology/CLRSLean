@@ -16,6 +16,9 @@ Main results:
   exposes the CLRS lower-bound expression {lit}`2 * t^h - 1`.
 - Theorem {lit}`BTree.minKeys_succ`: the CLRS lower-bound expression satisfies
   the height-step recurrence used by the B-tree height analysis.
+- Theorems {lit}`BTree.minKeys_le_succ` and
+  {lit}`BTree.minKeys_monotone_height`: the CLRS lower-bound expression is
+  monotone as height increases.
 
 Current gaps:
 
@@ -97,6 +100,27 @@ theorem minKeys_succ {minDegree height : Nat}
   rw [Nat.sub_add_cancel (Nat.succ_le_of_lt htermPos)]
   rw [Nat.pow_succ]
   ring
+
+/-- The CLRS minimum-key lower-bound expression is monotone for adjacent heights. -/
+theorem minKeys_le_succ {minDegree height : Nat}
+    (hdegree : 2 <= minDegree) :
+    minKeys minDegree height <= minKeys minDegree (height + 1) := by
+  unfold minKeys
+  have hpos : 0 < minDegree := by omega
+  have hpow : minDegree ^ height <= minDegree ^ (height + 1) := by
+    rw [Nat.pow_succ]
+    exact Nat.le_mul_of_pos_right (minDegree ^ height) hpos
+  exact Nat.sub_le_sub_right (Nat.mul_le_mul_left 2 hpow) 1
+
+/-- The CLRS minimum-key lower-bound expression is monotone in the height. -/
+theorem minKeys_monotone_height {minDegree h₁ h₂ : Nat}
+    (hdegree : 2 <= minDegree) (hheight : h₁ <= h₂) :
+    minKeys minDegree h₁ <= minKeys minDegree h₂ := by
+  induction hheight with
+  | refl =>
+      rfl
+  | step _ ih =>
+      exact Nat.le_trans ih (minKeys_le_succ (minDegree := minDegree) hdegree)
 
 end BTree
 end Chapter18
