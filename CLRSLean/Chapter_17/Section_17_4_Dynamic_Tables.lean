@@ -19,6 +19,11 @@ Main results:
 - Theorems {lit}`dynamicTableInsertSize_ge_size` and
   {lit}`dynamicTableDeleteSize_le_size`: insertion never shrinks capacity, and
   deletion never grows capacity for a valid table.
+- Theorems {lit}`dynamicTableInsertSize_of_fits`,
+  {lit}`dynamicTableInsertSize_of_expand`,
+  {lit}`dynamicTableDeleteSize_of_contract`, and
+  {lit}`dynamicTableDeleteSize_of_no_contract`: direct case specifications for
+  the first-pass capacity-choice definitions.
 - Theorems {lit}`dynamicTableInsertCost_le_num_succ` and
   {lit}`dynamicTableDeleteCost_le_num`: the first-pass transition costs are
   bounded by the natural element-count copying budgets.
@@ -129,6 +134,18 @@ theorem dynamicTableInsertCost_le_num_succ (s : DynamicTableState) :
   · simp [hfit]
   · simp [hfit]
 
+/-- Insertion with spare capacity keeps the old allocation size. -/
+theorem dynamicTableInsertSize_of_fits (s : DynamicTableState)
+    (hfit : s.num + 1 <= s.size) :
+    dynamicTableInsertSize s = s.size := by
+  simp [dynamicTableInsertSize, hfit]
+
+/-- Insertion without spare capacity uses the first-pass expansion choice. -/
+theorem dynamicTableInsertSize_of_expand (s : DynamicTableState)
+    (hfull : ¬ s.num + 1 <= s.size) :
+    dynamicTableInsertSize s = max (s.num + 1) (2 * s.size) := by
+  simp [dynamicTableInsertSize, hfull]
+
 /-- The insertion capacity choice can hold the inserted element. -/
 theorem dynamicTableInsertSize_fits (s : DynamicTableState) :
     s.num + 1 <= dynamicTableInsertSize s := by
@@ -233,6 +250,18 @@ theorem dynamicTableDeleteCost_le_num (s : DynamicTableState) :
     · simp [hcontract]
     · simp [hcontract]
       omega
+
+/-- Deletion with low post-deletion load uses the first-pass contraction choice. -/
+theorem dynamicTableDeleteSize_of_contract (s : DynamicTableState)
+    (hcontract : 4 * (s.num - 1) <= s.size) :
+    dynamicTableDeleteSize s = max (s.num - 1) (s.size / 2) := by
+  simp [dynamicTableDeleteSize, hcontract]
+
+/-- Deletion without contraction keeps the old allocation size. -/
+theorem dynamicTableDeleteSize_of_no_contract (s : DynamicTableState)
+    (hcontract : ¬ 4 * (s.num - 1) <= s.size) :
+    dynamicTableDeleteSize s = s.size := by
+  simp [dynamicTableDeleteSize, hcontract]
 
 /-- The deletion capacity choice can hold the remaining elements of a valid table. -/
 theorem dynamicTableDeleteSize_fits (s : DynamicTableState)

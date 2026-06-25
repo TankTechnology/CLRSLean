@@ -20,6 +20,8 @@
 - `CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`
 - `CLRS.Chapter17.dynamicTableInsertCost_of_fits`
 - `CLRS.Chapter17.dynamicTableInsertCost_of_expand`
+- `CLRS.Chapter17.dynamicTableInsertSize_of_fits`
+- `CLRS.Chapter17.dynamicTableInsertSize_of_expand`
 - `CLRS.Chapter17.dynamicTableInsertSize_fits`
 - `CLRS.Chapter17.dynamicTableInsertSize_ge_size`
 - `CLRS.Chapter17.dynamicTableInsert_valid`
@@ -33,6 +35,8 @@
 - `CLRS.Chapter17.dynamicTableDeleteCost_empty`
 - `CLRS.Chapter17.dynamicTableDeleteCost_of_contract`
 - `CLRS.Chapter17.dynamicTableDeleteCost_of_no_contract`
+- `CLRS.Chapter17.dynamicTableDeleteSize_of_contract`
+- `CLRS.Chapter17.dynamicTableDeleteSize_of_no_contract`
 - `CLRS.Chapter17.dynamicTableDeleteSize_fits`
 - `CLRS.Chapter17.dynamicTableDeleteSize_le_size`
 - `CLRS.Chapter17.dynamicTableDelete_valid`
@@ -56,5 +60,5 @@ capacity can hold the resulting element count while moving in the expected
 direction for insertion and deletion, including direct post-state capacity
 corollaries and stored-count direction facts.  It also bounds the first-pass
 transition costs by the corresponding element-count copying budgets and records
-direct actual-cost case specifications, but it is still a size-level model
-rather than an array-copying model.
+direct actual-cost and capacity-choice case specifications, but it is still a
+size-level model rather than an array-copying model.

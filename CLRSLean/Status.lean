@@ -93,9 +93,9 @@ which areas should not yet be counted as proof-complete.
   theorems plus {lit}`MULTIPOP`, executable binary-counter one-step potential
   bound, executable multi-step counter trace bounds, and size-level
   dynamic-table potential nonnegativity, capacity feasibility/direction facts,
-  stored-count direction facts, actual-cost case specs and upper bounds,
-  post-state capacity corollaries, and insertion/deletion wrappers are proved;
-  allocator and RAM refinements remain.
+  stored-count direction facts, actual-cost and capacity-choice case specs and
+  upper bounds, post-state capacity corollaries, and insertion/deletion
+  wrappers are proved; allocator and RAM refinements remain.
 * Chapter 18, Sections 18.1-18.3: a mathematical B-tree model has search,
   minimum-key height-expression base/positivity facts, recurrence, and monotonicity,
   split-child preservation, split-child direct membership/search preservation,
@@ -522,6 +522,8 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_of_fits`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_of_expand`,
+  {lit}`CLRS.Chapter17.dynamicTableInsertSize_of_fits`,
+  {lit}`CLRS.Chapter17.dynamicTableInsertSize_of_expand`,
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
@@ -535,6 +537,8 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_empty`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_of_contract`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_of_no_contract`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteSize_of_contract`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteSize_of_no_contract`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_valid`,
