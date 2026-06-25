@@ -197,7 +197,7 @@ indicator-variable proof.
 
 - Related sections: Sections 8.2-8.4 - Counting sort, radix sort, and bucket
   sort
-- Status: `future-work` for count-array and numeric-digit refinements;
+- Status: `future-work` for count-array and numeric-order refinements;
   `blocked-design` for bucket-sort expected-time analysis
 
 Section 8.2 proves the stable bucket specification for counting sort:
@@ -211,17 +211,20 @@ lemma, `CLRS.Chapter08.radixSortBy_stable` proves complete digit-signature
 stability, `CLRS.Chapter08.radixSortBy_perm` proves repeated passes preserve
 the input as a permutation, and `CLRS.Chapter08.radixSortBy_correct_stable`
 packages lexicographic ordering, stability, membership preservation, and
-permutation preservation.  Section 8.4 proves deterministic bucket-sort
-correctness:
+permutation preservation.  It also instantiates the abstract digit interface
+with concrete natural-number base-`b` digits through
+`CLRS.Chapter08.baseDigitsLow_allDigitsLe` and
+`CLRS.Chapter08.radixSortNatBy_correct_stable`.  Section 8.4 proves
+deterministic bucket-sort correctness:
 `CLRS.Chapter08.bucketSortByRank_correct` packages ordered output, membership
 preservation, and permutation preservation for the merge-sorted bucket model.
 
 The remaining CLRS refinements split into three tracks.  The array-level
 `COUNTING-SORT` proof should connect count arrays and prefix sums to the stable
-bucket specification.  Radix sort still needs a concrete base-`b` digit
-extraction refinement from natural-number keys to the abstract digit-function
-interface.  Bucket-sort expected time needs a probability model for the input
-distribution, so it remains a design-level proof task.
+bucket specification.  Radix sort still needs the arithmetic bridge showing
+that bounded base-`b` digit lexicographic order agrees with ordinary
+natural-number key order.  Bucket-sort expected time needs a probability model
+for the input distribution, so it remains a design-level proof task.
 
 ### Chapter 9 Selection Refinements
 

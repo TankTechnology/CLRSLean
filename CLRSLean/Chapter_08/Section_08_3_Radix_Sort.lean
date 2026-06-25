@@ -343,5 +343,68 @@ theorem radixSortBy_correct_stable [DecidableEq α]
     radixSortBy_mem_iff maxDigit digitsLow xs hdigits,
     radixSortBy_perm maxDigit digitsLow xs hdigits⟩
 
+/-! ## Concrete base-b digit extraction -/
+
+/--
+The {lit}`i`th least-significant base-{lit}`base` digit of a natural number.
+
+For example, digit {lit}`0` is the units digit and digit {lit}`1` is the next
+more significant digit.  The definition is intentionally small so the abstract
+radix-sort theorem above can be reused without changing its proof.
+-/
+def baseDigit (base i n : Nat) : Nat :=
+  (n / base ^ i) % base
+
+/-- The low-to-high list of concrete base-{lit}`base` digit functions. -/
+def baseDigitsLow (base digitCount : Nat) (key : α → Nat) :
+    List (α → Nat) :=
+  (List.range digitCount).map fun i x => baseDigit base i (key x)
+
+/-- Every extracted base digit is bounded by {lit}`base - 1`. -/
+theorem baseDigit_le_max (base i n : Nat) (hbase : 0 < base) :
+    baseDigit base i n ≤ base - 1 := by
+  simpa [baseDigit, Nat.pred_eq_sub_one] using
+    Nat.le_pred_of_lt (Nat.mod_lt (n / base ^ i) hbase)
+
+/-- The concrete digit list satisfies the abstract bounded-digit hypothesis. -/
+theorem baseDigitsLow_allDigitsLe
+    (base digitCount : Nat) (key : α → Nat) (xs : List α)
+    (hbase : 0 < base) :
+    AllDigitsLe (baseDigitsLow base digitCount key) xs (base - 1) := by
+  intro digit hdigit x _hx
+  rw [baseDigitsLow] at hdigit
+  rcases List.mem_map.mp hdigit with ⟨i, _hi, rfl⟩
+  exact baseDigit_le_max base i (key x) hbase
+
+/--
+Concrete radix sort for natural-number keys, using the low-to-high base digits
+of {lit}`key`.
+-/
+def radixSortNatBy (base digitCount : Nat) (key : α → Nat) (xs : List α) :
+    List α :=
+  radixSortBy (base - 1) (baseDigitsLow base digitCount key) xs
+
+/--
+Reader-facing concrete radix-sort correctness theorem.
+
+The ordering clause is still the digit-lexicographic relation induced by the
+chosen concrete digits.  A later arithmetic refinement can identify this
+relation with ordinary natural-number ordering under a bounded-key hypothesis.
+-/
+theorem radixSortNatBy_correct_stable [DecidableEq α]
+    (base digitCount : Nat) (key : α → Nat) (xs : List α)
+    (hbase : 0 < base) :
+    OrderedRel (RadixLex (baseDigitsLow base digitCount key))
+        (radixSortNatBy base digitCount key xs) ∧
+      (∀ sample,
+        digitClass (baseDigitsLow base digitCount key) sample
+          (radixSortNatBy base digitCount key xs) =
+          digitClass (baseDigitsLow base digitCount key) sample xs) ∧
+      (∀ x, x ∈ radixSortNatBy base digitCount key xs ↔ x ∈ xs) ∧
+      (radixSortNatBy base digitCount key xs).Perm xs := by
+  simpa [radixSortNatBy] using
+    radixSortBy_correct_stable (base - 1) (baseDigitsLow base digitCount key)
+      xs (baseDigitsLow_allDigitsLe base digitCount key xs hbase)
+
 end Chapter08
 end CLRS

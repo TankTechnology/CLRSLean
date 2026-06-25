@@ -18,14 +18,16 @@ sorting primitives before cost models.
   {lit}`CLRS.Chapter08.countingSortBy_perm`, and
   {lit}`CLRS.Chapter08.countingSortBy_correct`.
 * 8.3 Radix sort: {lit}`proved` for an abstract stable digit-pass model with
-  complete digit-signature stability.
+  complete digit-signature stability and a concrete base-{lit}`b` digit
+  extraction wrapper for natural-number keys.
   Main results:
   {lit}`CLRS.Chapter08.radixPass_orderedRel`,
   {lit}`CLRS.Chapter08.radixSortBy_ordered`,
   {lit}`CLRS.Chapter08.radixSortBy_stable`,
   {lit}`CLRS.Chapter08.radixSortBy_mem_iff`,
-  {lit}`CLRS.Chapter08.radixSortBy_perm`, and
-  {lit}`CLRS.Chapter08.radixSortBy_correct_stable`.
+  {lit}`CLRS.Chapter08.radixSortBy_perm`,
+  {lit}`CLRS.Chapter08.radixSortBy_correct_stable`, and
+  {lit}`CLRS.Chapter08.radixSortNatBy_correct_stable`.
 * 8.4 Bucket sort: {lit}`proved` for a deterministic bucket-index model.
   Main results:
   {lit}`CLRS.Chapter08.bucketSortBy_correct` and
@@ -34,7 +36,7 @@ sorting primitives before cost models.
 ## Current Gaps
 
 * Array-level count table and prefix-sum implementation of {lit}`COUNTING-SORT`.
-* Concrete base-{lit}`b` digit extraction and numeric-key refinement for radix sort.
+* Numeric-key ordering refinement for concrete radix sort.
 * Bucket-sort probabilistic expected-time analysis.
 -/
 

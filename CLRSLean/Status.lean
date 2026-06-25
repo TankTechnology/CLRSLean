@@ -53,7 +53,8 @@ which areas should not yet be counted as proof-complete.
   sortedness/permutation preservation are proved.
 * Chapter 8, Sections 8.2-8.4: stable counting-sort bucket correctness,
   abstract radix-sort correctness plus complete digit-signature stability from
-  stable digit passes, and deterministic bucket-sort correctness are proved.
+  stable digit passes, a concrete base-{lit}`b` natural-key radix wrapper, and
+  deterministic bucket-sort correctness are proved.
 * Chapter 9, Sections 9.2-9.3: selection-by-rank correctness is proved for the
   specification selector, a pivot-style quickselect model, and a
   pivot-parametric deterministic SELECT model with a count-based
@@ -267,13 +268,15 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter08.countingSortBy_perm`, and
   {lit}`CLRS.Chapter08.countingSortBy_correct`.
 * 8.3 Radix sort, abstract stable digit-pass model with complete
-  digit-signature stability:
+  digit-signature stability and concrete base-{lit}`b` digit extraction:
   {lit}`CLRS.Chapter08.radixPass_orderedRel`,
   {lit}`CLRS.Chapter08.radixSortBy_ordered`,
   {lit}`CLRS.Chapter08.radixSortBy_stable`,
   {lit}`CLRS.Chapter08.radixSortBy_mem_iff`,
-  {lit}`CLRS.Chapter08.radixSortBy_perm`, and
-  {lit}`CLRS.Chapter08.radixSortBy_correct_stable`.
+  {lit}`CLRS.Chapter08.radixSortBy_perm`,
+  {lit}`CLRS.Chapter08.radixSortBy_correct_stable`,
+  {lit}`CLRS.Chapter08.baseDigitsLow_allDigitsLe`, and
+  {lit}`CLRS.Chapter08.radixSortNatBy_correct_stable`.
 * 8.4 Bucket sort, deterministic bucket-index model:
   {lit}`CLRS.Chapter08.bucketSortBy_ordered`,
   {lit}`CLRS.Chapter08.bucketSortBy_perm`,
@@ -484,6 +487,11 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   spine and a scan-state partition-loop invariant; the harder refinements are
   the CLRS array `PARTITION` swap model, recurrence analysis, randomized
   quicksort, and expected running time.
+* Chapter 8 numeric radix ordering refinement: `future-work`.
+  Reason: Section 8.3 now has a concrete base-{lit}`b` digit extractor and a
+  natural-key radix wrapper, but ordinary natural-number sortedness still needs
+  the arithmetic theorem that bounded base-{lit}`b` digit lexicographic order
+  agrees with key order.
 * Chapter 4 concrete all-input Master-theorem instantiations: `future-work`.
   Reason: the discrete critical-power scale now has an all-input wrapper, but
   the analytic comparison scales and final case statements still need to be
