@@ -534,6 +534,17 @@ theorem selectByRank?_mem {k : Nat} {xs : List Nat} {x : Nat}
     x ∈ xs :=
   (selectByRank?_rankCorrect hsel).1
 
+/-- The specification selector succeeds whenever the requested rank is in range. -/
+theorem selectByRank?_isSome_of_lt {k : Nat} {xs : List Nat}
+    (hk : k < xs.length) :
+    ∃ x, selectByRank? k xs = some x := by
+  unfold selectByRank?
+  have hlen : (sortedCopy xs).length = xs.length :=
+    (sortedCopy_perm xs).length_eq
+  have hk' : k < (sortedCopy xs).length := by
+    simpa [hlen] using hk
+  exact ⟨(sortedCopy xs)[k], by simp [List.getElem?_eq_getElem hk']⟩
+
 /-- Reader-facing correctness wrapper for the specification selector. -/
 theorem selectByRank?_correct {k : Nat} {xs : List Nat} {x : Nat}
     (hsel : selectByRank? k xs = some x) :

@@ -60,10 +60,10 @@ which areas should not yet be counted as proof-complete.
 * Chapter 9, Sections 9.2-9.3: selection-by-rank correctness is proved for the
   specification selector, a pivot-style quickselect model, and a
   pivot-parametric deterministic SELECT model with a count-based
-  order-statistic certificate; the local five-element median certificate and
-  executable five-element grouping plus the grouped split-count core for the
-  median-of-medians argument and the CLRS-style partition-size bound are also
-  proved.
+  order-statistic certificate; the median-of-medians pivot/select wrapper, the
+  local five-element median certificate, executable five-element grouping plus
+  the grouped split-count core for the median-of-medians argument, and the
+  CLRS-style partition-size bound are also proved.
 * Chapter 10, Sections 10.1-10.2: functional stack, queue, and linked-list
   operation specifications are proved.
 * Chapter 11, Section 11.1: direct-address table insert/search/delete behavior
@@ -317,6 +317,7 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter09.selectWithPivot?_rankCorrect`,
   {lit}`CLRS.Chapter09.selectWithPivot?_correct`,
   {lit}`CLRS.Chapter09.medianOfFive?_certificate`,
+  {lit}`CLRS.Chapter09.medianOfFive?_isSome_of_length_eq_five`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_lengths`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_length_mul_five_le`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_length_near`,
@@ -329,13 +330,21 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter09.medianGroupCertificates_geCount_lower_bound`,
   {lit}`CLRS.Chapter09.medianGroupCertificates_selectPivot_split_counts`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_selectPivot_split_counts`,
+  {lit}`CLRS.Chapter09.medianOfFiveGroups?_mem_flatten`,
+  {lit}`CLRS.Chapter09.medianOfFiveGroups?_isSome_of_all_lengths`,
+  {lit}`CLRS.Chapter09.fullGroupsOfFive_medianOfFiveGroups?_isSome`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_split_counts`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_fullInput_split_counts`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_partition_lengths`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_partition_size_bound`,
   {lit}`CLRS.Chapter09.deterministicSelect?_mem`,
   {lit}`CLRS.Chapter09.deterministicSelect?_rankCorrect`, and
-  {lit}`CLRS.Chapter09.deterministicSelect?_correct`.
+  {lit}`CLRS.Chapter09.deterministicSelect?_correct`;
+  {lit}`CLRS.Chapter09.medianOfMediansPivot?_mem`,
+  {lit}`CLRS.Chapter09.medianOfMediansPivot?_partition_size_bound`,
+  {lit}`CLRS.Chapter09.medianOfMediansSelect?_mem`,
+  {lit}`CLRS.Chapter09.medianOfMediansSelect?_rankCorrect`, and
+  {lit}`CLRS.Chapter09.medianOfMediansSelect?_correct`.
 * 2.1 Insertion sort:
   `CLRS.Chapter02.insertionSort_sorted`,
   `CLRS.Chapter02.insertionSort_perm`.

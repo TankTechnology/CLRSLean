@@ -71,9 +71,10 @@ Start with the chapter pages in the sidebar.
   case discharged, and deterministic bucket-sort correctness.
 * Chapter 9 - Medians and Order Statistics: selection-by-rank correctness for
   the specification selector, pivot-style quickselect, and pivot-parametric
-  deterministic SELECT via a count-based order-statistic certificate, plus the
-  local five-element median certificate, executable five-element grouping, and
-  median-of-medians partition-size bound.
+  deterministic SELECT via a count-based order-statistic certificate, plus an
+  executable median-of-medians pivot/select wrapper, the local five-element
+  median certificate, executable five-element grouping, and median-of-medians
+  partition-size bound.
 * Chapter 10 - Elementary Data Structures: functional stack, queue, and
   linked-list operation proofs.
 * Chapter 11 - Hash Tables: direct-address table correctness and deterministic
@@ -298,15 +299,21 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter09.quickSelect?_correct`.
 * 9.3 Deterministic selection: `proved` for a pivot-parametric SELECT interface,
   the five-element median certificate, executable five-element grouping,
-  grouped split-count bounds, and deterministic median-pivot instance.
+  grouped split-count bounds, deterministic median-pivot instance, and
+  median-of-medians pivot/select wrapper.
   Public results: `CLRS.Chapter09.selectWithPivot?_correct`,
   `CLRS.Chapter09.medianOfFive?_certificate`,
+  `CLRS.Chapter09.medianOfFive?_isSome_of_length_eq_five`,
   `CLRS.Chapter09.fullGroupsOfFive_medianGroupCertificates`,
   `CLRS.Chapter09.fullGroupsOfFive_medianPivot_split_counts`,
   `CLRS.Chapter09.fullGroupsOfFive_medianPivot_fullInput_split_counts`,
   `CLRS.Chapter09.fullGroupsOfFive_medianPivot_partition_size_bound`,
   `CLRS.Chapter09.medianGroupCertificates_selectPivot_split_counts`,
-  `CLRS.Chapter09.deterministicSelect?_correct`.
+  `CLRS.Chapter09.medianOfFiveGroups?_mem_flatten`,
+  `CLRS.Chapter09.fullGroupsOfFive_medianOfFiveGroups?_isSome`,
+  `CLRS.Chapter09.medianOfMediansPivot?_mem`,
+  `CLRS.Chapter09.medianOfMediansPivot?_partition_size_bound`,
+  `CLRS.Chapter09.medianOfMediansSelect?_correct`.
 * 9.3-9.4 Linear-time selection refinements: `future-work`.
   Planned targets: connect the proved `7n/10` partition-size theorem to the
   relevant worst-case runtime recurrence.

@@ -212,6 +212,12 @@ theorem medianOfFive?_certificate {xs : List Nat} {median : Nat}
     rw [geCount_eq_length_sub_ltCount, hlen]
     omega
 
+/-- The five-element median selector succeeds on any five-element input. -/
+theorem medianOfFive?_isSome_of_length_eq_five {xs : List Nat}
+    (hlen : xs.length = 5) :
+    ∃ median, medianOfFive? xs = some median := by
+  exact selectByRank?_isSome_of_lt (by simp [hlen])
+
 /--
 Certificates pairing each full five-element group with its selected median.
 
@@ -461,6 +467,60 @@ theorem medianOfFiveGroups?_certificates {groups : List (List Nat)}
               · exact htail_cert htail_mem
 
 /--
+Every median returned by the executable median-map comes from the flattened
+input groups.
+-/
+theorem medianOfFiveGroups?_mem_flatten {groups : List (List Nat)}
+    {medians : List Nat}
+    (hsel : medianOfFiveGroups? groups = some medians) {median : Nat}
+    (hmem : median ∈ medians) :
+    median ∈ List.flatten groups := by
+  induction groups generalizing medians with
+  | nil =>
+      simp [medianOfFiveGroups?] at hsel
+      subst medians
+      simp at hmem
+  | cons group groups ih =>
+      cases hhead : medianOfFive? group with
+      | none =>
+          simp [medianOfFiveGroups?, hhead] at hsel
+      | some headMedian =>
+          cases htail : medianOfFiveGroups? groups with
+          | none =>
+              simp [medianOfFiveGroups?, hhead, htail] at hsel
+          | some tailMedians =>
+              simp [medianOfFiveGroups?, hhead, htail] at hsel
+              subst medians
+              simp at hmem
+              rcases hmem with hhead_mem | htail_mem
+              · subst median
+                have hrank : RankCertificate group 2 headMedian := by
+                  exact selectByRank?_rankCorrect
+                    (by simpa [medianOfFive?] using hhead)
+                simp [hrank.1]
+              · have htail_flat : median ∈ List.flatten groups :=
+                  ih htail htail_mem
+                simp [htail_flat]
+
+/-- The executable median-map succeeds when every group has length five. -/
+theorem medianOfFiveGroups?_isSome_of_all_lengths {groups : List (List Nat)}
+    (hall : ∀ group ∈ groups, group.length = 5) :
+    ∃ medians, medianOfFiveGroups? groups = some medians := by
+  induction groups with
+  | nil =>
+      exact ⟨[], by simp [medianOfFiveGroups?]⟩
+  | cons group groups ih =>
+      rcases medianOfFive?_isSome_of_length_eq_five
+          (hall group (by simp)) with
+        ⟨median, hmedian⟩
+      have htail_all : ∀ tailGroup ∈ groups, tailGroup.length = 5 := by
+        intro tailGroup hmem
+        exact hall tailGroup (by simp [hmem])
+      rcases ih htail_all with ⟨medians, hmedians⟩
+      exact ⟨median :: medians,
+        by simp [medianOfFiveGroups?, hmedian, hmedians]⟩
+
+/--
 The executable full-grouping plus median-map automatically constructs the
 abstract grouped certificate layer.
 -/
@@ -469,6 +529,12 @@ theorem fullGroupsOfFive_medianGroupCertificates {xs medians : List Nat}
     MedianGroupCertificates (fullGroupsOfFive xs) medians :=
   medianOfFiveGroups?_certificates
     (fun _ hmem => fullGroupsOfFive_lengths hmem) hsel
+
+/-- The executable median-map always succeeds on the executable full groups. -/
+theorem fullGroupsOfFive_medianOfFiveGroups?_isSome (xs : List Nat) :
+    ∃ medians, medianOfFiveGroups? (fullGroupsOfFive xs) = some medians :=
+  medianOfFiveGroups?_isSome_of_all_lengths
+    (fun _ hmem => fullGroupsOfFive_lengths hmem)
 
 /--
 Every certified group whose median is at most {lit}`pivot` contributes at least
@@ -729,6 +795,107 @@ theorem deterministicSelect?_correct {k : Nat} {xs : List Nat} {x : Nat}
     (hsel : deterministicSelect? k xs = some x) :
     RankCertificate xs k x :=
   deterministicSelect?_rankCorrect hsel
+
+/-! ## Median-of-medians pivot instance -/
+
+/--
+CLRS-style median-of-medians pivot rule.
+
+For inputs with at least one full five-element group, this chooses the median
+of the executable group medians.  For shorter inputs, it falls back to the
+specification median pivot so that the pivot-parametric SELECT wrapper remains
+usable on every nonempty input.
+-/
+def medianOfMediansPivot? (xs : List Nat) : Option Nat :=
+  match medianOfFiveGroups? (fullGroupsOfFive xs) with
+  | some (median :: medians) =>
+      selectByRank? ((median :: medians).length / 2) (median :: medians)
+  | _ => deterministicPivot? xs
+
+/-- Every median-of-medians pivot returned by the wrapper belongs to the input. -/
+theorem medianOfMediansPivot?_mem :
+    PivotMembership medianOfMediansPivot? := by
+  intro xs pivot hsel
+  unfold medianOfMediansPivot? at hsel
+  cases hgroups : medianOfFiveGroups? (fullGroupsOfFive xs) with
+  | none =>
+      exact deterministicPivot?_mem (by simpa [hgroups] using hsel)
+  | some medians =>
+      cases medians with
+      | nil =>
+          exact deterministicPivot?_mem (by simpa [hgroups] using hsel)
+      | cons median medians =>
+          have hpivot_medians :
+              pivot ∈ median :: medians :=
+            selectByRank?_mem (by simpa [hgroups] using hsel)
+          have hpivot_flat :
+              pivot ∈ List.flatten (fullGroupsOfFive xs) :=
+            medianOfFiveGroups?_mem_flatten hgroups hpivot_medians
+          exact (fullGroupsOfFive_flatten_sublist xs).subset hpivot_flat
+
+/--
+Any pivot returned by the median-of-medians pivot rule satisfies the proved
+CLRS branch-size bound.  The fallback branch can only occur when there are no
+full five-element groups, hence the input has length at most four.
+-/
+theorem medianOfMediansPivot?_partition_size_bound {xs : List Nat}
+    {pivot : Nat} (hsel : medianOfMediansPivot? xs = some pivot) :
+    10 * ltCount pivot xs ≤ 7 * xs.length + 12 ∧
+      10 * gtCount pivot xs ≤ 7 * xs.length + 12 := by
+  unfold medianOfMediansPivot? at hsel
+  cases hgroups : medianOfFiveGroups? (fullGroupsOfFive xs) with
+  | none =>
+      rcases fullGroupsOfFive_medianOfFiveGroups?_isSome xs with
+        ⟨medians, hmedians⟩
+      rw [hgroups] at hmedians
+      contradiction
+  | some medians =>
+      cases medians with
+      | nil =>
+          have hcert :
+              MedianGroupCertificates (fullGroupsOfFive xs) [] :=
+            fullGroupsOfFive_medianGroupCertificates hgroups
+          have hgroups_len : (fullGroupsOfFive xs).length = 0 := by
+            simpa using hcert.1
+          have hxs_small : xs.length ≤ 4 := by
+            have hnear := fullGroupsOfFive_length_near xs
+            rw [hgroups_len] at hnear
+            omega
+          have hlt_len : ltCount pivot xs ≤ xs.length := by
+            unfold ltCount
+            exact List.length_filter_le (fun y => decide (y < pivot)) xs
+          have hgt_len : gtCount pivot xs ≤ xs.length := by
+            unfold gtCount
+            exact List.length_filter_le (fun y => decide (pivot < y)) xs
+          constructor <;> omega
+      | cons median medians =>
+          exact fullGroupsOfFive_medianPivot_partition_size_bound
+            (xs := xs) (medians := median :: medians) (pivot := pivot)
+            hgroups (by simpa [hgroups] using hsel)
+
+/-- SELECT specialized to the executable median-of-medians pivot rule. -/
+def medianOfMediansSelect? (k : Nat) (xs : List Nat) : Option Nat :=
+  selectWithPivot? medianOfMediansPivot? k xs
+
+/-- Rank-correctness theorem for median-of-medians SELECT. -/
+theorem medianOfMediansSelect?_rankCorrect {k : Nat} {xs : List Nat}
+    {x : Nat} (hsel : medianOfMediansSelect? k xs = some x) :
+    RankCertificate xs k x := by
+  exact selectWithPivot?_rankCorrect medianOfMediansPivot?
+    medianOfMediansPivot?_mem
+    (by simpa [medianOfMediansSelect?] using hsel)
+
+/-- Membership projection for median-of-medians SELECT. -/
+theorem medianOfMediansSelect?_mem {k : Nat} {xs : List Nat} {x : Nat}
+    (hsel : medianOfMediansSelect? k xs = some x) :
+    x ∈ xs :=
+  (medianOfMediansSelect?_rankCorrect hsel).1
+
+/-- Reader-facing correctness wrapper for median-of-medians SELECT. -/
+theorem medianOfMediansSelect?_correct {k : Nat} {xs : List Nat} {x : Nat}
+    (hsel : medianOfMediansSelect? k xs = some x) :
+    RankCertificate xs k x :=
+  medianOfMediansSelect?_rankCorrect hsel
 
 end Chapter09
 end CLRS
