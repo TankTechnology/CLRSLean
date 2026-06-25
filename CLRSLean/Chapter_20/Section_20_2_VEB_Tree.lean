@@ -16,6 +16,9 @@ Main results:
   extrema are represented keys with the expected order property.
 - Theorem {lit}`VEB.successor_correct`: a returned successor is represented,
   greater than the query, and no larger than any represented greater key.
+- Theorem {lit}`VEB.predecessor_correct`: a returned predecessor is
+  represented, less than the query, and no smaller than any represented smaller
+  key.
 - Theorems {lit}`VEB.insert_correct` and {lit}`VEB.delete_correct`: updates
   match finite-set insertion and deletion.
 - Theorem {lit}`VEB.operationDepth_linear`: the first-pass recurrence-depth
@@ -129,6 +132,40 @@ theorem successor_correct {t : Tree} {s : Finset Nat} {x y : Nat}
         simp [successorCandidates, hrep.1, hz, hxz]
       exact Finset.min'_le (successorCandidates x t) z hzCand
   · simp [hne] at hsucc
+
+/-- Candidate predecessor set for query {lit}`x`. -/
+def predecessorCandidates (x : Nat) (t : Tree) : Finset Nat :=
+  t.elems.filter (fun y => y < x)
+
+/-- Greatest represented key less than {lit}`x`, if one exists. -/
+def predecessor (x : Nat) (t : Tree) : Option Nat :=
+  if h : (predecessorCandidates x t).Nonempty then
+    some ((predecessorCandidates x t).max' h)
+  else
+    none
+
+/--
+A returned predecessor is represented, less than the query, and no smaller than
+any represented key that is also less than the query.
+-/
+theorem predecessor_correct {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hpred : predecessor x t = some y) :
+    y ∈ s ∧ y < x ∧ forall z, z ∈ s -> z < x -> z <= y := by
+  unfold predecessor at hpred
+  by_cases hne : (predecessorCandidates x t).Nonempty
+  · simp [hne] at hpred
+    subst y
+    have hmem := Finset.max'_mem (predecessorCandidates x t) hne
+    have hmem' : (predecessorCandidates x t).max' hne ∈ t.elems ∧
+        (predecessorCandidates x t).max' hne < x := by
+      simpa [predecessorCandidates] using hmem
+    refine ⟨?_, hmem'.2, ?_⟩
+    · simpa [hrep.1] using hmem'.1
+    · intro z hz hzx
+      have hzCand : z ∈ predecessorCandidates x t := by
+        simp [predecessorCandidates, hrep.1, hz, hzx]
+      exact Finset.le_max' (predecessorCandidates x t) z hzCand
+  · simp [hne] at hpred
 
 /-- Insert a key into the represented set. -/
 def insert (x : Nat) (t : Tree) : Tree :=

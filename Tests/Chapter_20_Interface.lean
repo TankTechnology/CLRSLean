@@ -14,6 +14,7 @@ import CLRSLean.Chapter_20.Section_20_2_VEB_Tree
 #check CLRS.Chapter20.VEB.minimum_correct
 #check CLRS.Chapter20.VEB.maximum_correct
 #check CLRS.Chapter20.VEB.successor_correct
+#check CLRS.Chapter20.VEB.predecessor_correct
 #check CLRS.Chapter20.VEB.insert_correct
 #check CLRS.Chapter20.VEB.delete_correct
 #check CLRS.Chapter20.VEB.operationDepth

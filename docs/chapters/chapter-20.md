@@ -13,6 +13,7 @@
 - `CLRS.Chapter20.VEB.minimum_correct`
 - `CLRS.Chapter20.VEB.maximum_correct`
 - `CLRS.Chapter20.VEB.successor_correct`
+- `CLRS.Chapter20.VEB.predecessor_correct`
 - `CLRS.Chapter20.VEB.insert_correct`
 - `CLRS.Chapter20.VEB.delete_correct`
 - `CLRS.Chapter20.VEB.operationDepth_linear`
@@ -20,5 +21,5 @@
 ## Remaining Work
 
 The current chapter proves side-length universe arithmetic and finite-set
-operation specifications.  Recursive summary/cluster state, predecessor,
-word-RAM base cases, and a full `O(log log u)` asymptotic bridge are still open.
+operation specifications.  Recursive summary/cluster state, word-RAM base
+cases, and a full `O(log log u)` asymptotic bridge are still open.

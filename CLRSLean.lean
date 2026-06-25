@@ -101,8 +101,8 @@ Start with the chapter pages in the sidebar.
   operation-level correctness, heap potential telescoping, and a conservative
   degree-bound wrapper.
 * Chapter 20 - van Emde Boas Trees: high/low universe decomposition and a
-  finite-set specification layer for membership, extrema, successor, insert,
-  and delete.
+  finite-set specification layer for membership, extrema, successor,
+  predecessor, insert, and delete.
 * Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
   Kruskal skeleton, and finite-graph MST wrappers.
 * Progress Dashboard: a compact, generated chapter-by-chapter view of current
@@ -439,7 +439,10 @@ Start with the chapter pages in the sidebar.
   Public results: {lit}`CLRS.Chapter20.VEB.index_high_low`,
   {lit}`CLRS.Chapter20.VEB.high_lt`, {lit}`CLRS.Chapter20.VEB.low_lt`,
   {lit}`CLRS.Chapter20.VEB.member_correct`,
+  {lit}`CLRS.Chapter20.VEB.minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.predecessor_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_correct`, and
   {lit}`CLRS.Chapter20.VEB.operationDepth_linear`.

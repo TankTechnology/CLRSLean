@@ -1062,19 +1062,21 @@ budget rather than proving the full Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.minimum_correct`
   - `CLRS.Chapter20.VEB.maximum_correct`
   - `CLRS.Chapter20.VEB.successor_correct`
+  - `CLRS.Chapter20.VEB.predecessor_correct`
   - `CLRS.Chapter20.VEB.insert_correct`
   - `CLRS.Chapter20.VEB.delete_correct`
   - `CLRS.Chapter20.VEB.operationDepth_linear`
 - Proof pattern: natural-number quotient/remainder arithmetic, finite-set
   representation semantics, extrema/successor via `Finset.min'`/`max'`
-- Current gap: recursive min/max-summary-cluster state, predecessor,
-  word-RAM base cases, and an explicit Chapter 3 asymptotic bridge for
-  `O(log log u)` remain strengthening targets.
+- Current gap: recursive min/max-summary-cluster state, word-RAM base cases,
+  and an explicit Chapter 3 asymptotic bridge for `O(log log u)` remain
+  strengthening targets.
 
 Chapter 20 now proves the high/low/index arithmetic and a set-specification
-layer for the main vEB queries and updates.  The current operation-depth theorem
-is a linear wrapper over the universe exponent, not yet a full asymptotic
-translation for the original universe size.
+layer for the main vEB queries and updates, including successor and
+predecessor.  The current operation-depth theorem is a linear wrapper over the
+universe exponent, not yet a full asymptotic translation for the original
+universe size.
 
 ## Chapter 23 - Minimum Spanning Trees
 
