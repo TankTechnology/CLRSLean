@@ -42,15 +42,23 @@ Main results:
   linear-work recurrence step.
 * Theorem {lit}`deterministicSelect?_correct`: a deterministic median-pivot
   instance is rank correct.
+* Theorem {lit}`selectRecurrence_linear_induction`: a threshold-parametric
+  strong induction that lifts {lit}`selectRecurrence_linear_step` to the full
+  recursion tree for any cost function satisfying the CLRS subproblem-size
+  bounds.
+* Theorem {lit}`medianOfMedians_linear_bound`: a concrete instantiation with
+  the standard median-of-medians branch sizes `n/5` and `(7n+12)/10`,
+  proving linear cost whenever the per-element work coefficient is bounded
+  relative to the overall constant.
 
 Current gaps:
 
-* This is not yet the CLRS linear-time median-of-medians cost theorem.  The
-  local five-element median certificate, executable grouping wrapper, grouped
-  split-count core, full-input median-pivot split-count wrapper,
-  {lit}`7n/10` partition-size packaging, and a compact linear-recurrence
-  substitution step are proved below; the remaining hard proof is a concrete
-  cost semantics plus full recurrence induction.
+* The recurrence induction above closes the substitution-method half, but
+  this is still not the full CLRS linear-time median-of-medians cost theorem.
+  The remaining step is a concrete cost semantics (operational or
+  denotational) for `medianOfMediansSelect?` that maps list input to a
+  `Nat` cost, together with proofs that the concrete cost satisfies the
+  hypotheses of `medianOfMedians_linear_bound`.
 -/
 
 namespace CLRS
@@ -962,6 +970,135 @@ theorem medianOfMediansPivot?_high_branch_linear_work_step
     simpa [hcert.1] using hgroups_size
   exact selectRecurrence_linear_step hmedian_size
     (medianOfMediansPivot?_recursive_branch_size_bound hsel).2 hlocal
+
+/-! ## Full recurrence induction -/
+
+/--
+**Recurrence induction for median-of-medians cost.**
+
+Given a cost function `T : Nat → Nat`, subproblem-size functions `g` (median
+subproblem) and `h` (strict recursive branch), a local-work function `f`, and
+a base threshold `t`, this theorem proves `T n ≤ C * n` for all `n` whenever
+the following hold for all `n ≥ t`:
+
+1. The subproblem sizes satisfy the CLRS partition bounds:
+   `5 * g n ≤ n` and `10 * h n ≤ 7 * n + 12`;
+2. The local work is small enough:
+   `10 * f n + 12 * C ≤ C * n`;
+3. `T` satisfies the one-level recurrence
+   `T n ≤ T (g n) + T (h n) + f n`;
+4. Base cases `n < t` respect the linear bound: `T n ≤ C * n`.
+
+The proof chains `selectRecurrence_linear_step` through strong induction
+to lift the single-level substitution to the full recursion tree.
+
+Corresponds to the substitution-method closure in CLRS Section 9.3.
+-/
+theorem selectRecurrence_linear_induction
+    {C t : Nat}
+    (ht_bound : 5 ≤ t)
+    (f g h : Nat → Nat)
+    (hmedian_size : ∀ n, t ≤ n → 5 * g n ≤ n)
+    (hstrict_size : ∀ n, t ≤ n → 10 * h n ≤ 7 * n + 12)
+    (hlocal_work : ∀ n, t ≤ n → 10 * f n + 12 * C ≤ C * n)
+    (T : Nat → Nat)
+    (hT_step : ∀ n, t ≤ n → T n ≤ T (g n) + T (h n) + f n)
+    (hT_base : ∀ n, n < t → T n ≤ C * n) :
+    ∀ n, T n ≤ C * n := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | h n ih =>
+    by_cases hnt : n < t
+    · exact hT_base n hnt
+    · have hnt' : t ≤ n := Nat.le_of_not_gt hnt
+      have hpos_n : 0 < n := by omega
+      have hg_lt : g n < n := by
+        have hg_bound := hmedian_size n hnt'
+        by_contra! hge
+        -- hge : n ≤ g n, so 5*n ≤ 5*g n ≤ n, impossible for n > 0
+        have hmul : 5 * n ≤ 5 * g n := Nat.mul_le_mul_left 5 hge
+        have hchain : 5 * n ≤ n := le_trans hmul hg_bound
+        omega
+      have hh_lt : h n < n := by
+        have hh_bound := hstrict_size n hnt'
+        by_contra! hge
+        -- hge : n ≤ h n, so 10*n ≤ 10*h n ≤ 7*n+12, impossible for n ≥ t > 0
+        have hmul : 10 * n ≤ 10 * h n := Nat.mul_le_mul_left 10 hge
+        have hchain : 10 * n ≤ 7 * n + 12 := le_trans hmul hh_bound
+        omega
+      have hTg : T (g n) ≤ C * (g n) := ih (g n) hg_lt
+      have hTh : T (h n) ≤ C * (h n) := ih (h n) hh_lt
+      have hsubst : C * (g n) + C * (h n) + f n ≤ C * n :=
+        selectRecurrence_linear_step (hmedian_size n hnt')
+          (hstrict_size n hnt') (hlocal_work n hnt')
+      have hstep := hT_step n hnt'
+      have hsum : T (g n) + T (h n) ≤ C * (g n) + C * (h n) :=
+        add_le_add hTg hTh
+      have htotal : T (g n) + T (h n) + f n ≤ C * (g n) + C * (h n) + f n :=
+        add_le_add hsum (le_refl (f n))
+      calc
+        T n ≤ T (g n) + T (h n) + f n := hstep
+        _ ≤ C * (g n) + C * (h n) + f n := htotal
+        _ ≤ C * n := hsubst
+
+/--
+**Concrete linear bound for the median-of-medians recurrence.**
+
+Corollary of `selectRecurrence_linear_induction` with the standard CLRS
+subproblem sizes: the median subproblem is `⌊n/5⌋`, the strict branch is
+`⌊(7n+12)/10⌋`, and the local work is bounded by `a*n` where `20*a ≤ C`
+(so that the one-level algebraic slack closes).
+
+The base threshold is 50, which is large enough to absorb the additive
+constants from the partition bound.
+-/
+theorem medianOfMedians_linear_bound
+    {C a : Nat}
+    (hCpos : 0 < C)
+    (ha_bound : 20 * a ≤ C)
+    (T : Nat → Nat)
+    (hT_step : ∀ n, 50 ≤ n →
+      T n ≤ T (n / 5) + T ((7 * n + 12) / 10) + a * n)
+    (hT_base : ∀ n, n < 50 → T n ≤ C * n) :
+    ∀ n, T n ≤ C * n := by
+  set g : Nat → Nat := fun n => n / 5
+  set h : Nat → Nat := fun n => (7 * n + 12) / 10
+  set f : Nat → Nat := fun n => a * n
+  have hmedian_size : ∀ n, 50 ≤ n → 5 * g n ≤ n := by
+    intro n hn
+    unfold g
+    exact Nat.mul_div_le n 5
+  have hstrict_size : ∀ n, 50 ≤ n → 10 * h n ≤ 7 * n + 12 := by
+    intro n hn
+    unfold h
+    exact Nat.mul_div_le (7 * n + 12) 10
+  have hlocal_work : ∀ n, 50 ≤ n → 10 * f n + 12 * C ≤ C * n := by
+    intro n hn50
+    unfold f
+    -- Goal: 10*(a*n) + 12*C ≤ C*n
+    -- Scale by 2 to avoid division, then use Nat.le_of_mul_le_mul_left
+    have hscale : (10 * (a * n) + 12 * C) * 2 ≤ (C * n) * 2 := by
+      calc
+        (10 * (a * n) + 12 * C) * 2 = 20 * a * n + 24 * C := by ring
+        _ ≤ C * n + 24 * C := by
+          have h : 20 * a ≤ C := ha_bound
+          nlinarith
+        _ ≤ C * n + C * n := by
+          have : 24 ≤ n := by omega
+          nlinarith
+        _ = (C * n) * 2 := by ring
+    -- hscale : (stuff)*2 ≤ (other)*2, use right-multiplied form
+    have hgoal : 10 * (a * n) + 12 * C ≤ C * n := by
+      apply Nat.le_of_mul_le_mul_right (c := 2) ?_ (by omega)
+      -- hscale has the terms commuted relative to what the lemma expects
+      simpa [mul_comm, mul_left_comm, mul_assoc] using hscale
+    exact hgoal
+  have hT_step_wrapped : ∀ n, 50 ≤ n → T n ≤ T (g n) + T (h n) + f n := by
+    intro n hn50
+    unfold g h f
+    exact hT_step n hn50
+  exact selectRecurrence_linear_induction (by omega) f g h
+    hmedian_size hstrict_size hlocal_work T hT_step_wrapped hT_base
 
 /-- SELECT specialized to the executable median-of-medians pivot rule. -/
 def medianOfMediansSelect? (k : Nat) (xs : List Nat) : Option Nat :=
