@@ -7,7 +7,9 @@ Chapter 14 explains how to attach auxiliary information to a data structure and
 maintain enough local consistency to support stronger queries.  The first
 CLRS-Lean pass formalizes the mathematical core of order-statistic trees: each
 node stores a subtree size, and rank selection uses the left-subtree size to
-choose a branch.
+choose a branch.  The rotation layer now exposes cached-root-size preservation,
+ideal rank-selection preservation, and the corresponding augmented-selector
+wrapper for well-sized trees.
 
 ## Sections
 
@@ -19,9 +21,15 @@ choose a branch.
   {lit}`CLRS.Chapter14.OSTree.keys_rotateRight`,
   {lit}`CLRS.Chapter14.OSTree.realSize_rotateLeft`,
   {lit}`CLRS.Chapter14.OSTree.realSize_rotateRight`,
+  {lit}`CLRS.Chapter14.OSTree.storedSize_rotateLeft_of_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.storedSize_rotateRight_of_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.rankSelect?_rotateLeft`,
+  {lit}`CLRS.Chapter14.OSTree.rankSelect?_rotateRight`,
   {lit}`CLRS.Chapter14.OSTree.rotateLeft_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.rotateRight_wellSized`, and
-  {lit}`CLRS.Chapter14.OSTree.osSelect?_eq_rankSelect?_of_wellSized`.
+  {lit}`CLRS.Chapter14.OSTree.osSelect?_eq_rankSelect?_of_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.osSelect?_rotateLeft_eq_rankSelect?_of_wellSized`,
+  and {lit}`CLRS.Chapter14.OSTree.osSelect?_rotateRight_eq_rankSelect?_of_wellSized`.
 
 ## Current Gaps
 

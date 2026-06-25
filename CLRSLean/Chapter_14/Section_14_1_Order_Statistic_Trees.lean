@@ -30,13 +30,23 @@ Main results:
 * Theorems {lit}`rotateLeft_wellSized` and {lit}`rotateRight_wellSized`:
   rotations with local size recomputation preserve the size augmentation
   invariant.
+* Theorems {lit}`storedSize_rotateLeft_of_wellSized` and
+  {lit}`storedSize_rotateRight_of_wellSized`: rotations preserve the cached
+  root size of a well-sized tree.
+* Theorems {lit}`rankSelect?_rotateLeft` and {lit}`rankSelect?_rotateRight`:
+  rotations preserve the ideal rank-selection result.
 * Theorem {lit}`osSelect?_eq_rankSelect?_of_wellSized`: on a well-sized tree,
   the augmented selector agrees with the ideal rank selector.
+* Theorems {lit}`osSelect?_rotateLeft_eq_rankSelect?_of_wellSized` and
+  {lit}`osSelect?_rotateRight_eq_rankSelect?_of_wellSized`: after a
+  size-preserving rotation, the augmented selector still implements the
+  original ideal rank selector.
 
 Current gaps:
 
-* The size-preserving rotation layer is functional; it is not yet connected to
-  the Chapter 13 red-black insertion/deletion fixup procedures.
+* The size-preserving and rank-preserving rotation layer is functional; it is
+  not yet connected to the Chapter 13 red-black insertion/deletion fixup
+  procedures.
 * Interval trees and the general augmentation theorem remain future targets.
 -/
 
@@ -221,6 +231,122 @@ theorem realSize_rotateRight (t : OSTree) :
           simp [rotateRight, realSize]
           omega
 
+/-- Left rotation preserves the cached root size of a well-sized tree. -/
+theorem storedSize_rotateLeft_of_wellSized {t : OSTree}
+    (h : WellSized t) :
+    storedSize (rotateLeft t) = storedSize t := by
+  cases t with
+  | empty =>
+      rfl
+  | node a x sx right =>
+      cases right with
+      | empty =>
+          rfl
+      | node b y sy c =>
+          rcases h with ⟨_ha, _hRight, hSize⟩
+          simp [rotateLeft, storedSize, realSize] at hSize ⊢
+          omega
+
+/-- Right rotation preserves the cached root size of a well-sized tree. -/
+theorem storedSize_rotateRight_of_wellSized {t : OSTree}
+    (h : WellSized t) :
+    storedSize (rotateRight t) = storedSize t := by
+  cases t with
+  | empty =>
+      rfl
+  | node left y sy c =>
+      cases left with
+      | empty =>
+          rfl
+      | node a x sx b =>
+          rcases h with ⟨_hLeft, _hc, hSize⟩
+          simp [rotateRight, storedSize, realSize] at hSize ⊢
+          omega
+
+/-- Left rotation preserves ideal rank selection. -/
+theorem rankSelect?_rotateLeft (t : OSTree) (i : Nat) :
+    rankSelect? (rotateLeft t) i = rankSelect? t i := by
+  cases t with
+  | empty =>
+      rfl
+  | node a x sx right =>
+      cases right with
+      | empty =>
+          rfl
+      | node b y sy c =>
+          by_cases hiA : i < realSize a
+          · have hiLeft : i < realSize a + realSize b + 1 := by omega
+            simp [rotateLeft, rankSelect?, realSize, hiA, hiLeft]
+          · by_cases hiEqA : i = realSize a
+            · have hiLeft : i < realSize a + realSize b + 1 := by omega
+              simp [rotateLeft, rankSelect?, realSize, hiEqA]
+            · by_cases hiLeft : i < realSize a + realSize b + 1
+              · have hjLt : i - realSize a - 1 < realSize b := by omega
+                simp [rotateLeft, rankSelect?, realSize, hiA, hiEqA, hiLeft, hjLt]
+              · have hjNotLt : ¬ i - realSize a - 1 < realSize b := by omega
+                by_cases hjEq : i - realSize a - 1 = realSize b
+                · have hiEqLeft : i = realSize a + realSize b + 1 := by omega
+                  subst i
+                  have hNotLtA :
+                      ¬ realSize a + realSize b + 1 < realSize a := by
+                    omega
+                  have hNotEqA :
+                      ¬ realSize a + realSize b + 1 = realSize a := by
+                    omega
+                  have hEqB :
+                      realSize a + realSize b + 1 - realSize a - 1 = realSize b := by
+                    omega
+                  simp [rotateLeft, rankSelect?, realSize, hNotLtA, hNotEqA, hEqB]
+                · have hiNeLeft : i ≠ realSize a + realSize b + 1 := by omega
+                  have hIndex :
+                      i - (realSize a + realSize b + 1) - 1 =
+                        i - realSize a - 1 - realSize b - 1 := by
+                    omega
+                  simp [rotateLeft, rankSelect?, realSize, hiA, hiEqA, hiLeft,
+                    hjNotLt, hjEq, hiNeLeft, hIndex]
+
+/-- Right rotation preserves ideal rank selection. -/
+theorem rankSelect?_rotateRight (t : OSTree) (i : Nat) :
+    rankSelect? (rotateRight t) i = rankSelect? t i := by
+  cases t with
+  | empty =>
+      rfl
+  | node left y sy c =>
+      cases left with
+      | empty =>
+          rfl
+      | node a x sx b =>
+          by_cases hiA : i < realSize a
+          · have hiLeft : i < realSize a + realSize b + 1 := by omega
+            simp [rotateRight, rankSelect?, realSize, hiA, hiLeft]
+          · by_cases hiEqA : i = realSize a
+            · have hiLeft : i < realSize a + realSize b + 1 := by omega
+              simp [rotateRight, rankSelect?, realSize, hiEqA]
+            · by_cases hiLeft : i < realSize a + realSize b + 1
+              · have hjLt : i - realSize a - 1 < realSize b := by omega
+                simp [rotateRight, rankSelect?, realSize, hiA, hiEqA, hiLeft, hjLt]
+              · have hjNotLt : ¬ i - realSize a - 1 < realSize b := by omega
+                by_cases hjEq : i - realSize a - 1 = realSize b
+                · have hiEqLeft : i = realSize a + realSize b + 1 := by omega
+                  subst i
+                  have hNotLtA :
+                      ¬ realSize a + realSize b + 1 < realSize a := by
+                    omega
+                  have hNotEqA :
+                      ¬ realSize a + realSize b + 1 = realSize a := by
+                    omega
+                  have hEqB :
+                      realSize a + realSize b + 1 - realSize a - 1 = realSize b := by
+                    omega
+                  simp [rotateRight, rankSelect?, realSize, hNotLtA, hNotEqA, hEqB]
+                · have hiNeLeft : i ≠ realSize a + realSize b + 1 := by omega
+                  have hIndex :
+                      i - (realSize a + realSize b + 1) - 1 =
+                        i - realSize a - 1 - realSize b - 1 := by
+                    omega
+                  simp [rotateRight, rankSelect?, realSize, hiA, hiEqA, hiLeft,
+                    hjNotLt, hjEq, hiNeLeft, hIndex]
+
 /-- Left rotation with local size recomputation preserves {lit}`WellSized`. -/
 theorem rotateLeft_wellSized {t : OSTree}
     (h : WellSized t) : WellSized (rotateLeft t) := by
@@ -266,6 +392,30 @@ theorem osSelect?_eq_rankSelect?_of_wellSized {t : OSTree} {i : Nat}
       · by_cases heq : i = realSize left
         · simp [osSelect?, rankSelect?, hLeftSize, heq]
         · simp [osSelect?, rankSelect?, hLeftSize, hlt, heq, ihRight hRight]
+
+/--
+After a size-preserving left rotation, the augmented selector still implements
+the original ideal rank selector.
+-/
+theorem osSelect?_rotateLeft_eq_rankSelect?_of_wellSized {t : OSTree} {i : Nat}
+    (h : WellSized t) :
+    osSelect? (rotateLeft t) i = rankSelect? t i := by
+  calc
+    osSelect? (rotateLeft t) i = rankSelect? (rotateLeft t) i :=
+      osSelect?_eq_rankSelect?_of_wellSized (rotateLeft_wellSized h)
+    _ = rankSelect? t i := rankSelect?_rotateLeft t i
+
+/--
+After a size-preserving right rotation, the augmented selector still implements
+the original ideal rank selector.
+-/
+theorem osSelect?_rotateRight_eq_rankSelect?_of_wellSized {t : OSTree} {i : Nat}
+    (h : WellSized t) :
+    osSelect? (rotateRight t) i = rankSelect? t i := by
+  calc
+    osSelect? (rotateRight t) i = rankSelect? (rotateRight t) i :=
+      osSelect?_eq_rankSelect?_of_wellSized (rotateRight_wellSized h)
+    _ = rankSelect? t i := rankSelect?_rotateRight t i
 
 /--
 Recomputing size fields makes the augmented selector agree with the ideal

@@ -95,8 +95,8 @@ Start with the chapter pages in the sidebar.
 * Chapter 13 - Red-Black Trees: local rotation, recoloring, red-red repair,
   four insertion-fixup case certificates, and red-black shape invariant lemmas.
 * Chapter 14 - Augmenting Data Structures: order-statistic tree size
-  augmentation, size-preserving local rotations, and rank-selection correctness
-  for the current functional model.
+  augmentation, size/rank-preserving local rotations, and rank-selection
+  correctness for the current functional model.
 * Chapter 15 - Dynamic Programming: rod-cutting Bellman recurrence facts,
   matrix-chain parenthesization optimality plus split-table reconstruction, and
   LCS certificate optimality plus table-recurrence reconstruction certificates.
@@ -447,10 +447,16 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter14.OSTree.keys_rotateRight`,
   {lit}`CLRS.Chapter14.OSTree.realSize_rotateLeft`,
   {lit}`CLRS.Chapter14.OSTree.realSize_rotateRight`,
+  {lit}`CLRS.Chapter14.OSTree.storedSize_rotateLeft_of_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.storedSize_rotateRight_of_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.rankSelect?_rotateLeft`,
+  {lit}`CLRS.Chapter14.OSTree.rankSelect?_rotateRight`,
   {lit}`CLRS.Chapter14.OSTree.rotateLeft_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.rotateRight_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.osSelect?_eq_rankSelect?_of_wellSized`,
-  {lit}`CLRS.Chapter14.OSTree.osSelect?_recomputeSizes_eq_rankSelect?`.
+  {lit}`CLRS.Chapter14.OSTree.osSelect?_rotateLeft_eq_rankSelect?_of_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.osSelect?_rotateRight_eq_rankSelect?_of_wellSized`,
+  and {lit}`CLRS.Chapter14.OSTree.osSelect?_recomputeSizes_eq_rankSelect?`.
 * 15.1 Rod cutting: {lit}`partial`.
   Current results: {lit}`CLRS.Chapter15.firstCutValue_le_of_rodCutRecurrence`,
   {lit}`CLRS.Chapter15.rodRevenue_le_of_firstCutValue_bounds`,

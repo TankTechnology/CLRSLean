@@ -102,10 +102,10 @@ which areas should not yet be counted as proof-complete.
   the four local insertion-fixup case certificates are proved; composing them
   into full insertion and deletion fixup algorithms remains.
 * Chapter 14, Section 14.1: order-statistic tree size augmentation,
-  recomputation, key preservation, size-preserving local rotations, and
+  recomputation, key preservation, size/rank-preserving local rotations, and
   rank-selection correctness are proved for a functional augmented tree;
-  connecting those rotations to red-black balancing, interval trees, and the
-  general augmentation theorem remain.
+  connecting those rotation wrappers to red-black balancing, interval trees,
+  and the general augmentation theorem remain.
 * Chapter 15, Sections 15.1, 15.2, and 15.4: rod-cutting Bellman recurrence
   facts, matrix-chain parenthesization optimality plus split-table
   reconstruction certificates, and LCS certificate optimality plus
@@ -140,9 +140,9 @@ which areas should not yet be counted as proof-complete.
 * Chapter 13 full red-black algorithms: compose the local insertion-fixup cases
   into executable insertion, then prove deletion fixup correctness and the
   logarithmic-height theorem.
-* Chapter 14 remaining augmentation targets: connect the proved size-preserving
-  rotations to red-black balancing, then add interval trees and the general
-  augmentation theorem.
+* Chapter 14 remaining augmentation targets: connect the proved
+  size/rank-preserving rotations to red-black balancing, then add interval
+  trees and the general augmentation theorem.
 * Chapter 15 remaining dynamic-programming targets: bottom-up and memoized rod
   cutting, executable matrix-chain and LCS table/reconstruction algorithms, and
   optimal binary search trees.
@@ -583,10 +583,16 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter14.OSTree.keys_rotateRight`,
   {lit}`CLRS.Chapter14.OSTree.realSize_rotateLeft`,
   {lit}`CLRS.Chapter14.OSTree.realSize_rotateRight`,
+  {lit}`CLRS.Chapter14.OSTree.storedSize_rotateLeft_of_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.storedSize_rotateRight_of_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.rankSelect?_rotateLeft`,
+  {lit}`CLRS.Chapter14.OSTree.rankSelect?_rotateRight`,
   {lit}`CLRS.Chapter14.OSTree.rotateLeft_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.rotateRight_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.osSelect?_eq_rankSelect?_of_wellSized`, and
-  {lit}`CLRS.Chapter14.OSTree.osSelect?_recomputeSizes_eq_rankSelect?`;
+  {lit}`CLRS.Chapter14.OSTree.osSelect?_rotateLeft_eq_rankSelect?_of_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.osSelect?_rotateRight_eq_rankSelect?_of_wellSized`,
+  and {lit}`CLRS.Chapter14.OSTree.osSelect?_recomputeSizes_eq_rankSelect?`;
   remaining gap: connect the functional rotations to red-black balancing,
   interval trees, and the general augmentation theorem.
 * 15.1 Rod cutting:
