@@ -12,8 +12,9 @@ represented finite set, including empty-result specifications for extrema,
 successor, and predecessor plus membership-, extrema-, and
 neighbor-query-after-update positive and no-neighbor specifications,
 successful-query universe-bound corollaries, direct extrema
-membership/lower- and upper-bound wrappers, extrema empty-after-update
-specifications, update-query universe-bound corollaries, direct
+membership/lower- and upper-bound wrappers, direct neighbor
+membership/order wrappers, extrema empty-after-update specifications,
+update-query universe-bound corollaries, direct
 inserted/deleted key and old-key member-preservation corollaries, exact
 failed member-query specifications after updates, and operation-depth
 base/step/linear and monotonicity wrappers.
@@ -44,9 +45,15 @@ base/step/linear and monotonicity wrappers.
   {lit}`CLRS.Chapter20.VEB.maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.successor_mem`,
+  {lit}`CLRS.Chapter20.VEB.successor_gt`,
+  {lit}`CLRS.Chapter20.VEB.successor_le`,
   {lit}`CLRS.Chapter20.VEB.successor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.predecessor_mem`,
+  {lit}`CLRS.Chapter20.VEB.predecessor_lt`,
+  {lit}`CLRS.Chapter20.VEB.le_predecessor`,
   {lit}`CLRS.Chapter20.VEB.predecessor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_correct`,

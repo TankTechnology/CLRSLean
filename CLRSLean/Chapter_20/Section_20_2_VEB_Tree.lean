@@ -25,6 +25,10 @@ Main results:
   extrema queries return no key exactly when the represented set is empty.
 - Theorem {lit}`VEB.successor_correct`: a returned successor is represented,
   greater than the query, and no larger than any represented greater key.
+- Theorems {lit}`VEB.successor_mem`, {lit}`VEB.successor_gt`,
+  {lit}`VEB.successor_le`, {lit}`VEB.predecessor_mem`,
+  {lit}`VEB.predecessor_lt`, and {lit}`VEB.le_predecessor`: direct membership
+  and order corollaries for returned neighbors.
 - Theorem {lit}`VEB.successor_none_iff`: no successor is returned exactly when
   no represented key is greater than the query.
 - Theorem {lit}`VEB.predecessor_correct`: a returned predecessor is
@@ -260,6 +264,25 @@ theorem successor_correct {t : Tree} {s : Finset Nat} {x y : Nat}
       exact Finset.min'_le (successorCandidates x t) z hzCand
   · simp [hne] at hsucc
 
+/-- A returned successor belongs to the represented key set. -/
+theorem successor_mem {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hsucc : successor x t = some y) :
+    y ∈ s := by
+  exact (successor_correct (t := t) (s := s) (x := x) (y := y) hrep hsucc).1
+
+/-- A returned successor is greater than the query. -/
+theorem successor_gt {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hsucc : successor x t = some y) :
+    x < y := by
+  exact (successor_correct (t := t) (s := s) (x := x) (y := y) hrep hsucc).2.1
+
+/-- A returned successor is no larger than any represented key greater than the query. -/
+theorem successor_le {t : Tree} {s : Finset Nat} {x y z : Nat}
+    (hrep : Represents t s) (hsucc : successor x t = some y)
+    (hz : z ∈ s) (hxz : x < z) :
+    y <= z := by
+  exact (successor_correct (t := t) (s := s) (x := x) (y := y) hrep hsucc).2.2 z hz hxz
+
 /-- A returned successor lies inside the represented universe. -/
 theorem successor_lt_univ {t : Tree} {s : Finset Nat} {x y : Nat}
     (hrep : Represents t s) (hsucc : successor x t = some y) :
@@ -319,6 +342,25 @@ theorem predecessor_correct {t : Tree} {s : Finset Nat} {x y : Nat}
         simp [predecessorCandidates, hrep.1, hz, hzx]
       exact Finset.le_max' (predecessorCandidates x t) z hzCand
   · simp [hne] at hpred
+
+/-- A returned predecessor belongs to the represented key set. -/
+theorem predecessor_mem {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hpred : predecessor x t = some y) :
+    y ∈ s := by
+  exact (predecessor_correct (t := t) (s := s) (x := x) (y := y) hrep hpred).1
+
+/-- A returned predecessor is less than the query. -/
+theorem predecessor_lt {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hpred : predecessor x t = some y) :
+    y < x := by
+  exact (predecessor_correct (t := t) (s := s) (x := x) (y := y) hrep hpred).2.1
+
+/-- Any represented key less than the query is no larger than a returned predecessor. -/
+theorem le_predecessor {t : Tree} {s : Finset Nat} {x y z : Nat}
+    (hrep : Represents t s) (hpred : predecessor x t = some y)
+    (hz : z ∈ s) (hzx : z < x) :
+    z <= y := by
+  exact (predecessor_correct (t := t) (s := s) (x := x) (y := y) hrep hpred).2.2 z hz hzx
 
 /-- A returned predecessor lies inside the represented universe. -/
 theorem predecessor_lt_univ {t : Tree} {s : Finset Nat} {x y : Nat}
