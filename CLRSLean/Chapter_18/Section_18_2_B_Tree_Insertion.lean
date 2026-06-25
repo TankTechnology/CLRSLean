@@ -16,6 +16,8 @@ Main results:
   validity.
 - Theorem {lit}`BTree.splitChild_mem_iff`: membership after the first-pass
   split wrapper is unchanged.
+- Theorem {lit}`BTree.splitChild_not_mem_iff`: failed membership is also
+  unchanged after the first-pass split wrapper.
 - Theorem {lit}`BTree.splitChild_search_iff`: searching after the first-pass
   split wrapper is equivalent to searching before it.
 - Theorem {lit}`BTree.splitChild_search_false_iff`: unsuccessful search is also
@@ -31,6 +33,8 @@ Main results:
   exactly for the inserted key or an old searchable key.
 - Theorem {lit}`BTree.insert_search_false_iff`: searching after insertion fails
   exactly for keys different from the inserted key that failed before.
+- Theorem {lit}`BTree.insert_not_mem_iff`: membership after insertion fails
+  exactly for keys different from the inserted key that were absent before.
 - Theorems {lit}`BTree.insert_mem_self` and
   {lit}`BTree.insert_search_self`: the inserted key is present and searchable
   after insertion.
@@ -63,6 +67,11 @@ theorem splitChild_mem_old (x : Nat) (t : BTree) (hx : mem x t) :
     mem x (splitChild t) := by
   rw [splitChild_mem_iff]
   exact hx
+
+/-- Failed membership after the first-pass split wrapper is unchanged. -/
+theorem splitChild_not_mem_iff (x : Nat) (t : BTree) :
+    ¬ mem x (splitChild t) <-> ¬ mem x t := by
+  rw [splitChild_mem_iff]
 
 /-- The first-pass split wrapper preserves validity and membership. -/
 theorem splitChild_preserves_model {minDegree : Nat} {t : BTree}
@@ -139,6 +148,22 @@ theorem insert_mem_old (x y : Nat) (t : BTree) (hy : mem y t) :
     mem y (insert x t) := by
   rw [insert_mem_iff]
   exact Or.inr hy
+
+/-- Membership after insertion fails exactly for noninserted keys absent before insertion. -/
+theorem insert_not_mem_iff (x y : Nat) (t : BTree) :
+    ¬ mem y (insert x t) <-> y ≠ x ∧ ¬ mem y t := by
+  rw [insert_mem_iff]
+  constructor
+  · intro hnot
+    constructor
+    · intro hyx
+      exact hnot (Or.inl hyx)
+    · intro hy
+      exact hnot (Or.inr hy)
+  · intro h hmem
+    cases hmem with
+    | inl hyx => exact h.1 hyx
+    | inr hy => exact h.2 hy
 
 /-- Searching after insertion succeeds exactly for the new key or an old key. -/
 theorem insert_search_iff {minDegree x y : Nat} {t : BTree}

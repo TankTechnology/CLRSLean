@@ -1063,6 +1063,7 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.splitChild_valid`
   - `CLRS.Chapter18.BTree.splitChild_mem_iff`
   - `CLRS.Chapter18.BTree.splitChild_mem_old`
+  - `CLRS.Chapter18.BTree.splitChild_not_mem_iff`
   - `CLRS.Chapter18.BTree.splitChild_search_iff`
   - `CLRS.Chapter18.BTree.splitChild_search_old`
   - `CLRS.Chapter18.BTree.splitChild_search_false_iff`
@@ -1073,6 +1074,7 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.insert_search_self`
   - `CLRS.Chapter18.BTree.insert_mem_old`
   - `CLRS.Chapter18.BTree.insert_search_old`
+  - `CLRS.Chapter18.BTree.insert_not_mem_iff`
   - `CLRS.Chapter18.BTree.insert_search_false_iff`
   - `CLRS.Chapter18.BTree.delete_preserves_model`
   - `CLRS.Chapter18.BTree.delete_mem_iff`
@@ -1081,12 +1083,14 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.delete_search_deleted_false`
   - `CLRS.Chapter18.BTree.delete_mem_of_ne`
   - `CLRS.Chapter18.BTree.delete_search_of_ne`
+  - `CLRS.Chapter18.BTree.delete_not_mem_iff`
   - `CLRS.Chapter18.BTree.delete_search_false_iff`
 - Proof pattern: mathematical key-set model, structural validity predicate,
   minimum-key expression base/positivity arithmetic and height monotonicity,
   specification-level split/insert/delete wrappers, search correctness reuse,
   direct split validity/preservation corollaries, and direct inserted/deleted-key
-  plus old-key successful and unsuccessful query preservation corollaries
+  plus old-key successful and unsuccessful query preservation corollaries, with
+  exact failed membership specifications
 - Current gap: full node occupancy/separator/same-depth invariant stack,
   node-level deletion repair, disk-page I/O, and pointer mutation remain
   strengthening targets.
@@ -1096,6 +1100,8 @@ insertion, and deletion are proved against an abstract membership model, and
 the update wrappers expose direct search-after-update specifications plus
 direct split validity/preservation and inserted/deleted-key plus old-key query
 preservation corollaries, including exact unsuccessful-search specifications.
+The same specification layer now exposes exact failed membership facts for
+split-child, insertion, and deletion.
 The height
 expression is packaged with a height-zero base case, positivity wrappers, a
 minimum-key lower bound and height-step recurrence, plus adjacent and

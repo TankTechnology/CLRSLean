@@ -103,7 +103,8 @@ Start with the chapter pages in the sidebar.
   height-expression base/positivity/recurrence/monotonicity, split-child direct
   validity and membership/search preservation, insertion, deletion,
   successful/unsuccessful search-after-update theorem surface, and direct
-  inserted/deleted-key and old-key query preservation corollaries.
+  inserted/deleted-key, old-key query preservation, and failed membership
+  corollaries.
 * Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
   make-heap, operation-level correctness, direct operation-result validity for
   normalized counters, direct
@@ -494,17 +495,20 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.splitChild_valid`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_old`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_not_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_false_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_iff`,
+  {lit}`CLRS.Chapter18.BTree.insert_not_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_false_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.delete_mem_iff`,
-  {lit}`CLRS.Chapter18.BTree.delete_search_iff`, and
-  {lit}`CLRS.Chapter18.BTree.delete_search_false_iff`.
+  {lit}`CLRS.Chapter18.BTree.delete_search_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_not_mem_iff`,
+  and {lit}`CLRS.Chapter18.BTree.delete_search_false_iff`.
 * 19.1 Fibonacci heaps: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
   {lit}`CLRS.Chapter19.FibHeap.makeHeap_valid`,

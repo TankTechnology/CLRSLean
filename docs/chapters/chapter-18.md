@@ -18,6 +18,7 @@
 - `CLRS.Chapter18.BTree.splitChild_valid`
 - `CLRS.Chapter18.BTree.splitChild_mem_iff`
 - `CLRS.Chapter18.BTree.splitChild_mem_old`
+- `CLRS.Chapter18.BTree.splitChild_not_mem_iff`
 - `CLRS.Chapter18.BTree.splitChild_search_iff`
 - `CLRS.Chapter18.BTree.splitChild_search_old`
 - `CLRS.Chapter18.BTree.splitChild_search_false_iff`
@@ -28,6 +29,7 @@
 - `CLRS.Chapter18.BTree.insert_search_self`
 - `CLRS.Chapter18.BTree.insert_mem_old`
 - `CLRS.Chapter18.BTree.insert_search_old`
+- `CLRS.Chapter18.BTree.insert_not_mem_iff`
 - `CLRS.Chapter18.BTree.insert_search_false_iff`
 - `CLRS.Chapter18.BTree.delete_preserves_model`
 - `CLRS.Chapter18.BTree.delete_mem_iff`
@@ -36,6 +38,7 @@
 - `CLRS.Chapter18.BTree.delete_search_deleted_false`
 - `CLRS.Chapter18.BTree.delete_mem_of_ne`
 - `CLRS.Chapter18.BTree.delete_search_of_ne`
+- `CLRS.Chapter18.BTree.delete_not_mem_iff`
 - `CLRS.Chapter18.BTree.delete_search_false_iff`
 
 ## Remaining Work
@@ -44,6 +47,7 @@ The current chapter uses a mathematical key-membership model, a minimum-key
 height-expression base/positivity facts, recurrence, and monotonicity facts,
 and specification wrappers for split/insert/delete, including direct split
 validity/preservation corollaries and direct successful/unsuccessful query
-corollaries for the inserted and deleted keys plus old-key preservation.
+corollaries for the inserted and deleted keys plus old-key preservation and
+exact failed membership specifications.
 Full separator ordering, same-depth leaves, node-level deletion repair,
 disk-page I/O, and pointer-level mutation remain future refinements.
