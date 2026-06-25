@@ -20,6 +20,8 @@ Main results:
 - Theorems {lit}`FibHeap.insert_correct`, {lit}`FibHeap.union_correct`,
   {lit}`FibHeap.extractMin_correct`, {lit}`FibHeap.decreaseKey_correct`, and
   {lit}`FibHeap.delete_correct`: operations match finite-set specifications.
+- Theorems {lit}`FibHeap.insert_mem_iff` and {lit}`FibHeap.delete_mem_iff`:
+  key membership after insertion/deletion matches the finite-set update.
 - Theorem {lit}`FibHeap.heapPotential_telescope`: heap potential instantiates
   the Chapter 17 potential-method telescoping theorem.
 - Theorem {lit}`FibHeap.fibLowerBound_step`: the Fibonacci-style lower-bound
@@ -127,6 +129,11 @@ theorem insert_correct {h : FibHeap} {s : Finset Int} {x : Int}
   · simp [insert, hrep.1]
   · simp [Valid, insert]
 
+/-- Key membership after insertion is exactly the new key or an old key. -/
+theorem insert_mem_iff (h : FibHeap) (x y : Int) :
+    y ∈ (insert x h).keys <-> y = x ∨ y ∈ h.keys := by
+  simp [insert]
+
 /-- Meld two heaps. -/
 def union (h₁ h₂ : FibHeap) : FibHeap :=
   let ks := h₁.keys ∪ h₂.keys
@@ -218,6 +225,11 @@ theorem delete_correct {h : FibHeap} {s : Finset Int} {x : Int}
   constructor
   · simp [delete, hrep.1]
   · simp [Valid, delete]
+
+/-- Key membership after deletion is exactly old membership away from the deleted key. -/
+theorem delete_mem_iff (h : FibHeap) (x y : Int) :
+    y ∈ (delete x h).keys <-> y ≠ x ∧ y ∈ h.keys := by
+  simp [delete]
 
 /-- A heap-indexed potential trace for Chapter 17's potential method. -/
 def potentialTrace (heap : Nat -> FibHeap) (actual : Nat -> Int) :
