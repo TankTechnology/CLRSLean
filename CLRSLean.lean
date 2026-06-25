@@ -99,7 +99,8 @@ Start with the chapter pages in the sidebar.
   correctness for the current functional model.
 * Chapter 15 - Dynamic Programming: rod-cutting Bellman recurrence facts,
   matrix-chain parenthesization optimality plus split-table reconstruction, and
-  LCS certificate optimality plus table-recurrence reconstruction certificates.
+  LCS certificate optimality plus table-recurrence reconstruction certificates
+  and recurrence wrappers.
 * Chapter 16 - Greedy Algorithms: activity-selection exchange infrastructure
   and the complete Huffman optimality proof, currently the flagship greedy case
   study.
@@ -468,8 +469,9 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter15.MatrixChainLowerBound`,
   {lit}`CLRS.Chapter15.MatrixChainSplitOptimal`,
   {lit}`CLRS.Chapter15.matrixChain_opt_le_planCost`,
-  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_eq`, and
-  {lit}`CLRS.Chapter15.matrixChain_reconstructed_optimal`.
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_eq`,
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_optimal`, and
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_le_planCost`.
 * 15.4 Longest common subsequence: {lit}`partial`.
   Current results: {lit}`CLRS.Chapter15.IsCommonSubsequence`,
   {lit}`CLRS.Chapter15.LCSCertificate.commonSubsequence_length_le`,
@@ -478,8 +480,14 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons`,
   {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons_of_eq`,
   {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons_of_ne`,
-  {lit}`CLRS.Chapter15.LCSTableCertificate.commonSubsequence_length_le`, and
-  {lit}`CLRS.Chapter15.lcsTable_reconstruction_optimal`.
+  {lit}`CLRS.Chapter15.LCSTableCertificate.nil_left`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.nil_right`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_of_eq`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_of_ne`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.commonSubsequence_length_le`,
+  {lit}`CLRS.Chapter15.lcsTable_reconstruction_optimal`, and
+  {lit}`CLRS.Chapter15.lcsCertificate_of_table_reconstruction_length`.
 * 16.1 Activity selection: {lit}`proved` for finite sorted lists.
   Current results: {lit}`CLRS.ActivitySelection.earliest_finish_minFinish`,
   {lit}`CLRS.ActivitySelection.finishSorted_head_minFinish`,

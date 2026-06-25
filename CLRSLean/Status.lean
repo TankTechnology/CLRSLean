@@ -109,9 +109,9 @@ which areas should not yet be counted as proof-complete.
 * Chapter 15, Sections 15.1, 15.2, and 15.4: rod-cutting Bellman recurrence
   facts, matrix-chain parenthesization optimality plus split-table
   reconstruction certificates, and LCS certificate optimality plus
-  table-recurrence reconstruction certificates are proved; bottom-up/memoized
-  execution, executable reconstruction procedures, and optimal binary search
-  trees remain.
+  table-recurrence reconstruction certificates and recurrence wrappers are
+  proved; bottom-up/memoized execution, executable reconstruction procedures,
+  and optimal binary search trees remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
   exact-component Kruskal scan facts, forest/spanning wrappers, and
   certificate-based Kruskal optimality interfaces exist; automatic simple
@@ -606,8 +606,9 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter15.MatrixChainLowerBound`,
   {lit}`CLRS.Chapter15.MatrixChainSplitOptimal`,
   {lit}`CLRS.Chapter15.matrixChain_opt_le_planCost`,
-  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_eq`, and
-  {lit}`CLRS.Chapter15.matrixChain_reconstructed_optimal`;
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_eq`,
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_optimal`, and
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_le_planCost`;
   remaining gap: concrete bottom-up cost-table construction and executable
   split reconstruction.
 * 15.4 Longest common subsequence:
@@ -618,8 +619,14 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons`,
   {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons_of_eq`,
   {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons_of_ne`,
-  {lit}`CLRS.Chapter15.LCSTableCertificate.commonSubsequence_length_le`, and
-  {lit}`CLRS.Chapter15.lcsTable_reconstruction_optimal`;
+  {lit}`CLRS.Chapter15.LCSTableCertificate.nil_left`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.nil_right`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_of_eq`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_of_ne`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.commonSubsequence_length_le`,
+  {lit}`CLRS.Chapter15.lcsTable_reconstruction_optimal`, and
+  {lit}`CLRS.Chapter15.lcsCertificate_of_table_reconstruction_length`;
   remaining gap: concrete dynamic-programming length-table construction and
   executable reconstruction.
 * Chapter 15 remaining target:

@@ -10,7 +10,8 @@ specified by the usual split lower bound.  The main theorem says every concrete
 parenthesization has cost at least the candidate optimum for its interval.
 The file also adds a reconstruction certificate: if a split table records a
 tight split for each nonsingleton interval, then any parenthesization rebuilt
-from that split table has exactly the candidate optimal cost.
+from that split table has exactly the candidate optimal cost, and therefore has
+cost no greater than any competing parenthesization.
 
 Current gaps:
 
@@ -165,6 +166,21 @@ theorem matrixChain_reconstructed_optimal {dims : Nat → Nat}
       opt i j ≤ ChainPlan.cost dims other :=
     matrixChain_opt_le_planCost hlower other
   omega
+
+/--
+Direct cost inequality form of the split-table reconstruction theorem: a plan
+rebuilt from a tight split table is no more expensive than any other
+parenthesization of the same interval.
+-/
+theorem matrixChain_reconstructed_cost_le_planCost {dims : Nat → Nat}
+    {opt : Nat → Nat → Nat} {splitAt : Nat → Nat → Nat}
+    (hlower : MatrixChainLowerBound dims opt)
+    (hsplit : MatrixChainSplitOptimal dims opt splitAt)
+    {i j : Nat} {plan : ChainPlan i j}
+    (hrec : ChainPlan.ReconstructedBy splitAt plan)
+    (other : ChainPlan i j) :
+    ChainPlan.cost dims plan ≤ ChainPlan.cost dims other := by
+  exact matrixChain_reconstructed_optimal hlower hsplit hrec other
 
 end Chapter15
 end CLRS

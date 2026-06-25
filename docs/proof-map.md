@@ -1044,12 +1044,14 @@ substructure argument independently of a particular table implementation.
   - `CLRS.Chapter15.matrixChain_opt_le_planCost`
   - `CLRS.Chapter15.matrixChain_reconstructed_cost_eq`
   - `CLRS.Chapter15.matrixChain_reconstructed_optimal`
+  - `CLRS.Chapter15.matrixChain_reconstructed_cost_le_planCost`
 - Proof pattern: represent a parenthesization as an inductive binary split
   tree, specify a candidate dynamic-programming optimum by its split lower
   bound, then prove by induction that every concrete parenthesization has cost
   at least the candidate optimum.  A second certificate layer records a tight
   split table and proves that any plan reconstructed from that split table has
-  exactly the candidate cost and is globally optimal.
+  exactly the candidate cost, is globally optimal, and has cost no greater than
+  any competing parenthesization of the same interval.
 - Current gap: concrete bottom-up cost-table construction and executable split
   reconstruction remain future targets
 
@@ -1067,13 +1069,21 @@ substructure argument independently of a particular table implementation.
   - `CLRS.Chapter15.LCSTableRecurrence.cons_cons`
   - `CLRS.Chapter15.LCSTableRecurrence.cons_cons_of_eq`
   - `CLRS.Chapter15.LCSTableRecurrence.cons_cons_of_ne`
+  - `CLRS.Chapter15.LCSTableCertificate.nil_left`
+  - `CLRS.Chapter15.LCSTableCertificate.nil_right`
+  - `CLRS.Chapter15.LCSTableCertificate.cons_cons`
+  - `CLRS.Chapter15.LCSTableCertificate.cons_cons_of_eq`
+  - `CLRS.Chapter15.LCSTableCertificate.cons_cons_of_ne`
   - `CLRS.Chapter15.LCSTableCertificate.commonSubsequence_length_le`
   - `CLRS.Chapter15.lcsTable_reconstruction_optimal`
+  - `CLRS.Chapter15.lcsCertificate_of_table_reconstruction_length`
 - Proof pattern: package an LCS certificate as a common subsequence plus a
   universal length upper bound, then prove all certificates for the same inputs
   agree on the optimal length.  The table-certificate layer separately records
-  the CLRS recurrence and proves that a reconstructed common subsequence whose
-  length equals a certified table entry is optimal.
+  the CLRS recurrence, exposes that recurrence directly through
+  `LCSTableCertificate`, and proves that a reconstructed common subsequence
+  whose length equals a certified table entry is optimal and yields a
+  certificate with exactly the table length.
 - Current gap: concrete dynamic-programming length-table construction and
   executable reconstruction algorithm remain future targets
 

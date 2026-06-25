@@ -9,7 +9,9 @@ certificate that a sequence is a longest common subsequence: it is a common
 subsequence, and every other common subsequence has length at most its length.
 It also records the usual dynamic-programming table recurrence and a
 certificate theorem: an exact reconstruction from a table with a global
-upper-bound certificate is an LCS.
+upper-bound certificate is an LCS.  The certificate namespace exposes the
+table recurrence directly, so downstream reconstruction proofs can work from a
+single {lit}`LCSTableCertificate` instead of unpacking its recurrence field.
 
 Current gaps:
 
@@ -147,6 +149,39 @@ theorem commonSubsequence_length_le (cert : LCSTableCertificate table)
     zs.length ≤ table xs ys :=
   cert.upper_bound hzs
 
+/-- A certified table has a zero empty-left boundary row. -/
+theorem nil_left (cert : LCSTableCertificate table) (ys : List α) :
+    table [] ys = 0 := by
+  exact cert.recurrence.nil_left ys
+
+/-- A certified table has a zero empty-right boundary column. -/
+theorem nil_right (cert : LCSTableCertificate table) (xs : List α) :
+    table xs [] = 0 := by
+  exact cert.recurrence.nil_right xs
+
+/-- A certified table satisfies the raw cons/cons CLRS recurrence. -/
+theorem cons_cons (cert : LCSTableCertificate table)
+    (a : α) (xs : List α) (b : α) (ys : List α) :
+    table (a :: xs) (b :: ys) =
+      if a = b then
+        table xs ys + 1
+      else
+        max (table xs (b :: ys)) (table (a :: xs) ys) := by
+  exact cert.recurrence.cons_cons a xs b ys
+
+/-- In a certified table, matching heads use the diagonal entry plus one. -/
+theorem cons_cons_of_eq (cert : LCSTableCertificate table)
+    {a b : α} (hab : a = b) (xs ys : List α) :
+    table (a :: xs) (b :: ys) = table xs ys + 1 := by
+  exact cert.recurrence.cons_cons_of_eq hab xs ys
+
+/-- In a certified table, distinct heads use the maximum one-sided entry. -/
+theorem cons_cons_of_ne (cert : LCSTableCertificate table)
+    {a b : α} (hab : a ≠ b) (xs ys : List α) :
+    table (a :: xs) (b :: ys) =
+      max (table xs (b :: ys)) (table (a :: xs) ys) := by
+  exact cert.recurrence.cons_cons_of_ne hab xs ys
+
 end LCSTableCertificate
 
 /--
@@ -176,6 +211,20 @@ def lcsCertificate_of_table_reconstruction {α : Type u} [DecidableEq α]
   seq := seq
   common := hcommon
   optimal := lcsTable_reconstruction_optimal cert hlen
+
+/--
+The LCS certificate produced from a table reconstruction certifies exactly the
+table entry as its length.
+-/
+theorem lcsCertificate_of_table_reconstruction_length
+    {α : Type u} [DecidableEq α]
+    {table : List α → List α → Nat} (cert : LCSTableCertificate table)
+    {xs ys seq : List α}
+    (hcommon : IsCommonSubsequence xs ys seq)
+    (hlen : seq.length = table xs ys) :
+    (lcsCertificate_of_table_reconstruction cert hcommon hlen).length =
+      table xs ys := by
+  simpa [lcsCertificate_of_table_reconstruction, LCSCertificate.length] using hlen
 
 end Chapter15
 end CLRS
