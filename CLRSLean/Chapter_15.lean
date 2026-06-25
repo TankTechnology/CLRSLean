@@ -10,8 +10,9 @@ CLRS-Lean pass covers three dynamic-programming examples at the mathematical
 optimality-interface level: rod cutting, matrix-chain multiplication, and LCS.
 For matrix-chain multiplication and LCS, the chapter now also records
 table/reconstruction certificates, recurrence wrappers on certified LCS
-tables, and direct reconstruction optimality inequalities, while concrete
-bottom-up implementations remain future refinements.
+tables, direct recurrence consequences for matching and nonmatching LCS heads,
+and direct reconstruction optimality inequalities, while concrete bottom-up
+implementations remain future refinements.
 
 ## Sections
 
@@ -24,7 +25,8 @@ bottom-up implementations remain future refinements.
   Main results: {lit}`CLRS.Chapter15.matrixChain_opt_le_planCost`,
   {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_eq`,
   {lit}`CLRS.Chapter15.matrixChain_reconstructed_optimal`,
-  and {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_le_planCost`.
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_le_planCost`,
+  and {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_eq_of_reconstructed`.
 * 15.4 Longest common subsequence: {lit}`partial`.
   Main results: {lit}`CLRS.Chapter15.LCSCertificate.commonSubsequence_length_le`,
   {lit}`CLRS.Chapter15.LCSCertificate.length_eq_of_certificates`, and
@@ -33,8 +35,12 @@ bottom-up implementations remain future refinements.
   {lit}`CLRS.Chapter15.LCSTableCertificate.nil_left`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.nil_right`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_self`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_of_eq`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.diagonal_lt_cons_cons_of_eq`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_of_ne`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.drop_left_le_of_ne`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.drop_right_le_of_ne`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.commonSubsequence_length_le`,
   {lit}`CLRS.Chapter15.lcsTable_reconstruction_optimal`,
   and {lit}`CLRS.Chapter15.lcsCertificate_of_table_reconstruction_length`.

@@ -12,6 +12,9 @@ certificate theorem: an exact reconstruction from a table with a global
 upper-bound certificate is an LCS.  The certificate namespace exposes the
 table recurrence directly, so downstream reconstruction proofs can work from a
 single {lit}`LCSTableCertificate` instead of unpacking its recurrence field.
+It also exposes convenient recurrence consequences: the matching-head diagonal
+step, the strict diagonal increase, and the one-sided upper bounds used in the
+nonmatching-head case.
 
 Current gaps:
 
@@ -119,12 +122,39 @@ theorem cons_cons_of_eq (h : LCSTableRecurrence table)
     table (a :: xs) (b :: ys) = table xs ys + 1 := by
   simpa [hab] using h.cons_cons a xs b ys
 
+/-- Equal heads use the diagonal table entry plus one. -/
+theorem cons_cons_self (h : LCSTableRecurrence table)
+    (a : α) (xs ys : List α) :
+    table (a :: xs) (a :: ys) = table xs ys + 1 := by
+  exact h.cons_cons_of_eq rfl xs ys
+
+/-- Matching heads strictly increase the diagonal subproblem value. -/
+theorem diagonal_lt_cons_cons_of_eq (h : LCSTableRecurrence table)
+    {a b : α} (hab : a = b) (xs ys : List α) :
+    table xs ys < table (a :: xs) (b :: ys) := by
+  rw [h.cons_cons_of_eq hab xs ys]
+  omega
+
 /-- Distinct heads use the maximum of the two one-sided subproblems. -/
 theorem cons_cons_of_ne (h : LCSTableRecurrence table)
     {a b : α} (hab : a ≠ b) (xs ys : List α) :
     table (a :: xs) (b :: ys) =
       max (table xs (b :: ys)) (table (a :: xs) ys) := by
   simpa [hab] using h.cons_cons a xs b ys
+
+/-- In the nonmatching-head case, dropping the left head gives a lower subproblem. -/
+theorem drop_left_le_of_ne (h : LCSTableRecurrence table)
+    {a b : α} (hab : a ≠ b) (xs ys : List α) :
+    table xs (b :: ys) ≤ table (a :: xs) (b :: ys) := by
+  rw [h.cons_cons_of_ne hab xs ys]
+  exact Nat.le_max_left _ _
+
+/-- In the nonmatching-head case, dropping the right head gives a lower subproblem. -/
+theorem drop_right_le_of_ne (h : LCSTableRecurrence table)
+    {a b : α} (hab : a ≠ b) (xs ys : List α) :
+    table (a :: xs) ys ≤ table (a :: xs) (b :: ys) := by
+  rw [h.cons_cons_of_ne hab xs ys]
+  exact Nat.le_max_right _ _
 
 end LCSTableRecurrence
 
@@ -175,12 +205,36 @@ theorem cons_cons_of_eq (cert : LCSTableCertificate table)
     table (a :: xs) (b :: ys) = table xs ys + 1 := by
   exact cert.recurrence.cons_cons_of_eq hab xs ys
 
+/-- In a certified table, equal heads use the diagonal entry plus one. -/
+theorem cons_cons_self (cert : LCSTableCertificate table)
+    (a : α) (xs ys : List α) :
+    table (a :: xs) (a :: ys) = table xs ys + 1 := by
+  exact cert.recurrence.cons_cons_self a xs ys
+
+/-- In a certified table, matching heads strictly increase the diagonal subproblem value. -/
+theorem diagonal_lt_cons_cons_of_eq (cert : LCSTableCertificate table)
+    {a b : α} (hab : a = b) (xs ys : List α) :
+    table xs ys < table (a :: xs) (b :: ys) := by
+  exact cert.recurrence.diagonal_lt_cons_cons_of_eq hab xs ys
+
 /-- In a certified table, distinct heads use the maximum one-sided entry. -/
 theorem cons_cons_of_ne (cert : LCSTableCertificate table)
     {a b : α} (hab : a ≠ b) (xs ys : List α) :
     table (a :: xs) (b :: ys) =
       max (table xs (b :: ys)) (table (a :: xs) ys) := by
   exact cert.recurrence.cons_cons_of_ne hab xs ys
+
+/-- In a certified table, dropping the left head is bounded by the nonmatching case. -/
+theorem drop_left_le_of_ne (cert : LCSTableCertificate table)
+    {a b : α} (hab : a ≠ b) (xs ys : List α) :
+    table xs (b :: ys) ≤ table (a :: xs) (b :: ys) := by
+  exact cert.recurrence.drop_left_le_of_ne hab xs ys
+
+/-- In a certified table, dropping the right head is bounded by the nonmatching case. -/
+theorem drop_right_le_of_ne (cert : LCSTableCertificate table)
+    {a b : α} (hab : a ≠ b) (xs ys : List α) :
+    table (a :: xs) ys ≤ table (a :: xs) (b :: ys) := by
+  exact cert.recurrence.drop_right_le_of_ne hab xs ys
 
 end LCSTableCertificate
 

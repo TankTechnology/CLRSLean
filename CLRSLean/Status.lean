@@ -115,8 +115,9 @@ which areas should not yet be counted as proof-complete.
   facts, matrix-chain parenthesization optimality plus split-table
   reconstruction certificates, and LCS certificate optimality plus
   table-recurrence reconstruction certificates and recurrence wrappers are
-  proved; bottom-up/memoized execution, executable reconstruction procedures,
-  and optimal binary search trees remain.
+  proved, including matching-head and nonmatching-head recurrence consequences;
+  bottom-up/memoized execution, executable reconstruction procedures, and
+  optimal binary search trees remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
   exact-component Kruskal scan facts, forest/spanning wrappers, and
   certificate-based Kruskal optimality interfaces exist; automatic simple
@@ -629,8 +630,9 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter15.MatrixChainSplitOptimal`,
   {lit}`CLRS.Chapter15.matrixChain_opt_le_planCost`,
   {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_eq`,
-  {lit}`CLRS.Chapter15.matrixChain_reconstructed_optimal`, and
-  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_le_planCost`;
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_optimal`,
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_le_planCost`, and
+  {lit}`CLRS.Chapter15.matrixChain_reconstructed_cost_eq_of_reconstructed`;
   remaining gap: concrete bottom-up cost-table construction and executable
   split reconstruction.
 * 15.4 Longest common subsequence:
@@ -639,13 +641,21 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter15.LCSCertificate.length_eq_of_certificates`, and
   {lit}`CLRS.Chapter15.isCommonSubsequence_comm`,
   {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons`,
+  {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons_self`,
   {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons_of_eq`,
+  {lit}`CLRS.Chapter15.LCSTableRecurrence.diagonal_lt_cons_cons_of_eq`,
   {lit}`CLRS.Chapter15.LCSTableRecurrence.cons_cons_of_ne`,
+  {lit}`CLRS.Chapter15.LCSTableRecurrence.drop_left_le_of_ne`,
+  {lit}`CLRS.Chapter15.LCSTableRecurrence.drop_right_le_of_ne`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.nil_left`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.nil_right`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_self`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_of_eq`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.diagonal_lt_cons_cons_of_eq`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.cons_cons_of_ne`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.drop_left_le_of_ne`,
+  {lit}`CLRS.Chapter15.LCSTableCertificate.drop_right_le_of_ne`,
   {lit}`CLRS.Chapter15.LCSTableCertificate.commonSubsequence_length_le`,
   {lit}`CLRS.Chapter15.lcsTable_reconstruction_optimal`, and
   {lit}`CLRS.Chapter15.lcsCertificate_of_table_reconstruction_length`;

@@ -11,7 +11,9 @@ parenthesization has cost at least the candidate optimum for its interval.
 The file also adds a reconstruction certificate: if a split table records a
 tight split for each nonsingleton interval, then any parenthesization rebuilt
 from that split table has exactly the candidate optimal cost, and therefore has
-cost no greater than any competing parenthesization.
+cost no greater than any competing parenthesization.  Any two plans
+reconstructed from the same tight split table for the same interval have the
+same cost.
 
 Current gaps:
 
@@ -146,6 +148,23 @@ theorem matrixChain_reconstructed_cost_eq {dims : Nat → Nat}
         omega
       rcases hsplit.2 hij with ⟨_hmem, hcost⟩
       simp [ChainPlan.cost, matrixSplitCost, ihLeft, ihRight, hcost]
+
+/--
+Any two parenthesizations reconstructed from the same tight split table for the
+same interval have equal cost.
+-/
+theorem matrixChain_reconstructed_cost_eq_of_reconstructed {dims : Nat → Nat}
+    {opt : Nat → Nat → Nat} {splitAt : Nat → Nat → Nat}
+    (hsplit : MatrixChainSplitOptimal dims opt splitAt)
+    {i j : Nat} {left right : ChainPlan i j}
+    (hleft : ChainPlan.ReconstructedBy splitAt left)
+    (hright : ChainPlan.ReconstructedBy splitAt right) :
+    ChainPlan.cost dims left = ChainPlan.cost dims right := by
+  calc
+    ChainPlan.cost dims left = opt i j :=
+      matrixChain_reconstructed_cost_eq hsplit hleft
+    _ = ChainPlan.cost dims right :=
+      (matrixChain_reconstructed_cost_eq hsplit hright).symm
 
 /--
 Combining a lower-bound table with a tight split-table reconstruction proves
