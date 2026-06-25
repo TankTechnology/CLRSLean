@@ -1175,7 +1175,9 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.insert_minimum_correct`
   - `CLRS.Chapter20.VEB.insert_maximum_correct`
   - `CLRS.Chapter20.VEB.insert_successor_correct`
+  - `CLRS.Chapter20.VEB.insert_successor_none_iff`
   - `CLRS.Chapter20.VEB.insert_predecessor_correct`
+  - `CLRS.Chapter20.VEB.insert_predecessor_none_iff`
   - `CLRS.Chapter20.VEB.delete_correct`
   - `CLRS.Chapter20.VEB.delete_member_iff`
   - `CLRS.Chapter20.VEB.delete_member_deleted_false`
@@ -1183,7 +1185,9 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.delete_minimum_correct`
   - `CLRS.Chapter20.VEB.delete_maximum_correct`
   - `CLRS.Chapter20.VEB.delete_successor_correct`
+  - `CLRS.Chapter20.VEB.delete_successor_none_iff`
   - `CLRS.Chapter20.VEB.delete_predecessor_correct`
+  - `CLRS.Chapter20.VEB.delete_predecessor_none_iff`
   - `CLRS.Chapter20.VEB.operationDepth_zero`
   - `CLRS.Chapter20.VEB.operationDepth_succ`
   - `CLRS.Chapter20.VEB.operationDepth_linear`
@@ -1203,7 +1207,8 @@ of bounded high/low recomposition, and a set-specification layer for the main
 vEB queries and updates.  This includes both positive and empty-result
 extrema/successor/predecessor cases plus membership-after-update,
 direct updated-key and old-key member-preservation corollaries,
-extrema-after-update, and neighbor-query-after-update specifications.  The
+extrema-after-update, and both positive and no-neighbor specifications for
+neighbor queries after updates.  The
 current operation-depth facts expose the base case, successor step, and a
 linear/monotone wrapper over the universe exponent, not yet a full asymptotic
 translation for the original universe size.

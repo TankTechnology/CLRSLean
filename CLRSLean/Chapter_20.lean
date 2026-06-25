@@ -10,9 +10,9 @@ arithmetic, including bounded high/low recomposition facts, and the correctness
 of membership, extrema, successor, predecessor, insert, and delete against a
 represented finite set, including empty-result specifications for extrema,
 successor, and predecessor plus membership-, extrema-, and
-neighbor-query-after-update specifications, direct inserted/deleted key and
-old-key member-preservation corollaries, and operation-depth base/step/linear
-and monotonicity wrappers.
+neighbor-query-after-update positive and no-neighbor specifications, direct
+inserted/deleted key and old-key member-preservation corollaries, and
+operation-depth base/step/linear and monotonicity wrappers.
 
 ## Sections
 
@@ -43,7 +43,9 @@ and monotonicity wrappers.
   {lit}`CLRS.Chapter20.VEB.insert_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_member_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_member_deleted_false`,
@@ -51,7 +53,9 @@ and monotonicity wrappers.
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_zero`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_succ`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_linear`,

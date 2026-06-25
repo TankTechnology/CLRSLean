@@ -115,8 +115,8 @@ which areas should not yet be counted as proof-complete.
 * Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic, bounded
   recomposition facts, and finite-set operation specs, including
   extrema/successor/predecessor positive and empty-result cases plus
-  membership-, extrema-, and neighbor-query-after-update specs, direct
-  member-query preservation corollaries, and operation-depth
+  membership-, extrema-, and neighbor-query-after-update positive/no-neighbor
+  specs, direct member-query preservation corollaries, and operation-depth
   recurrence/monotonicity specs, are proved;
   recursive cluster representation and the {lit}`O(log log u)` bridge remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
