@@ -33,6 +33,12 @@ Main results:
   {lit}`FibHeap.union_mem_right`, {lit}`FibHeap.extractMin_mem_of_ne`,
   {lit}`FibHeap.decreaseKey_mem_old`, and {lit}`FibHeap.delete_mem_of_ne`:
   direct preservation corollaries for old keys after heap operations.
+- Theorems {lit}`FibHeap.insert_minimum_correct`,
+  {lit}`FibHeap.union_minimum_correct`,
+  {lit}`FibHeap.extractMin_remaining_minimum_correct`,
+  {lit}`FibHeap.decreaseKey_minimum_correct`, and
+  {lit}`FibHeap.delete_minimum_correct`: returned minima after heap updates
+  are least elements of the updated key sets.
 - Theorem {lit}`FibHeap.heapPotential_telescope`: heap potential instantiates
   the Chapter 17 potential-method telescoping theorem.
 - Theorem {lit}`FibHeap.fibLowerBound_step`: the Fibonacci-style lower-bound
@@ -178,6 +184,20 @@ theorem insert_mem_old (h : FibHeap) (x y : Int) (hy : y ∈ h.keys) :
   rw [insert_mem_iff]
   exact Or.inr hy
 
+/-- A returned minimum after insertion is least among the inserted key and old keys. -/
+theorem insert_minimum_correct {h : FibHeap} {s : Finset Int} {x m : Int}
+    (hrep : Represents h s) (hmin : minimum (insert x h) = some m) :
+    (m = x ∨ m ∈ s) ∧ m <= x ∧ forall y, y ∈ s -> m <= y := by
+  have hinsert : Represents (insert x h) (Insert.insert x s) :=
+    insert_correct (h := h) (s := s) (x := x) hrep
+  have hmin' := minimum_correct
+    (h := insert x h) (s := Insert.insert x s) (x := m) hinsert hmin
+  refine ⟨?_, ?_, ?_⟩
+  · simpa [Finset.mem_insert] using hmin'.1
+  · exact hmin'.2 x (by simp)
+  · intro y hy
+    exact hmin'.2 y (by simp [hy])
+
 /-- Meld two heaps. -/
 def union (h₁ h₂ : FibHeap) : FibHeap :=
   let ks := h₁.keys ∪ h₂.keys
@@ -207,6 +227,25 @@ theorem union_mem_right (h₁ h₂ : FibHeap) (x : Int) (hx : x ∈ h₂.keys) :
     x ∈ (union h₁ h₂).keys := by
   rw [union_mem_iff]
   exact Or.inr hx
+
+/-- A returned minimum after union is least among both input key sets. -/
+theorem union_minimum_correct {h₁ h₂ : FibHeap} {s₁ s₂ : Finset Int}
+    {m : Int} (hrep₁ : Represents h₁ s₁) (hrep₂ : Represents h₂ s₂)
+    (hmin : minimum (union h₁ h₂) = some m) :
+    (m ∈ s₁ ∨ m ∈ s₂) ∧
+      (forall y, y ∈ s₁ -> m <= y) ∧
+      (forall y, y ∈ s₂ -> m <= y) := by
+  have hunion : Represents (union h₁ h₂) (s₁ ∪ s₂) :=
+    union_correct (h₁ := h₁) (h₂ := h₂) (s₁ := s₁) (s₂ := s₂)
+      hrep₁ hrep₂
+  have hmin' := minimum_correct
+    (h := union h₁ h₂) (s := s₁ ∪ s₂) (x := m) hunion hmin
+  refine ⟨?_, ?_, ?_⟩
+  · simpa [Finset.mem_union] using hmin'.1
+  · intro y hy
+    exact hmin'.2 y (by simp [Finset.mem_union, hy])
+  · intro y hy
+    exact hmin'.2 y (by simp [Finset.mem_union, hy])
 
 /-- Extract the minimum key, if present, and remove it from the heap. -/
 def extractMin (h : FibHeap) : Option (Int × FibHeap) :=
@@ -284,6 +323,22 @@ theorem extractMin_none_iff {h : FibHeap} {s : Finset Int}
       simpa [Finset.not_nonempty_iff_eq_empty] using hkeysEmpty
     simp [hne]
 
+/-- A returned minimum in the heap left by extract-min is least among remaining old keys. -/
+theorem extractMin_remaining_minimum_correct {h h' : FibHeap}
+    {s : Finset Int} {x m : Int} (hrep : Represents h s)
+    (hextract : extractMin h = some (x, h'))
+    (hmin : minimum h' = some m) :
+    m ≠ x ∧ m ∈ s ∧ forall y, y ∈ s -> y ≠ x -> m <= y := by
+  have hextract' := extractMin_correct
+    (h := h) (h' := h') (s := s) (x := x) hrep hextract
+  have hmin' := minimum_correct
+    (h := h') (s := s.erase x) (x := m) hextract'.2.2 hmin
+  have hmem : m ≠ x ∧ m ∈ s := by
+    simpa [Finset.mem_erase] using hmin'.1
+  refine ⟨hmem.1, hmem.2, ?_⟩
+  intro y hy hyx
+  exact hmin'.2 y (by simp [Finset.mem_erase, hyx, hy])
+
 /-- Decrease a key by replacing an old key with a new key. -/
 def decreaseKey (oldKey newKey : Int) (h : FibHeap) : FibHeap :=
   let ks := Insert.insert newKey (h.keys.erase oldKey)
@@ -322,6 +377,27 @@ theorem decreaseKey_mem_old (h : FibHeap) (oldKey newKey y : Int)
   rw [decreaseKey_mem_iff]
   exact Or.inr ⟨hyold, hy⟩
 
+/-- A returned minimum after decrease-key is least among the replacement and old remaining keys. -/
+theorem decreaseKey_minimum_correct {h : FibHeap} {s : Finset Int}
+    {oldKey newKey m : Int} (hrep : Represents h s)
+    (hnew : newKey <= oldKey)
+    (hmin : minimum (decreaseKey oldKey newKey h) = some m) :
+    (m = newKey ∨ (m ≠ oldKey ∧ m ∈ s)) ∧ m <= newKey ∧
+      forall y, y ∈ s -> y ≠ oldKey -> m <= y := by
+  have hdecrease : Represents (decreaseKey oldKey newKey h)
+      (Insert.insert newKey (s.erase oldKey)) :=
+    (decreaseKey_correct (h := h) (s := s) (oldKey := oldKey)
+      (newKey := newKey) hrep hnew).1
+  have hmin' := minimum_correct
+    (h := decreaseKey oldKey newKey h)
+    (s := Insert.insert newKey (s.erase oldKey)) (x := m)
+    hdecrease hmin
+  refine ⟨?_, ?_, ?_⟩
+  · simpa [Finset.mem_insert, Finset.mem_erase] using hmin'.1
+  · exact hmin'.2 newKey (by simp)
+  · intro y hy hyold
+    exact hmin'.2 y (by simp [Finset.mem_insert, Finset.mem_erase, hyold, hy])
+
 /-- Delete a key from the heap. -/
 def delete (x : Int) (h : FibHeap) : FibHeap :=
   let ks := h.keys.erase x
@@ -352,6 +428,20 @@ theorem delete_mem_of_ne (h : FibHeap) (x y : Int) (hxy : y ≠ x)
     y ∈ (delete x h).keys := by
   rw [delete_mem_iff]
   exact ⟨hxy, hy⟩
+
+/-- A returned minimum after deletion is least among the remaining old keys. -/
+theorem delete_minimum_correct {h : FibHeap} {s : Finset Int} {x m : Int}
+    (hrep : Represents h s) (hmin : minimum (delete x h) = some m) :
+    m ≠ x ∧ m ∈ s ∧ forall y, y ∈ s -> y ≠ x -> m <= y := by
+  have hdelete : Represents (delete x h) (s.erase x) :=
+    delete_correct (h := h) (s := s) (x := x) hrep
+  have hmin' := minimum_correct
+    (h := delete x h) (s := s.erase x) (x := m) hdelete hmin
+  have hmem : m ≠ x ∧ m ∈ s := by
+    simpa [Finset.mem_erase] using hmin'.1
+  refine ⟨hmem.1, hmem.2, ?_⟩
+  intro y hy hyx
+  exact hmin'.2 y (by simp [Finset.mem_erase, hyx, hy])
 
 /-- A heap-indexed potential trace for Chapter 17's potential method. -/
 def potentialTrace (heap : Nat -> FibHeap) (actual : Nat -> Int) :
