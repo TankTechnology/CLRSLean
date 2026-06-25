@@ -11,6 +11,8 @@ Main results:
 
 - Predicate {lit}`DynamicTableState.Valid`: the number of stored elements does
   not exceed allocated table size.
+- Theorem {lit}`dynamicPotential_nonneg`: the first-pass table potential is
+  nonnegative.
 - Theorems {lit}`dynamicTableInsertSize_fits` and
   {lit}`dynamicTableDeleteSize_fits`: the first-pass capacity choices can hold
   the post-operation number of stored elements.
@@ -51,6 +53,12 @@ Later resize-specific proofs can replace this with the sharper CLRS potential.
 -/
 def dynamicPotential (s : DynamicTableState) : Int :=
   Int.ofNat (2 * s.num + s.size)
+
+/-- The first-pass dynamic-table potential is nonnegative. -/
+theorem dynamicPotential_nonneg (s : DynamicTableState) :
+    0 <= dynamicPotential s := by
+  unfold dynamicPotential
+  exact Int.natCast_nonneg (2 * s.num + s.size)
 
 /-- Abstract dynamic-table amortized cost for one state transition. -/
 def dynamicTableAmortizedCost
@@ -155,9 +163,7 @@ theorem dynamicTable_amortizedBound
     (before after : DynamicTableState) (actual : Nat) :
     dynamicTableAmortizedCost before after actual <=
       Int.ofNat actual + dynamicPotential after := by
-  have hnonneg : 0 <= dynamicPotential before := by
-    unfold dynamicPotential
-    exact Int.natCast_nonneg (2 * before.num + before.size)
+  have hnonneg : 0 <= dynamicPotential before := dynamicPotential_nonneg before
   unfold dynamicTableAmortizedCost
   omega
 

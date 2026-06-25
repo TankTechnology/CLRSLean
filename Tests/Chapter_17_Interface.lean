@@ -29,6 +29,7 @@ import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 #check CLRS.Chapter17.DynamicTableState
 #check CLRS.Chapter17.DynamicTableState.Valid
 #check CLRS.Chapter17.dynamicPotential
+#check CLRS.Chapter17.dynamicPotential_nonneg
 #check CLRS.Chapter17.dynamicTableAmortizedCost
 #check CLRS.Chapter17.dynamicTableInsertSize
 #check CLRS.Chapter17.dynamicTableInsert

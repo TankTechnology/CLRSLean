@@ -986,6 +986,7 @@ any consistent tree with the same frequency table.
   - `CLRS.Chapter17.binaryCounter_trace_potential_le`
   - `CLRS.Chapter17.binaryCounter_trace_totalFlips_le`
   - `CLRS.Chapter17.binaryCounter_totalFlips_le`
+  - `CLRS.Chapter17.dynamicPotential_nonneg`
   - `CLRS.Chapter17.dynamicTableInsertSize_fits`
   - `CLRS.Chapter17.dynamicTableInsert_valid`
   - `CLRS.Chapter17.dynamicTableInsert_num`
@@ -996,8 +997,8 @@ any consistent tree with the same frequency table.
   - `CLRS.Chapter17.dynamicTableDelete_amortizedBound`
   - `CLRS.Chapter17.dynamicTable_amortizedBound`
 - Proof pattern: finite-prefix sums, accounting credit balance, potential
-  telescoping, executable counter trace induction, size-level table capacity
-  feasibility and transitions
+  telescoping, executable counter trace induction, size-level table potential
+  nonnegativity, capacity feasibility, and transitions
 - Current gap: mutable-array copying, RAM/allocation constants, and sharper
   CLRS load-factor potential refinements remain strengthening targets.
 
@@ -1007,8 +1008,8 @@ sorry-free, and the stack, executable binary-counter trace, and dynamic-table
 examples compile against stable public theorem names.  The executable counter
 trace now has a multi-step potential bound and an empty-counter {lit}`2n` flip
 bound.  Dynamic-table insertion and deletion/contraction now expose both
-size-level capacity feasibility and transition facts, while mutable-array
-copying and allocator semantics remain future refinements.
+size-level potential nonnegativity, capacity feasibility, and transition facts,
+while mutable-array copying and allocator semantics remain future refinements.
 
 ## Chapter 18 - B-Trees
 
