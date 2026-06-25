@@ -1151,6 +1151,7 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.insert_correct`
   - `CLRS.Chapter20.VEB.insert_member_iff`
   - `CLRS.Chapter20.VEB.insert_member_self`
+  - `CLRS.Chapter20.VEB.insert_member_old`
   - `CLRS.Chapter20.VEB.insert_minimum_correct`
   - `CLRS.Chapter20.VEB.insert_maximum_correct`
   - `CLRS.Chapter20.VEB.insert_successor_correct`
@@ -1158,6 +1159,7 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.delete_correct`
   - `CLRS.Chapter20.VEB.delete_member_iff`
   - `CLRS.Chapter20.VEB.delete_member_deleted_false`
+  - `CLRS.Chapter20.VEB.delete_member_of_ne`
   - `CLRS.Chapter20.VEB.delete_minimum_correct`
   - `CLRS.Chapter20.VEB.delete_maximum_correct`
   - `CLRS.Chapter20.VEB.delete_successor_correct`
@@ -1169,9 +1171,9 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.operationDepth_strict_mono`
 - Proof pattern: natural-number quotient/remainder arithmetic, bounded
   high/low recomposition, finite-set representation semantics,
-  extrema/successor via `Finset.min'`/`max'`, direct updated-key member
-  queries, and definition unfolding for first-pass operation-depth recurrence
-  and monotonicity facts
+  extrema/successor via `Finset.min'`/`max'`, direct updated-key and old-key
+  preservation member queries, and definition unfolding for first-pass
+  operation-depth recurrence and monotonicity facts
 - Current gap: recursive min/max-summary-cluster state, word-RAM base cases,
   and an explicit Chapter 3 asymptotic bridge for `O(log log u)` remain
   strengthening targets.
@@ -1180,8 +1182,8 @@ Chapter 20 now proves the high/low/index arithmetic, including both directions
 of bounded high/low recomposition, and a set-specification layer for the main
 vEB queries and updates.  This includes both positive and empty-result
 extrema/successor/predecessor cases plus membership-after-update,
-direct updated-key member-query corollaries, extrema-after-update, and
-neighbor-query-after-update specifications.  The
+direct updated-key and old-key member-preservation corollaries,
+extrema-after-update, and neighbor-query-after-update specifications.  The
 current operation-depth facts expose the base case, successor step, and a
 linear/monotone wrapper over the universe exponent, not yet a full asymptotic
 translation for the original universe size.

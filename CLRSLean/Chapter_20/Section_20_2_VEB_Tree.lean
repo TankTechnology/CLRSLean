@@ -29,9 +29,10 @@ Main results:
   match finite-set insertion and deletion.
 - Theorems {lit}`VEB.insert_member_iff` and {lit}`VEB.delete_member_iff`:
   membership queries after updates match the expected finite-set update.
-- Theorems {lit}`VEB.insert_member_self` and
-  {lit}`VEB.delete_member_deleted_false`: direct member-query corollaries for
-  the updated key after insertion and deletion.
+- Theorems {lit}`VEB.insert_member_self`, {lit}`VEB.insert_member_old`,
+  {lit}`VEB.delete_member_deleted_false`, and
+  {lit}`VEB.delete_member_of_ne`: direct member-query corollaries for the
+  updated key and preserved old keys after insertion and deletion.
 - Theorems {lit}`VEB.insert_minimum_correct`,
   {lit}`VEB.insert_maximum_correct`, {lit}`VEB.delete_minimum_correct`, and
   {lit}`VEB.delete_maximum_correct`: extrema returned after updates are
@@ -295,6 +296,14 @@ theorem insert_member_self {t : Tree} {s : Finset Nat} {x : Nat}
   rw [insert_member_iff (t := t) (s := s) (x := x) (y := x) hrep hx]
   exact Or.inl rfl
 
+/-- Old represented keys remain members after insertion. -/
+theorem insert_member_old {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hy : member y t = true) :
+    member y (insert x t) = true := by
+  rw [insert_member_iff (t := t) (s := s) (x := x) (y := y) hrep hx]
+  exact Or.inr hy
+
 /-- A returned minimum after insertion is the least key among the inserted key and old set. -/
 theorem insert_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
     (hrep : Represents t s) (hx : x < t.univSize)
@@ -391,6 +400,13 @@ theorem delete_member_deleted_false {t : Tree} {s : Finset Nat} {x : Nat}
         x ≠ x ∧ member x t = true :=
         (delete_member_iff (t := t) (s := s) (x := x) (y := x) hrep).mp hmember
     exact False.elim (hbad.1 rfl)
+
+/-- Old keys different from the deleted key remain members after deletion. -/
+theorem delete_member_of_ne {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hxy : y ≠ x) (hy : member y t = true) :
+    member y (delete x t) = true := by
+  rw [delete_member_iff (t := t) (s := s) (x := x) (y := y) hrep]
+  exact ⟨hxy, hy⟩
 
 /-- A returned minimum after deletion is the least remaining old key. -/
 theorem delete_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}

@@ -113,8 +113,8 @@ Start with the chapter pages in the sidebar.
   membership, extrema, successor,
   predecessor, empty-result extrema/successor/predecessor queries, insert, and
   delete, including membership-, extrema-, and neighbor-query-after-update
-  specs, direct member-query corollaries, and operation-depth
-  recurrence/monotonicity specs.
+  specs, direct member-query preservation corollaries, and
+  operation-depth recurrence/monotonicity specs.
 * Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
   Kruskal skeleton, and finite-graph MST wrappers.
 * Progress Dashboard: a compact, generated chapter-by-chapter view of current
