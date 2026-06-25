@@ -29,6 +29,17 @@ Main results:
 * Theorem {lit}`fullGroupsOfFive_medianPivot_partition_size_bound`: both
   strict recursive branches around the pivot satisfy the familiar
   {lit}`7n/10 + O(1)` CLRS size bound.
+* Theorem {lit}`selectRecurrence_linear_step`: a pure {lean}`Nat`
+  substitution step
+  for closing a linear envelope from one one-fifth median subproblem, one
+  {lit}`7n/10 + O(1)` strict branch, and local-work slack.
+* Theorem {lit}`medianOfMediansPivot?_recursive_branch_size_bound`: the
+  proved count bound specialized to the actual filtered recursive branch
+  lists.
+* Theorems {lit}`medianOfMediansPivot?_low_branch_linear_work_step` and
+  {lit}`medianOfMediansPivot?_high_branch_linear_work_step`: executable
+  branch wrappers that connect the median-of-medians pivot bound to the
+  linear-work recurrence step.
 * Theorem {lit}`deterministicSelect?_correct`: a deterministic median-pivot
   instance is rank correct.
 
@@ -36,9 +47,10 @@ Current gaps:
 
 * This is not yet the CLRS linear-time median-of-medians cost theorem.  The
   local five-element median certificate, executable grouping wrapper, grouped
-  split-count core, full-input median-pivot split-count wrapper, and
-  {lit}`7n/10` partition-size packaging are proved below; the remaining hard
-  proof is the associated linear recurrence.
+  split-count core, full-input median-pivot split-count wrapper,
+  {lit}`7n/10` partition-size packaging, and a compact linear-recurrence
+  substitution step are proved below; the remaining hard proof is a concrete
+  cost semantics plus full recurrence induction.
 -/
 
 namespace CLRS
@@ -872,6 +884,84 @@ theorem medianOfMediansPivot?_partition_size_bound {xs : List Nat}
           exact fullGroupsOfFive_medianPivot_partition_size_bound
             (xs := xs) (medians := median :: medians) (pivot := pivot)
             hgroups (by simpa [hgroups] using hsel)
+
+/-! ## Recurrence-size wrappers -/
+
+/--
+Pure arithmetic substitution step for the median-of-medians recurrence.
+
+If the median subproblem has size at most one fifth of the input, the selected
+strict branch satisfies the proved {lit}`7n/10 + O(1)` bound, and the local
+work plus the additive split slack fits in the remaining tenth, then the two
+recursive calls plus local work are bounded by the same linear envelope.
+-/
+theorem selectRecurrence_linear_step
+    {n medianBranch strictBranch localWork C : Nat}
+    (hmedian : 5 * medianBranch ≤ n)
+    (hbranch : 10 * strictBranch ≤ 7 * n + 12)
+    (hlocal : 10 * localWork + 12 * C ≤ C * n) :
+    C * medianBranch + C * strictBranch + localWork ≤ C * n := by
+  have hmedian_scaled : C * (5 * medianBranch) ≤ C * n :=
+    Nat.mul_le_mul_left C hmedian
+  have hmedian_part : 10 * (C * medianBranch) ≤ 2 * (C * n) := by
+    nlinarith
+  have hbranch_scaled : C * (10 * strictBranch) ≤ C * (7 * n + 12) :=
+    Nat.mul_le_mul_left C hbranch
+  have hbranch_part : 10 * (C * strictBranch) ≤ 7 * (C * n) + 12 * C := by
+    nlinarith
+  have htotal :
+      10 * (C * medianBranch + C * strictBranch + localWork) ≤
+        10 * (C * n) := by
+    nlinarith
+  exact Nat.le_of_mul_le_mul_left htotal (by decide : 0 < 10)
+
+/-- The actual strict recursive SELECT branch lists have the CLRS bound. -/
+theorem medianOfMediansPivot?_recursive_branch_size_bound {xs : List Nat}
+    {pivot : Nat} (hsel : medianOfMediansPivot? xs = some pivot) :
+    10 * (xs.filter fun y => decide (y < pivot)).length ≤
+        7 * xs.length + 12 ∧
+      10 * (xs.filter fun y => decide (pivot < y)).length ≤
+        7 * xs.length + 12 := by
+  simpa [ltCount, gtCount] using
+    (medianOfMediansPivot?_partition_size_bound hsel)
+
+/--
+Linear-work recurrence step for the low recursive branch of
+median-of-medians SELECT.
+-/
+theorem medianOfMediansPivot?_low_branch_linear_work_step
+    {xs medians : List Nat} {pivot localWork C : Nat}
+    (hmedians : medianOfFiveGroups? (fullGroupsOfFive xs) = some medians)
+    (hsel : medianOfMediansPivot? xs = some pivot)
+    (hlocal : 10 * localWork + 12 * C ≤ C * xs.length) :
+    C * medians.length +
+        C * (xs.filter fun y => decide (y < pivot)).length + localWork ≤
+      C * xs.length := by
+  have hmedian_size : 5 * medians.length ≤ xs.length := by
+    have hgroups_size := fullGroupsOfFive_length_mul_five_le xs
+    have hcert := fullGroupsOfFive_medianGroupCertificates hmedians
+    simpa [hcert.1] using hgroups_size
+  exact selectRecurrence_linear_step hmedian_size
+    (medianOfMediansPivot?_recursive_branch_size_bound hsel).1 hlocal
+
+/--
+Linear-work recurrence step for the high recursive branch of
+median-of-medians SELECT.
+-/
+theorem medianOfMediansPivot?_high_branch_linear_work_step
+    {xs medians : List Nat} {pivot localWork C : Nat}
+    (hmedians : medianOfFiveGroups? (fullGroupsOfFive xs) = some medians)
+    (hsel : medianOfMediansPivot? xs = some pivot)
+    (hlocal : 10 * localWork + 12 * C ≤ C * xs.length) :
+    C * medians.length +
+        C * (xs.filter fun y => decide (pivot < y)).length + localWork ≤
+      C * xs.length := by
+  have hmedian_size : 5 * medians.length ≤ xs.length := by
+    have hgroups_size := fullGroupsOfFive_length_mul_five_le xs
+    have hcert := fullGroupsOfFive_medianGroupCertificates hmedians
+    simpa [hcert.1] using hgroups_size
+  exact selectRecurrence_linear_step hmedian_size
+    (medianOfMediansPivot?_recursive_branch_size_bound hsel).2 hlocal
 
 /-- SELECT specialized to the executable median-of-medians pivot rule. -/
 def medianOfMediansSelect? (k : Nat) (xs : List Nat) : Option Nat :=

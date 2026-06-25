@@ -13,7 +13,8 @@ theorem layers prove that any returned value satisfies the usual
 order-statistic count certificate.  Section 9.3 also proves the local
 five-element median certificate, executable five-element grouping, grouped
 split-count core, and CLRS-style partition-size bound for the
-median-of-medians pivot.
+median-of-medians pivot, plus a compact recurrence-step wrapper connecting
+that bound to a linear-work envelope.
 
 ## Sections
 
@@ -35,6 +36,10 @@ median-of-medians pivot.
   {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_split_counts`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_fullInput_split_counts`,
   {lit}`CLRS.Chapter09.fullGroupsOfFive_medianPivot_partition_size_bound`,
+  {lit}`CLRS.Chapter09.selectRecurrence_linear_step`,
+  {lit}`CLRS.Chapter09.medianOfMediansPivot?_recursive_branch_size_bound`,
+  {lit}`CLRS.Chapter09.medianOfMediansPivot?_low_branch_linear_work_step`,
+  {lit}`CLRS.Chapter09.medianOfMediansPivot?_high_branch_linear_work_step`,
   {lit}`CLRS.Chapter09.medianGroupCertificates_selectPivot_split_counts`, and
   {lit}`CLRS.Chapter09.medianOfMediansPivot?_partition_size_bound`, and
   {lit}`CLRS.Chapter09.medianOfMediansSelect?_correct`.
@@ -42,8 +47,8 @@ median-of-medians pivot.
 ## Current Gaps
 
 * Randomized SELECT and expected running time require a probability model.
-* Deterministic linear-time SELECT still needs recurrence analysis connecting
-  the proved {lit}`7n/10` partition-size bound to a worst-case linear runtime.
+* Deterministic linear-time SELECT still needs a concrete cost semantics and
+  full recurrence induction on top of the proved recurrence-step wrapper.
 -/
 
 namespace CLRS
