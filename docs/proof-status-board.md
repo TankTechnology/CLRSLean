@@ -58,7 +58,11 @@ section file yet or only enough scaffolding to identify the intended theorem.
 | Chapter 11, expected hashing analysis | Expected-time theorem for chained hashing under a formal probability model. |
 | Chapter 12 pointer-level BST layer | CLRS parent-pointer search/min/max/successor/predecessor/transplant/delete refinement. |
 | Chapter 13 full red-black algorithms | Full insertion/deletion fixup correctness and height theorem. |
-| Chapter 14-15 and 17-22 | Not yet represented in the current Lean tree. |
+| Chapter 14-15 and 21-22 | Not yet represented in the current Lean tree. |
+| Chapter 17 Amortized Analysis | First-pass acceptance standard is fixed: generic aggregate/accounting/potential theorems plus `MULTIPOP`, binary counter, and dynamic-table examples. No Lean module exists yet. |
+| Chapter 18 B-Trees | First-pass acceptance standard is fixed: B-tree invariant, height theorem, search correctness, split-child correctness, and insertion correctness. No Lean module exists yet. |
+| Chapter 19 Fibonacci Heaps | First-pass acceptance standard is fixed: abstract operation correctness, potential-method amortized bounds, and logarithmic degree bound. No Lean module exists yet. |
+| Chapter 20 van Emde Boas Trees | First-pass acceptance standard is fixed: universe decomposition, representation invariant, operation correctness, and `O(log log u)` recurrence wrapper. No Lean module exists yet. |
 | Chapter 23 Prim | Prim's algorithm theorem interface and proof have not been added yet. |
 | Chapter 24 onward | Not yet represented in the current Lean tree. |
 

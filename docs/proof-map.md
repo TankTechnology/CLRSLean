@@ -967,6 +967,80 @@ nonempty frequency table with distinct symbols and positive frequencies.  The
 while `huffmanOfFreqs_cost_le` gives the direct minimum-cost comparison against
 any consistent tree with the same frequency table.
 
+## Chapter 17 - Amortized Analysis
+
+- Lean source: not yet created
+- Status: `not-started`
+- Acceptance standard:
+  `docs/superpowers/specs/2026-06-25-chapters-17-20-acceptance-standards.md`
+- First-pass theorem target: generic aggregate, accounting, and potential
+  method theorems plus the textbook `MULTIPOP`, binary-counter, and dynamic
+  table amortized examples
+- Current gap: no `CLRSLean/Chapter_17.lean` module or section files exist yet
+
+The first accepted pass for Chapter 17 must create the reusable amortized
+analysis layer used by later data-structure chapters.  A `proved` status
+requires sorry-free generic finite-prefix theorems for aggregate/accounting/
+potential arguments, a telescoping potential theorem, and concrete constant
+amortized bounds for `MULTIPOP`, binary-counter increments, and abstract dynamic
+tables.  Mutable arrays, allocation, and exact RAM constants are explicitly
+deferred refinements.
+
+## Chapter 18 - B-Trees
+
+- Lean source: not yet created
+- Status: `not-started`
+- Acceptance standard:
+  `docs/superpowers/specs/2026-06-25-chapters-17-20-acceptance-standards.md`
+- First-pass theorem target: B-tree invariant, height theorem, search
+  correctness, split-child correctness, and insertion correctness
+- Current gap: no `CLRSLean/Chapter_18.lean` module or section files exist yet
+
+The first accepted pass for Chapter 18 must define a minimum-degree B-tree with
+node occupancy bounds, sorted node keys, child-count and separator invariants,
+same-depth leaves, and membership/multiset semantics.  A `proved` status
+requires the CLRS height bound, search correctness, split-child preservation,
+insert-nonfull preservation, and top-level insertion correctness.  Deletion may
+be included in the first pass, but if deletion remains unproved the chapter
+should be marked `partial` rather than `proved`.  Disk-page I/O and pointer
+mutation are deferred.
+
+## Chapter 19 - Fibonacci Heaps
+
+- Lean source: not yet created
+- Status: `not-started`
+- Acceptance standard:
+  `docs/superpowers/specs/2026-06-25-chapters-17-20-acceptance-standards.md`
+- First-pass theorem target: abstract Fibonacci-heap operation correctness,
+  potential-method amortized bounds, and logarithmic maximum-degree bound
+- Current gap: no `CLRSLean/Chapter_19.lean` module or section files exist yet
+
+The first accepted pass for Chapter 19 must provide an abstract heap-ordered
+forest model with roots, marked nodes, degrees, key membership, a minimum
+specification, and the potential `Phi = #trees + 2 * #marked`.  A `proved`
+status requires correctness of make/insert/minimum/union/extract-min/
+decrease-key/delete, an instantiation of the Chapter 17 potential theorem, and
+a Fibonacci subtree-size lower bound that yields `O(log n)` maximum degree.
+Pointer-level circular lists and handle memory safety are deferred.
+
+## Chapter 20 - van Emde Boas Trees
+
+- Lean source: not yet created
+- Status: `not-started`
+- Acceptance standard:
+  `docs/superpowers/specs/2026-06-25-chapters-17-20-acceptance-standards.md`
+- First-pass theorem target: recursive universe decomposition, representation
+  invariant, operation correctness, and `O(log log u)` recurrence wrapper
+- Current gap: no `CLRSLean/Chapter_20.lean` module or section files exist yet
+
+The first accepted pass for Chapter 20 must choose a Lean-friendly universe
+family, prove the `high`/`low`/`index` decomposition lemmas, define a vEB
+representation invariant for `min`, `max`, summary, and clusters, and prove
+correctness of member/min/max/successor/predecessor/insert/delete against a set
+semantics.  A `proved` status also requires packaging the recursive operation
+depth as linear in the universe exponent, hence `O(log log u)` for the original
+universe size.  Word-RAM and bit-vector base-case optimizations are deferred.
+
 ## Chapter 23 - Minimum Spanning Trees
 
 ### Section 23.1 - Growing a minimum spanning tree

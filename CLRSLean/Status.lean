@@ -113,7 +113,19 @@ which areas should not yet be counted as proof-complete.
   transplant, and mutation refinement.
 * Chapter 13 full red-black algorithms: insertion/deletion fixup correctness
   and height theorem.
-* Chapters 14-15 and 17-22: not yet represented.
+* Chapters 14-15 and 21-22: not yet represented.
+* Chapter 17 Amortized Analysis: first-pass acceptance standard is fixed:
+  generic aggregate/accounting/potential theorems plus {lit}`MULTIPOP`, binary
+  counter, and dynamic-table examples.  No Lean module exists yet.
+* Chapter 18 B-Trees: first-pass acceptance standard is fixed: B-tree invariant,
+  height theorem, search correctness, split-child correctness, and insertion
+  correctness.  No Lean module exists yet.
+* Chapter 19 Fibonacci Heaps: first-pass acceptance standard is fixed: abstract
+  operation correctness, potential-method amortized bounds, and logarithmic
+  degree bound.  No Lean module exists yet.
+* Chapter 20 van Emde Boas Trees: first-pass acceptance standard is fixed:
+  universe decomposition, representation invariant, operation correctness, and
+  {lit}`O(log log u)` recurrence wrapper.  No Lean module exists yet.
 * Chapter 23 Prim: theorem interface and proof have not been added.
 * Chapter 24 onward: not yet represented.
 
