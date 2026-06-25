@@ -965,6 +965,66 @@ theorem ceilDivide_allInput_masterCase1_criticalPowerScale
     h_term_upper
 
 /--
+Exact-power all-input Master case 1 stated in the textbook real-log scale
+{lit}`n^(log_b a)`.
+-/
+theorem exactPower_allInput_masterCase1_realLogScale
+    (a b : ℕ) (f T : ℕ → ℝ)
+    (h_rec : ExactPowerRecurrence a b f T)
+    (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_pos : 0 < normalizedValue a b T 0)
+    (h_term_nonneg : ∀ k, 0 ≤ normalizedForcing a b f k)
+    {r C : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt_one : r < 1) (hC_pos : 0 < C)
+    (h_term_upper : ∀ k, normalizedForcing a b f k ≤ C * r ^ k) :
+    Chapter03.isBigTheta T (realLogScale a b) := by
+  exact Chapter03.isBigTheta_trans
+    (exactPower_allInput_masterCase1_criticalPowerScale a b f T h_rec
+      ha hb hT_mono h_base_pos h_term_nonneg hr_nonneg hr_lt_one hC_pos
+      h_term_upper)
+    (criticalPowerScale_isBigTheta_realLogScale a b ha hb)
+
+/--
+Floor-division all-input Master case 1 stated in the textbook real-log scale
+{lit}`n^(log_b a)`.
+-/
+theorem floorDivide_allInput_masterCase1_realLogScale
+    (a b : ℕ) (f T : ℕ → ℝ)
+    (h_rec : FloorDivideRecurrence a b f T)
+    (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_pos : 0 < normalizedValue a b T 0)
+    (h_term_nonneg : ∀ k, 0 ≤ normalizedForcing a b f k)
+    {r C : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt_one : r < 1) (hC_pos : 0 < C)
+    (h_term_upper : ∀ k, normalizedForcing a b f k ≤ C * r ^ k) :
+    Chapter03.isBigTheta T (realLogScale a b) := by
+  exact Chapter03.isBigTheta_trans
+    (floorDivide_allInput_masterCase1_criticalPowerScale a b f T h_rec
+      ha hb hT_mono h_base_pos h_term_nonneg hr_nonneg hr_lt_one hC_pos
+      h_term_upper)
+    (criticalPowerScale_isBigTheta_realLogScale a b ha hb)
+
+/--
+Ceiling-division all-input Master case 1 stated in the textbook real-log scale
+{lit}`n^(log_b a)`.
+-/
+theorem ceilDivide_allInput_masterCase1_realLogScale
+    (a b : ℕ) (f T : ℕ → ℝ)
+    (h_rec : CeilDivideRecurrence a b f T)
+    (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_pos : 0 < normalizedValue a b T 0)
+    (h_term_nonneg : ∀ k, 0 ≤ normalizedForcing a b f k)
+    {r C : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt_one : r < 1) (hC_pos : 0 < C)
+    (h_term_upper : ∀ k, normalizedForcing a b f k ≤ C * r ^ k) :
+    Chapter03.isBigTheta T (realLogScale a b) := by
+  exact Chapter03.isBigTheta_trans
+    (ceilDivide_allInput_masterCase1_criticalPowerScale a b f T h_rec
+      ha hb hT_mono h_base_pos h_term_nonneg hr_nonneg hr_lt_one hC_pos
+      h_term_upper)
+    (criticalPowerScale_isBigTheta_realLogScale a b ha hb)
+
+/--
 Exact-power all-input Master case 1 specialized to {lit}`a = b^p`, with the
 result stated directly as {lit}`Θ(n^p)`.
 -/

@@ -62,10 +62,11 @@ and by future divide-and-conquer runtime proofs.
   case-2 results as {lit}`Θ((⌊log_b n⌋+1)n^p)`.  A real-log bridge
   {name}`CLRS.Chapter04.criticalPowerScale_isBigTheta_realLogScale` now
   connects the discrete scale {lit}`a^(⌊log_b n⌋)` to the textbook scale
-  {lit}`n^(log_b a)` for all {lit}`a ≥ 1` and {lit}`b > 1`, so case-1
-  and case-2 all-input Master wrappers compose with this bridge to yield
-  CLRS-facing {lit}`Θ(n^(log_b a))` bounds.  The remaining gap is a similarly
-  textbook-facing case-3 comparison scale.
+  {lit}`n^(log_b a)` for all {lit}`a ≥ 1` and {lit}`b > 1`, and the named
+  exact/floor/ceiling case-1 wrappers now expose CLRS-facing
+  {lit}`Θ(n^(log_b a))` bounds directly.  The remaining Master gaps are the
+  analogous case-2 real-log-log scale and a textbook-facing case-3 comparison
+  scale.
 -/
 
 namespace CLRS

@@ -57,8 +57,8 @@ Start with the chapter pages in the sidebar.
   exact-power Master method core, floor/ceiling exact-power extraction, and
   all-input transfer bridge with adjacent-power sandwich generation, discrete
   Master-scale wrappers, natural-exponent polynomial wrappers for Master cases
-  1 and 2, and the real-log bridge from {lit}`a^(⌊log_b n⌋)` to
-  {lit}`n^(log_b a)`.
+  1 and 2, the real-log bridge from {lit}`a^(⌊log_b n⌋)` to
+  {lit}`n^(log_b a)`, and named case-1 wrappers in that textbook scale.
 * Chapter 5 - Probabilistic Analysis: the finite rank-symmetry proof for the
   hiring problem and its logarithmic expected-hires bound.
 * Chapter 6 - Heapsort: recursive {lit}`MAX-HEAPIFY` repair, bottom-up
@@ -201,6 +201,9 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`,
   {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`, and
   {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`;
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_realLogScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_realLogScale`, and
+  {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_realLogScale`;
   {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_polynomialScale`,
   {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_polynomialScale`, and
   {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_polynomialScale`;
@@ -213,9 +216,8 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter04.exactPower_allInput_masterCase3_tailDominatedScale`,
   {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase3_tailDominatedScale`,
   and {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase3_tailDominatedScale`.
-  Remaining target: named textbook-facing wrappers that compose the real-log
-  bridge with the case-1/2 all-input theorems, plus the case-3 comparison scale
-  for the forcing-dominated Master statement.
+  Remaining target: a real-log-log case-2 scale and wrapper, plus the case-3
+  comparison scale for the forcing-dominated Master statement.
 * 5.1 Hiring problem: {lit}`proved` for the finite rank-symmetry model.
   Public results: {lit}`CLRS.Chapter05.hireProbability_eq`,
   {lit}`CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,

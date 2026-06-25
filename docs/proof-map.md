@@ -127,11 +127,12 @@ recursion-tree proof methods, the exact-power Master theorem core, and a first
 all-input asymptotic transfer bridge.  Section 4.6 now also proves the
 adjacent-power bridge that generates power-sandwich witnesses from one-step
 comparison-scale bounds, discrete case-1/2/3 Master-scale wrappers, packaged
-floor/ceiling Master cases, and natural-exponent polynomial comparison wrappers
-for cases 1 and 2.  A real-log bridge now connects the discrete scales to the textbook
-`n^(log_b a)` for all `a ≥ 1` and `b > 1`, so case-1 and case-2 wrappers
-compose with it to CLRS-facing asymptotic bounds.  The remaining gap is a
-similarly textbook-facing case-3 comparison scale.
+  floor/ceiling Master cases, and natural-exponent polynomial comparison wrappers
+  for cases 1 and 2.  A real-log bridge now connects the case-1 discrete scale
+  to the textbook `n^(log_b a)` for all `a ≥ 1` and `b > 1`, and the
+  exact/floor/ceiling case-1 wrappers are exposed directly in that scale.  The
+  remaining Master gaps are the analogous case-2 real-log-log scale and a
+  textbook-facing case-3 comparison scale.
 
 ### Section 4.1 - The maximum-subarray problem
 
@@ -255,6 +256,9 @@ similarly textbook-facing case-3 comparison scale.
   - `CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`
   - `CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`
   - `CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`
+  - `CLRS.Chapter04.exactPower_allInput_masterCase1_realLogScale`
+  - `CLRS.Chapter04.floorDivide_allInput_masterCase1_realLogScale`
+  - `CLRS.Chapter04.ceilDivide_allInput_masterCase1_realLogScale`
   - `CLRS.Chapter04.exactPower_allInput_masterCase1_polynomialScale`
   - `CLRS.Chapter04.floorDivide_allInput_masterCase1_polynomialScale`
   - `CLRS.Chapter04.ceilDivide_allInput_masterCase1_polynomialScale`
@@ -291,11 +295,12 @@ similarly textbook-facing case-3 comparison scale.
   `CLRS.Chapter04.realLogScale`, and
   `CLRS.Chapter04.criticalPowerScale_isBigTheta_realLogScale` now connect the
   discrete scale `a^(⌊log_b n⌋)` to the textbook scale `n^(log_b a)` for all
-  `a ≥ 1` and `b > 1`.  Case-1 and case-2 all-input Master wrappers can now be
-  composed with this bridge via `isBigTheta_trans`; the remaining packaging
-  work is to expose those compositions as named textbook-facing theorem
-  wrappers.
-- Current gap: add the named case-1/2 real-log wrappers and a similarly
+  `a ≥ 1` and `b > 1`.  The named case-1 wrappers
+  `exactPower_allInput_masterCase1_realLogScale`,
+  `floorDivide_allInput_masterCase1_realLogScale`, and
+  `ceilDivide_allInput_masterCase1_realLogScale` compose that bridge with the
+  existing case-1 all-input theorems via `isBigTheta_trans`.
+- Current gap: add the case-2 real-log-log scale/wrappers and a similarly
   textbook-facing case-3 comparison scale, connecting the tail-dominated
   discrete scale to `f(n)` with the CLRS regularity condition.
 
@@ -1338,7 +1343,7 @@ accepted edge set is already known to be a spanning tree.
 | Chapter 9 randomized SELECT expected time | `blocked-design` | Selection-by-rank correctness is proved for the specification selector, pivot-style quickselect, and pivot-parametric deterministic SELECT; randomized expected time needs a probability model and cost recurrence. |
 | Chapter 9 deterministic linear-time SELECT | `future-work` | Pivot-parametric deterministic SELECT correctness is proved by `deterministicSelect?_correct`; executable median-of-medians SELECT correctness is proved by `medianOfMediansSelect?_correct`; the local five-element median certificate is proved by `medianOfFive?_certificate`; executable full-input split-count bounds are proved by `fullGroupsOfFive_medianPivot_fullInput_split_counts`; the `7n/10 + O(1)` branch-size bound is proved by `medianOfMediansPivot?_partition_size_bound`; the abstract recurrence induction and linear bound are proved by `selectRecurrence_linear_induction` and `medianOfMedians_linear_bound`. The remaining target is a concrete executable cost theorem feeding that recurrence. |
 | Maximum-subarray runtime analysis | `future-work` | Exhaustive-search, crossing-helper optimality, the executable combine step, and recursive split-tree/fuelled selector correctness are proved; runtime recurrence and RAM-cost refinement remain. |
-| Chapter 4 concrete all-input Master-theorem instantiation | `future-work` | Floor/ceiling exact-power extraction, generic all-input transfer, adjacent-power sandwich generation, the discrete critical-power, log-critical, and tail-dominated wrappers, packaged floor/ceiling cases 1/2/3, natural-exponent polynomial wrappers for cases 1/2, and the real-log bridge for the critical-power scale are proved; named case-1/2 real-log wrappers and the case-3 comparison layer remain. |
+| Chapter 4 concrete all-input Master-theorem instantiation | `future-work` | Floor/ceiling exact-power extraction, generic all-input transfer, adjacent-power sandwich generation, the discrete critical-power, log-critical, and tail-dominated wrappers, packaged floor/ceiling cases 1/2/3, natural-exponent polynomial wrappers for cases 1/2, the real-log bridge for the critical-power scale, and named case-1 real-log wrappers are proved; the case-2 real-log-log wrapper and the case-3 comparison layer remain. |
 | Hash-table expected-time analysis | `blocked-design` | The finite-uniform bucket theorem proves expected chain length equals load factor when the searched bucket is uniform; the remaining work is a full random key or random hash-function model with independence assumptions. |
 | Pointer-level linked lists and free lists | `future-work` | Requires an imperative memory model. |
 | BST transplant and parent-pointer navigation | `future-work` | Functional successor/predecessor queries and functional deletion are proved; pointer-transplant semantics remain. |
