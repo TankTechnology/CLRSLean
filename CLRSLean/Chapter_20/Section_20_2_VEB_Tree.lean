@@ -29,6 +29,9 @@ Main results:
   match finite-set insertion and deletion.
 - Theorems {lit}`VEB.insert_member_iff` and {lit}`VEB.delete_member_iff`:
   membership queries after updates match the expected finite-set update.
+- Theorems {lit}`VEB.insert_member_self` and
+  {lit}`VEB.delete_member_deleted_false`: direct member-query corollaries for
+  the updated key after insertion and deletion.
 - Theorems {lit}`VEB.insert_minimum_correct`,
   {lit}`VEB.insert_maximum_correct`, {lit}`VEB.delete_minimum_correct`, and
   {lit}`VEB.delete_maximum_correct`: extrema returned after updates are
@@ -285,6 +288,13 @@ theorem insert_member_iff {t : Tree} {s : Finset Nat} {x y : Nat}
   rw [Finset.mem_insert]
   rw [← member_correct (t := t) (s := s) (x := y) hrep]
 
+/-- Membership succeeds for the inserted key after insertion. -/
+theorem insert_member_self {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize) :
+    member x (insert x t) = true := by
+  rw [insert_member_iff (t := t) (s := s) (x := x) (y := x) hrep hx]
+  exact Or.inl rfl
+
 /-- A returned minimum after insertion is the least key among the inserted key and old set. -/
 theorem insert_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
     (hrep : Represents t s) (hx : x < t.univSize)
@@ -370,6 +380,17 @@ theorem delete_member_iff {t : Tree} {s : Finset Nat} {x y : Nat}
   rw [member_correct (t := delete x t) (s := s.erase x) (x := y) hdelete]
   rw [Finset.mem_erase]
   rw [← member_correct (t := t) (s := s) (x := y) hrep]
+
+/-- Membership fails for the deleted key after deletion. -/
+theorem delete_member_deleted_false {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) :
+    member x (delete x t) = false := by
+  cases hmember : member x (delete x t)
+  · rfl
+  · have hbad :
+        x ≠ x ∧ member x t = true :=
+        (delete_member_iff (t := t) (s := s) (x := x) (y := x) hrep).mp hmember
+    exact False.elim (hbad.1 rfl)
 
 /-- A returned minimum after deletion is the least remaining old key. -/
 theorem delete_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}

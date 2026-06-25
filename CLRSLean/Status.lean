@@ -113,8 +113,9 @@ which areas should not yet be counted as proof-complete.
 * Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic, bounded
   recomposition facts, and finite-set operation specs, including
   extrema/successor/predecessor positive and empty-result cases plus
-  membership-, extrema-, neighbor-query-after-update, and operation-depth
-  recurrence/monotonicity specs, are proved;
+  membership-, extrema-, and neighbor-query-after-update specs, direct
+  member-query corollaries, and operation-depth recurrence/monotonicity specs,
+  are proved;
   recursive cluster representation and the {lit}`O(log log u)` bridge remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
   exact-component Kruskal scan facts, forest/spanning wrappers, and
@@ -600,12 +601,14 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter20.VEB.predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_member_iff`,
+  {lit}`CLRS.Chapter20.VEB.insert_member_self`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_predecessor_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_member_iff`,
+  {lit}`CLRS.Chapter20.VEB.delete_member_deleted_false`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_correct`,
