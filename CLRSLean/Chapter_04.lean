@@ -54,9 +54,10 @@ and by future divide-and-conquer runtime proofs.
   sandwich hypotheses from monotone comparison scales with eventual one-step
   control.  The discrete {lit}`criticalPowerScale` wrapper now turns
   exact-power {lit}`T(b^i) = Θ(a^i)` bounds into all-input
-  {lit}`T(n) = Θ(a^(⌊log_b n⌋))` bounds.  The full textbook theorem still
-  needs analytic comparison scales and floor/ceiling recurrence models
-  packaged into the final Master cases.
+  {lit}`T(n) = Θ(a^(⌊log_b n⌋))` bounds, and Section 4.6 packages the
+  floor/ceiling recurrence forms of exact-power Master case 1 for this
+  discrete scale.  The full textbook theorem still needs analytic comparison
+  scales and the remaining final Master cases.
 -/
 
 namespace CLRS

@@ -395,5 +395,74 @@ theorem allInput_bigTheta_of_criticalPowerScale
     (criticalPowerScale_powerStepBound a b ha hb)
     h_power_scale
 
+/-! ## Packaged all-input Master case 1 wrappers -/
+
+/--
+All-input wrapper for exact-power Master case 1, using the discrete critical
+scale.  This packages three already-proved layers:
+
+* exact-power Master case 1;
+* adjacent-power all-input transfer;
+* the concrete scale {name}`criticalPowerScale`.
+-/
+theorem exactPower_allInput_masterCase1_criticalPowerScale
+    (a b : ℕ) (f T : ℕ → ℝ)
+    (h_rec : ExactPowerRecurrence a b f T)
+    (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_pos : 0 < normalizedValue a b T 0)
+    (h_term_nonneg : ∀ k, 0 ≤ normalizedForcing a b f k)
+    {r C : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt_one : r < 1) (hC_pos : 0 < C)
+    (h_term_upper : ∀ k, normalizedForcing a b f k ≤ C * r ^ k) :
+    Chapter03.isBigTheta T (criticalPowerScale a b) := by
+  have ha_pos : 0 < (a : ℝ) := by
+    exact_mod_cast Nat.lt_of_lt_of_le Nat.zero_lt_one ha
+  exact allInput_bigTheta_of_criticalPowerScale a b T ha hb hT_mono
+    (master_case1_geometric a b f T h_rec ha_pos h_base_pos h_term_nonneg
+      hr_nonneg hr_lt_one hC_pos h_term_upper)
+
+/--
+Floor-division all-input Master case 1 wrapper.  The theorem starts from the
+all-input recurrence {lit}`T(n) = a T(⌊n/b⌋) + f(n)`, extracts the exact-power
+recurrence, applies exact-power case 1, and transfers the result back to every
+natural input.
+-/
+theorem floorDivide_allInput_masterCase1_criticalPowerScale
+    (a b : ℕ) (f T : ℕ → ℝ)
+    (h_rec : FloorDivideRecurrence a b f T)
+    (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_pos : 0 < normalizedValue a b T 0)
+    (h_term_nonneg : ∀ k, 0 ≤ normalizedForcing a b f k)
+    {r C : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt_one : r < 1) (hC_pos : 0 < C)
+    (h_term_upper : ∀ k, normalizedForcing a b f k ≤ C * r ^ k) :
+    Chapter03.isBigTheta T (criticalPowerScale a b) := by
+  have hb_pos : 0 < b := Nat.lt_trans Nat.zero_lt_one hb
+  exact exactPower_allInput_masterCase1_criticalPowerScale a b f T
+    (exactPowerRecurrence_of_floorDivideRecurrence a b f T h_rec hb_pos)
+    ha hb hT_mono h_base_pos h_term_nonneg hr_nonneg hr_lt_one hC_pos
+    h_term_upper
+
+/--
+Ceiling-division all-input Master case 1 wrapper.  This is the ceiling analogue
+of {name}`floorDivide_allInput_masterCase1_criticalPowerScale`, using the
+natural-number encoding {lit}`⌈n/b⌉ = (n + b - 1) / b`.
+-/
+theorem ceilDivide_allInput_masterCase1_criticalPowerScale
+    (a b : ℕ) (f T : ℕ → ℝ)
+    (h_rec : CeilDivideRecurrence a b f T)
+    (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_pos : 0 < normalizedValue a b T 0)
+    (h_term_nonneg : ∀ k, 0 ≤ normalizedForcing a b f k)
+    {r C : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt_one : r < 1) (hC_pos : 0 < C)
+    (h_term_upper : ∀ k, normalizedForcing a b f k ≤ C * r ^ k) :
+    Chapter03.isBigTheta T (criticalPowerScale a b) := by
+  have hb_pos : 0 < b := Nat.lt_trans Nat.zero_lt_one hb
+  exact exactPower_allInput_masterCase1_criticalPowerScale a b f T
+    (exactPowerRecurrence_of_ceilDivideRecurrence a b f T h_rec hb_pos)
+    ha hb hT_mono h_base_pos h_term_nonneg hr_nonneg hr_lt_one hC_pos
+    h_term_upper
+
 end Chapter04
 end CLRS

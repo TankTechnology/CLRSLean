@@ -54,8 +54,9 @@ under monotone-cost and power-sandwich hypotheses.  Section 4.6 also now proves
 the adjacent-power `Nat.log` interval and derives both sandwich hypotheses from
 monotone comparison scales with eventual one-step control.  It also proves the
 discrete `criticalPowerScale` all-input wrapper for exact-power `Θ(a^i)`
-bounds.  The remaining strengthening is to relate this bridge to analytic CLRS
-comparison scales and package the final floor/ceiling statements.
+bounds, including floor/ceiling recurrence wrappers for exact-power Master
+case 1.  The remaining strengthening is to relate this bridge to analytic CLRS
+comparison scales and package the remaining floor/ceiling statements.
 
 ### Remaining Chapter 4 Sections
 

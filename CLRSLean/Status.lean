@@ -41,7 +41,7 @@ which areas should not yet be counted as proof-complete.
   additive expansions, exact-power Master-method cases, floor/ceiling
   exact-power extraction, the all-input transfer bridge, adjacent-power
   sandwich generation from one-step scale bounds, and a discrete
-  critical-power scale wrapper are proved.
+  critical-power scale wrapper with packaged floor/ceiling case 1 are proved.
 * Chapter 5, Section 5.1: the hiring problem is proved in the finite
   rank-symmetry model.
 * Chapter 6, Sections 6.1-6.5: the indexed array heap layer, recursive
@@ -71,9 +71,9 @@ which areas should not yet be counted as proof-complete.
 * Chapter 3, Section 3.2: many standard-function asymptotic facts are proved,
   but the full CLRS table is not complete.
 * Chapter 4 as a whole: the local proof engines are strong and the first
-  discrete critical-power all-input wrapper is proved, but analytic
-  floor/ceiling Master-theorem instantiations and selected runtime refinements
-  remain.
+  discrete critical-power all-input wrapper is proved, including floor/ceiling
+  recurrence packaging for exact-power Master case 1.  Analytic comparison
+  scales, the remaining Master cases, and selected runtime refinements remain.
 * Chapter 11, Section 11.2: deterministic chained-hash-table operations are
   proved for a fixed hash function; expected-time hashing remains.
 * Chapter 12, Section 12.1: functional BST operations are proved; parent
@@ -154,7 +154,10 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter04.criticalPowerScale`,
   {lit}`CLRS.Chapter04.criticalPowerScale_monotoneAbs`,
   {lit}`CLRS.Chapter04.criticalPowerScale_powerStepBound`, and
-  {lit}`CLRS.Chapter04.allInput_bigTheta_of_criticalPowerScale`.
+  {lit}`CLRS.Chapter04.allInput_bigTheta_of_criticalPowerScale`,
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`,
+  and {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`.
 * 4.3 Substitution method, one-step recurrence model:
   {lit}`CLRS.Chapter04.substitution_upper_bound`,
   {lit}`CLRS.Chapter04.substitution_lower_bound`,
@@ -453,9 +456,10 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   Reason: exact powers, floor/ceiling exact-power extraction, the generic
   all-input transfer bridge, and adjacent-power sandwich generation from
   one-step comparison-scale bounds are proved; the discrete
-  {lit}`criticalPowerScale` all-input wrapper is also proved.  Analytic
-  comparison scales and final floor/ceiling Master-case statements still need
-  to be packaged.
+  {lit}`criticalPowerScale` all-input wrapper is also proved, including
+  floor/ceiling recurrence packaging for exact-power Master case 1.  Analytic
+  comparison scales and the remaining final floor/ceiling Master-case
+  statements still need to be packaged.
 * Chapter 4 Strassen recursive refinement:
   `future-work`.
   Reason: the 2 by 2 block algebra is proved; recursive splitting,
