@@ -24,6 +24,9 @@ Main results:
   the Chapter 17 potential-method telescoping theorem.
 - Theorem {lit}`FibHeap.fibLowerBound_step`: the Fibonacci-style lower-bound
   sequence satisfies the local growth recurrence used by the degree proof.
+- Theorems {lit}`FibHeap.fibLowerBound_pos` and
+  {lit}`FibHeap.fibLowerBound_le_succ`: the lower-bound sequence is positive
+  and adjacent-monotone.
 - Theorem {lit}`FibHeap.degree_bound_log`: the first-pass maximum-degree
   wrapper is bounded by its conservative key-count budget.
 
@@ -242,6 +245,41 @@ def fibLowerBound : Nat -> Nat
 theorem fibLowerBound_step (d : Nat) :
     fibLowerBound (d + 2) = fibLowerBound (d + 1) + fibLowerBound d := by
   rfl
+
+/-- Every Fibonacci-style lower-bound entry is positive. -/
+theorem fibLowerBound_pos (d : Nat) :
+    0 < fibLowerBound d := by
+  induction d using Nat.strong_induction_on with
+  | h d ih =>
+      cases d with
+      | zero =>
+          simp [fibLowerBound]
+      | succ d =>
+          cases d with
+          | zero =>
+              simp [fibLowerBound]
+          | succ d =>
+              change 0 < fibLowerBound (d + 1) + fibLowerBound d
+              have hleft : 0 < fibLowerBound (d + 1) := ih (d + 1) (by omega)
+              omega
+
+/-- Adjacent Fibonacci-style lower-bound entries are monotone. -/
+theorem fibLowerBound_le_succ (d : Nat) :
+    fibLowerBound d <= fibLowerBound (d + 1) := by
+  cases d with
+  | zero =>
+      simp [fibLowerBound]
+  | succ d =>
+      cases d with
+      | zero =>
+          simp [fibLowerBound]
+      | succ d =>
+          have hstep : fibLowerBound (d + 3) =
+              fibLowerBound (d + 2) + fibLowerBound (d + 1) := by
+            simpa using fibLowerBound_step (d + 1)
+          change fibLowerBound (d + 2) <= fibLowerBound (d + 3)
+          rw [hstep]
+          omega
 
 /-- Conservative first-pass maximum-degree proxy. -/
 def maxDegree (h : FibHeap) : Nat :=

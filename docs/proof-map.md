@@ -1057,6 +1057,8 @@ and delete operations are specification wrappers, so the chapter is still
   - `CLRS.Chapter19.FibHeap.delete_correct`
   - `CLRS.Chapter19.FibHeap.heapPotential_telescope`
   - `CLRS.Chapter19.FibHeap.fibLowerBound_step`
+  - `CLRS.Chapter19.FibHeap.fibLowerBound_pos`
+  - `CLRS.Chapter19.FibHeap.fibLowerBound_le_succ`
   - `CLRS.Chapter19.FibHeap.degree_bound_log`
 - Proof pattern: finite-set key semantics, normalized root/mark counters,
   empty-result query characterization, Chapter 17 potential-method
@@ -1069,8 +1071,9 @@ Chapter 19 now records the operation-level Fibonacci-heap contracts against an
 abstract finite key set, including empty-heap construction and empty-result
 minimum/extract-min specifications.  The standard potential function is
 connected to the Chapter 17 telescoping theorem, and the Fibonacci lower-bound
-sequence now exposes its local recurrence.  The degree theorem is deliberately
-conservative for this first pass; it bounds the current
+sequence now exposes its local recurrence, positivity, and adjacent
+monotonicity.  The degree theorem is deliberately conservative for this first
+pass; it bounds the current
 maximum-degree proxy by a key-count budget rather than proving the full
 Fibonacci logarithmic theorem.
 

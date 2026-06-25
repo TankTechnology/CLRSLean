@@ -14,4 +14,6 @@ import CLRSLean.Chapter_19.Section_19_1_Fibonacci_Heap_Model
 #check CLRS.Chapter19.FibHeap.heapPotential_telescope
 #check CLRS.Chapter19.FibHeap.fibLowerBound
 #check CLRS.Chapter19.FibHeap.fibLowerBound_step
+#check CLRS.Chapter19.FibHeap.fibLowerBound_pos
+#check CLRS.Chapter19.FibHeap.fibLowerBound_le_succ
 #check CLRS.Chapter19.FibHeap.degree_bound_log

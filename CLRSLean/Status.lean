@@ -101,8 +101,9 @@ which areas should not yet be counted as proof-complete.
   refinements remain.
 * Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
   empty-heap construction, empty-result query specs, heap-potential telescoping,
-  and a Fibonacci lower-bound recurrence are proved; pointer handles,
-  cascading cuts, and the true Fibonacci logarithmic degree theorem remain.
+  and Fibonacci lower-bound recurrence/positivity/adjacent-monotonicity facts
+  are proved; pointer handles, cascading cuts, and the true Fibonacci
+  logarithmic degree theorem remain.
 * Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic and finite-set
   operation specs, including extrema/successor/predecessor positive and
   empty-result cases, are proved; recursive cluster representation and the
@@ -538,7 +539,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
   {lit}`CLRS.Chapter19.FibHeap.delete_correct`,
   {lit}`CLRS.Chapter19.FibHeap.heapPotential_telescope`,
-  {lit}`CLRS.Chapter19.FibHeap.fibLowerBound_step`, and
+  {lit}`CLRS.Chapter19.FibHeap.fibLowerBound_step`,
+  {lit}`CLRS.Chapter19.FibHeap.fibLowerBound_pos`,
+  {lit}`CLRS.Chapter19.FibHeap.fibLowerBound_le_succ`, and
   {lit}`CLRS.Chapter19.FibHeap.degree_bound_log`;
   remaining gap: pointer handles, cascading cuts, consolidation arrays, and
   the subtree-size induction leading to the true Fibonacci logarithmic degree

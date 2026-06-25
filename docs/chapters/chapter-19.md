@@ -17,6 +17,8 @@
 - `CLRS.Chapter19.FibHeap.delete_correct`
 - `CLRS.Chapter19.FibHeap.heapPotential_telescope`
 - `CLRS.Chapter19.FibHeap.fibLowerBound_step`
+- `CLRS.Chapter19.FibHeap.fibLowerBound_pos`
+- `CLRS.Chapter19.FibHeap.fibLowerBound_le_succ`
 - `CLRS.Chapter19.FibHeap.degree_bound_log`
 
 ## Remaining Work
