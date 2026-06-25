@@ -96,6 +96,7 @@ which areas should not yet be counted as proof-complete.
   function model remains.
 * Chapter 12, Section 12.1: the functional BST theorem boundary is proved for
   search, min/max, insertion, complete successor/predecessor specifications,
+  successor/predecessor existence wrappers, search-after-insert/delete wrappers,
   and deletion wrappers; parent pointers, transplant, and mutation remain.
 * Chapter 13, Section 13.1: local red-black rotation/recoloring invariants and
   the four local insertion-fixup case certificates are proved; composing them
@@ -537,16 +538,20 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter12.BSTree.successor?_least_greater`,
   {lit}`CLRS.Chapter12.BSTree.successor?_eq_some_iff`,
   {lit}`CLRS.Chapter12.BSTree.successor?_eq_none_iff`,
+  {lit}`CLRS.Chapter12.BSTree.successor?_isSome_iff_exists_greater`,
   {lit}`CLRS.Chapter12.BSTree.predecessor?_greatest_less`,
   {lit}`CLRS.Chapter12.BSTree.predecessor?_eq_some_iff`,
   {lit}`CLRS.Chapter12.BSTree.predecessor?_eq_none_iff`,
+  {lit}`CLRS.Chapter12.BSTree.predecessor?_isSome_iff_exists_less`,
   {lit}`CLRS.Chapter12.BSTree.inTree_insert_iff`,
+  {lit}`CLRS.Chapter12.BSTree.search_insert_eq_true_iff`,
   {lit}`CLRS.Chapter12.BSTree.insert_ordered`,
   {lit}`CLRS.Chapter12.BSTree.inTree_delete_iff`,
   {lit}`CLRS.Chapter12.BSTree.delete_ordered`,
   {lit}`CLRS.Chapter12.BSTree.not_inTree_delete_self`,
-  {lit}`CLRS.Chapter12.BSTree.delete_eq_self_of_not_inTree`, and
-  {lit}`CLRS.Chapter12.BSTree.search_delete_self_eq_false`;
+  {lit}`CLRS.Chapter12.BSTree.delete_eq_self_of_not_inTree`,
+  {lit}`CLRS.Chapter12.BSTree.search_delete_self_eq_false`,
+  and {lit}`CLRS.Chapter12.BSTree.search_delete_eq_true_iff`;
   remaining gap: parent-pointer successor/predecessor procedures, transplant,
   and pointer-level mutation remain future section targets.
 * 13.1 Red-black trees:

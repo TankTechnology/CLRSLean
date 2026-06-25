@@ -7,7 +7,8 @@ Chapter 12 studies binary search trees and the operations that preserve their
 ordering invariant.  The current CLRS-Lean pass uses an inductive tree of natural
 keys and proves search, minimum/maximum, insertion, functional
 successor/predecessor, and functional deletion correctness for membership and
-ordering.
+ordering.  It now also exposes reader-facing wrappers for successor/predecessor
+existence and for Boolean search after insertion or deletion.
 
 ## Sections
 
@@ -19,15 +20,19 @@ ordering.
   {lit}`CLRS.Chapter12.BSTree.successor?_least_greater`,
   {lit}`CLRS.Chapter12.BSTree.successor?_eq_some_iff`,
   {lit}`CLRS.Chapter12.BSTree.successor?_eq_none_iff`,
+  {lit}`CLRS.Chapter12.BSTree.successor?_isSome_iff_exists_greater`,
   {lit}`CLRS.Chapter12.BSTree.predecessor?_greatest_less`,
   {lit}`CLRS.Chapter12.BSTree.predecessor?_eq_some_iff`,
   {lit}`CLRS.Chapter12.BSTree.predecessor?_eq_none_iff`,
+  {lit}`CLRS.Chapter12.BSTree.predecessor?_isSome_iff_exists_less`,
   {lit}`CLRS.Chapter12.BSTree.inTree_insert_iff`,
+  {lit}`CLRS.Chapter12.BSTree.search_insert_eq_true_iff`,
   {lit}`CLRS.Chapter12.BSTree.insert_ordered`,
   {lit}`CLRS.Chapter12.BSTree.inTree_delete_iff`,
   {lit}`CLRS.Chapter12.BSTree.not_inTree_delete_self`,
   {lit}`CLRS.Chapter12.BSTree.delete_eq_self_of_not_inTree`,
   {lit}`CLRS.Chapter12.BSTree.search_delete_self_eq_false`,
+  {lit}`CLRS.Chapter12.BSTree.search_delete_eq_true_iff`,
   {lit}`CLRS.Chapter12.BSTree.delete_ordered`.
 
 ## Current Gaps

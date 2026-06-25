@@ -89,8 +89,9 @@ Start with the chapter pages in the sidebar.
   chained-hash-table insert/delete/search facts, and a finite-uniform bucket
   interface proving expected chain length equals the load factor.
 * Chapter 12 - Binary Search Trees: search, minimum/maximum, insertion,
-  complete functional successor/predecessor specifications, and functional
-  deletion correctness for an inductive BST model.
+  complete functional successor/predecessor specifications, Boolean search
+  wrappers after insertion/deletion, and functional deletion correctness for an
+  inductive BST model.
 * Chapter 13 - Red-Black Trees: local rotation, recoloring, red-red repair,
   four insertion-fixup case certificates, and red-black shape invariant lemmas.
 * Chapter 14 - Augmenting Data Structures: order-statistic tree size
@@ -407,15 +408,19 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter12.BSTree.successor?_least_greater`,
   {lit}`CLRS.Chapter12.BSTree.successor?_eq_some_iff`,
   {lit}`CLRS.Chapter12.BSTree.successor?_eq_none_iff`,
+  {lit}`CLRS.Chapter12.BSTree.successor?_isSome_iff_exists_greater`,
   {lit}`CLRS.Chapter12.BSTree.predecessor?_greatest_less`,
   {lit}`CLRS.Chapter12.BSTree.predecessor?_eq_some_iff`,
   {lit}`CLRS.Chapter12.BSTree.predecessor?_eq_none_iff`,
+  {lit}`CLRS.Chapter12.BSTree.predecessor?_isSome_iff_exists_less`,
   {lit}`CLRS.Chapter12.BSTree.inTree_insert_iff`,
+  {lit}`CLRS.Chapter12.BSTree.search_insert_eq_true_iff`,
   {lit}`CLRS.Chapter12.BSTree.insert_ordered`,
   {lit}`CLRS.Chapter12.BSTree.inTree_delete_iff`,
   {lit}`CLRS.Chapter12.BSTree.not_inTree_delete_self`,
   {lit}`CLRS.Chapter12.BSTree.delete_eq_self_of_not_inTree`,
   {lit}`CLRS.Chapter12.BSTree.search_delete_self_eq_false`,
+  {lit}`CLRS.Chapter12.BSTree.search_delete_eq_true_iff`,
   {lit}`CLRS.Chapter12.BSTree.delete_ordered`.
 * 13.1 Red-black trees: {lit}`partial`.
   Current results: {lit}`CLRS.Chapter13.RBTree.inTree_rotateLeft_iff`,

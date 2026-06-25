@@ -901,17 +901,21 @@ stack top is list head, and queue front is list head with enqueue at the back.
   - `CLRS.Chapter12.BSTree.successor?_least_greater`
   - `CLRS.Chapter12.BSTree.successor?_eq_some_iff`
   - `CLRS.Chapter12.BSTree.successor?_eq_none_iff`
+  - `CLRS.Chapter12.BSTree.successor?_isSome_iff_exists_greater`
   - `CLRS.Chapter12.BSTree.predecessor?_greatest_less`
   - `CLRS.Chapter12.BSTree.predecessor?_eq_some_iff`
   - `CLRS.Chapter12.BSTree.predecessor?_eq_none_iff`
+  - `CLRS.Chapter12.BSTree.predecessor?_isSome_iff_exists_less`
   - `CLRS.Chapter12.BSTree.inTree_insert_iff`
   - `CLRS.Chapter12.BSTree.inTree_insert_self`
+  - `CLRS.Chapter12.BSTree.search_insert_eq_true_iff`
   - `CLRS.Chapter12.BSTree.insert_ordered`
   - `CLRS.Chapter12.BSTree.inTree_delete_iff`
   - `CLRS.Chapter12.BSTree.delete_ordered`
   - `CLRS.Chapter12.BSTree.not_inTree_delete_self`
   - `CLRS.Chapter12.BSTree.delete_eq_self_of_not_inTree`
   - `CLRS.Chapter12.BSTree.search_delete_self_eq_false`
+  - `CLRS.Chapter12.BSTree.search_delete_eq_true_iff`
 - Proof pattern: inductive tree membership, bound predicates, ordered invariant,
   extremal-path recursion, iff specifications for successor/predecessor, and
   successor-replacement deletion
@@ -921,10 +925,13 @@ stack top is list head, and queue front is list head with enqueue at the back.
 This section proves the core ordered-tree interface: search is equivalent to
 membership, minimum/maximum return actual extremal keys, functional
 successor/predecessor have complete `some`/`none` specifications, insertion
-adds exactly one key, and functional deletion removes exactly the requested key
-while preserving the BST ordering invariant.  Deleting a missing key is proved
-to leave an ordered tree unchanged, and searching for a deleted key returns
-false.
+exist exactly when a greater/smaller tree key exists, insertion adds exactly
+one key and exposes the corresponding Boolean search theorem, and functional
+deletion removes exactly the requested key while preserving the BST ordering
+invariant.  Deleting a missing key is proved to leave an ordered tree
+unchanged, searching for a deleted key returns false, and the full
+search-after-delete wrapper says that exactly the old keys different from the
+deleted key remain searchable.
 
 ## Chapter 13 - Red-Black Trees
 

@@ -29,14 +29,20 @@ Main results:
   returned successor.
 - Theorem {lit}`successor?_eq_none_iff`: complete none specification for a
   missing successor.
+- Theorem {lit}`successor?_isSome_iff_exists_greater`: successor existence is
+  equivalent to the existence of a greater tree key.
 - Theorem {lit}`predecessor?_greatest_less`: a returned predecessor is the
   greatest tree key strictly less than the query.
 - Theorem {lit}`predecessor?_eq_some_iff`: complete iff specification for a
   returned predecessor.
 - Theorem {lit}`predecessor?_eq_none_iff`: complete none specification for a
   missing predecessor.
+- Theorem {lit}`predecessor?_isSome_iff_exists_less`: predecessor existence is
+  equivalent to the existence of a smaller tree key.
 - Theorem {lit}`inTree_insert_iff`: membership after insertion is exactly the
   old membership relation plus the inserted key.
+- Theorem {lit}`search_insert_eq_true_iff`: searching after insertion succeeds
+  exactly for the inserted key or an old key.
 - Theorem {lit}`insert_ordered`: insertion preserves the BST ordering invariant.
 - Theorem {lit}`inTree_delete_iff`: functional deletion removes exactly the
   requested key.
@@ -47,6 +53,8 @@ Main results:
   ordered tree unchanged.
 - Theorem {lit}`search_delete_self_eq_false`: searching for the deleted key
   after deletion returns false.
+- Theorem {lit}`search_delete_eq_true_iff`: searching after deletion succeeds
+  exactly for old keys different from the deleted key.
 
 Current gaps:
 
@@ -569,6 +577,48 @@ theorem predecessor?_eq_none_iff {x : Nat} {t : BSTree}
         rcases predecessor?_greatest_less ht hp with ⟨hpIn, hpx, _hGreatest⟩
         exact False.elim ((Nat.not_lt_of_ge (hNoLesser p hpIn)) hpx)
 
+/-- A functional successor exists exactly when some tree key is greater. -/
+theorem successor?_isSome_iff_exists_greater {x : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    (successor? x t).isSome ↔ ∃ y, InTree y t ∧ x < y := by
+  constructor
+  · intro hSome
+    cases hs : successor? x t with
+    | none =>
+        simp [hs] at hSome
+    | some s =>
+        rcases successor?_least_greater ht hs with ⟨hsIn, hxs, _hLeast⟩
+        exact ⟨s, hsIn, hxs⟩
+  · intro hExists
+    rcases hExists with ⟨y, hyIn, hxy⟩
+    cases hs : successor? x t with
+    | none =>
+        have hNoGreater := (successor?_eq_none_iff ht).mp hs
+        exact False.elim ((Nat.not_lt_of_ge (hNoGreater y hyIn)) hxy)
+    | some _s =>
+        simp
+
+/-- A functional predecessor exists exactly when some tree key is smaller. -/
+theorem predecessor?_isSome_iff_exists_less {x : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    (predecessor? x t).isSome ↔ ∃ y, InTree y t ∧ y < x := by
+  constructor
+  · intro hSome
+    cases hp : predecessor? x t with
+    | none =>
+        simp [hp] at hSome
+    | some p =>
+        rcases predecessor?_greatest_less ht hp with ⟨hpIn, hpx, _hGreatest⟩
+        exact ⟨p, hpIn, hpx⟩
+  · intro hExists
+    rcases hExists with ⟨y, hyIn, hyx⟩
+    cases hp : predecessor? x t with
+    | none =>
+        have hNoLesser := (predecessor?_eq_none_iff ht).mp hp
+        exact False.elim ((Nat.not_lt_of_ge (hNoLesser y hyIn)) hyx)
+    | some _p =>
+        simp
+
 /-! ## Functional deletion correctness -/
 
 /-- A node is never the empty tree. -/
@@ -918,6 +968,25 @@ theorem search_delete_self_eq_false {x : Nat} {t : BSTree}
         (search_eq_true_iff hOrderedDeleted).mp hsearch
       exact False.elim (hNotInDeleted hxIn)
 
+/-- Searching after deletion succeeds exactly for old keys different from the deleted key. -/
+theorem search_delete_eq_true_iff {x y : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    search y (delete x t) = true ↔ search y t = true ∧ y ≠ x := by
+  have hDeletedOrdered : Ordered (delete x t) := delete_ordered (x := x) ht
+  constructor
+  · intro hSearch
+    have hyDeleted : InTree y (delete x t) :=
+      (search_eq_true_iff hDeletedOrdered).mp hSearch
+    rcases (inTree_delete_iff (x := x) (y := y) ht).mp hyDeleted with
+      ⟨hyOld, hyNe⟩
+    exact ⟨(search_eq_true_iff ht).mpr hyOld, hyNe⟩
+  · intro h
+    rcases h with ⟨hySearch, hyNe⟩
+    have hyOld : InTree y t := (search_eq_true_iff ht).mp hySearch
+    have hyDeleted : InTree y (delete x t) :=
+      (inTree_delete_iff (x := x) (y := y) ht).mpr ⟨hyOld, hyNe⟩
+    exact (search_eq_true_iff hDeletedOrdered).mpr hyDeleted
+
 /-! ## Membership after insertion -/
 
 /-- Insertion adds exactly the inserted key to the tree membership relation. -/
@@ -982,6 +1051,26 @@ theorem insert_ordered {x : Nat} {t : BSTree}
         · simp [insert, Ordered, hxkey, hkeyx]
           exact ⟨hLeft, ihRight hRight, hLt, allGt_insert hkeyx hGt⟩
         · simp [insert, Ordered, hxkey, hkeyx, hLeft, hRight, hLt, hGt]
+
+/-- Searching after insertion succeeds exactly for the inserted key or an old key. -/
+theorem search_insert_eq_true_iff {x y : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    search y (insert x t) = true ↔ y = x ∨ search y t = true := by
+  have hInsertedOrdered : Ordered (insert x t) := insert_ordered (x := x) ht
+  constructor
+  · intro hSearch
+    have hyInserted : InTree y (insert x t) :=
+      (search_eq_true_iff hInsertedOrdered).mp hSearch
+    rcases (inTree_insert_iff x y t).mp hyInserted with hyEq | hyOld
+    · exact Or.inl hyEq
+    · exact Or.inr ((search_eq_true_iff ht).mpr hyOld)
+  · intro h
+    have hyInserted : InTree y (insert x t) := by
+      rcases h with hyEq | hySearch
+      · subst y
+        exact inTree_insert_self x t
+      · exact inTree_insert_of_inTree ((search_eq_true_iff ht).mp hySearch)
+    exact (search_eq_true_iff hInsertedOrdered).mpr hyInserted
 
 end BSTree
 
