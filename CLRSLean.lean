@@ -65,8 +65,8 @@ Start with the chapter pages in the sidebar.
   abstract radix-sort correctness from stable digit passes, and deterministic
   bucket-sort correctness.
 * Chapter 9 - Medians and Order Statistics: selection-by-rank correctness for
-  the specification selector and a pivot-style quickselect model via a
-  count-based order-statistic certificate.
+  the specification selector, pivot-style quickselect, and pivot-parametric
+  deterministic SELECT via a count-based order-statistic certificate.
 * Chapter 10 - Elementary Data Structures: functional stack, queue, and
   linked-list operation proofs.
 * Chapter 11 - Hash Tables: direct-address table correctness and deterministic
@@ -257,9 +257,13 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter09.quickSelect?_mem`,
   `CLRS.Chapter09.quickSelect?_rankCorrect`,
   `CLRS.Chapter09.quickSelect?_correct`.
-* 9.3-9.4 Randomized and deterministic linear-time selection: `future-work`.
-  Planned targets: refine randomized SELECT or median-of-medians SELECT to the
-  same rank certificate, then add the relevant runtime analysis.
+* 9.3 Deterministic selection: `proved` for a pivot-parametric SELECT interface
+  and deterministic median-pivot instance.
+  Public results: `CLRS.Chapter09.selectWithPivot?_correct`,
+  `CLRS.Chapter09.deterministicSelect?_correct`.
+* 9.3-9.4 Linear-time selection refinements: `future-work`.
+  Planned targets: refine CLRS median-of-medians SELECT to the same rank
+  certificate with split-size bounds, then add the relevant runtime analysis.
 * 10.1 Stacks and queues: `proved` for the functional-list model.
   Public results: `CLRS.Chapter10.pop_push`,
   `CLRS.Chapter10.dequeue_enqueue_nonempty`.

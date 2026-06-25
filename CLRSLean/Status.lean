@@ -51,9 +51,10 @@ which areas should not yet be counted as proof-complete.
 * Chapter 8, Sections 8.2-8.4: stable counting-sort bucket correctness,
   abstract radix-sort correctness from stable digit passes, and deterministic
   bucket-sort correctness are proved.
-* Chapter 9, Section 9.2: selection-by-rank correctness is proved for the
-  specification selector and a pivot-style quickselect model with a
-  count-based order-statistic certificate.
+* Chapter 9, Sections 9.2-9.3: selection-by-rank correctness is proved for the
+  specification selector, a pivot-style quickselect model, and a
+  pivot-parametric deterministic SELECT model with a count-based
+  order-statistic certificate.
 * Chapter 10, Sections 10.1-10.2: functional stack, queue, and linked-list
   operation specifications are proved.
 * Chapter 11, Section 11.1: direct-address table insert/search/delete behavior
@@ -87,8 +88,9 @@ which areas should not yet be counted as proof-complete.
   bridge's power-sandwich hypotheses for floor/ceiling recurrences.
 * Chapter 7, Sections 7.2-7.4: in-place partition, performance recurrence,
   randomized quicksort, and expected-time theorem.
-* Chapter 9 linear-time SELECT refinements: pivot-style quickselect is proved;
-  randomized expected time and deterministic median-of-medians SELECT remain.
+* Chapter 9 linear-time SELECT refinements: pivot-parametric deterministic
+  SELECT is proved; randomized expected time and the CLRS median-of-medians
+  split-size/runtime theorem remain.
 * Chapter 11 expected hashing analysis: expected-time theorem under a formal
   probability model.
 * Chapter 12 pointer-level BST layer: CLRS parent-pointer procedures,
@@ -266,6 +268,13 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter09.quickSelect?_mem`,
   {lit}`CLRS.Chapter09.quickSelect?_rankCorrect`, and
   {lit}`CLRS.Chapter09.quickSelect?_correct`.
+* 9.3 Deterministic selection, pivot-parametric interface:
+  {lit}`CLRS.Chapter09.selectWithPivot?_mem`,
+  {lit}`CLRS.Chapter09.selectWithPivot?_rankCorrect`,
+  {lit}`CLRS.Chapter09.selectWithPivot?_correct`,
+  {lit}`CLRS.Chapter09.deterministicSelect?_mem`,
+  {lit}`CLRS.Chapter09.deterministicSelect?_rankCorrect`, and
+  {lit}`CLRS.Chapter09.deterministicSelect?_correct`.
 * 2.1 Insertion sort:
   `CLRS.Chapter02.insertionSort_sorted`,
   `CLRS.Chapter02.insertionSort_perm`.

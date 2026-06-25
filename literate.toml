@@ -15,6 +15,9 @@ description = "A Lean 4 companion for CLRS-style algorithm correctness proofs."
   "CLRSLean.Chapter_04",
   "CLRSLean.Chapter_05",
   "CLRSLean.Chapter_06",
+  "CLRSLean.Chapter_07",
+  "CLRSLean.Chapter_08",
+  "CLRSLean.Chapter_09",
   "CLRSLean.Chapter_10",
   "CLRSLean.Chapter_11",
   "CLRSLean.Chapter_12",
@@ -48,6 +51,18 @@ description = "A Lean 4 companion for CLRS-style algorithm correctness proofs."
   "CLRSLean.Chapter_06.Section_06_3_Building_A_Heap",
   "CLRSLean.Chapter_06.Section_06_4_Heapsort",
   "CLRSLean.Chapter_06.Section_06_5_Priority_Queues",
+]
+"CLRSLean.Chapter_07" = [
+  "CLRSLean.Chapter_07.Section_07_1_Description_Of_Quicksort",
+]
+"CLRSLean.Chapter_08" = [
+  "CLRSLean.Chapter_08.Section_08_2_Counting_Sort",
+  "CLRSLean.Chapter_08.Section_08_3_Radix_Sort",
+  "CLRSLean.Chapter_08.Section_08_4_Bucket_Sort",
+]
+"CLRSLean.Chapter_09" = [
+  "CLRSLean.Chapter_09.Section_09_2_Select_By_Rank",
+  "CLRSLean.Chapter_09.Section_09_3_Deterministic_Select",
 ]
 "CLRSLean.Chapter_10" = [
   "CLRSLean.Chapter_10.Section_10_1_Stacks_And_Queues",
@@ -92,6 +107,15 @@ title = "Chapter 5. Probabilistic Analysis"
 
 [modules."CLRSLean.Chapter_06"]
 title = "Chapter 6. Heapsort"
+
+[modules."CLRSLean.Chapter_07"]
+title = "Chapter 7. Quicksort"
+
+[modules."CLRSLean.Chapter_08"]
+title = "Chapter 8. Sorting in Linear Time"
+
+[modules."CLRSLean.Chapter_09"]
+title = "Chapter 9. Medians and Order Statistics"
 
 [modules."CLRSLean.Chapter_10"]
 title = "Chapter 10. Elementary Data Structures"
@@ -161,6 +185,24 @@ title = "6.4. The Heapsort Algorithm"
 
 [modules."CLRSLean.Chapter_06.Section_06_5_Priority_Queues"]
 title = "6.5. Priority Queues"
+
+[modules."CLRSLean.Chapter_07.Section_07_1_Description_Of_Quicksort"]
+title = "7.1. Description of Quicksort"
+
+[modules."CLRSLean.Chapter_08.Section_08_2_Counting_Sort"]
+title = "8.2. Counting Sort"
+
+[modules."CLRSLean.Chapter_08.Section_08_3_Radix_Sort"]
+title = "8.3. Radix Sort"
+
+[modules."CLRSLean.Chapter_08.Section_08_4_Bucket_Sort"]
+title = "8.4. Bucket Sort"
+
+[modules."CLRSLean.Chapter_09.Section_09_2_Select_By_Rank"]
+title = "9.2. Selection by Rank"
+
+[modules."CLRSLean.Chapter_09.Section_09_3_Deterministic_Select"]
+title = "9.3. Deterministic Selection"
 
 [modules."CLRSLean.Chapter_10.Section_10_1_Stacks_And_Queues"]
 title = "10.1. Stacks and Queues"

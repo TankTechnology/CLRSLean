@@ -29,6 +29,7 @@ CLRSLean/Chapter_07/Section_07_1_Description_Of_Quicksort.lean
 CLRSLean/Chapter_08/Section_08_2_Counting_Sort.lean
 CLRSLean/Chapter_08/Section_08_3_Radix_Sort.lean
 CLRSLean/Chapter_09/Section_09_2_Select_By_Rank.lean
+CLRSLean/Chapter_09/Section_09_3_Deterministic_Select.lean
 CLRSLean/Chapter_10/Section_10_1_Stacks_And_Queues.lean
 CLRSLean/Chapter_10/Section_10_2_Linked_Lists.lean
 CLRSLean/Chapter_11/Section_11_1_Direct_Address_Tables.lean
@@ -65,6 +66,7 @@ In prose and on the future website, these appear as:
 - Section 8.3 - Radix sort
 - Section 8.4 - Bucket sort
 - Section 9.2 - Selection by rank
+- Section 9.3 - Deterministic selection
 - Section 10.1 - Stacks and queues
 - Section 10.2 - Linked lists
 - Section 11.1 - Direct-address tables
@@ -105,6 +107,7 @@ should remain import-friendly.
 | Section 8.3 - Radix sort | `CLRSLean/Chapter_08/Section_08_3_Radix_Sort.lean` | `proved` for the abstract stable digit-pass model | `CLRS.Chapter08.radixPass_orderedRel`, `CLRS.Chapter08.radixSortBy_ordered`, `CLRS.Chapter08.radixSortBy_mem_iff`, `CLRS.Chapter08.radixSortBy_perm`, `CLRS.Chapter08.radixSortBy_correct` |
 | Section 8.4 - Bucket sort | `CLRSLean/Chapter_08/Section_08_4_Bucket_Sort.lean` | `proved` for deterministic bucket-index correctness | `CLRS.Chapter08.bucketSortBy_ordered`, `CLRS.Chapter08.bucketSortBy_perm`, `CLRS.Chapter08.bucketSortBy_correct`, `CLRS.Chapter08.bucketSortByRank_correct` |
 | Section 9.2 - Selection by rank | `CLRSLean/Chapter_09/Section_09_2_Select_By_Rank.lean` | `proved` for the specification selector and pivot-style quickselect | `CLRS.Chapter09.selectByRank?_mem`, `CLRS.Chapter09.selectByRank?_rankCorrect`, `CLRS.Chapter09.selectByRank?_correct`, `CLRS.Chapter09.quickSelect?_mem`, `CLRS.Chapter09.quickSelect?_rankCorrect`, `CLRS.Chapter09.quickSelect?_correct` |
+| Section 9.3 - Deterministic selection | `CLRSLean/Chapter_09/Section_09_3_Deterministic_Select.lean` | `proved` for pivot-parametric deterministic SELECT correctness | `CLRS.Chapter09.selectWithPivot?_mem`, `CLRS.Chapter09.selectWithPivot?_rankCorrect`, `CLRS.Chapter09.selectWithPivot?_correct`, `CLRS.Chapter09.deterministicSelect?_mem`, `CLRS.Chapter09.deterministicSelect?_rankCorrect`, `CLRS.Chapter09.deterministicSelect?_correct` |
 | Section 10.1 - Stacks and queues | `CLRSLean/Chapter_10/Section_10_1_Stacks_And_Queues.lean` | `proved` | `CLRS.Chapter10.pop_push`, `CLRS.Chapter10.dequeue_enqueue_nonempty` |
 | Section 10.2 - Linked lists | `CLRSLean/Chapter_10/Section_10_2_Linked_Lists.lean` | `proved` | `CLRS.Chapter10.listSearch_sound`, `CLRS.Chapter10.mem_listDeleteAll_iff` |
 | Section 11.1 - Direct-address tables | `CLRSLean/Chapter_11/Section_11_1_Direct_Address_Tables.lean` | `proved` | `CLRS.Chapter11.search_insert_same`, `CLRS.Chapter11.search_delete_same` |

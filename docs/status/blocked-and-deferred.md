@@ -216,19 +216,23 @@ distribution, so it remains a design-level proof task.
 ### Chapter 9 Selection Refinements
 
 - Related sections: Sections 9.2-9.4 - Selection and order statistics
-- Status: `future-work` for median-of-medians and runtime refinements;
-  `blocked-design` for randomized expected-time analysis
+- Status: `future-work` for CLRS median-of-medians split-size/runtime
+  refinements; `blocked-design` for randomized expected-time analysis
 
 Section 9.2 proves the stable rank-certificate interface:
 `CLRS.Chapter09.selectByRank?_correct` shows that the specification selector
 returns an input value whose strict-lower count is at most the requested rank
 and whose weak-lower count is greater than that rank.  The same certificate is
 now proved for pivot-style quickselect by `CLRS.Chapter09.quickSelect?_correct`.
+Section 9.3 factors the proof through a pivot-parametric deterministic SELECT
+interface: `CLRS.Chapter09.selectWithPivot?_correct` proves correctness for any
+membership-safe pivot rule, and `CLRS.Chapter09.deterministicSelect?_correct`
+instantiates it with a deterministic median pivot.
 
 The remaining hard work splits into two tracks.  Randomized SELECT needs a
-probability model for random pivots and an expected-cost argument.  Deterministic
-linear-time SELECT needs the median-of-medians partition-size inequalities and
-a recurrence proof.
+probability model for random pivots and an expected-cost argument.
+Deterministic linear-time SELECT needs the CLRS median-of-medians
+partition-size inequalities and a recurrence proof.
 
 ### Pointer-Level Linked Lists
 

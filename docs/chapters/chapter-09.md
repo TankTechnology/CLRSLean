@@ -1,7 +1,8 @@
 # Chapter 9 - Medians and Order Statistics
 
-Chapter 9 now has compiler-clean correctness interfaces for both the
-specification selector and a pivot-style quickselect model.
+Chapter 9 now has compiler-clean correctness interfaces for the specification
+selector, a pivot-style quickselect model, and a pivot-parametric deterministic
+SELECT model.
 
 ## Section 9.2 - Selection by rank
 
@@ -33,9 +34,34 @@ The rank certificate handles duplicates in the standard way.  If the returned
 value is `x`, then the number of input elements strictly smaller than `x` is at
 most `k`, and the number of input elements at most `x` is greater than `k`.
 
+## Section 9.3 - Deterministic selection
+
+- Lean source: `CLRSLean/Chapter_09/Section_09_3_Deterministic_Select.lean`
+- Status: `proved` for pivot-parametric deterministic SELECT correctness
+- Main theorem: `CLRS.Chapter09.deterministicSelect?_correct`
+
+The section abstracts SELECT over a pivot rule.  The only required hypothesis is
+that the pivot rule returns a member of the current input list.  Under that
+assumption, the recursive selector preserves the Chapter 9.2 rank certificate
+through the `< pivot`, pivot-block, and `> pivot` branches.
+
+The theorem layer proves:
+
+- `CLRS.Chapter09.selectWithPivot?_mem`: any successful pivot-parametric SELECT
+  result came from the input.
+- `CLRS.Chapter09.selectWithPivot?_rankCorrect`: pivot-parametric SELECT
+  satisfies the order-statistic count certificate.
+- `CLRS.Chapter09.selectWithPivot?_correct`: the reader-facing wrapper for any
+  membership-safe pivot rule.
+- `CLRS.Chapter09.deterministicPivot?_mem`: the deterministic median-pivot rule
+  returns only input elements.
+- `CLRS.Chapter09.deterministicSelect?_correct`: the deterministic median-pivot
+  SELECT instance satisfies the same rank certificate.
+
 ## Hard Follow-Up Work
 
 - Randomized SELECT expected time: requires a probability model for randomized
   pivots and a cost recurrence or indicator argument.
-- Deterministic linear-time SELECT: requires median-of-medians partition
-  bounds and recurrence analysis.
+- Deterministic linear-time SELECT: the rank-correct deterministic interface is
+  proved, but the CLRS median-of-medians split-size bounds and recurrence
+  analysis remain.
