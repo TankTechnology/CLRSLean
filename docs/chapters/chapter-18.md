@@ -17,14 +17,19 @@
 - `CLRS.Chapter18.BTree.insert_preserves_model`
 - `CLRS.Chapter18.BTree.insert_mem_iff`
 - `CLRS.Chapter18.BTree.insert_search_iff`
+- `CLRS.Chapter18.BTree.insert_mem_self`
+- `CLRS.Chapter18.BTree.insert_search_self`
 - `CLRS.Chapter18.BTree.delete_preserves_model`
 - `CLRS.Chapter18.BTree.delete_mem_iff`
 - `CLRS.Chapter18.BTree.delete_search_iff`
+- `CLRS.Chapter18.BTree.delete_not_mem`
+- `CLRS.Chapter18.BTree.delete_search_deleted_false`
 
 ## Remaining Work
 
 The current chapter uses a mathematical key-membership model, a minimum-key
 height-expression recurrence plus monotonicity facts, and specification wrappers
-for split/insert/delete.
+for split/insert/delete, including direct query corollaries for the inserted
+and deleted keys.
 Full separator ordering, same-depth leaves, node-level deletion repair,
 disk-page I/O, and pointer-level mutation remain future refinements.

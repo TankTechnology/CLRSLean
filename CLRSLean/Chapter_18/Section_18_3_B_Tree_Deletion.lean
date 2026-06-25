@@ -16,6 +16,9 @@ Main results:
   membership of a key different from the deleted key.
 - Theorem {lit}`BTree.delete_search_iff`: searching after deletion succeeds
   exactly for old searchable keys different from the deleted key.
+- Theorems {lit}`BTree.delete_not_mem` and
+  {lit}`BTree.delete_search_deleted_false`: the deleted key is absent and not
+  searchable after deletion.
 
 Current gaps:
 
@@ -47,6 +50,12 @@ theorem delete_mem_iff (x y : Nat) (t : BTree) :
   · intro h
     exact ⟨h.2, h.1⟩
 
+/-- The deleted key is absent after specification deletion. -/
+theorem delete_not_mem (x : Nat) (t : BTree) :
+    ¬ mem x (delete x t) := by
+  rw [delete_mem_iff x x t]
+  simp
+
 /-- Searching after deletion succeeds exactly for remaining old keys. -/
 theorem delete_search_iff {minDegree x y : Nat} {t : BTree}
     (hvalid : Valid minDegree t) :
@@ -56,6 +65,19 @@ theorem delete_search_iff {minDegree x y : Nat} {t : BTree}
   rw [search_correct (minDegree := minDegree) (x := y) (t := delete x t) hdelete]
   rw [delete_mem_iff]
   rw [← search_correct (minDegree := minDegree) (x := y) (t := t) hvalid]
+
+/-- Searching for the deleted key fails after specification deletion. -/
+theorem delete_search_deleted_false {minDegree x : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) :
+    search x (delete x t) = false := by
+  have hdelete : Valid minDegree (delete x t) :=
+    delete_preserves_model (minDegree := minDegree) (x := x) (t := t) hvalid
+  cases hsearch : search x (delete x t)
+  · rfl
+  · have hmem :
+        mem x (delete x t) :=
+        (search_correct (minDegree := minDegree) (x := x) (t := delete x t) hdelete).mp hsearch
+    exact False.elim ((delete_not_mem x t) hmem)
 
 end BTree
 end Chapter18
