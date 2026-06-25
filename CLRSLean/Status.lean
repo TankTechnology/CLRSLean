@@ -117,8 +117,8 @@ which areas should not yet be counted as proof-complete.
   recomposition facts, and finite-set operation specs, including
   extrema/successor/predecessor positive and empty-result cases plus
   membership-, extrema-, and neighbor-query-after-update positive/no-neighbor
-  specs, direct member-query preservation corollaries, and operation-depth
-  recurrence/monotonicity specs, are proved;
+  specs, extrema empty-after-update specs, direct member-query preservation
+  corollaries, and operation-depth recurrence/monotonicity specs, are proved;
   recursive cluster representation and the {lit}`O(log log u)` bridge remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
   exact-component Kruskal scan facts, forest/spanning wrappers, and
@@ -637,17 +637,25 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter20.VEB.insert_member_self`,
   {lit}`CLRS.Chapter20.VEB.insert_member_old`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_member_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_member_deleted_false`,
   {lit}`CLRS.Chapter20.VEB.delete_member_of_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_zero`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_succ`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_linear`,

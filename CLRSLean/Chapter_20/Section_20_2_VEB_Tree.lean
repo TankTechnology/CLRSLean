@@ -37,6 +37,10 @@ Main results:
   {lit}`VEB.insert_maximum_correct`, {lit}`VEB.delete_minimum_correct`, and
   {lit}`VEB.delete_maximum_correct`: extrema returned after updates are
   exactly extrema of the updated finite set.
+- Theorems {lit}`VEB.insert_minimum_none_iff`,
+  {lit}`VEB.insert_maximum_none_iff`, {lit}`VEB.delete_minimum_none_iff`, and
+  {lit}`VEB.delete_maximum_none_iff`: empty extrema results after updates
+  match whether the updated finite set is empty.
 - Theorems {lit}`VEB.insert_successor_correct`,
   {lit}`VEB.insert_predecessor_correct`, {lit}`VEB.delete_successor_correct`,
   and {lit}`VEB.delete_predecessor_correct`: successor and predecessor queries
@@ -324,6 +328,15 @@ theorem insert_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   · intro y hy
     exact hmin'.2 y (by simp [hy])
 
+/-- Insertion makes the updated set nonempty, so no minimum-empty result is possible. -/
+theorem insert_minimum_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize) :
+    minimum (insert x t) = none <-> False := by
+  have hinsert : Represents (insert x t) (Insert.insert x s) :=
+    insert_correct (t := t) (s := s) (x := x) hrep hx
+  rw [minimum_none_iff (t := insert x t) (s := Insert.insert x s) hinsert]
+  simp
+
 /-- A returned maximum after insertion is the greatest key among the inserted key and old set. -/
 theorem insert_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
     (hrep : Represents t s) (hx : x < t.univSize)
@@ -338,6 +351,15 @@ theorem insert_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   · exact hmax'.2 x (by simp)
   · intro y hy
     exact hmax'.2 y (by simp [hy])
+
+/-- Insertion makes the updated set nonempty, so no maximum-empty result is possible. -/
+theorem insert_maximum_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize) :
+    maximum (insert x t) = none <-> False := by
+  have hinsert : Represents (insert x t) (Insert.insert x s) :=
+    insert_correct (t := t) (s := s) (x := x) hrep hx
+  rw [maximum_none_iff (t := insert x t) (s := Insert.insert x s) hinsert]
+  simp
 
 /-- A returned successor after insertion is the least updated key greater than the query. -/
 theorem insert_successor_correct {t : Tree} {s : Finset Nat} {x q y : Nat}
@@ -449,6 +471,30 @@ theorem delete_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   intro y hy hyx
   exact hmin'.2 y (by simp [Finset.mem_erase, hyx, hy])
 
+/-- No minimum after deletion means every old key was the deleted key. -/
+theorem delete_minimum_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) :
+    minimum (delete x t) = none <-> forall y, y ∈ s -> y = x := by
+  have hdelete : Represents (delete x t) (s.erase x) :=
+    delete_correct (t := t) (s := s) (x := x) hrep
+  rw [minimum_none_iff (t := delete x t) (s := s.erase x) hdelete]
+  constructor
+  · intro hempty y hy
+    by_contra hyx
+    have hyerase : y ∈ s.erase x := by
+      simp [Finset.mem_erase, hyx, hy]
+    have hnot : y ∉ s.erase x := by
+      simp [hempty]
+    exact False.elim (hnot hyerase)
+  · intro hall
+    ext y
+    constructor
+    · intro hyerase
+      rw [Finset.mem_erase] at hyerase
+      exact False.elim (hyerase.1 (hall y hyerase.2))
+    · intro hyempty
+      simp at hyempty
+
 /-- A returned maximum after deletion is the greatest remaining old key. -/
 theorem delete_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
     (hrep : Represents t s) (hmax : maximum (delete x t) = some m) :
@@ -462,6 +508,30 @@ theorem delete_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   refine ⟨hmem.1, hmem.2, ?_⟩
   intro y hy hyx
   exact hmax'.2 y (by simp [Finset.mem_erase, hyx, hy])
+
+/-- No maximum after deletion means every old key was the deleted key. -/
+theorem delete_maximum_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) :
+    maximum (delete x t) = none <-> forall y, y ∈ s -> y = x := by
+  have hdelete : Represents (delete x t) (s.erase x) :=
+    delete_correct (t := t) (s := s) (x := x) hrep
+  rw [maximum_none_iff (t := delete x t) (s := s.erase x) hdelete]
+  constructor
+  · intro hempty y hy
+    by_contra hyx
+    have hyerase : y ∈ s.erase x := by
+      simp [Finset.mem_erase, hyx, hy]
+    have hnot : y ∉ s.erase x := by
+      simp [hempty]
+    exact False.elim (hnot hyerase)
+  · intro hall
+    ext y
+    constructor
+    · intro hyerase
+      rw [Finset.mem_erase] at hyerase
+      exact False.elim (hyerase.1 (hall y hyerase.2))
+    · intro hyempty
+      simp at hyempty
 
 /-- A returned successor after deletion is the least remaining old key greater than the query. -/
 theorem delete_successor_correct {t : Tree} {s : Finset Nat} {x q y : Nat}
