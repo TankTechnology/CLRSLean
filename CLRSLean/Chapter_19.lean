@@ -13,6 +13,7 @@ Fibonacci-number strengthening.
 
 * 19.1 Fibonacci-heap model: {lit}`partial`.
   Main results:
+  {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,

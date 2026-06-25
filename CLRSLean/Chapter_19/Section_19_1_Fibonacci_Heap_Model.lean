@@ -13,6 +13,8 @@ Main results:
 
 - Theorem {lit}`FibHeap.minimum_correct`: a returned minimum is represented and
   is no larger than any represented key.
+- Theorem {lit}`FibHeap.makeHeap_correct`: the empty heap represents the empty
+  key set.
 - Theorems {lit}`FibHeap.insert_correct`, {lit}`FibHeap.union_correct`,
   {lit}`FibHeap.extractMin_correct`, {lit}`FibHeap.decreaseKey_correct`, and
   {lit}`FibHeap.delete_correct`: operations match finite-set specifications.
@@ -51,6 +53,13 @@ def Represents (h : FibHeap) (s : Finset Int) : Prop :=
 /-- The empty heap. -/
 def makeHeap : FibHeap :=
   { keys := ∅, roots := 0, marked := 0 }
+
+/-- The empty heap represents the empty key set. -/
+theorem makeHeap_correct :
+    Represents makeHeap ∅ := by
+  constructor
+  · simp [makeHeap]
+  · simp [Valid, makeHeap]
 
 /-- The standard Fibonacci-heap potential {lit}`roots + 2 * marked`. -/
 def potential (h : FibHeap) : Int :=

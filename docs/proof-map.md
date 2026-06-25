@@ -1027,6 +1027,7 @@ complete page-level mutation proof.
   `CLRSLean/Chapter_19/Section_19_1_Fibonacci_Heap_Model.lean`
 - Status: `partial`
 - Main proved theorems:
+  - `CLRS.Chapter19.FibHeap.makeHeap_correct`
   - `CLRS.Chapter19.FibHeap.minimum_correct`
   - `CLRS.Chapter19.FibHeap.insert_correct`
   - `CLRS.Chapter19.FibHeap.union_correct`
@@ -1042,10 +1043,11 @@ complete page-level mutation proof.
   subtree-size/log-degree proof remain strengthening targets.
 
 Chapter 19 now records the operation-level Fibonacci-heap contracts against an
-abstract finite key set.  The standard potential function is connected to the
-Chapter 17 telescoping theorem.  The degree theorem is deliberately conservative
-for this first pass; it bounds the current maximum-degree proxy by a key-count
-budget rather than proving the full Fibonacci logarithmic theorem.
+abstract finite key set, including empty-heap construction.  The standard
+potential function is connected to the Chapter 17 telescoping theorem.  The
+degree theorem is deliberately conservative for this first pass; it bounds the
+current maximum-degree proxy by a key-count budget rather than proving the full
+Fibonacci logarithmic theorem.
 
 ## Chapter 20 - van Emde Boas Trees
 

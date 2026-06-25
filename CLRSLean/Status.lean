@@ -95,9 +95,10 @@ which areas should not yet be counted as proof-complete.
 * Chapter 18, Sections 18.1-18.2: a mathematical B-tree model has search,
   minimum-key height-expression, split-child, and insertion theorem surfaces;
   full separator/same-depth/deletion and disk-page refinements remain.
-* Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations and
-  heap-potential telescoping are proved; pointer handles, cascading cuts, and
-  the true Fibonacci logarithmic degree theorem remain.
+* Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
+  empty-heap construction, and heap-potential telescoping are proved; pointer
+  handles, cascading cuts, and the true Fibonacci logarithmic degree theorem
+  remain.
 * Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic and finite-set
   operation specs, including successor and predecessor, are proved; recursive
   cluster representation and the {lit}`O(log log u)` bridge remain.
@@ -508,7 +509,8 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   remaining gap: full occupancy/separator/same-depth invariants, deletion, and
   disk-page/mutation semantics.
 * 19.1 Fibonacci heaps:
-  current results {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
+  current results {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,

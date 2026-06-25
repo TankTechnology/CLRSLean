@@ -6,6 +6,7 @@
 
 ## Proved First-Pass Surface
 
+- `CLRS.Chapter19.FibHeap.makeHeap_correct`
 - `CLRS.Chapter19.FibHeap.minimum_correct`
 - `CLRS.Chapter19.FibHeap.insert_correct`
 - `CLRS.Chapter19.FibHeap.union_correct`
