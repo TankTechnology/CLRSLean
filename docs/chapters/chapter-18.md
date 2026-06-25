@@ -11,9 +11,12 @@
 - `CLRS.Chapter18.BTree.splitChild_preserves_model`
 - `CLRS.Chapter18.BTree.insert_preserves_model`
 - `CLRS.Chapter18.BTree.insert_mem_iff`
+- `CLRS.Chapter18.BTree.delete_preserves_model`
+- `CLRS.Chapter18.BTree.delete_mem_iff`
 
 ## Remaining Work
 
 The current chapter uses a mathematical key-membership model and specification
-wrappers for split/insert.  Full separator ordering, same-depth leaves, deletion,
-disk-page I/O, and pointer-level mutation remain future refinements.
+wrappers for split/insert/delete.  Full separator ordering, same-depth leaves,
+node-level deletion repair, disk-page I/O, and pointer-level mutation remain
+future refinements.

@@ -1,5 +1,6 @@
 import CLRSLean.Chapter_18.Section_18_1_B_Tree_Model
 import CLRSLean.Chapter_18.Section_18_2_B_Tree_Insertion
+import CLRSLean.Chapter_18.Section_18_3_B_Tree_Deletion
 
 /-!
 # Chapter 18 - B-Trees
@@ -17,13 +18,19 @@ height expression, and specification-level split/insert wrappers.
 * 18.2 B-tree insertion: {lit}`partial`.
   Main results:
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
-  {lit}`CLRS.Chapter18.BTree.insert_preserves_model`, and
-  {lit}`CLRS.Chapter18.BTree.insert_mem_iff`.
+  {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.insert_mem_iff`, and
+  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`.
+* 18.3 B-tree deletion: {lit}`partial`.
+  Main results:
+  {lit}`CLRS.Chapter18.BTree.delete_preserves_model` and
+  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`.
 
 ## Current Gaps
 
 Full node occupancy, separator ordering, same-depth leaves, in-node splitting,
-deletion, and disk-page semantics remain strengthening targets.
+node-level deletion repair, and disk-page semantics remain strengthening
+targets.
 -/
 
 namespace CLRS

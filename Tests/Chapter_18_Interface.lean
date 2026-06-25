@@ -1,5 +1,6 @@
 import CLRSLean.Chapter_18.Section_18_1_B_Tree_Model
 import CLRSLean.Chapter_18.Section_18_2_B_Tree_Insertion
+import CLRSLean.Chapter_18.Section_18_3_B_Tree_Deletion
 
 #check CLRS.Chapter18.BTree
 #check CLRS.Chapter18.BTree.keysOf
@@ -14,3 +15,6 @@ import CLRSLean.Chapter_18.Section_18_2_B_Tree_Insertion
 #check CLRS.Chapter18.BTree.insert
 #check CLRS.Chapter18.BTree.insert_preserves_model
 #check CLRS.Chapter18.BTree.insert_mem_iff
+#check CLRS.Chapter18.BTree.delete
+#check CLRS.Chapter18.BTree.delete_preserves_model
+#check CLRS.Chapter18.BTree.delete_mem_iff

@@ -92,9 +92,10 @@ which areas should not yet be counted as proof-complete.
 * Chapter 17, Sections 17.1-17.4: finite-prefix aggregate/accounting/potential
   theorems plus {lit}`MULTIPOP`, binary-counter, and abstract dynamic-table
   wrappers are proved; exact counter and table-transition refinements remain.
-* Chapter 18, Sections 18.1-18.2: a mathematical B-tree model has search,
-  minimum-key height-expression, split-child, and insertion theorem surfaces;
-  full separator/same-depth/deletion and disk-page refinements remain.
+* Chapter 18, Sections 18.1-18.3: a mathematical B-tree model has search,
+  minimum-key height-expression, split-child, insertion, and deletion theorem
+  surfaces; full separator/same-depth/node-level-deletion and disk-page
+  refinements remain.
 * Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
   empty-heap construction, and heap-potential telescoping are proved; pointer
   handles, cascading cuts, and the true Fibonacci logarithmic degree theorem
@@ -500,14 +501,16 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`;
   remaining gap: exact trailing-one counter cost, concrete dynamic-table
   transitions, and RAM/allocation constants.
-* 18.1-18.2 B-trees:
+* 18.1-18.3 B-trees:
   current results {lit}`CLRS.Chapter18.BTree.search_correct`,
   {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
-  {lit}`CLRS.Chapter18.BTree.insert_preserves_model`, and
-  {lit}`CLRS.Chapter18.BTree.insert_mem_iff`;
-  remaining gap: full occupancy/separator/same-depth invariants, deletion, and
-  disk-page/mutation semantics.
+  {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_preserves_model`, and
+  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`;
+  remaining gap: full occupancy/separator/same-depth invariants, node-level
+  deletion repair, and disk-page/mutation semantics.
 * 19.1 Fibonacci heaps:
   current results {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,

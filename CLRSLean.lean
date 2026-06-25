@@ -96,7 +96,7 @@ Start with the chapter pages in the sidebar.
 * Chapter 17 - Amortized Analysis: finite-prefix aggregate, accounting, and
   potential-method telescoping theorems for later amortized examples.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
-  height-expression, split, and insertion theorem surface.
+  height-expression, split, insertion, and deletion theorem surface.
 * Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
   make-heap and operation-level correctness, heap potential telescoping, and a
   conservative degree-bound wrapper.
@@ -420,12 +420,14 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.accounting_totalCost_le_totalCharge`,
   {lit}`CLRS.Chapter17.potential_totalCost_eq_totalAmortized_sub_delta`, and
   {lit}`CLRS.Chapter17.potential_totalCost_le_totalAmortized`.
-* 18.1-18.2 B-trees: {lit}`partial`.
+* 18.1-18.3 B-trees: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter18.BTree.search_correct`,
   {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
-  {lit}`CLRS.Chapter18.BTree.insert_preserves_model`, and
-  {lit}`CLRS.Chapter18.BTree.insert_mem_iff`.
+  {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_preserves_model`, and
+  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`.
 * 19.1 Fibonacci heaps: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,

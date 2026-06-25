@@ -1009,16 +1009,20 @@ mathematical wrappers rather than mutable-array or allocator semantics.
   - `CLRS.Chapter18.BTree.splitChild_preserves_model`
   - `CLRS.Chapter18.BTree.insert_preserves_model`
   - `CLRS.Chapter18.BTree.insert_mem_iff`
+  - `CLRS.Chapter18.BTree.delete_preserves_model`
+  - `CLRS.Chapter18.BTree.delete_mem_iff`
 - Proof pattern: mathematical key-set model, structural validity predicate,
-  specification-level split/insert wrappers
+  specification-level split/insert/delete wrappers
 - Current gap: full node occupancy/separator/same-depth invariant stack,
-  deletion, disk-page I/O, and pointer mutation remain strengthening targets.
+  node-level deletion repair, disk-page I/O, and pointer mutation remain
+  strengthening targets.
 
 Chapter 18 now has a first-pass B-tree theorem surface.  Search and insertion
-are proved against an abstract membership model, and the height expression is
-packaged as a minimum-key lower bound.  The current split and insert operations
-are specification wrappers, so the chapter is still `partial` rather than a
-complete page-level mutation proof.
+are proved against an abstract membership model, deletion removes the requested
+key from that membership model, and the height expression is packaged as a
+minimum-key lower bound.  The current split, insert, and delete operations are
+specification wrappers, so the chapter is still `partial` rather than a complete
+page-level mutation proof.
 
 ## Chapter 19 - Fibonacci Heaps
 
