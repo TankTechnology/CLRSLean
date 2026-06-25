@@ -6,24 +6,26 @@ import Mathlib
 
 This section defines a deterministic comparison-count cost model for the
 first-pivot functional quicksort from Section 7.1 and proves a quadratic upper
-bound: on any list of length `n`, quicksort performs at most `n²` comparisons.
+bound: on any list of length {lit}`n`, quicksort performs at most {lit}`n²`
+comparisons.
 
-The cost model mirrors the fuelled recursion of `quickSortFuel`: each non-empty
-call compares every tail element against the pivot (one comparison each) and then
-adds the recursive comparison counts for the left and right partitions.
+The cost model mirrors the fuelled recursion of {lit}`quickSortFuel`: each
+non-empty call compares every tail element against the pivot (one comparison
+each) and then adds the recursive comparison counts for the left and right
+partitions.
 
 Main results:
 
-- Lemma `partitionAround_length_add`: the two partition halves together have
+- Lemma {lit}`partitionAround_length_add`: the two partition halves together have
   exactly the length of the scanned tail.
-- Theorem `quickSortComparisons_quadratic`: for any list `xs`,
-  `quickSortComparisons xs ≤ xs.length * xs.length`.
+- Theorem {lit}`quickSortComparisons_quadratic`: for any list {lit}`xs`,
+  {lit}`quickSortComparisons xs ≤ xs.length * xs.length`.
 
 Notation conventions:
 
-- `partitionAround p xs` : the stable partition from Section 7.1
-- `quickSortComparisonsFuel fuel xs` : fuelled comparison counter
-- `quickSortComparisons xs` : total comparison count with full fuel
+- {lit}`partitionAround p xs` : the stable partition from Section 7.1
+- {lit}`quickSortComparisonsFuel fuel xs` : fuelled comparison counter
+- {lit}`quickSortComparisons xs` : total comparison count with full fuel
 -/
 
 namespace CLRS
@@ -35,9 +37,9 @@ open Chapter07
 
 /--
 Fuelled comparison counter that mirrors the recursion structure of
-`quickSortFuel`.
+{lit}`quickSortFuel`.
 
-Each non-empty call adds `xs.length` comparisons (one per tail element tested
+Each non-empty call adds {lit}`xs.length` comparisons (one per tail element tested
 against the pivot) to the recursive comparison counts for the left and right
 partition halves.
 -/
@@ -52,8 +54,9 @@ def quickSortComparisonsFuel : Nat → List Nat → Nat
 /--
 Total number of comparisons performed by functional quicksort on a list.
 
-Uses exactly `xs.length` fuel, matching the public `quickSort` definition so that
-`quickSortComparisons xs` counts the comparisons in `quickSort xs`.
+Uses exactly {lit}`xs.length` fuel, matching the public {lit}`quickSort`
+definition so that {lit}`quickSortComparisons xs` counts the comparisons in
+{lit}`quickSort xs`.
 -/
 def quickSortComparisons (xs : List Nat) : Nat :=
   quickSortComparisonsFuel xs.length xs
@@ -63,7 +66,7 @@ def quickSortComparisons (xs : List Nat) : Nat :=
 /--
 The two halves of a pivot partition together contain every element of the
 scanned tail.  This is an immediate consequence of
-`partitionAround_perm`.
+{lit}`partitionAround_perm`.
 -/
 theorem partitionAround_length_add (p : Nat) (xs : List Nat) :
     (partitionAround p xs).1.length + (partitionAround p xs).2.length = xs.length := by
@@ -77,10 +80,10 @@ theorem partitionAround_length_add (p : Nat) (xs : List Nat) :
 When the fuel is at least the list length, the comparison count of quicksort is
 bounded by the square of the list length.
 
-The proof mimics the fuel induction in `quickSortFuel_perm`: the left and right
+The proof mimics the fuel induction in {lit}`quickSortFuel_perm`: the left and right
 partition lengths are bounded by the tail length, and the inductive hypotheses
-give `≤ a²` and `≤ b²` bounds.  A `nlinarith` step then closes the algebraic
-gap `(a+b) + a² + b² ≤ (a+b+1)²`.
+give {lit}`≤ a²` and {lit}`≤ b²` bounds.  A {lit}`nlinarith` step then closes
+the algebraic gap {lit}`(a+b) + a² + b² ≤ (a+b+1)²`.
 -/
 theorem quickSortComparisonsFuel_quadratic :
     ∀ (fuel : Nat) (xs : List Nat), xs.length ≤ fuel →
@@ -121,8 +124,9 @@ theorem quickSortComparisonsFuel_quadratic :
           exact hgoal
 
 /--
-**Quadratic upper bound for quicksort comparisons.**  On any list `xs` of length
-`n`, functional first-pivot quicksort performs at most `n²` comparisons.
+**Quadratic upper bound for quicksort comparisons.**  On any list {lit}`xs` of
+length {lit}`n`, functional first-pivot quicksort performs at most {lit}`n²`
+comparisons.
 
 This corresponds to the deterministic worst-case analysis in CLRS Section 7.2.
 -/
