@@ -17,6 +17,9 @@ import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 #check CLRS.Chapter17.multiPopCost
 #check CLRS.Chapter17.multiPop_totalCost_le
 #check CLRS.Chapter17.binaryCounterIncrement
+#check CLRS.Chapter17.trueBitCount
+#check CLRS.Chapter17.bitFlipsOfIncrement
+#check CLRS.Chapter17.binaryCounter_increment_potential_le_two
 #check CLRS.Chapter17.bitFlipsForIncrement
 #check CLRS.Chapter17.binaryCounter_totalFlips_le
 #check CLRS.Chapter17.DynamicTableState

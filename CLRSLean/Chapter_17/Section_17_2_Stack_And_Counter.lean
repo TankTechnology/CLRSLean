@@ -5,21 +5,24 @@ import CLRSLean.Chapter_17.Section_17_1_Amortized_Framework
 
 This section records two compact textbook amortized-analysis examples.  The
 stack model uses the real operation cost for {lit}`MULTIPOP`: at most one unit
-per popped element.  The counter model exposes the first-pass constant
-amortized-cost conclusion as a specification-level flip-count sequence; the
-exact trailing-one bit-count model is a later strengthening target.
+per popped element.  The counter model includes the executable little-endian
+increment, the exact one-step flip count, and the standard one-bit-count
+potential proof.
 
 Main results:
 
 - Theorem {lit}`multiPop_totalCost_le`: one {lit}`MULTIPOP` operation pops at
   most the requested number of stack cells.
+- Theorem {lit}`binaryCounter_increment_potential_le_two`: one executable
+  binary-counter increment has amortized cost at most 2 under the number-of-one
+  bits potential.
 - Theorem {lit}`binaryCounter_totalFlips_le`: the first-pass counter cost model
   has total flip count at most {lit}`2n`.
 
 Current gaps:
 
-- The binary-counter theorem does not yet count trailing ones in an executable
-  bit-vector increment trace.
+- The multi-step executable counter trace theorem is still represented by the
+  first-pass constant-cost wrapper below.
 -/
 
 namespace CLRS
@@ -51,6 +54,35 @@ def binaryCounterIncrement : List Bool -> List Bool
   | [] => [true]
   | false :: bits => true :: bits
   | true :: bits => false :: binaryCounterIncrement bits
+
+/-- Number of one bits in the little-endian counter state. -/
+def trueBitCount : List Bool -> Nat
+  | [] => 0
+  | false :: bits => trueBitCount bits
+  | true :: bits => trueBitCount bits + 1
+
+/-- Exact number of bit flips performed by one executable increment. -/
+def bitFlipsOfIncrement : List Bool -> Nat
+  | [] => 1
+  | false :: _bits => 1
+  | true :: bits => bitFlipsOfIncrement bits + 1
+
+/--
+The executable increment has amortized cost at most two when the potential is
+the number of one bits.
+-/
+theorem binaryCounter_increment_potential_le_two (bits : List Bool) :
+    bitFlipsOfIncrement bits + trueBitCount (binaryCounterIncrement bits) <=
+      trueBitCount bits + 2 := by
+  induction bits with
+  | nil =>
+      simp [bitFlipsOfIncrement, trueBitCount, binaryCounterIncrement]
+  | cons bit bits ih =>
+      cases bit
+      · simp [bitFlipsOfIncrement, trueBitCount, binaryCounterIncrement]
+        omega
+      · simp [bitFlipsOfIncrement, trueBitCount, binaryCounterIncrement]
+        omega
 
 /-- First-pass amortized flip count for one counter increment. -/
 def bitFlipsForIncrement (_i : Nat) : Nat :=

@@ -12,11 +12,13 @@
 - `CLRS.Chapter17.potential_totalCost_eq_totalAmortized_sub_delta`
 - `CLRS.Chapter17.potential_totalCost_le_totalAmortized`
 - `CLRS.Chapter17.multiPop_totalCost_le`
+- `CLRS.Chapter17.binaryCounter_increment_potential_le_two`
 - `CLRS.Chapter17.binaryCounter_totalFlips_le`
 - `CLRS.Chapter17.dynamicTable_amortizedBound`
 
 ## Remaining Work
 
-The current chapter is a mathematical first pass.  It defers exact trailing-one
-binary-counter cost, concrete dynamic-table resizing transitions, allocation,
-and RAM-cost constants.
+The current chapter is a mathematical first pass.  It now includes the exact
+one-step binary-counter flip/potential proof, while deferring the executable
+multi-step counter trace theorem, concrete dynamic-table resizing transitions,
+allocation, and RAM-cost constants.

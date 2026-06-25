@@ -8,8 +8,9 @@ import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 Chapter 17 develops reusable finite-prefix arithmetic for amortized analysis
 and instantiates it on compact stack, counter, and dynamic-table examples.  The
 current first pass contains the aggregate, accounting, and potential-method
-framework theorems, a {lit}`MULTIPOP` stack cost bound, a first-pass binary
-counter cost wrapper, and an abstract dynamic-table potential wrapper.
+framework theorems, a {lit}`MULTIPOP` stack cost bound, an executable
+binary-counter one-step potential proof plus a first-pass total-cost wrapper,
+and an abstract dynamic-table potential wrapper.
 
 ## Sections
 
@@ -23,7 +24,8 @@ counter cost wrapper, and an abstract dynamic-table potential wrapper.
   {lit}`CLRS.Chapter17.potential_totalCost_le_totalAmortized`.
 * 17.2 Stack and counter examples: {lit}`partial`.
   Main results:
-  {lit}`CLRS.Chapter17.multiPop_totalCost_le` and
+  {lit}`CLRS.Chapter17.multiPop_totalCost_le`,
+  {lit}`CLRS.Chapter17.binaryCounter_increment_potential_le_two`, and
   {lit}`CLRS.Chapter17.binaryCounter_totalFlips_le`.
 * 17.4 Dynamic tables: {lit}`partial`.
   Main result:
@@ -31,8 +33,9 @@ counter cost wrapper, and an abstract dynamic-table potential wrapper.
 
 ## Current Gaps
 
-The exact trailing-one binary-counter cost proof and concrete dynamic-table
-expansion/contraction transition predicates remain strengthening targets.
+The executable multi-step binary-counter trace theorem and concrete
+dynamic-table expansion/contraction transition predicates remain strengthening
+targets.
 -/
 
 namespace CLRS

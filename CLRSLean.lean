@@ -94,7 +94,7 @@ Start with the chapter pages in the sidebar.
   and the complete Huffman optimality proof, currently the flagship greedy case
   study.
 * Chapter 17 - Amortized Analysis: finite-prefix aggregate, accounting, and
-  potential-method telescoping theorems for later amortized examples.
+  potential-method telescoping theorems, plus stack/counter/table examples.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
   height-expression, split, insertion, and deletion theorem surface.
 * Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
@@ -420,6 +420,12 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.accounting_totalCost_le_totalCharge`,
   {lit}`CLRS.Chapter17.potential_totalCost_eq_totalAmortized_sub_delta`, and
   {lit}`CLRS.Chapter17.potential_totalCost_le_totalAmortized`.
+* 17.2 Stack and counter examples: {lit}`partial`.
+  Public results: {lit}`CLRS.Chapter17.multiPop_totalCost_le`,
+  {lit}`CLRS.Chapter17.binaryCounter_increment_potential_le_two`, and
+  {lit}`CLRS.Chapter17.binaryCounter_totalFlips_le`.
+* 17.4 Dynamic tables: {lit}`partial`.
+  Public result: {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`.
 * 18.1-18.3 B-trees: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter18.BTree.search_correct`,
   {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
