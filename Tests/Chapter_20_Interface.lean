@@ -38,3 +38,5 @@ import CLRSLean.Chapter_20.Section_20_2_VEB_Tree
 #check CLRS.Chapter20.VEB.operationDepth_zero
 #check CLRS.Chapter20.VEB.operationDepth_succ
 #check CLRS.Chapter20.VEB.operationDepth_linear
+#check CLRS.Chapter20.VEB.operationDepth_monotone
+#check CLRS.Chapter20.VEB.operationDepth_strict_mono

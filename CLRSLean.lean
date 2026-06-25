@@ -111,7 +111,7 @@ Start with the chapter pages in the sidebar.
   membership, extrema, successor,
   predecessor, empty-result extrema/successor/predecessor queries, insert, and
   delete, including membership-, extrema-, neighbor-query-after-update, and
-  operation-depth recurrence specs.
+  operation-depth recurrence/monotonicity specs.
 * Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
   Kruskal skeleton, and finite-graph MST wrappers.
 * Progress Dashboard: a compact, generated chapter-by-chapter view of current
@@ -511,10 +511,12 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_correct`,
-  {lit}`CLRS.Chapter20.VEB.delete_predecessor_correct`, and
+  {lit}`CLRS.Chapter20.VEB.delete_predecessor_correct`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_zero`,
-  {lit}`CLRS.Chapter20.VEB.operationDepth_succ`, and
-  {lit}`CLRS.Chapter20.VEB.operationDepth_linear`.
+  {lit}`CLRS.Chapter20.VEB.operationDepth_succ`,
+  {lit}`CLRS.Chapter20.VEB.operationDepth_linear`,
+  {lit}`CLRS.Chapter20.VEB.operationDepth_monotone`, and
+  {lit}`CLRS.Chapter20.VEB.operationDepth_strict_mono`.
 * 23.1 Growing a minimum spanning tree: {lit}`partial`.
   Current results:
   {lit}`CLRS.MST.Graph.connected_crosses_cut`,

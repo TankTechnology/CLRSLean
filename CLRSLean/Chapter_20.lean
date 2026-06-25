@@ -10,8 +10,8 @@ arithmetic, including bounded high/low recomposition facts, and the correctness
 of membership, extrema, successor, predecessor, insert, and delete against a
 represented finite set, including empty-result specifications for extrema,
 successor, and predecessor plus membership-, extrema-, and
-neighbor-query-after-update specifications and operation-depth base/step
-wrappers.
+neighbor-query-after-update specifications and operation-depth base/step/linear
+and monotonicity wrappers.
 
 ## Sections
 
@@ -46,10 +46,12 @@ wrappers.
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_correct`,
-  {lit}`CLRS.Chapter20.VEB.delete_predecessor_correct`, and
+  {lit}`CLRS.Chapter20.VEB.delete_predecessor_correct`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_zero`,
-  {lit}`CLRS.Chapter20.VEB.operationDepth_succ`, and
-  {lit}`CLRS.Chapter20.VEB.operationDepth_linear`.
+  {lit}`CLRS.Chapter20.VEB.operationDepth_succ`,
+  {lit}`CLRS.Chapter20.VEB.operationDepth_linear`,
+  {lit}`CLRS.Chapter20.VEB.operationDepth_monotone`, and
+  {lit}`CLRS.Chapter20.VEB.operationDepth_strict_mono`.
 
 ## Current Gaps
 

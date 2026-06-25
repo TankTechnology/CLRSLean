@@ -111,7 +111,7 @@ which areas should not yet be counted as proof-complete.
   recomposition facts, and finite-set operation specs, including
   extrema/successor/predecessor positive and empty-result cases plus
   membership-, extrema-, neighbor-query-after-update, and operation-depth
-  recurrence specs, are proved;
+  recurrence/monotonicity specs, are proved;
   recursive cluster representation and the {lit}`O(log log u)` bridge remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
   exact-component Kruskal scan facts, forest/spanning wrappers, and
@@ -598,10 +598,12 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_correct`,
-  {lit}`CLRS.Chapter20.VEB.delete_predecessor_correct`, and
+  {lit}`CLRS.Chapter20.VEB.delete_predecessor_correct`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_zero`,
-  {lit}`CLRS.Chapter20.VEB.operationDepth_succ`, and
-  {lit}`CLRS.Chapter20.VEB.operationDepth_linear`;
+  {lit}`CLRS.Chapter20.VEB.operationDepth_succ`,
+  {lit}`CLRS.Chapter20.VEB.operationDepth_linear`,
+  {lit}`CLRS.Chapter20.VEB.operationDepth_monotone`, and
+  {lit}`CLRS.Chapter20.VEB.operationDepth_strict_mono`;
   remaining gap: recursive summary/cluster state, word-RAM base cases, and the
   explicit {lit}`O(log log u)` asymptotic bridge.
 * 23.1 Growing a minimum spanning tree:

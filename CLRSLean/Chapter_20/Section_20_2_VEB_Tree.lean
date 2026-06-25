@@ -448,6 +448,18 @@ theorem operationDepth_linear (k : Nat) :
     operationDepth k <= k + 1 := by
   rfl
 
+/-- The first-pass operation depth is monotone in the exponent level. -/
+theorem operationDepth_monotone {a b : Nat} (hab : a <= b) :
+    operationDepth a <= operationDepth b := by
+  unfold operationDepth
+  omega
+
+/-- The first-pass operation depth is strictly monotone in the exponent level. -/
+theorem operationDepth_strict_mono {a b : Nat} (hab : a < b) :
+    operationDepth a < operationDepth b := by
+  unfold operationDepth
+  omega
+
 end VEB
 end Chapter20
 end CLRS
