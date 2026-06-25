@@ -51,7 +51,8 @@ which areas should not yet be counted as proof-complete.
 * Chapter 8, Sections 8.2-8.3: stable counting-sort bucket correctness and
   abstract radix-sort correctness from stable digit passes are proved.
 * Chapter 9, Section 9.2: selection-by-rank correctness is proved for the
-  specification selector with a count-based order-statistic certificate.
+  specification selector and a pivot-style quickselect model with a
+  count-based order-statistic certificate.
 * Chapter 10, Sections 10.1-10.2: functional stack, queue, and linked-list
   operation specifications are proved.
 * Chapter 11, Section 11.1: direct-address table insert/search/delete behavior
@@ -86,8 +87,8 @@ which areas should not yet be counted as proof-complete.
 * Chapter 7, Sections 7.2-7.4: in-place partition, performance recurrence,
   randomized quicksort, and expected-time theorem.
 * Chapter 8, Section 8.4: bucket sort is not yet proved.
-* Chapter 9 linear-time SELECT refinements: randomized SELECT and deterministic
-  median-of-medians SELECT are not yet refined to the proved rank certificate.
+* Chapter 9 linear-time SELECT refinements: pivot-style quickselect is proved;
+  randomized expected time and deterministic median-of-medians SELECT remain.
 * Chapter 11 expected hashing analysis: expected-time theorem under a formal
   probability model.
 * Chapter 12 pointer-level BST layer: CLRS parent-pointer procedures,
@@ -246,12 +247,15 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter08.radixSortBy_mem_iff`,
   {lit}`CLRS.Chapter08.radixSortBy_perm`, and
   {lit}`CLRS.Chapter08.radixSortBy_correct`.
-* 9.2 Selection by rank, specification selector:
+* 9.2 Selection by rank, specification selector and pivot-style quickselect:
   {lit}`CLRS.Chapter09.sortedCopy_perm`,
   {lit}`CLRS.Chapter09.sortedCopy_pairwise`,
   {lit}`CLRS.Chapter09.selectByRank?_mem`,
   {lit}`CLRS.Chapter09.selectByRank?_rankCorrect`, and
-  {lit}`CLRS.Chapter09.selectByRank?_correct`.
+  {lit}`CLRS.Chapter09.selectByRank?_correct`;
+  {lit}`CLRS.Chapter09.quickSelect?_mem`,
+  {lit}`CLRS.Chapter09.quickSelect?_rankCorrect`, and
+  {lit}`CLRS.Chapter09.quickSelect?_correct`.
 * 2.1 Insertion sort:
   `CLRS.Chapter02.insertionSort_sorted`,
   `CLRS.Chapter02.insertionSort_perm`.

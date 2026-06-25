@@ -155,6 +155,233 @@ theorem lt_length_leCount_of_sorted_split {ys lo hi : List Nat} {x : Nat}
   rw [hfilter]
   simp
 
+/-! ## Pivot-style selection -/
+
+/--
+Fuelled quickselect over lists of natural numbers.
+
+The first element is used as the pivot.  The recursive calls keep only the
+values strictly below or strictly above the pivot; the middle pivot block is
+represented by the count interval
+{lit}`ltCount pivot xs ≤ k < leCount pivot xs`.
+-/
+def quickSelectFuel? : Nat → Nat → List Nat → Option Nat
+  | 0, _, _ => none
+  | _ + 1, _, [] => none
+  | fuel + 1, k, pivot :: tail =>
+      let xs := pivot :: tail
+      if k < ltCount pivot xs then
+        quickSelectFuel? fuel k (xs.filter fun y => decide (y < pivot))
+      else if k < leCount pivot xs then
+        some pivot
+      else
+        quickSelectFuel? fuel (k - leCount pivot xs)
+          (xs.filter fun y => decide (pivot < y))
+
+/-- Public quickselect wrapper with exactly one unit of fuel per input element. -/
+def quickSelect? (k : Nat) (xs : List Nat) : Option Nat :=
+  quickSelectFuel? xs.length k xs
+
+theorem filter_length_lt_of_mem_false {α : Type u}
+    (p : α → Bool) {xs : List α} {x : α}
+    (hx : x ∈ xs) (hpx : p x = false) :
+    (xs.filter p).length < xs.length := by
+  have hle : (xs.filter p).length ≤ xs.length := List.length_filter_le p xs
+  have hne : (xs.filter p).length ≠ xs.length := by
+    intro heq
+    have hall := (List.length_filter_eq_length_iff.mp heq) x hx
+    rw [hpx] at hall
+    contradiction
+  exact Nat.lt_of_le_of_ne hle hne
+
+theorem ltCount_filter_lt_eq (xs : List Nat) {x pivot : Nat}
+    (hxp : x < pivot) :
+    ltCount x xs = ltCount x (xs.filter fun y => decide (y < pivot)) := by
+  unfold ltCount
+  congr 1
+  rw [List.filter_filter]
+  apply List.filter_congr
+  intro y _hy
+  by_cases hyx : y < x
+  · simp [hyx, Nat.lt_trans hyx hxp]
+  · simp [hyx]
+
+theorem leCount_filter_lt_eq (xs : List Nat) {x pivot : Nat}
+    (hxp : x < pivot) :
+    leCount x xs = leCount x (xs.filter fun y => decide (y < pivot)) := by
+  unfold leCount
+  congr 1
+  rw [List.filter_filter]
+  apply List.filter_congr
+  intro y _hy
+  by_cases hyx : y ≤ x
+  · simp [hyx, Nat.lt_of_le_of_lt hyx hxp]
+  · simp [hyx]
+
+theorem ltCount_high_split (xs : List Nat) {pivot x : Nat}
+    (hp : pivot < x) :
+    leCount pivot xs + ltCount x (xs.filter fun y => decide (pivot < y)) =
+      ltCount x xs := by
+  unfold ltCount leCount
+  induction xs with
+  | nil =>
+      simp
+  | cons y ys ih =>
+      have ih' :
+          (ys.filter (fun y => decide (y ≤ pivot))).length +
+              (ys.filter (fun a => decide (a < x) && decide (pivot < a))).length =
+            (ys.filter (fun y => decide (y < x))).length := by
+        simpa [List.filter_filter] using ih
+      by_cases hyp : y ≤ pivot
+      · have hyx : y < x := Nat.lt_of_le_of_lt hyp hp
+        have hynot : ¬ pivot < y := not_lt_of_ge hyp
+        simp [hyp, hyx, hynot]
+        omega
+      · have hpy : pivot < y := Nat.lt_of_not_ge hyp
+        by_cases hyx : y < x
+        · simp [hyp, hpy, hyx]
+          omega
+        · simp [hyp, hpy, hyx]
+          omega
+
+theorem leCount_high_split (xs : List Nat) {pivot x : Nat}
+    (hp : pivot < x) :
+    leCount pivot xs + leCount x (xs.filter fun y => decide (pivot < y)) =
+      leCount x xs := by
+  unfold leCount
+  induction xs with
+  | nil =>
+      simp
+  | cons y ys ih =>
+      have ih' :
+          (ys.filter (fun y => decide (y ≤ pivot))).length +
+              (ys.filter (fun a => decide (a ≤ x) && decide (pivot < a))).length =
+            (ys.filter (fun y => decide (y ≤ x))).length := by
+        simpa [List.filter_filter] using ih
+      by_cases hyp : y ≤ pivot
+      · have hyx : y ≤ x := Nat.le_trans hyp (Nat.le_of_lt hp)
+        have hynot : ¬ pivot < y := not_lt_of_ge hyp
+        simp [hyp, hyx, hynot]
+        omega
+      · have hpy : pivot < y := Nat.lt_of_not_ge hyp
+        by_cases hyx : y ≤ x
+        · simp [hyp, hpy, hyx]
+          omega
+        · simp [hyp, hpy, hyx]
+          omega
+
+theorem rankCertificate_low_lift {xs : List Nat} {pivot k x : Nat}
+    (hrank : RankCertificate (xs.filter fun y => decide (y < pivot)) k x) :
+    RankCertificate xs k x := by
+  have hxmem_low : x ∈ xs.filter fun y => decide (y < pivot) := hrank.1
+  have hxmem : x ∈ xs := (List.mem_filter.mp hxmem_low).1
+  have hxp : x < pivot := by
+    have hxbool := (List.mem_filter.mp hxmem_low).2
+    simpa using hxbool
+  refine ⟨hxmem, ?_, ?_⟩
+  · rw [ltCount_filter_lt_eq xs hxp]
+    exact hrank.2.1
+  · rw [leCount_filter_lt_eq xs hxp]
+    exact hrank.2.2
+
+theorem rankCertificate_pivot {xs : List Nat} {pivot k : Nat}
+    (hpivot : pivot ∈ xs)
+    (hlo : ¬ k < ltCount pivot xs)
+    (hle : k < leCount pivot xs) :
+    RankCertificate xs k pivot :=
+  ⟨hpivot, Nat.le_of_not_gt hlo, hle⟩
+
+theorem rankCertificate_high_lift {xs : List Nat} {pivot k x : Nat}
+    (hge : leCount pivot xs ≤ k)
+    (hrank :
+      RankCertificate (xs.filter fun y => decide (pivot < y))
+        (k - leCount pivot xs) x) :
+    RankCertificate xs k x := by
+  have hxmem_high : x ∈ xs.filter fun y => decide (pivot < y) := hrank.1
+  have hxmem : x ∈ xs := (List.mem_filter.mp hxmem_high).1
+  have hpx : pivot < x := by
+    have hxbool := (List.mem_filter.mp hxmem_high).2
+    simpa using hxbool
+  refine ⟨hxmem, ?_, ?_⟩
+  · have hsplit := ltCount_high_split xs hpx
+    have hbound :
+        leCount pivot xs +
+            ltCount x (xs.filter fun y => decide (pivot < y)) ≤
+          leCount pivot xs + (k - leCount pivot xs) :=
+      Nat.add_le_add_left hrank.2.1 (leCount pivot xs)
+    have hsum : leCount pivot xs + (k - leCount pivot xs) = k :=
+      Nat.add_sub_of_le hge
+    rw [hsum] at hbound
+    rw [← hsplit]
+    exact hbound
+  · have hsplit := leCount_high_split xs hpx
+    have hbound :
+        leCount pivot xs + (k - leCount pivot xs) <
+          leCount pivot xs +
+            leCount x (xs.filter fun y => decide (pivot < y)) :=
+      Nat.add_lt_add_left hrank.2.2 (leCount pivot xs)
+    have hsum : leCount pivot xs + (k - leCount pivot xs) = k :=
+      Nat.add_sub_of_le hge
+    rw [hsum, hsplit] at hbound
+    exact hbound
+
+theorem quickSelectFuel?_rankCorrect :
+    ∀ (fuel k : Nat) (xs : List Nat) {x : Nat}, xs.length ≤ fuel →
+      quickSelectFuel? fuel k xs = some x →
+        RankCertificate xs k x := by
+  intro fuel
+  induction fuel with
+  | zero =>
+      intro k xs selected _hlen hsel
+      simp [quickSelectFuel?] at hsel
+  | succ fuel ih =>
+      intro k xs selected hlen hsel
+      cases xs with
+      | nil =>
+          simp [quickSelectFuel?] at hsel
+      | cons pivot tail =>
+          let xs : List Nat := pivot :: tail
+          have hlow_len :
+              (xs.filter fun y => decide (y < pivot)).length ≤ fuel := by
+            have hstrict :
+                (xs.filter fun y => decide (y < pivot)).length < xs.length :=
+              filter_length_lt_of_mem_false (fun y => decide (y < pivot))
+                (xs := xs) (x := pivot) (by simp [xs]) (by simp)
+            have hlt_fuel : (xs.filter fun y => decide (y < pivot)).length < fuel + 1 :=
+              Nat.lt_of_lt_of_le hstrict (by simpa [xs] using hlen)
+            exact Nat.lt_succ_iff.mp hlt_fuel
+          have hhigh_len :
+              (xs.filter fun y => decide (pivot < y)).length ≤ fuel := by
+            have hstrict :
+                (xs.filter fun y => decide (pivot < y)).length < xs.length :=
+              filter_length_lt_of_mem_false (fun y => decide (pivot < y))
+                (xs := xs) (x := pivot) (by simp [xs]) (by simp)
+            have hlt_fuel : (xs.filter fun y => decide (pivot < y)).length < fuel + 1 :=
+              Nat.lt_of_lt_of_le hstrict (by simpa [xs] using hlen)
+            exact Nat.lt_succ_iff.mp hlt_fuel
+          by_cases hlo : k < ltCount pivot xs
+          · have hsel_low :
+                quickSelectFuel? fuel k (xs.filter fun y => decide (y < pivot)) =
+                  some selected := by
+              simpa [quickSelectFuel?, xs, hlo] using hsel
+            exact rankCertificate_low_lift (ih k (xs.filter fun y => decide (y < pivot))
+              hlow_len hsel_low)
+          · by_cases hle : k < leCount pivot xs
+            · have hx : selected = pivot := by
+                exact Eq.symm (by simpa [quickSelectFuel?, xs, hlo, hle] using hsel)
+              subst selected
+              exact rankCertificate_pivot (xs := xs) (pivot := pivot)
+                (by simp [xs]) hlo hle
+            · have hsel_high :
+                  quickSelectFuel? fuel (k - leCount pivot xs)
+                      (xs.filter fun y => decide (pivot < y)) =
+                    some selected := by
+                simpa [quickSelectFuel?, xs, hlo, hle] using hsel
+              have hge : leCount pivot xs ≤ k := Nat.le_of_not_gt hle
+              exact rankCertificate_high_lift hge
+                (ih (k - leCount pivot xs)
+                  (xs.filter fun y => decide (pivot < y)) hhigh_len hsel_high)
+
 /-! ## Selection correctness -/
 
 theorem selectByRank?_rankCorrect {k : Nat} {xs : List Nat} {x : Nat}
@@ -198,6 +425,22 @@ theorem selectByRank?_correct {k : Nat} {xs : List Nat} {x : Nat}
     (hsel : selectByRank? k xs = some x) :
     RankCertificate xs k x :=
   selectByRank?_rankCorrect hsel
+
+theorem quickSelect?_rankCorrect {k : Nat} {xs : List Nat} {x : Nat}
+    (hsel : quickSelect? k xs = some x) :
+    RankCertificate xs k x := by
+  exact quickSelectFuel?_rankCorrect xs.length k xs (Nat.le_refl xs.length) hsel
+
+theorem quickSelect?_mem {k : Nat} {xs : List Nat} {x : Nat}
+    (hsel : quickSelect? k xs = some x) :
+    x ∈ xs :=
+  (quickSelect?_rankCorrect hsel).1
+
+/-- Reader-facing correctness wrapper for the pivot-style quickselect model. -/
+theorem quickSelect?_correct {k : Nat} {xs : List Nat} {x : Nat}
+    (hsel : quickSelect? k xs = some x) :
+    RankCertificate xs k x :=
+  quickSelect?_rankCorrect hsel
 
 end Chapter09
 end CLRS
