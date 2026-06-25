@@ -1,5 +1,6 @@
 import CLRSLean.Chapter_07.Section_07_1_Description_Of_Quicksort
 import CLRSLean.Chapter_07.Section_07_2_Performance_Of_Quicksort
+import CLRSLean.Chapter_07.Section_07_3_Randomized_Quicksort
 
 /-!
 # Chapter 7 - Quicksort
@@ -31,10 +32,24 @@ analysis.
   {lit}`CLRS.Chapter07.partitionAround_length_add`,
   {lit}`CLRS.Chapter07.quickSortComparisons_quadratic`.
 
+* 7.3 Randomized quicksort: {lit}`proved` for the expected-comparison closed
+  form and {lit}`O(n log n)` harmonic bound.  Main results:
+  {lit}`CLRS.Chapter07.harmonic_succ`,
+  {lit}`CLRS.Chapter07.sum_mul_harmonic_eq`,
+  {lit}`CLRS.Chapter07.sum_expectedComparisons_eq`,
+  {lit}`CLRS.Chapter07.expectedComparisons_recurrence`,
+  {lit}`CLRS.Chapter07.expectedComparisons_telescope`,
+  {lit}`CLRS.Chapter07.expectedComparisons_harmonic_bound`,
+  {lit}`CLRS.Chapter07.expectedComparisons_quadratic`, and
+  {lit}`CLRS.Chapter07.expectedComparisons_monotone`.
+
 ## Current Gaps
 
 * Index-level mutable-array {lit}`PARTITION` loop refinement.
-* Randomized quicksort and expected running time.
+* Probabilistic model (explicit probability space, independence of pivot
+  choices) — currently folded into the deterministic recurrence coefficients.
+* Sharp {lit}`n log n` tail bound (Chernoff/Hoeffding) and lower bound
+  ({lit}`Omega(n log n)` for comparison sorting).
 -/
 
 namespace CLRS
