@@ -15,6 +15,8 @@ import CLRSLean.Chapter_18.Section_18_3_B_Tree_Deletion
 #check CLRS.Chapter18.BTree.insert
 #check CLRS.Chapter18.BTree.insert_preserves_model
 #check CLRS.Chapter18.BTree.insert_mem_iff
+#check CLRS.Chapter18.BTree.insert_search_iff
 #check CLRS.Chapter18.BTree.delete
 #check CLRS.Chapter18.BTree.delete_preserves_model
 #check CLRS.Chapter18.BTree.delete_mem_iff
+#check CLRS.Chapter18.BTree.delete_search_iff

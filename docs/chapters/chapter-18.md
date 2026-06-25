@@ -11,8 +11,10 @@
 - `CLRS.Chapter18.BTree.splitChild_preserves_model`
 - `CLRS.Chapter18.BTree.insert_preserves_model`
 - `CLRS.Chapter18.BTree.insert_mem_iff`
+- `CLRS.Chapter18.BTree.insert_search_iff`
 - `CLRS.Chapter18.BTree.delete_preserves_model`
 - `CLRS.Chapter18.BTree.delete_mem_iff`
+- `CLRS.Chapter18.BTree.delete_search_iff`
 
 ## Remaining Work
 

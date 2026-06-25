@@ -1007,7 +1007,8 @@ semantics.
 - Lean source:
   `CLRSLean/Chapter_18.lean`,
   `CLRSLean/Chapter_18/Section_18_1_B_Tree_Model.lean`, and
-  `CLRSLean/Chapter_18/Section_18_2_B_Tree_Insertion.lean`
+  `CLRSLean/Chapter_18/Section_18_2_B_Tree_Insertion.lean`, and
+  `CLRSLean/Chapter_18/Section_18_3_B_Tree_Deletion.lean`
 - Status: `partial`
 - Main proved theorems:
   - `CLRS.Chapter18.BTree.search_correct`
@@ -1015,20 +1016,22 @@ semantics.
   - `CLRS.Chapter18.BTree.splitChild_preserves_model`
   - `CLRS.Chapter18.BTree.insert_preserves_model`
   - `CLRS.Chapter18.BTree.insert_mem_iff`
+  - `CLRS.Chapter18.BTree.insert_search_iff`
   - `CLRS.Chapter18.BTree.delete_preserves_model`
   - `CLRS.Chapter18.BTree.delete_mem_iff`
+  - `CLRS.Chapter18.BTree.delete_search_iff`
 - Proof pattern: mathematical key-set model, structural validity predicate,
-  specification-level split/insert/delete wrappers
+  specification-level split/insert/delete wrappers, search correctness reuse
 - Current gap: full node occupancy/separator/same-depth invariant stack,
   node-level deletion repair, disk-page I/O, and pointer mutation remain
   strengthening targets.
 
-Chapter 18 now has a first-pass B-tree theorem surface.  Search and insertion
-are proved against an abstract membership model, deletion removes the requested
-key from that membership model, and the height expression is packaged as a
-minimum-key lower bound.  The current split, insert, and delete operations are
-specification wrappers, so the chapter is still `partial` rather than a complete
-page-level mutation proof.
+Chapter 18 now has a first-pass B-tree theorem surface.  Search, insertion, and
+deletion are proved against an abstract membership model, and the update
+wrappers expose direct search-after-update specifications.  The height
+expression is packaged as a minimum-key lower bound.  The current split, insert,
+and delete operations are specification wrappers, so the chapter is still
+`partial` rather than a complete page-level mutation proof.
 
 ## Chapter 19 - Fibonacci Heaps
 

@@ -96,7 +96,8 @@ Start with the chapter pages in the sidebar.
 * Chapter 17 - Amortized Analysis: finite-prefix aggregate, accounting, and
   potential-method telescoping theorems, plus stack/counter/table examples.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
-  height-expression, split, insertion, and deletion theorem surface.
+  height-expression, split, insertion, deletion, and search-after-update
+  theorem surface.
 * Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
   make-heap and operation-level correctness, heap potential telescoping, a
   Fibonacci lower-bound recurrence, and a conservative degree-bound wrapper.
@@ -435,8 +436,10 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
-  {lit}`CLRS.Chapter18.BTree.delete_preserves_model`, and
-  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`.
+  {lit}`CLRS.Chapter18.BTree.insert_search_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`, and
+  {lit}`CLRS.Chapter18.BTree.delete_search_iff`.
 * 19.1 Fibonacci heaps: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,

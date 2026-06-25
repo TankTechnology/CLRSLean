@@ -94,9 +94,9 @@ which areas should not yet be counted as proof-complete.
   bound, and size-level dynamic-table insertion wrappers are proved; multi-step
   counter trace and table-transition refinements remain.
 * Chapter 18, Sections 18.1-18.3: a mathematical B-tree model has search,
-  minimum-key height-expression, split-child, insertion, and deletion theorem
-  surfaces; full separator/same-depth/node-level-deletion and disk-page
-  refinements remain.
+  minimum-key height-expression, split-child, insertion/deletion membership,
+  and search-after-update theorem surfaces; full separator/same-depth,
+  node-level-deletion, and disk-page refinements remain.
 * Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
   empty-heap construction, heap-potential telescoping, and a Fibonacci
   lower-bound recurrence are proved; pointer handles, cascading cuts, and the
@@ -513,8 +513,10 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
-  {lit}`CLRS.Chapter18.BTree.delete_preserves_model`, and
-  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`;
+  {lit}`CLRS.Chapter18.BTree.insert_search_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`, and
+  {lit}`CLRS.Chapter18.BTree.delete_search_iff`;
   remaining gap: full occupancy/separator/same-depth invariants, node-level
   deletion repair, and disk-page/mutation semantics.
 * 19.1 Fibonacci heaps:

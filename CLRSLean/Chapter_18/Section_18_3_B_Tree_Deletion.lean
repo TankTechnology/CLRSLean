@@ -14,6 +14,8 @@ Main results:
   the first-pass validity predicate.
 - Theorem {lit}`BTree.delete_mem_iff`: after deletion, membership is exactly
   membership of a key different from the deleted key.
+- Theorem {lit}`BTree.delete_search_iff`: searching after deletion succeeds
+  exactly for old searchable keys different from the deleted key.
 
 Current gaps:
 
@@ -44,6 +46,16 @@ theorem delete_mem_iff (x y : Nat) (t : BTree) :
     exact ⟨h.2, h.1⟩
   · intro h
     exact ⟨h.2, h.1⟩
+
+/-- Searching after deletion succeeds exactly for remaining old keys. -/
+theorem delete_search_iff {minDegree x y : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) :
+    search y (delete x t) = true <-> (y != x) = true ∧ search y t = true := by
+  have hdelete : Valid minDegree (delete x t) :=
+    delete_preserves_model (minDegree := minDegree) (x := x) (t := t) hvalid
+  rw [search_correct (minDegree := minDegree) (x := y) (t := delete x t) hdelete]
+  rw [delete_mem_iff]
+  rw [← search_correct (minDegree := minDegree) (x := y) (t := t) hvalid]
 
 end BTree
 end Chapter18
