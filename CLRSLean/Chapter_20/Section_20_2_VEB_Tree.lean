@@ -49,6 +49,14 @@ Main results:
   {lit}`VEB.insert_predecessor_correct`, {lit}`VEB.delete_successor_correct`,
   and {lit}`VEB.delete_predecessor_correct`: successor and predecessor queries
   after updates are extrema of the updated filtered finite set.
+- Theorems {lit}`VEB.insert_member_lt_univ`,
+  {lit}`VEB.insert_minimum_lt_univ`, {lit}`VEB.insert_maximum_lt_univ`,
+  {lit}`VEB.insert_successor_lt_univ`,
+  {lit}`VEB.insert_predecessor_lt_univ`, {lit}`VEB.delete_member_lt_univ`,
+  {lit}`VEB.delete_minimum_lt_univ`, {lit}`VEB.delete_maximum_lt_univ`,
+  {lit}`VEB.delete_successor_lt_univ`, and
+  {lit}`VEB.delete_predecessor_lt_univ`: successful queries after updates
+  still return keys inside the represented universe.
 - Theorems {lit}`VEB.insert_successor_none_iff`,
   {lit}`VEB.insert_predecessor_none_iff`,
   {lit}`VEB.delete_successor_none_iff`, and
@@ -334,6 +342,16 @@ theorem insert_member_iff {t : Tree} {s : Finset Nat} {x y : Nat}
   rw [Finset.mem_insert]
   rw [← member_correct (t := t) (s := s) (x := y) hrep]
 
+/-- A successful membership query after insertion lies inside the represented universe. -/
+theorem insert_member_lt_univ {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmem : member y (insert x t) = true) :
+    y < t.univSize := by
+  have hinsert : Represents (insert x t) (Insert.insert x s) :=
+    insert_correct (t := t) (s := s) (x := x) hrep hx
+  exact member_lt_univ
+    (t := insert x t) (s := Insert.insert x s) (x := y) hinsert hmem
+
 /-- Membership succeeds for the inserted key after insertion. -/
 theorem insert_member_self {t : Tree} {s : Finset Nat} {x : Nat}
     (hrep : Represents t s) (hx : x < t.univSize) :
@@ -364,6 +382,16 @@ theorem insert_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   · intro y hy
     exact hmin'.2 y (by simp [hy])
 
+/-- A returned minimum after insertion lies inside the represented universe. -/
+theorem insert_minimum_lt_univ {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmin : minimum (insert x t) = some m) :
+    m < t.univSize := by
+  have hinsert : Represents (insert x t) (Insert.insert x s) :=
+    insert_correct (t := t) (s := s) (x := x) hrep hx
+  exact minimum_lt_univ
+    (t := insert x t) (s := Insert.insert x s) (x := m) hinsert hmin
+
 /-- Insertion makes the updated set nonempty, so no minimum-empty result is possible. -/
 theorem insert_minimum_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
     (hrep : Represents t s) (hx : x < t.univSize) :
@@ -387,6 +415,16 @@ theorem insert_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   · exact hmax'.2 x (by simp)
   · intro y hy
     exact hmax'.2 y (by simp [hy])
+
+/-- A returned maximum after insertion lies inside the represented universe. -/
+theorem insert_maximum_lt_univ {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmax : maximum (insert x t) = some m) :
+    m < t.univSize := by
+  have hinsert : Represents (insert x t) (Insert.insert x s) :=
+    insert_correct (t := t) (s := s) (x := x) hrep hx
+  exact maximum_lt_univ
+    (t := insert x t) (s := Insert.insert x s) (x := m) hinsert hmax
 
 /-- Insertion makes the updated set nonempty, so no maximum-empty result is possible. -/
 theorem insert_maximum_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
@@ -412,6 +450,17 @@ theorem insert_successor_correct {t : Tree} {s : Finset Nat} {x q y : Nat}
   · simpa [Finset.mem_insert] using hsucc'.1
   · intro z hz hqz
     exact hsucc'.2.2 z (by simpa [Finset.mem_insert] using hz) hqz
+
+/-- A returned successor after insertion lies inside the represented universe. -/
+theorem insert_successor_lt_univ {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hsucc : successor q (insert x t) = some y) :
+    y < t.univSize := by
+  have hinsert : Represents (insert x t) (Insert.insert x s) :=
+    insert_correct (t := t) (s := s) (x := x) hrep hx
+  exact successor_lt_univ
+    (t := insert x t) (s := Insert.insert x s) (x := q) (y := y)
+    hinsert hsucc
 
 /-- No successor after insertion means no inserted or old key is greater than the query. -/
 theorem insert_successor_none_iff {t : Tree} {s : Finset Nat} {x q : Nat}
@@ -439,6 +488,17 @@ theorem insert_predecessor_correct {t : Tree} {s : Finset Nat} {x q y : Nat}
   · simpa [Finset.mem_insert] using hpred'.1
   · intro z hz hzq
     exact hpred'.2.2 z (by simpa [Finset.mem_insert] using hz) hzq
+
+/-- A returned predecessor after insertion lies inside the represented universe. -/
+theorem insert_predecessor_lt_univ {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hpred : predecessor q (insert x t) = some y) :
+    y < t.univSize := by
+  have hinsert : Represents (insert x t) (Insert.insert x s) :=
+    insert_correct (t := t) (s := s) (x := x) hrep hx
+  exact predecessor_lt_univ
+    (t := insert x t) (s := Insert.insert x s) (x := q) (y := y)
+    hinsert hpred
 
 /-- No predecessor after insertion means no inserted or old key is smaller than the query. -/
 theorem insert_predecessor_none_iff {t : Tree} {s : Finset Nat} {x q : Nat}
@@ -475,6 +535,15 @@ theorem delete_member_iff {t : Tree} {s : Finset Nat} {x y : Nat}
   rw [Finset.mem_erase]
   rw [← member_correct (t := t) (s := s) (x := y) hrep]
 
+/-- A successful membership query after deletion lies inside the represented universe. -/
+theorem delete_member_lt_univ {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hmem : member y (delete x t) = true) :
+    y < t.univSize := by
+  have hdelete : Represents (delete x t) (s.erase x) :=
+    delete_correct (t := t) (s := s) (x := x) hrep
+  exact member_lt_univ
+    (t := delete x t) (s := s.erase x) (x := y) hdelete hmem
+
 /-- Membership fails for the deleted key after deletion. -/
 theorem delete_member_deleted_false {t : Tree} {s : Finset Nat} {x : Nat}
     (hrep : Represents t s) :
@@ -506,6 +575,15 @@ theorem delete_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   refine ⟨hmem.1, hmem.2, ?_⟩
   intro y hy hyx
   exact hmin'.2 y (by simp [Finset.mem_erase, hyx, hy])
+
+/-- A returned minimum after deletion lies inside the represented universe. -/
+theorem delete_minimum_lt_univ {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hmin : minimum (delete x t) = some m) :
+    m < t.univSize := by
+  have hdelete : Represents (delete x t) (s.erase x) :=
+    delete_correct (t := t) (s := s) (x := x) hrep
+  exact minimum_lt_univ
+    (t := delete x t) (s := s.erase x) (x := m) hdelete hmin
 
 /-- No minimum after deletion means every old key was the deleted key. -/
 theorem delete_minimum_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
@@ -544,6 +622,15 @@ theorem delete_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   refine ⟨hmem.1, hmem.2, ?_⟩
   intro y hy hyx
   exact hmax'.2 y (by simp [Finset.mem_erase, hyx, hy])
+
+/-- A returned maximum after deletion lies inside the represented universe. -/
+theorem delete_maximum_lt_univ {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hmax : maximum (delete x t) = some m) :
+    m < t.univSize := by
+  have hdelete : Represents (delete x t) (s.erase x) :=
+    delete_correct (t := t) (s := s) (x := x) hrep
+  exact maximum_lt_univ
+    (t := delete x t) (s := s.erase x) (x := m) hdelete hmax
 
 /-- No maximum after deletion means every old key was the deleted key. -/
 theorem delete_maximum_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
@@ -584,6 +671,15 @@ theorem delete_successor_correct {t : Tree} {s : Finset Nat} {x q y : Nat}
   intro z hz hzx hqz
   exact hsucc'.2.2 z (by simp [Finset.mem_erase, hzx, hz]) hqz
 
+/-- A returned successor after deletion lies inside the represented universe. -/
+theorem delete_successor_lt_univ {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hsucc : successor q (delete x t) = some y) :
+    y < t.univSize := by
+  have hdelete : Represents (delete x t) (s.erase x) :=
+    delete_correct (t := t) (s := s) (x := x) hrep
+  exact successor_lt_univ
+    (t := delete x t) (s := s.erase x) (x := q) (y := y) hdelete hsucc
+
 /-- No successor after deletion means no remaining old key is greater than the query. -/
 theorem delete_successor_none_iff {t : Tree} {s : Finset Nat} {x q : Nat}
     (hrep : Represents t s) :
@@ -615,6 +711,15 @@ theorem delete_predecessor_correct {t : Tree} {s : Finset Nat} {x q y : Nat}
   refine ⟨hmem.1, hmem.2, hpred'.2.1, ?_⟩
   intro z hz hzx hzq
   exact hpred'.2.2 z (by simp [Finset.mem_erase, hzx, hz]) hzq
+
+/-- A returned predecessor after deletion lies inside the represented universe. -/
+theorem delete_predecessor_lt_univ {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hpred : predecessor q (delete x t) = some y) :
+    y < t.univSize := by
+  have hdelete : Represents (delete x t) (s.erase x) :=
+    delete_correct (t := t) (s := s) (x := x) hrep
+  exact predecessor_lt_univ
+    (t := delete x t) (s := s.erase x) (x := q) (y := y) hdelete hpred
 
 /-- No predecessor after deletion means no remaining old key is smaller than the query. -/
 theorem delete_predecessor_none_iff {t : Tree} {s : Finset Nat} {x q : Nat}

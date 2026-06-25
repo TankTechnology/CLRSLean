@@ -118,7 +118,8 @@ Start with the chapter pages in the sidebar.
   bounds, empty-result extrema/successor/predecessor queries, insert, and
   delete, including membership-, extrema-, and neighbor-query-after-update
   positive/no-neighbor specs, extrema empty-after-update specs, direct
-  member-query preservation corollaries, and operation-depth
+  member-query preservation corollaries, update-query universe-bound
+  corollaries, and operation-depth
   recurrence/monotonicity specs.
 * Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
   Kruskal skeleton, and finite-graph MST wrappers.
@@ -558,27 +559,37 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter20.VEB.predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_member_iff`,
+  {lit}`CLRS.Chapter20.VEB.insert_member_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_member_self`,
   {lit}`CLRS.Chapter20.VEB.insert_member_old`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_minimum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_successor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_predecessor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_member_iff`,
+  {lit}`CLRS.Chapter20.VEB.delete_member_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.delete_member_deleted_false`,
   {lit}`CLRS.Chapter20.VEB.delete_member_of_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_minimum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_successor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_predecessor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.delete_predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_zero`,
   {lit}`CLRS.Chapter20.VEB.operationDepth_succ`,
