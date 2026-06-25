@@ -26,6 +26,9 @@ Main results:
   {lit}`FibHeap.extractMin_mem_iff`, {lit}`FibHeap.decreaseKey_mem_iff`, and
   {lit}`FibHeap.delete_mem_iff`:
   key membership after set-updating operations matches the finite-set update.
+- Theorems {lit}`FibHeap.insert_mem_self`, {lit}`FibHeap.extractMin_not_mem`,
+  {lit}`FibHeap.decreaseKey_mem_new`, and {lit}`FibHeap.delete_not_mem`:
+  direct membership corollaries for the updated key after heap operations.
 - Theorem {lit}`FibHeap.heapPotential_telescope`: heap potential instantiates
   the Chapter 17 potential-method telescoping theorem.
 - Theorem {lit}`FibHeap.fibLowerBound_step`: the Fibonacci-style lower-bound
@@ -159,6 +162,12 @@ theorem insert_mem_iff (h : FibHeap) (x y : Int) :
     y ∈ (insert x h).keys <-> y = x ∨ y ∈ h.keys := by
   simp [insert]
 
+/-- The inserted key is present after insertion. -/
+theorem insert_mem_self (h : FibHeap) (x : Int) :
+    x ∈ (insert x h).keys := by
+  rw [insert_mem_iff]
+  exact Or.inl rfl
+
 /-- Meld two heaps. -/
 def union (h₁ h₂ : FibHeap) : FibHeap :=
   let ks := h₁.keys ∪ h₂.keys
@@ -220,6 +229,13 @@ theorem extractMin_mem_iff {h h' : FibHeap} {x y : Int}
     simp
   · simp [hne] at hextract
 
+/-- The extracted minimum key is absent from the remaining heap. -/
+theorem extractMin_not_mem {h h' : FibHeap} {x : Int}
+    (hextract : extractMin h = some (x, h')) :
+    x ∉ h'.keys := by
+  rw [extractMin_mem_iff hextract]
+  simp
+
 /-- Extract-min returns nothing exactly when the represented key set is empty. -/
 theorem extractMin_none_iff {h : FibHeap} {s : Finset Int}
     (hrep : Represents h s) :
@@ -263,6 +279,12 @@ theorem decreaseKey_mem_iff (h : FibHeap) (oldKey newKey y : Int) :
       y = newKey ∨ (y ≠ oldKey ∧ y ∈ h.keys) := by
   simp [decreaseKey, eq_comm]
 
+/-- The decreased-to key is present after decrease-key. -/
+theorem decreaseKey_mem_new (h : FibHeap) (oldKey newKey : Int) :
+    newKey ∈ (decreaseKey oldKey newKey h).keys := by
+  rw [decreaseKey_mem_iff]
+  exact Or.inl rfl
+
 /-- Delete a key from the heap. -/
 def delete (x : Int) (h : FibHeap) : FibHeap :=
   let ks := h.keys.erase x
@@ -280,6 +302,12 @@ theorem delete_correct {h : FibHeap} {s : Finset Int} {x : Int}
 theorem delete_mem_iff (h : FibHeap) (x y : Int) :
     y ∈ (delete x h).keys <-> y ≠ x ∧ y ∈ h.keys := by
   simp [delete]
+
+/-- The deleted key is absent after deletion. -/
+theorem delete_not_mem (h : FibHeap) (x : Int) :
+    x ∉ (delete x h).keys := by
+  rw [delete_mem_iff]
+  simp
 
 /-- A heap-indexed potential trace for Chapter 17's potential method. -/
 def potentialTrace (heap : Nat -> FibHeap) (actual : Nat -> Int) :
