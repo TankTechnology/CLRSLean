@@ -1,0 +1,35 @@
+import CLRSLean.Chapter_19.Section_19_1_Fibonacci_Heap_Model
+
+/-!
+# Chapter 19 - Fibonacci Heaps
+
+Chapter 19 starts with a first-pass abstract Fibonacci-heap model.  The current
+Lean surface represents a heap by a finite set of integer keys plus root/mark
+counters, proves operation-level set specifications, exposes the standard
+potential function, and packages a conservative degree-bound wrapper for later
+Fibonacci-number strengthening.
+
+## Sections
+
+* 19.1 Fibonacci-heap model: {lit}`partial`.
+  Main results:
+  {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.union_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.delete_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.heapPotential_telescope`, and
+  {lit}`CLRS.Chapter19.FibHeap.degree_bound_log`.
+
+## Current Gaps
+
+Pointer-level circular lists, cascading-cut transition systems, consolidation
+arrays, and the true Fibonacci subtree-size/log-degree theorem remain
+strengthening targets.
+-/
+
+namespace CLRS
+namespace Chapter19
+end Chapter19
+end CLRS

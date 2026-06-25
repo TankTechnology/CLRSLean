@@ -14,6 +14,7 @@ import CLRSLean.Chapter_13
 import CLRSLean.Chapter_16
 import CLRSLean.Chapter_17
 import CLRSLean.Chapter_18
+import CLRSLean.Chapter_19
 import CLRSLean.Chapter_20
 import CLRSLean.Chapter_23
 import CLRSLean.Progress
@@ -96,6 +97,9 @@ Start with the chapter pages in the sidebar.
   potential-method telescoping theorems for later amortized examples.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
   height-expression, split, and insertion theorem surface.
+* Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
+  operation-level correctness, heap potential telescoping, and a conservative
+  degree-bound wrapper.
 * Chapter 20 - van Emde Boas Trees: high/low universe decomposition and a
   finite-set specification layer for membership, extrema, successor, insert,
   and delete.
@@ -422,6 +426,15 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`, and
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`.
+* 19.1 Fibonacci heaps: {lit}`partial`.
+  Public results: {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.union_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.delete_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.heapPotential_telescope`, and
+  {lit}`CLRS.Chapter19.FibHeap.degree_bound_log`.
 * 20.1-20.2 van Emde Boas trees: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter20.VEB.index_high_low`,
   {lit}`CLRS.Chapter20.VEB.high_lt`, {lit}`CLRS.Chapter20.VEB.low_lt`,
