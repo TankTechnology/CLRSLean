@@ -6,6 +6,7 @@ import CLRSLean.Chapter_05
 import CLRSLean.Chapter_06
 import CLRSLean.Chapter_07
 import CLRSLean.Chapter_08
+import CLRSLean.Chapter_09
 import CLRSLean.Chapter_10
 import CLRSLean.Chapter_11
 import CLRSLean.Chapter_12
@@ -61,6 +62,8 @@ Start with the chapter pages in the sidebar.
   functional quicksort sortedness/permutation preservation.
 * Chapter 8 - Sorting in Linear Time: stable counting-sort bucket correctness
   and abstract radix-sort correctness from stable digit passes.
+* Chapter 9 - Medians and Order Statistics: selection-by-rank correctness via
+  a count-based order-statistic certificate.
 * Chapter 10 - Elementary Data Structures: functional stack, queue, and
   linked-list operation proofs.
 * Chapter 11 - Hash Tables: direct-address table correctness and deterministic
@@ -227,6 +230,13 @@ Start with the chapter pages in the sidebar.
 * 8.4 Bucket sort: `future-work`.
   Planned target: deterministic bucket-sort correctness plus the probabilistic
   expected-time model.
+* 9.2 Selection by rank: `proved` for the specification selector.
+  Public results: `CLRS.Chapter09.selectByRank?_mem`,
+  `CLRS.Chapter09.selectByRank?_rankCorrect`,
+  `CLRS.Chapter09.selectByRank?_correct`.
+* 9.3-9.4 Randomized and deterministic linear-time selection: `future-work`.
+  Planned targets: refine randomized SELECT or median-of-medians SELECT to the
+  same rank certificate, then add the relevant runtime analysis.
 * 10.1 Stacks and queues: `proved` for the functional-list model.
   Public results: `CLRS.Chapter10.pop_push`,
   `CLRS.Chapter10.dequeue_enqueue_nonempty`.

@@ -523,6 +523,46 @@ the declared maximum digit.
   is a blocked-design item because it needs a probability distribution over
   inputs.
 
+## Chapter 9 - Medians and Order Statistics
+
+### Section 9.2 - Selection by rank
+
+- Lean source: `CLRSLean/Chapter_09/Section_09_2_Select_By_Rank.lean`
+- Status: `proved` for the specification selector
+- Main proved theorems:
+  - `CLRS.Chapter09.sortedCopy_perm`
+  - `CLRS.Chapter09.sortedCopy_pairwise`
+  - `CLRS.Chapter09.selectByRank?_mem`
+  - `CLRS.Chapter09.selectByRank?_rankCorrect`
+  - `CLRS.Chapter09.selectByRank?_correct`
+- Proof pattern: define the selector as sorting followed by zero-based
+  indexing; split the sorted list around the selected index; use pairwise
+  sortedness to show all preceding values are at most the selected value and all
+  following values are at least it; transfer strict and weak count bounds back
+  to the original input by permutation.
+- Current gap: randomized SELECT, deterministic median-of-medians SELECT, and
+  runtime analysis should refine to this rank-certificate interface.
+
+The rank certificate handles duplicates directly.  If `selectByRank? k xs`
+returns `x`, then `x ∈ xs`, the number of elements below `x` is at most `k`,
+and the number of elements at most `x` is greater than `k`.
+
+### Sections 9.3-9.4 - Randomized and deterministic linear-time selection
+
+- Lean source: not yet created
+- Status: `future-work` for algorithm refinement; `blocked-design` for
+  randomized expected time
+- Planned theorem targets:
+  - randomized SELECT returns a value satisfying
+    `CLRS.Chapter09.RankCertificate`;
+  - deterministic median-of-medians SELECT returns a value satisfying the same
+    certificate;
+  - expected or worst-case linear-time bounds under explicit cost models.
+- Difficulty note: pure correctness is moderate once the partition interface is
+  stable; randomized expected-time analysis requires a probability model, and
+  deterministic linear time requires the median-of-medians split-size
+  inequalities.
+
 ## Chapter 10 - Elementary Data Structures
 
 ### Section 10.1 - Stacks and queues
@@ -816,6 +856,8 @@ accepted edge set is already known to be a spanning tree.
 | Chapter 8 count-array implementation | `future-work` | Stable bucket correctness is proved; the next refinement is an array count table and prefix-sum implementation of `COUNTING-SORT` connected to `countingSortBy`. |
 | Chapter 8 radix numeric-key refinement | `future-work` | Abstract radix-sort correctness is proved for digit functions; a concrete base-`b` natural-number digit extractor can refine that interface. |
 | Chapter 8 bucket-sort expected time | `blocked-design` | Bucket-sort correctness can be stated deterministically, but expected-time analysis needs a probability model for input distribution. |
+| Chapter 9 randomized SELECT expected time | `blocked-design` | Selection-by-rank correctness is proved for the specification selector; randomized expected time needs a probability model and cost recurrence. |
+| Chapter 9 deterministic linear-time SELECT | `future-work` | The median-of-medians algorithm should refine to `RankCertificate`; the hard part is the split-size and recurrence proof. |
 | Maximum-subarray runtime analysis | `future-work` | Exhaustive-search, crossing-helper optimality, the executable combine step, and recursive split-tree/fuelled selector correctness are proved; runtime recurrence and RAM-cost refinement remain. |
 | Chapter 4 extension from exact powers to all input sizes | `future-work` | Needs a monotone recurrence model and floor/ceiling sandwiching. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |

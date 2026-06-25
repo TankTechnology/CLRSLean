@@ -49,6 +49,8 @@ which areas should not yet be counted as proof-complete.
   functional quicksort sortedness/permutation preservation are proved.
 * Chapter 8, Sections 8.2-8.3: stable counting-sort bucket correctness and
   abstract radix-sort correctness from stable digit passes are proved.
+* Chapter 9, Section 9.2: selection-by-rank correctness is proved for the
+  specification selector with a count-based order-statistic certificate.
 * Chapter 10, Sections 10.1-10.2: functional stack, queue, and linked-list
   operation specifications are proved.
 * Chapter 11, Section 11.1: direct-address table insert/search/delete behavior
@@ -81,7 +83,8 @@ which areas should not yet be counted as proof-complete.
 * Chapter 7, Sections 7.2-7.4: in-place partition, performance recurrence,
   randomized quicksort, and expected-time theorem.
 * Chapter 8, Section 8.4: bucket sort is not yet proved.
-* Chapter 9: order-statistics algorithms are not yet represented.
+* Chapter 9 linear-time SELECT refinements: randomized SELECT and deterministic
+  median-of-medians SELECT are not yet refined to the proved rank certificate.
 * Chapter 11 expected hashing analysis: expected-time theorem under a formal
   probability model.
 * Chapter 12 pointer-level BST layer: CLRS parent-pointer procedures,
@@ -93,8 +96,9 @@ which areas should not yet be counted as proof-complete.
 * Chapter 24 onward: not yet represented.
 
 Near-term rule: do not return to a completed main-proof area, especially
-Chapter 6, without a concrete audit or refinement target.  Prefer the highest
-value item in the structured-but-incomplete bucket.
+Chapter 6, without a concrete audit or refinement target.  The next
+proof-heavy targets are Chapter 4 all-input recurrence bridging, Chapter 23
+exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
 
 ## Proved
 
@@ -229,6 +233,12 @@ value item in the structured-but-incomplete bucket.
   {lit}`CLRS.Chapter08.radixSortBy_ordered`,
   {lit}`CLRS.Chapter08.radixSortBy_mem_iff`, and
   {lit}`CLRS.Chapter08.radixSortBy_correct`.
+* 9.2 Selection by rank, specification selector:
+  {lit}`CLRS.Chapter09.sortedCopy_perm`,
+  {lit}`CLRS.Chapter09.sortedCopy_pairwise`,
+  {lit}`CLRS.Chapter09.selectByRank?_mem`,
+  {lit}`CLRS.Chapter09.selectByRank?_rankCorrect`, and
+  {lit}`CLRS.Chapter09.selectByRank?_correct`.
 * 2.1 Insertion sort:
   `CLRS.Chapter02.insertionSort_sorted`,
   `CLRS.Chapter02.insertionSort_perm`.
