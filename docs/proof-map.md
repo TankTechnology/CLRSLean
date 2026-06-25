@@ -632,6 +632,7 @@ bucket interval hypothesis.
   - `CLRS.Chapter09.selectByRank?_mem`
   - `CLRS.Chapter09.selectByRank?_rankCorrect`
   - `CLRS.Chapter09.selectByRank?_correct`
+  - `CLRS.Chapter09.geCount_eq_length_sub_ltCount`
   - `CLRS.Chapter09.quickSelect?_mem`
   - `CLRS.Chapter09.quickSelect?_rankCorrect`
   - `CLRS.Chapter09.quickSelect?_correct`
@@ -639,8 +640,8 @@ bucket interval hypothesis.
   zero-based indexing; prove pivot-style quickselect by recursively preserving
   a count-based rank certificate through the `< pivot`, pivot-block, and
   `> pivot` branches.
-- Current gap: randomized SELECT and CLRS median-of-medians split-size/runtime
-  analysis remain strengthening targets.
+- Current gap: randomized SELECT and the global CLRS median-of-medians
+  split-size/runtime analysis remain strengthening targets.
 
 The rank certificate handles duplicates directly.  If `selectByRank? k xs` or
 `quickSelect? k xs` returns `x`, then `x ∈ xs`, the number of elements below
@@ -650,11 +651,13 @@ The rank certificate handles duplicates directly.  If `selectByRank? k xs` or
 ### Section 9.3 - Deterministic selection
 
 - Lean source: `CLRSLean/Chapter_09/Section_09_3_Deterministic_Select.lean`
-- Status: `proved` for pivot-parametric deterministic SELECT correctness
+- Status: `proved` for pivot-parametric deterministic SELECT correctness and
+  the local five-element median certificate
 - Main proved theorems:
   - `CLRS.Chapter09.selectWithPivot?_mem`
   - `CLRS.Chapter09.selectWithPivot?_rankCorrect`
   - `CLRS.Chapter09.selectWithPivot?_correct`
+  - `CLRS.Chapter09.medianOfFive?_certificate`
   - `CLRS.Chapter09.deterministicPivot?_mem`
   - `CLRS.Chapter09.deterministicSelect?_mem`
   - `CLRS.Chapter09.deterministicSelect?_rankCorrect`
@@ -664,9 +667,10 @@ The rank certificate handles duplicates directly.  If `selectByRank? k xs` or
   `RankCertificate` lifting lemmas for the low side, pivot block, and high
   side.  The deterministic instance chooses the specification median as its
   pivot, so the rank proof is separated from the linear-time implementation
-  argument.
-- Current gap: the CLRS median-of-medians split-size theorem and worst-case
-  linear recurrence remain future strengthening targets.
+  argument.  The five-element median certificate packages the local 3/3 count
+  fact used by the grouped median-of-medians proof.
+- Current gap: the global CLRS median-of-medians split-size theorem and
+  worst-case linear recurrence remain future strengthening targets.
 
 ### Sections 9.3-9.4 - Randomized and linear-time selection refinements
 
@@ -977,7 +981,7 @@ accepted edge set is already known to be a spanning tree.
 | Chapter 8 count-array implementation | `future-work` | Stable bucket correctness is proved; the next refinement is an array count table and prefix-sum implementation of `COUNTING-SORT` connected to `countingSortBy`. |
 | Chapter 8 bucket-sort expected time | `blocked-design` | Deterministic bucket-sort correctness is proved by `bucketSortByRank_correct`; expected-time analysis needs a probability model for input distribution. |
 | Chapter 9 randomized SELECT expected time | `blocked-design` | Selection-by-rank correctness is proved for the specification selector, pivot-style quickselect, and pivot-parametric deterministic SELECT; randomized expected time needs a probability model and cost recurrence. |
-| Chapter 9 deterministic linear-time SELECT | `future-work` | Pivot-parametric deterministic SELECT correctness is proved by `deterministicSelect?_correct`; the CLRS median-of-medians split-size and recurrence proof remains. |
+| Chapter 9 deterministic linear-time SELECT | `future-work` | Pivot-parametric deterministic SELECT correctness is proved by `deterministicSelect?_correct`, and the local five-element median certificate is proved by `medianOfFive?_certificate`; the global CLRS median-of-medians split-size and recurrence proof remains. |
 | Maximum-subarray runtime analysis | `future-work` | Exhaustive-search, crossing-helper optimality, the executable combine step, and recursive split-tree/fuelled selector correctness are proved; runtime recurrence and RAM-cost refinement remain. |
 | Chapter 4 concrete all-input Master-theorem instantiation | `future-work` | Floor/ceiling exact-power extraction, generic all-input transfer, adjacent-power sandwich generation, the discrete critical-power wrapper, and packaged floor/ceiling case 1 wrappers are proved; analytic comparison-scale wrappers and remaining final case statements remain. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |

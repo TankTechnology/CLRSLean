@@ -243,12 +243,15 @@ now proved for pivot-style quickselect by `CLRS.Chapter09.quickSelect?_correct`.
 Section 9.3 factors the proof through a pivot-parametric deterministic SELECT
 interface: `CLRS.Chapter09.selectWithPivot?_correct` proves correctness for any
 membership-safe pivot rule, and `CLRS.Chapter09.deterministicSelect?_correct`
-instantiates it with a deterministic median pivot.
+instantiates it with a deterministic median pivot.  It also proves
+`CLRS.Chapter09.medianOfFive?_certificate`, the local 3/3 count certificate for
+a five-element group.
 
 The remaining hard work splits into two tracks.  Randomized SELECT needs a
 probability model for random pivots and an expected-cost argument.
-Deterministic linear-time SELECT needs the CLRS median-of-medians
-partition-size inequalities and a recurrence proof.
+Deterministic linear-time SELECT still needs the global CLRS median-of-medians
+partition-size inequalities that combine the local five-element certificates,
+plus a recurrence proof.
 
 ### Pointer-Level Linked Lists
 

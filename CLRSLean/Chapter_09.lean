@@ -9,7 +9,9 @@ specification selector obtains the zero-based rank by sorting and indexing, a
 pivot-style quickselect model recursively partitions around the first element,
 and a pivot-parametric deterministic SELECT model abstracts over the pivot rule.
 All public theorem layers prove that any returned value satisfies the usual
-order-statistic count certificate.
+order-statistic count certificate.  Section 9.3 also proves the local
+five-element median certificate needed as the first step toward the CLRS
+median-of-medians split-size proof.
 
 ## Sections
 
@@ -22,15 +24,17 @@ order-statistic count certificate.
   {lit}`CLRS.Chapter09.quickSelect?_rankCorrect`, and
   {lit}`CLRS.Chapter09.quickSelect?_correct`.
 * 9.3 Deterministic selection: {lit}`proved` for a pivot-parametric SELECT
-  interface and a deterministic median-pivot instance.  Main results:
-  {lit}`CLRS.Chapter09.selectWithPivot?_correct` and
+  interface, a five-element median certificate, and a deterministic
+  median-pivot instance.  Main results:
+  {lit}`CLRS.Chapter09.selectWithPivot?_correct`,
+  {lit}`CLRS.Chapter09.medianOfFive?_certificate`, and
   {lit}`CLRS.Chapter09.deterministicSelect?_correct`.
 
 ## Current Gaps
 
 * Randomized SELECT and expected running time require a probability model.
-* Deterministic linear-time SELECT still needs the CLRS median-of-medians
-  split-size theorem and recurrence analysis.
+* Deterministic linear-time SELECT still needs the global CLRS
+  median-of-medians split-size theorem and recurrence analysis.
 -/
 
 namespace CLRS

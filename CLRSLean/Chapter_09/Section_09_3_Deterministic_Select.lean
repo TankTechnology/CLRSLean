@@ -13,13 +13,17 @@ Main results:
 
 * Theorem {lit}`selectWithPivot?_correct`: a pivot-parametric SELECT is rank
   correct whenever the pivot rule returns members of the current list.
+* Theorem {lit}`medianOfFive?_certificate`: the median selected from a
+  five-element group has at least three elements below it weakly and at least
+  three elements above it weakly.
 * Theorem {lit}`deterministicSelect?_correct`: a deterministic median-pivot
   instance is rank correct.
 
 Current gaps:
 
 * This is not yet the CLRS linear-time median-of-medians cost theorem.  The
-  remaining hard proof is the split-size inequality for medians of five and the
+  local five-element median certificate is proved below; the remaining hard
+  proof is the global split-size inequality for the grouped medians and the
   associated linear recurrence.
 -/
 
@@ -162,6 +166,37 @@ theorem selectWithPivot?_correct
     {x : Nat} (hsel : selectWithPivot? choosePivot? k xs = some x) :
     RankCertificate xs k x :=
   selectWithPivot?_rankCorrect choosePivot? hpivot hsel
+
+/-! ## Five-element median certificate -/
+
+/-- Correctness-oriented median selector for a five-element group. -/
+def medianOfFive? (xs : List Nat) : Option Nat :=
+  selectByRank? 2 xs
+
+/--
+Local certificate used by the CLRS median-of-medians split argument.
+
+For a five-element group, the selected median is an input member, at least
+three group elements are at most it, and at least three group elements are at
+least it.
+-/
+def MedianFiveCertificate (xs : List Nat) (median : Nat) : Prop :=
+  xs.length = 5 ∧ median ∈ xs ∧ 3 ≤ leCount median xs ∧ 3 ≤ geCount median xs
+
+/--
+The rank-2 selector on a five-element group supplies the local 3/3 median
+certificate needed by the deterministic SELECT split-size proof.
+-/
+theorem medianOfFive?_certificate {xs : List Nat} {median : Nat}
+    (hlen : xs.length = 5) (hsel : medianOfFive? xs = some median) :
+    MedianFiveCertificate xs median := by
+  have hrank : RankCertificate xs 2 median := by
+    exact selectByRank?_rankCorrect (by simpa [medianOfFive?] using hsel)
+  refine ⟨hlen, hrank.1, ?_, ?_⟩
+  · exact Nat.succ_le_of_lt hrank.2.2
+  · have hlt : ltCount median xs ≤ 2 := hrank.2.1
+    rw [geCount_eq_length_sub_ltCount, hlen]
+    omega
 
 /-! ## Deterministic median-pivot instance -/
 

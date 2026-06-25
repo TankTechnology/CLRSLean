@@ -31,6 +31,10 @@ def ltCount (x : Nat) (xs : List Nat) : Nat :=
 def leCount (x : Nat) (xs : List Nat) : Nat :=
   (xs.filter (fun y => decide (y ≤ x))).length
 
+/-- Number of input elements at least {lit}`x`. -/
+def geCount (x : Nat) (xs : List Nat) : Nat :=
+  (xs.filter (fun y => decide (x ≤ y))).length
+
 /-- Select the zero-based rank {lit}`k`, if the input has that many elements. -/
 def selectByRank? (k : Nat) (xs : List Nat) : Option Nat :=
   (sortedCopy xs)[k]?
@@ -114,6 +118,24 @@ theorem leCount_eq_of_perm {xs ys : List Nat} {x : Nat}
     leCount x xs = leCount x ys := by
   unfold leCount
   exact (h.filter (fun y => decide (y ≤ x))).length_eq
+
+theorem geCount_eq_length_sub_ltCount (x : Nat) :
+    ∀ xs : List Nat, geCount x xs = xs.length - ltCount x xs := by
+  intro xs
+  induction xs with
+  | nil =>
+      simp [geCount, ltCount]
+  | cons y ys ih =>
+      unfold geCount ltCount at *
+      by_cases hlt : y < x
+      · have hnle : ¬ x ≤ y := Nat.not_le_of_gt hlt
+        simp [hlt, hnle, ih]
+      · have hge : x ≤ y := Nat.le_of_not_gt hlt
+        have hfilter_le :
+            (ys.filter (fun y => decide (y < x))).length ≤ ys.length :=
+          List.length_filter_le (fun y => decide (y < x)) ys
+        simp [hlt, hge, ih]
+        omega
 
 theorem ltCount_le_of_sorted_split {ys lo hi : List Nat} {x : Nat}
     (hsplit : ys = lo ++ x :: hi)

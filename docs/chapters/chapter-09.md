@@ -2,7 +2,8 @@
 
 Chapter 9 now has compiler-clean correctness interfaces for the specification
 selector, a pivot-style quickselect model, and a pivot-parametric deterministic
-SELECT model.
+SELECT model.  It also now proves the local five-element median certificate
+that starts the CLRS median-of-medians split-size argument.
 
 ## Section 9.2 - Selection by rank
 
@@ -37,7 +38,8 @@ most `k`, and the number of input elements at most `x` is greater than `k`.
 ## Section 9.3 - Deterministic selection
 
 - Lean source: `CLRSLean/Chapter_09/Section_09_3_Deterministic_Select.lean`
-- Status: `proved` for pivot-parametric deterministic SELECT correctness
+- Status: `proved` for pivot-parametric deterministic SELECT correctness and
+  the local five-element median certificate
 - Main theorem: `CLRS.Chapter09.deterministicSelect?_correct`
 
 The section abstracts SELECT over a pivot rule.  The only required hypothesis is
@@ -53,6 +55,9 @@ The theorem layer proves:
   satisfies the order-statistic count certificate.
 - `CLRS.Chapter09.selectWithPivot?_correct`: the reader-facing wrapper for any
   membership-safe pivot rule.
+- `CLRS.Chapter09.medianOfFive?_certificate`: for any five-element group, the
+  rank-2 selector returns an input median with at least three elements at most
+  it and at least three elements at least it.
 - `CLRS.Chapter09.deterministicPivot?_mem`: the deterministic median-pivot rule
   returns only input elements.
 - `CLRS.Chapter09.deterministicSelect?_correct`: the deterministic median-pivot
@@ -62,6 +67,6 @@ The theorem layer proves:
 
 - Randomized SELECT expected time: requires a probability model for randomized
   pivots and a cost recurrence or indicator argument.
-- Deterministic linear-time SELECT: the rank-correct deterministic interface is
-  proved, but the CLRS median-of-medians split-size bounds and recurrence
-  analysis remain.
+- Deterministic linear-time SELECT: the rank-correct deterministic interface
+  and local five-element median certificate are proved, but the global CLRS
+  median-of-medians split-size bounds and recurrence analysis remain.

@@ -59,7 +59,8 @@ which areas should not yet be counted as proof-complete.
 * Chapter 9, Sections 9.2-9.3: selection-by-rank correctness is proved for the
   specification selector, a pivot-style quickselect model, and a
   pivot-parametric deterministic SELECT model with a count-based
-  order-statistic certificate.
+  order-statistic certificate; the local five-element median certificate for
+  the median-of-medians split argument is also proved.
 * Chapter 10, Sections 10.1-10.2: functional stack, queue, and linked-list
   operation specifications are proved.
 * Chapter 11, Section 11.1: direct-address table insert/search/delete behavior
@@ -95,8 +96,9 @@ which areas should not yet be counted as proof-complete.
 * Chapter 7, Sections 7.2-7.4: mutable-array partition refinement,
   performance recurrence, randomized quicksort, and expected-time theorem.
 * Chapter 9 linear-time SELECT refinements: pivot-parametric deterministic
-  SELECT is proved; randomized expected time and the CLRS median-of-medians
-  split-size/runtime theorem remain.
+  SELECT and the local five-element median certificate are proved; randomized
+  expected time and the global CLRS median-of-medians split-size/runtime theorem
+  remain.
 * Chapter 11 expected hashing analysis: expected-time theorem under a formal
   probability model.
 * Chapter 12 pointer-level BST layer: CLRS parent-pointer procedures,
@@ -300,6 +302,7 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter09.selectWithPivot?_mem`,
   {lit}`CLRS.Chapter09.selectWithPivot?_rankCorrect`,
   {lit}`CLRS.Chapter09.selectWithPivot?_correct`,
+  {lit}`CLRS.Chapter09.medianOfFive?_certificate`,
   {lit}`CLRS.Chapter09.deterministicSelect?_mem`,
   {lit}`CLRS.Chapter09.deterministicSelect?_rankCorrect`, and
   {lit}`CLRS.Chapter09.deterministicSelect?_correct`.
