@@ -11,8 +11,8 @@ current first pass contains the aggregate, accounting, and potential-method
 framework theorems, a {lit}`MULTIPOP` stack cost bound, an executable
 binary-counter one-step potential proof plus a multi-step executable trace
 bound, and size-level dynamic-table insertion/deletion capacity and transition
-wrappers with capacity-direction facts and an explicit nonnegative potential
-fact.
+wrappers with capacity-direction and actual-cost upper-bound facts plus an
+explicit nonnegative potential fact.
 
 ## Sections
 
@@ -34,11 +34,13 @@ fact.
 * 17.4 Dynamic tables: {lit}`partial`.
   Main results:
   {lit}`CLRS.Chapter17.dynamicPotential_nonneg`,
+  {lit}`CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`,
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedBound`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteCost_le_num`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_valid`,

@@ -19,6 +19,9 @@ Main results:
 - Theorems {lit}`dynamicTableInsertSize_ge_size` and
   {lit}`dynamicTableDeleteSize_le_size`: insertion never shrinks capacity, and
   deletion never grows capacity for a valid table.
+- Theorems {lit}`dynamicTableInsertCost_le_num_succ` and
+  {lit}`dynamicTableDeleteCost_le_num`: the first-pass transition costs are
+  bounded by the natural element-count copying budgets.
 - Theorem {lit}`dynamicTableInsert_valid`: the first-pass insertion transition
   preserves the table-size invariant.
 - Theorem {lit}`dynamicTableDelete_valid`: the first-pass deletion/contraction
@@ -90,6 +93,14 @@ def dynamicTableInsertCost (s : DynamicTableState) : Nat :=
   else
     s.num + 1
 
+/-- The first-pass insertion cost is bounded by the post-insertion element count. -/
+theorem dynamicTableInsertCost_le_num_succ (s : DynamicTableState) :
+    dynamicTableInsertCost s <= s.num + 1 := by
+  unfold dynamicTableInsertCost
+  by_cases hfit : s.num + 1 <= s.size
+  · simp [hfit]
+  · simp [hfit]
+
 /-- The insertion capacity choice can hold the inserted element. -/
 theorem dynamicTableInsertSize_fits (s : DynamicTableState) :
     s.num + 1 <= dynamicTableInsertSize s := by
@@ -143,6 +154,18 @@ def dynamicTableDeleteCost (s : DynamicTableState) : Nat :=
     s.num
   else
     1
+
+/-- The first-pass deletion cost is bounded by the pre-deletion element count. -/
+theorem dynamicTableDeleteCost_le_num (s : DynamicTableState) :
+    dynamicTableDeleteCost s <= s.num := by
+  unfold dynamicTableDeleteCost
+  by_cases hempty : s.num = 0
+  · simp [hempty]
+  · simp [hempty]
+    by_cases hcontract : 4 * (s.num - 1) <= s.size
+    · simp [hcontract]
+    · simp [hcontract]
+      omega
 
 /-- The deletion capacity choice can hold the remaining elements of a valid table. -/
 theorem dynamicTableDeleteSize_fits (s : DynamicTableState)
