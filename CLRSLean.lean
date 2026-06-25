@@ -96,7 +96,7 @@ Start with the chapter pages in the sidebar.
 * Chapter 17 - Amortized Analysis: finite-prefix aggregate, accounting, and
   potential-method telescoping theorems, plus stack/counter/table examples with
   an executable multi-step counter trace bound and size-level dynamic-table
-  potential/capacity-direction/actual-cost/post-state capacity/transition
+  potential/capacity-direction/actual-cost case/post-state capacity/transition
   wrappers.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
   height-expression recurrence and monotonicity, split, split membership/search
@@ -443,6 +443,8 @@ Start with the chapter pages in the sidebar.
 * 17.4 Dynamic tables: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter17.dynamicPotential_nonneg`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`,
+  {lit}`CLRS.Chapter17.dynamicTableInsertCost_of_fits`,
+  {lit}`CLRS.Chapter17.dynamicTableInsertCost_of_expand`,
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
@@ -451,6 +453,9 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedBound`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_le_num`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteCost_empty`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteCost_of_contract`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteCost_of_no_contract`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_valid`,

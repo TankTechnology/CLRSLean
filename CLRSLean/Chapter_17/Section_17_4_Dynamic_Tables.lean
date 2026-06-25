@@ -22,6 +22,12 @@ Main results:
 - Theorems {lit}`dynamicTableInsertCost_le_num_succ` and
   {lit}`dynamicTableDeleteCost_le_num`: the first-pass transition costs are
   bounded by the natural element-count copying budgets.
+- Theorems {lit}`dynamicTableInsertCost_of_fits`,
+  {lit}`dynamicTableInsertCost_of_expand`,
+  {lit}`dynamicTableDeleteCost_empty`,
+  {lit}`dynamicTableDeleteCost_of_contract`, and
+  {lit}`dynamicTableDeleteCost_of_no_contract`: direct case specifications for
+  the first-pass actual-cost definitions.
 - Theorem {lit}`dynamicTableInsert_valid`: the first-pass insertion transition
   preserves the table-size invariant.
 - Theorem {lit}`dynamicTableDelete_valid`: the first-pass deletion/contraction
@@ -98,6 +104,18 @@ def dynamicTableInsertCost (s : DynamicTableState) : Nat :=
   else
     s.num + 1
 
+/-- Insertion into a table with spare capacity costs one write. -/
+theorem dynamicTableInsertCost_of_fits (s : DynamicTableState)
+    (hfit : s.num + 1 <= s.size) :
+    dynamicTableInsertCost s = 1 := by
+  simp [dynamicTableInsertCost, hfit]
+
+/-- Insertion into a full table costs the post-insertion element count. -/
+theorem dynamicTableInsertCost_of_expand (s : DynamicTableState)
+    (hfull : ¬ s.num + 1 <= s.size) :
+    dynamicTableInsertCost s = s.num + 1 := by
+  simp [dynamicTableInsertCost, hfull]
+
 /-- The first-pass insertion cost is bounded by the post-insertion element count. -/
 theorem dynamicTableInsertCost_le_num_succ (s : DynamicTableState) :
     dynamicTableInsertCost s <= s.num + 1 := by
@@ -169,6 +187,24 @@ def dynamicTableDeleteCost (s : DynamicTableState) : Nat :=
     s.num
   else
     1
+
+/-- Deleting from an empty table has zero first-pass cost. -/
+theorem dynamicTableDeleteCost_empty (s : DynamicTableState)
+    (hempty : s.num = 0) :
+    dynamicTableDeleteCost s = 0 := by
+  simp [dynamicTableDeleteCost, hempty]
+
+/-- Contracting after deletion costs copying the remaining represented elements. -/
+theorem dynamicTableDeleteCost_of_contract (s : DynamicTableState)
+    (hnum : s.num ≠ 0) (hcontract : 4 * (s.num - 1) <= s.size) :
+    dynamicTableDeleteCost s = s.num := by
+  simp [dynamicTableDeleteCost, hnum, hcontract]
+
+/-- Deletion without contraction costs one unit in the first-pass model. -/
+theorem dynamicTableDeleteCost_of_no_contract (s : DynamicTableState)
+    (hnum : s.num ≠ 0) (hcontract : ¬ 4 * (s.num - 1) <= s.size) :
+    dynamicTableDeleteCost s = 1 := by
+  simp [dynamicTableDeleteCost, hnum, hcontract]
 
 /-- The first-pass deletion cost is bounded by the pre-deletion element count. -/
 theorem dynamicTableDeleteCost_le_num (s : DynamicTableState) :

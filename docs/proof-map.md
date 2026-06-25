@@ -988,6 +988,8 @@ any consistent tree with the same frequency table.
   - `CLRS.Chapter17.binaryCounter_totalFlips_le`
   - `CLRS.Chapter17.dynamicPotential_nonneg`
   - `CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`
+  - `CLRS.Chapter17.dynamicTableInsertCost_of_fits`
+  - `CLRS.Chapter17.dynamicTableInsertCost_of_expand`
   - `CLRS.Chapter17.dynamicTableInsertSize_fits`
   - `CLRS.Chapter17.dynamicTableInsertSize_ge_size`
   - `CLRS.Chapter17.dynamicTableInsert_valid`
@@ -996,6 +998,9 @@ any consistent tree with the same frequency table.
   - `CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`
   - `CLRS.Chapter17.dynamicTableInsert_amortizedBound`
   - `CLRS.Chapter17.dynamicTableDeleteCost_le_num`
+  - `CLRS.Chapter17.dynamicTableDeleteCost_empty`
+  - `CLRS.Chapter17.dynamicTableDeleteCost_of_contract`
+  - `CLRS.Chapter17.dynamicTableDeleteCost_of_no_contract`
   - `CLRS.Chapter17.dynamicTableDeleteSize_fits`
   - `CLRS.Chapter17.dynamicTableDeleteSize_le_size`
   - `CLRS.Chapter17.dynamicTableDelete_valid`
@@ -1007,7 +1012,7 @@ any consistent tree with the same frequency table.
 - Proof pattern: finite-prefix sums, accounting credit balance, potential
   telescoping, executable counter trace induction, size-level table potential
   nonnegativity, capacity feasibility/direction, post-state capacity
-  corollaries, actual-cost upper bounds, and transitions
+  corollaries, actual-cost case specs and upper bounds, and transitions
 - Current gap: mutable-array copying, RAM/allocation constants, and sharper
   CLRS load-factor potential refinements remain strengthening targets.
 
@@ -1018,7 +1023,7 @@ examples compile against stable public theorem names.  The executable counter
 trace now has a multi-step potential bound and an empty-counter {lit}`2n` flip
 bound.  Dynamic-table insertion and deletion/contraction now expose size-level
 potential nonnegativity, capacity feasibility/direction, direct post-state
-capacity corollaries, and actual-cost upper-bound transition facts, while mutable-array copying and
+capacity corollaries, and actual-cost case/upper-bound transition facts, while mutable-array copying and
 allocator semantics remain future refinements.
 
 ## Chapter 18 - B-Trees

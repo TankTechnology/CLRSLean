@@ -12,7 +12,8 @@ framework theorems, a {lit}`MULTIPOP` stack cost bound, an executable
 binary-counter one-step potential proof plus a multi-step executable trace
 bound, and size-level dynamic-table insertion/deletion capacity and transition
 wrappers with capacity-direction and actual-cost upper-bound facts plus an
-explicit nonnegative potential fact and direct post-state capacity corollaries.
+explicit nonnegative potential fact, actual-cost case specifications, and
+direct post-state capacity corollaries.
 
 ## Sections
 
@@ -35,6 +36,8 @@ explicit nonnegative potential fact and direct post-state capacity corollaries.
   Main results:
   {lit}`CLRS.Chapter17.dynamicPotential_nonneg`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`,
+  {lit}`CLRS.Chapter17.dynamicTableInsertCost_of_fits`,
+  {lit}`CLRS.Chapter17.dynamicTableInsertCost_of_expand`,
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
@@ -43,6 +46,9 @@ explicit nonnegative potential fact and direct post-state capacity corollaries.
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedBound`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_le_num`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteCost_empty`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteCost_of_contract`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteCost_of_no_contract`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_valid`,

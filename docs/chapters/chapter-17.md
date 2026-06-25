@@ -18,6 +18,8 @@
 - `CLRS.Chapter17.binaryCounter_totalFlips_le`
 - `CLRS.Chapter17.dynamicPotential_nonneg`
 - `CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`
+- `CLRS.Chapter17.dynamicTableInsertCost_of_fits`
+- `CLRS.Chapter17.dynamicTableInsertCost_of_expand`
 - `CLRS.Chapter17.dynamicTableInsertSize_fits`
 - `CLRS.Chapter17.dynamicTableInsertSize_ge_size`
 - `CLRS.Chapter17.dynamicTableInsert_valid`
@@ -26,6 +28,9 @@
 - `CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`
 - `CLRS.Chapter17.dynamicTableInsert_amortizedBound`
 - `CLRS.Chapter17.dynamicTableDeleteCost_le_num`
+- `CLRS.Chapter17.dynamicTableDeleteCost_empty`
+- `CLRS.Chapter17.dynamicTableDeleteCost_of_contract`
+- `CLRS.Chapter17.dynamicTableDeleteCost_of_no_contract`
 - `CLRS.Chapter17.dynamicTableDeleteSize_fits`
 - `CLRS.Chapter17.dynamicTableDeleteSize_le_size`
 - `CLRS.Chapter17.dynamicTableDelete_valid`
@@ -44,6 +49,7 @@ potential refinements for dynamic tables.  The dynamic-table layer currently
 exposes a nonnegative potential and checks that the chosen post-operation
 capacity can hold the resulting element count while moving in the expected
 direction for insertion and deletion, including direct post-state capacity
-corollaries.  It also bounds the first-pass
-transition costs by the corresponding element-count copying budgets, but it is
-still a size-level model rather than an array-copying model.
+corollaries.  It also bounds the first-pass transition costs by the
+corresponding element-count copying budgets and records direct actual-cost case
+specifications, but it is still a size-level model rather than an array-copying
+model.
