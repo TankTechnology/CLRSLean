@@ -27,6 +27,8 @@ Main results:
 - Theorems {lit}`FibHeap.fibLowerBound_pos` and
   {lit}`FibHeap.fibLowerBound_le_succ`: the lower-bound sequence is positive
   and adjacent-monotone.
+- Theorem {lit}`FibHeap.fibLowerBound_monotone`: the lower-bound sequence is
+  monotone for arbitrary indices.
 - Theorem {lit}`FibHeap.degree_bound_log`: the first-pass maximum-degree
   wrapper is bounded by its conservative key-count budget.
 
@@ -280,6 +282,15 @@ theorem fibLowerBound_le_succ (d : Nat) :
           change fibLowerBound (d + 2) <= fibLowerBound (d + 3)
           rw [hstep]
           omega
+
+/-- Fibonacci-style lower-bound entries are monotone in the degree index. -/
+theorem fibLowerBound_monotone {a b : Nat} (hab : a <= b) :
+    fibLowerBound a <= fibLowerBound b := by
+  induction hab with
+  | refl =>
+      rfl
+  | step hab ih =>
+      exact Nat.le_trans ih (fibLowerBound_le_succ _)
 
 /-- Conservative first-pass maximum-degree proxy. -/
 def maxDegree (h : FibHeap) : Nat :=
