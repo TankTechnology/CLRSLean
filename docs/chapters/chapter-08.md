@@ -1,7 +1,7 @@
 # Chapter 8 - Sorting in Linear Time
 
-Chapter 8 now has compiler-clean correctness spines for counting sort and
-radix sort.
+Chapter 8 now has compiler-clean correctness spines for counting sort, radix
+sort, and deterministic bucket sort.
 
 ## Section 8.2 - Counting sort
 
@@ -48,6 +48,29 @@ The theorem layer proves:
   input as a permutation.
 - `CLRS.Chapter08.radixSortBy_correct`: the reader-facing conjunction of
   lexicographic ordering, membership preservation, and permutation preservation.
+
+## Section 8.4 - Bucket sort
+
+- Lean source: `CLRSLean/Chapter_08/Section_08_4_Bucket_Sort.lean`
+- Status: `proved` for deterministic bucket-index correctness
+- Main theorem: `CLRS.Chapter08.bucketSortByRank_correct`
+
+The model separates the deterministic correctness theorem from the CLRS
+probabilistic analysis.  It assumes a bucket-index function and a final rank
+function.  The cross-bucket hypothesis says that every element in an earlier
+bucket is no larger than every element in a later bucket.
+
+The theorem layer proves:
+
+- `CLRS.Chapter08.bucketSortBy_ordered`: abstract bucket sort returns output
+  ordered by the final rank when each bucket sorter is correct and bucket
+  indices respect the rank order.
+- `CLRS.Chapter08.bucketSortBy_perm`: abstract bucket sort preserves the input
+  as a permutation.
+- `CLRS.Chapter08.bucketSortBy_correct`: the reader-facing correctness wrapper
+  for any correct per-bucket sorter.
+- `CLRS.Chapter08.bucketSortByRank_correct`: an executable wrapper that sorts
+  each bucket with Lean's verified `mergeSort`.
 
 ## Hard Follow-Up Work
 

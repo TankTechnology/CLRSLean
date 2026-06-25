@@ -63,6 +63,7 @@ In prose and on the future website, these appear as:
 - Section 7.1 - Description of quicksort
 - Section 8.2 - Counting sort
 - Section 8.3 - Radix sort
+- Section 8.4 - Bucket sort
 - Section 9.2 - Selection by rank
 - Section 10.1 - Stacks and queues
 - Section 10.2 - Linked lists
@@ -102,6 +103,7 @@ should remain import-friendly.
 | Section 7.1 - Description of quicksort | `CLRSLean/Chapter_07/Section_07_1_Description_Of_Quicksort.lean` | `proved` for the functional-list model | `CLRS.Chapter07.partitionAround_left_eq_filter`, `CLRS.Chapter07.partitionAround_right_eq_filter`, `CLRS.Chapter07.mem_partitionAround_left_iff`, `CLRS.Chapter07.mem_partitionAround_right_iff`, `CLRS.Chapter07.partitionAround_correct`, `CLRS.Chapter07.partitionAround_perm`, `CLRS.Chapter07.partitionAround_left_allLeUpper`, `CLRS.Chapter07.partitionAround_right_allGt`, `CLRS.Chapter07.quickSort_perm`, `CLRS.Chapter07.quickSort_ordered`, `CLRS.Chapter07.quickSort_correct` |
 | Section 8.2 - Counting sort | `CLRSLean/Chapter_08/Section_08_2_Counting_Sort.lean` | `proved` for the stable bucket specification | `CLRS.Chapter08.countingSortBy_ordered`, `CLRS.Chapter08.countingSortBy_bucket_eq`, `CLRS.Chapter08.countingSortBy_mem_iff`, `CLRS.Chapter08.countingSortBy_perm`, `CLRS.Chapter08.countingSortBy_correct` |
 | Section 8.3 - Radix sort | `CLRSLean/Chapter_08/Section_08_3_Radix_Sort.lean` | `proved` for the abstract stable digit-pass model | `CLRS.Chapter08.radixPass_orderedRel`, `CLRS.Chapter08.radixSortBy_ordered`, `CLRS.Chapter08.radixSortBy_mem_iff`, `CLRS.Chapter08.radixSortBy_perm`, `CLRS.Chapter08.radixSortBy_correct` |
+| Section 8.4 - Bucket sort | `CLRSLean/Chapter_08/Section_08_4_Bucket_Sort.lean` | `proved` for deterministic bucket-index correctness | `CLRS.Chapter08.bucketSortBy_ordered`, `CLRS.Chapter08.bucketSortBy_perm`, `CLRS.Chapter08.bucketSortBy_correct`, `CLRS.Chapter08.bucketSortByRank_correct` |
 | Section 9.2 - Selection by rank | `CLRSLean/Chapter_09/Section_09_2_Select_By_Rank.lean` | `proved` for the specification selector and pivot-style quickselect | `CLRS.Chapter09.selectByRank?_mem`, `CLRS.Chapter09.selectByRank?_rankCorrect`, `CLRS.Chapter09.selectByRank?_correct`, `CLRS.Chapter09.quickSelect?_mem`, `CLRS.Chapter09.quickSelect?_rankCorrect`, `CLRS.Chapter09.quickSelect?_correct` |
 | Section 10.1 - Stacks and queues | `CLRSLean/Chapter_10/Section_10_1_Stacks_And_Queues.lean` | `proved` | `CLRS.Chapter10.pop_push`, `CLRS.Chapter10.dequeue_enqueue_nonempty` |
 | Section 10.2 - Linked lists | `CLRSLean/Chapter_10/Section_10_2_Linked_Lists.lean` | `proved` | `CLRS.Chapter10.listSearch_sound`, `CLRS.Chapter10.mem_listDeleteAll_iff` |

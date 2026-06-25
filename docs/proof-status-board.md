@@ -24,7 +24,7 @@ advertised on the site is proved.
 | Chapter 5, Section 5.1 | The hiring-problem probability and expected-hires harmonic/logarithmic results are proved for the finite rank-symmetry model. | Random-permutation execution model is optional refinement. |
 | Chapter 6, Sections 6.1-6.5 | The array heap layer, fuelled recursive `MAX-HEAPIFY`, bottom-up `BUILD-MAX-HEAP`, in-place heapsort sorted-suffix invariant, top-level heapsort correctness, and array-level priority-queue state theorems are proved. | Line-by-line RAM cost model. |
 | Chapter 7, Section 7.1 | Stable functional partition classification, permutation preservation, and functional quicksort sortedness/permutation preservation are proved. | In-place `PARTITION`, deterministic recurrence analysis, randomized quicksort, and expected-time analysis. |
-| Chapter 8, Sections 8.2-8.3 | Stable counting-sort bucket/permutation correctness and abstract radix-sort ordering/permutation correctness from stable digit passes are proved. | Array count table/prefix-sum refinement, concrete base-`b` digit extraction, bucket sort, and cost/probability analysis. |
+| Chapter 8, Sections 8.2-8.4 | Stable counting-sort bucket/permutation correctness, abstract radix-sort ordering/permutation correctness, and deterministic bucket-sort correctness are proved. | Array count table/prefix-sum refinement, concrete base-`b` digit extraction, and cost/probability analysis. |
 | Chapter 9, Section 9.2 | Selection-by-rank correctness is proved for both the specification selector and a pivot-style quickselect model, using a count-based order-statistic certificate. | Randomized SELECT, deterministic median-of-medians SELECT, and runtime analysis. |
 | Chapter 10, Sections 10.1-10.2 | Functional stack/queue and functional linked-list operation specifications are proved. | Pointer-level memory, sentinels, allocation, and free lists. |
 | Chapter 11, Section 11.1 | Direct-address table insert/search/delete behavior is proved. | Bounded-array and cost refinement. |
@@ -54,7 +54,6 @@ section file yet or only enough scaffolding to identify the intended theorem.
 | --- | --- |
 | Chapter 4 concrete Master-theorem instantiation | Discharge the all-input transfer bridge's power-sandwich hypotheses for floor/ceiling recurrences. |
 | Chapter 7, Sections 7.2-7.4 | In-place partition, deterministic performance recurrence, randomized quicksort, and expected-time theorem. |
-| Chapter 8, Section 8.4 | Bucket sort theorem interface and proof have not been added yet. |
 | Chapter 9 linear-time SELECT refinements | Pivot-style quickselect is proved against the rank-certificate interface; randomized expected-time analysis and deterministic median-of-medians remain. |
 | Chapter 11, expected hashing analysis | Expected-time theorem for chained hashing under a formal probability model. |
 | Chapter 12 pointer-level BST layer | CLRS parent-pointer search/min/max/successor/predecessor/transplant/delete refinement. |

@@ -61,8 +61,9 @@ Start with the chapter pages in the sidebar.
   priority-queue operation specifications.
 * Chapter 7 - Quicksort: stable functional partition classification and
   functional quicksort sortedness/permutation preservation.
-* Chapter 8 - Sorting in Linear Time: stable counting-sort bucket correctness
-  and abstract radix-sort correctness from stable digit passes.
+* Chapter 8 - Sorting in Linear Time: stable counting-sort bucket correctness,
+  abstract radix-sort correctness from stable digit passes, and deterministic
+  bucket-sort correctness.
 * Chapter 9 - Medians and Order Statistics: selection-by-rank correctness for
   the specification selector and a pivot-style quickselect model via a
   count-based order-statistic certificate.
@@ -243,9 +244,11 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter08.radixSortBy_mem_iff`,
   `CLRS.Chapter08.radixSortBy_perm`, and
   `CLRS.Chapter08.radixSortBy_correct`.
-* 8.4 Bucket sort: `future-work`.
-  Planned target: deterministic bucket-sort correctness plus the probabilistic
-  expected-time model.
+* 8.4 Bucket sort: `proved` for deterministic bucket-index correctness.
+  Public results: `CLRS.Chapter08.bucketSortBy_ordered`,
+  `CLRS.Chapter08.bucketSortBy_perm`,
+  `CLRS.Chapter08.bucketSortBy_correct`, and
+  `CLRS.Chapter08.bucketSortByRank_correct`.
 * 9.2 Selection by rank: `proved` for the specification selector and
   pivot-style quickselect.
   Public results: `CLRS.Chapter09.selectByRank?_mem`,

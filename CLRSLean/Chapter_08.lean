@@ -1,5 +1,6 @@
 import CLRSLean.Chapter_08.Section_08_2_Counting_Sort
 import CLRSLean.Chapter_08.Section_08_3_Radix_Sort
+import CLRSLean.Chapter_08.Section_08_4_Bucket_Sort
 
 /-!
 # Chapter 8 - Sorting in Linear Time
@@ -23,12 +24,16 @@ sorting primitives before cost models.
   {lit}`CLRS.Chapter08.radixSortBy_mem_iff`,
   {lit}`CLRS.Chapter08.radixSortBy_perm`, and
   {lit}`CLRS.Chapter08.radixSortBy_correct`.
+* 8.4 Bucket sort: {lit}`proved` for a deterministic bucket-index model.
+  Main results:
+  {lit}`CLRS.Chapter08.bucketSortBy_correct` and
+  {lit}`CLRS.Chapter08.bucketSortByRank_correct`.
 
 ## Current Gaps
 
 * Array-level count table and prefix-sum implementation of {lit}`COUNTING-SORT`.
 * Concrete base-{lit}`b` digit extraction and numeric-key refinement for radix sort.
-* 8.4 Bucket sort and probabilistic expected-time analysis.
+* Bucket-sort probabilistic expected-time analysis.
 -/
 
 namespace CLRS

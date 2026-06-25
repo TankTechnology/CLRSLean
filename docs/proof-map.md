@@ -540,14 +540,26 @@ declared maximum digit, and the output is a permutation of the input.
 
 ### Section 8.4 - Bucket sort
 
-- Lean source: not yet created
-- Status: `future-work`
-- Planned theorem targets:
-  - deterministic bucket-sort correctness for ordered buckets;
-  - expected-time bucket-sort analysis under a probability model.
-- Difficulty note: deterministic correctness should be moderate; expected time
-  is a blocked-design item because it needs a probability distribution over
-  inputs.
+- Lean source: `CLRSLean/Chapter_08/Section_08_4_Bucket_Sort.lean`
+- Status: `proved` for deterministic bucket-index correctness
+- Main proved theorems:
+  - `CLRS.Chapter08.bucketSortBy_perm`
+  - `CLRS.Chapter08.bucketSortBy_ordered`
+  - `CLRS.Chapter08.bucketSortBy_correct`
+  - `CLRS.Chapter08.sortBucketByRank_ordered`
+  - `CLRS.Chapter08.sortBucketByRank_perm`
+  - `CLRS.Chapter08.bucketSortByRank_correct`
+- Proof pattern: scan bucket indices in increasing order, prove each per-bucket
+  sorter preserves the bucket as a permutation, prove all emitted elements have
+  the scanned bucket index, and use a cross-bucket monotonicity assumption to
+  concatenate ordered buckets into an ordered output.
+- Current gap: expected-time bucket-sort analysis is still blocked on a
+  probability model for input distribution.
+
+The executable wrapper `CLRS.Chapter08.bucketSortByRank` sorts each bucket with
+Lean's verified `mergeSort`.  Its correctness theorem proves ordered output,
+membership preservation, and permutation preservation under the deterministic
+bucket interval hypothesis.
 
 ## Chapter 9 - Medians and Order Statistics
 
@@ -884,7 +896,7 @@ accepted edge set is already known to be a spanning tree.
 | Chapter 7 randomized expected time | `blocked-design` | Needs a probability model for random pivots or random permutations and a cost recurrence/indicator argument. |
 | Chapter 8 count-array implementation | `future-work` | Stable bucket correctness is proved; the next refinement is an array count table and prefix-sum implementation of `COUNTING-SORT` connected to `countingSortBy`. |
 | Chapter 8 radix numeric-key refinement | `future-work` | Abstract radix-sort correctness is proved for digit functions; a concrete base-`b` natural-number digit extractor can refine that interface. |
-| Chapter 8 bucket-sort expected time | `blocked-design` | Bucket-sort correctness can be stated deterministically, but expected-time analysis needs a probability model for input distribution. |
+| Chapter 8 bucket-sort expected time | `blocked-design` | Deterministic bucket-sort correctness is proved by `bucketSortByRank_correct`; expected-time analysis needs a probability model for input distribution. |
 | Chapter 9 randomized SELECT expected time | `blocked-design` | Selection-by-rank correctness is proved for the specification selector and pivot-style quickselect; randomized expected time needs a probability model and cost recurrence. |
 | Chapter 9 deterministic linear-time SELECT | `future-work` | Pivot-style quickselect already refines to `RankCertificate`; median-of-medians still needs the split-size and recurrence proof. |
 | Maximum-subarray runtime analysis | `future-work` | Exhaustive-search, crossing-helper optimality, the executable combine step, and recursive split-tree/fuelled selector correctness are proved; runtime recurrence and RAM-cost refinement remain. |

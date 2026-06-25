@@ -201,15 +201,17 @@ reader-facing correctness theorem.  Section 8.3 proves abstract radix-sort
 correctness: `CLRS.Chapter08.radixPass_orderedRel` is the stable digit-pass
 lemma, `CLRS.Chapter08.radixSortBy_perm` proves repeated passes preserve the
 input as a permutation, and `CLRS.Chapter08.radixSortBy_correct` packages
-lexicographic ordering plus membership and permutation preservation.
+lexicographic ordering plus membership and permutation preservation.  Section
+8.4 proves deterministic bucket-sort correctness:
+`CLRS.Chapter08.bucketSortByRank_correct` packages ordered output, membership
+preservation, and permutation preservation for the merge-sorted bucket model.
 
 The remaining CLRS refinements split into three tracks.  The array-level
 `COUNTING-SORT` proof should connect count arrays and prefix sums to the stable
 bucket specification.  Radix sort still needs a concrete base-`b` digit
 extraction refinement from natural-number keys to the abstract digit-function
 interface.  Bucket-sort expected time needs a probability model for the input
-distribution, so it is a design-level proof task rather than a small
-deterministic lemma.
+distribution, so it remains a design-level proof task.
 
 ### Chapter 9 Selection Refinements
 

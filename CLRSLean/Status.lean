@@ -48,8 +48,9 @@ which areas should not yet be counted as proof-complete.
   priority-queue state theorems are proved.
 * Chapter 7, Section 7.1: stable functional partition classification and
   functional quicksort sortedness/permutation preservation are proved.
-* Chapter 8, Sections 8.2-8.3: stable counting-sort bucket correctness and
-  abstract radix-sort correctness from stable digit passes are proved.
+* Chapter 8, Sections 8.2-8.4: stable counting-sort bucket correctness,
+  abstract radix-sort correctness from stable digit passes, and deterministic
+  bucket-sort correctness are proved.
 * Chapter 9, Section 9.2: selection-by-rank correctness is proved for the
   specification selector and a pivot-style quickselect model with a
   count-based order-statistic certificate.
@@ -86,7 +87,6 @@ which areas should not yet be counted as proof-complete.
   bridge's power-sandwich hypotheses for floor/ceiling recurrences.
 * Chapter 7, Sections 7.2-7.4: in-place partition, performance recurrence,
   randomized quicksort, and expected-time theorem.
-* Chapter 8, Section 8.4: bucket sort is not yet proved.
 * Chapter 9 linear-time SELECT refinements: pivot-style quickselect is proved;
   randomized expected time and deterministic median-of-medians SELECT remain.
 * Chapter 11 expected hashing analysis: expected-time theorem under a formal
@@ -252,6 +252,11 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter08.radixSortBy_mem_iff`,
   {lit}`CLRS.Chapter08.radixSortBy_perm`, and
   {lit}`CLRS.Chapter08.radixSortBy_correct`.
+* 8.4 Bucket sort, deterministic bucket-index model:
+  {lit}`CLRS.Chapter08.bucketSortBy_ordered`,
+  {lit}`CLRS.Chapter08.bucketSortBy_perm`,
+  {lit}`CLRS.Chapter08.bucketSortBy_correct`, and
+  {lit}`CLRS.Chapter08.bucketSortByRank_correct`.
 * 9.2 Selection by rank, specification selector and pivot-style quickselect:
   {lit}`CLRS.Chapter09.sortedCopy_perm`,
   {lit}`CLRS.Chapter09.sortedCopy_pairwise`,
