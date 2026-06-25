@@ -5,6 +5,9 @@ import CLRSLean.Chapter_20.Section_20_2_VEB_Tree
 #check CLRS.Chapter20.VEB.low
 #check CLRS.Chapter20.VEB.index
 #check CLRS.Chapter20.VEB.index_high_low
+#check CLRS.Chapter20.VEB.high_index
+#check CLRS.Chapter20.VEB.low_index
+#check CLRS.Chapter20.VEB.index_lt
 #check CLRS.Chapter20.VEB.high_lt
 #check CLRS.Chapter20.VEB.low_lt
 #check CLRS.Chapter20.VEB.Tree

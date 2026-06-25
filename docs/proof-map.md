@@ -1098,6 +1098,9 @@ Fibonacci logarithmic theorem.
 - Status: `partial`
 - Main proved theorems:
   - `CLRS.Chapter20.VEB.index_high_low`
+  - `CLRS.Chapter20.VEB.high_index`
+  - `CLRS.Chapter20.VEB.low_index`
+  - `CLRS.Chapter20.VEB.index_lt`
   - `CLRS.Chapter20.VEB.high_lt`
   - `CLRS.Chapter20.VEB.low_lt`
   - `CLRS.Chapter20.VEB.member_correct`
@@ -1122,18 +1125,20 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.delete_successor_correct`
   - `CLRS.Chapter20.VEB.delete_predecessor_correct`
   - `CLRS.Chapter20.VEB.operationDepth_linear`
-- Proof pattern: natural-number quotient/remainder arithmetic, finite-set
-  representation semantics, extrema/successor via `Finset.min'`/`max'`
+- Proof pattern: natural-number quotient/remainder arithmetic, bounded
+  high/low recomposition, finite-set representation semantics,
+  extrema/successor via `Finset.min'`/`max'`
 - Current gap: recursive min/max-summary-cluster state, word-RAM base cases,
   and an explicit Chapter 3 asymptotic bridge for `O(log log u)` remain
   strengthening targets.
 
-Chapter 20 now proves the high/low/index arithmetic and a set-specification
-layer for the main vEB queries and updates, including both positive and
-empty-result extrema/successor/predecessor cases plus direct membership-after
-update, extrema-after-update, and neighbor-query-after-update specifications.
-The current operation-depth theorem is a linear wrapper over the universe
-exponent, not yet a full asymptotic translation for the original universe size.
+Chapter 20 now proves the high/low/index arithmetic, including both directions
+of bounded high/low recomposition, and a set-specification layer for the main
+vEB queries and updates.  This includes both positive and empty-result
+extrema/successor/predecessor cases plus direct membership-after-update,
+extrema-after-update, and neighbor-query-after-update specifications.  The
+current operation-depth theorem is a linear wrapper over the universe exponent,
+not yet a full asymptotic translation for the original universe size.
 
 ## Chapter 23 - Minimum Spanning Trees
 

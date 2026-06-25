@@ -105,8 +105,9 @@ Start with the chapter pages in the sidebar.
   insert/union/extract-min/decrease-key/delete membership facts, heap potential
   telescoping, a Fibonacci lower-bound recurrence with positivity and
   monotonicity facts, and a conservative degree-bound wrapper.
-* Chapter 20 - van Emde Boas Trees: high/low universe decomposition and a
-  finite-set specification layer for membership, extrema, successor,
+* Chapter 20 - van Emde Boas Trees: high/low universe decomposition with
+  bounded recomposition facts and a finite-set specification layer for
+  membership, extrema, successor,
   predecessor, empty-result extrema/successor/predecessor queries, insert, and
   delete, including membership-, extrema-, and neighbor-query-after-update specs.
 * Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
@@ -473,6 +474,9 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter19.FibHeap.degree_bound_log`.
 * 20.1-20.2 van Emde Boas trees: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter20.VEB.index_high_low`,
+  {lit}`CLRS.Chapter20.VEB.high_index`,
+  {lit}`CLRS.Chapter20.VEB.low_index`,
+  {lit}`CLRS.Chapter20.VEB.index_lt`,
   {lit}`CLRS.Chapter20.VEB.high_lt`, {lit}`CLRS.Chapter20.VEB.low_lt`,
   {lit}`CLRS.Chapter20.VEB.member_correct`,
   {lit}`CLRS.Chapter20.VEB.minimum_correct`,

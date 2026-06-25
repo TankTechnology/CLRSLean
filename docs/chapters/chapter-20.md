@@ -7,6 +7,9 @@
 ## Proved First-Pass Surface
 
 - `CLRS.Chapter20.VEB.index_high_low`
+- `CLRS.Chapter20.VEB.high_index`
+- `CLRS.Chapter20.VEB.low_index`
+- `CLRS.Chapter20.VEB.index_lt`
 - `CLRS.Chapter20.VEB.high_lt`
 - `CLRS.Chapter20.VEB.low_lt`
 - `CLRS.Chapter20.VEB.member_correct`
@@ -34,6 +37,7 @@
 
 ## Remaining Work
 
-The current chapter proves side-length universe arithmetic and finite-set
-operation specifications.  Recursive summary/cluster state, word-RAM base
-cases, and a full `O(log log u)` asymptotic bridge are still open.
+The current chapter proves side-length universe arithmetic, including bounded
+high/low recomposition facts, and finite-set operation specifications.
+Recursive summary/cluster state, word-RAM base cases, and a full `O(log log u)`
+asymptotic bridge are still open.

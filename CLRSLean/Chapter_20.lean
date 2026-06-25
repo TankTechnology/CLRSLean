@@ -6,10 +6,11 @@ import CLRSLean.Chapter_20.Section_20_2_VEB_Tree
 
 Chapter 20 starts with a first-pass van Emde Boas universe decomposition and a
 finite-set specification model.  The current Lean surface proves high/low/index
-arithmetic and the correctness of membership, extrema, successor, predecessor,
-insert, and delete against a represented finite set, including empty-result
-specifications for extrema, successor, and predecessor plus membership-,
-extrema-, and neighbor-query-after-update specifications.
+arithmetic, including bounded high/low recomposition facts, and the correctness
+of membership, extrema, successor, predecessor, insert, and delete against a
+represented finite set, including empty-result specifications for extrema,
+successor, and predecessor plus membership-, extrema-, and
+neighbor-query-after-update specifications.
 
 ## Sections
 
@@ -17,6 +18,9 @@ extrema-, and neighbor-query-after-update specifications.
   arithmetic.
   Main results:
   {lit}`CLRS.Chapter20.VEB.index_high_low`,
+  {lit}`CLRS.Chapter20.VEB.high_index`,
+  {lit}`CLRS.Chapter20.VEB.low_index`,
+  {lit}`CLRS.Chapter20.VEB.index_lt`,
   {lit}`CLRS.Chapter20.VEB.high_lt`, and
   {lit}`CLRS.Chapter20.VEB.low_lt`.
 * 20.2 Tree specification: {lit}`partial`.

@@ -105,11 +105,11 @@ which areas should not yet be counted as proof-complete.
   heap-potential telescoping, and Fibonacci lower-bound
   recurrence/positivity/monotonicity facts are proved; pointer handles,
   cascading cuts, and the true Fibonacci logarithmic degree theorem remain.
-* Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic and finite-set
-  operation specs, including extrema/successor/predecessor positive and
-  empty-result cases plus membership-, extrema-, and neighbor-query-after-update
-  specs, are proved; recursive cluster representation and the
-  {lit}`O(log log u)` bridge remain.
+* Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic, bounded
+  recomposition facts, and finite-set operation specs, including
+  extrema/successor/predecessor positive and empty-result cases plus
+  membership-, extrema-, and neighbor-query-after-update specs, are proved;
+  recursive cluster representation and the {lit}`O(log log u)` bridge remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
   exact-component Kruskal scan facts, forest/spanning wrappers, and
   certificate-based Kruskal optimality interfaces exist; automatic simple
@@ -559,6 +559,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   proof.
 * 20.1-20.2 van Emde Boas trees:
   current results {lit}`CLRS.Chapter20.VEB.index_high_low`,
+  {lit}`CLRS.Chapter20.VEB.high_index`,
+  {lit}`CLRS.Chapter20.VEB.low_index`,
+  {lit}`CLRS.Chapter20.VEB.index_lt`,
   {lit}`CLRS.Chapter20.VEB.high_lt`,
   {lit}`CLRS.Chapter20.VEB.low_lt`,
   {lit}`CLRS.Chapter20.VEB.member_correct`,
