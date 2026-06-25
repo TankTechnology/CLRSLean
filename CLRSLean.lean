@@ -104,7 +104,8 @@ Start with the chapter pages in the sidebar.
   theorem surface, and direct inserted/deleted-key and old-key query
   preservation corollaries.
 * Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
-  make-heap, operation-level correctness, direct
+  make-heap, operation-level correctness, direct operation-result validity for
+  normalized counters, direct
   insert/union/extract-min/decrease-key/delete membership facts plus
   operation-key and old-key preservation membership corollaries, returned
   minimum-after-update positive/empty specs, heap potential zero/nonnegativity
@@ -496,25 +497,31 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.delete_search_iff`.
 * 19.1 Fibonacci heaps: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.makeHeap_valid`,
   {lit}`CLRS.Chapter19.FibHeap.potential_makeHeap`,
   {lit}`CLRS.Chapter19.FibHeap.potential_nonneg`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_valid`,
   {lit}`CLRS.Chapter19.FibHeap.insert_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.insert_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.union_valid`,
   {lit}`CLRS.Chapter19.FibHeap.union_minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.extractMin_valid`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_remaining_minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_remaining_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.decreaseKey_valid`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.delete_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.delete_valid`,
   {lit}`CLRS.Chapter19.FibHeap.delete_minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.delete_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.delete_mem_iff`,
@@ -525,7 +532,9 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter19.FibHeap.fibLowerBound_monotone`,
   {lit}`CLRS.Chapter19.FibHeap.fibLowerBound_add_two_ge_double`,
   {lit}`CLRS.Chapter19.FibHeap.fibLowerBound_even_lower_bound`,
-  {lit}`CLRS.Chapter19.FibHeap.fibLowerBound_half_lower_bound`, and
+  {lit}`CLRS.Chapter19.FibHeap.fibLowerBound_half_lower_bound`,
+  {lit}`CLRS.Chapter19.FibHeap.degreeIndex_half_le_log_card`,
+  {lit}`CLRS.Chapter19.FibHeap.degreeIndex_le_twice_log_card_add_one`, and
   {lit}`CLRS.Chapter19.FibHeap.degree_bound_log`.
 * 20.1-20.2 van Emde Boas trees: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter20.VEB.index_high_low`,

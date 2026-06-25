@@ -8,7 +8,8 @@ Lean surface represents a heap by a finite set of integer keys plus root/mark
 counters, proves operation-level set specifications and direct membership
 facts plus direct operation-key corollaries for insertion, extract-min,
 decrease-key, and deletion, adds old-key preservation corollaries for the
-set-updating operations, adds positive and empty-result
+set-updating operations, exposes direct operation-result validity wrappers for
+normalized counters, adds positive and empty-result
 minimum-after-update specifications, exposes the standard potential function with
 zero-initial and nonnegativity facts, and
 packages a conservative degree-bound wrapper for later subtree-size
@@ -23,23 +24,27 @@ minimum and extract-min.
 * 19.1 Fibonacci-heap model: {lit}`partial`.
   Main results:
   {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.makeHeap_valid`,
   {lit}`CLRS.Chapter19.FibHeap.potential_makeHeap`,
   {lit}`CLRS.Chapter19.FibHeap.potential_nonneg`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_valid`,
   {lit}`CLRS.Chapter19.FibHeap.insert_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_mem_self`,
   {lit}`CLRS.Chapter19.FibHeap.insert_mem_old`,
   {lit}`CLRS.Chapter19.FibHeap.insert_minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.insert_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.union_valid`,
   {lit}`CLRS.Chapter19.FibHeap.union_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.union_mem_left`,
   {lit}`CLRS.Chapter19.FibHeap.union_mem_right`,
   {lit}`CLRS.Chapter19.FibHeap.union_minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.extractMin_valid`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_not_mem`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_mem_of_ne`,
@@ -47,12 +52,14 @@ minimum and extract-min.
   {lit}`CLRS.Chapter19.FibHeap.extractMin_remaining_minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_remaining_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.decreaseKey_valid`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_mem_new`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_mem_old`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_minimum_correct`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.delete_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.delete_valid`,
   {lit}`CLRS.Chapter19.FibHeap.delete_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.delete_not_mem`,
   {lit}`CLRS.Chapter19.FibHeap.delete_mem_of_ne`,

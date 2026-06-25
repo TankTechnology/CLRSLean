@@ -22,6 +22,10 @@ Main results:
 - Theorems {lit}`FibHeap.insert_correct`, {lit}`FibHeap.union_correct`,
   {lit}`FibHeap.extractMin_correct`, {lit}`FibHeap.decreaseKey_correct`, and
   {lit}`FibHeap.delete_correct`: operations match finite-set specifications.
+- Theorems {lit}`FibHeap.makeHeap_valid`, {lit}`FibHeap.insert_valid`,
+  {lit}`FibHeap.union_valid`, {lit}`FibHeap.extractMin_valid`,
+  {lit}`FibHeap.decreaseKey_valid`, and {lit}`FibHeap.delete_valid`:
+  operation results have valid normalized counters.
 - Theorems {lit}`FibHeap.insert_mem_iff`, {lit}`FibHeap.union_mem_iff`,
   {lit}`FibHeap.extractMin_mem_iff`, {lit}`FibHeap.decreaseKey_mem_iff`, and
   {lit}`FibHeap.delete_mem_iff`:
@@ -103,6 +107,11 @@ theorem makeHeap_correct :
   · simp [makeHeap]
   · simp [Valid, makeHeap]
 
+/-- The empty heap has valid counters. -/
+theorem makeHeap_valid :
+    Valid makeHeap := by
+  exact makeHeap_correct.2
+
 /-- The standard Fibonacci-heap potential {lit}`roots + 2 * marked`. -/
 def potential (h : FibHeap) : Int :=
   Int.ofNat h.roots + 2 * Int.ofNat h.marked
@@ -173,6 +182,11 @@ theorem insert_correct {h : FibHeap} {s : Finset Int} {x : Int}
   · simp [insert, hrep.1]
   · simp [Valid, insert]
 
+/-- Insertion normalizes counters, so the result is valid. -/
+theorem insert_valid (h : FibHeap) (x : Int) :
+    Valid (insert x h) := by
+  simp [Valid, insert]
+
 /-- Key membership after insertion is exactly the new key or an old key. -/
 theorem insert_mem_iff (h : FibHeap) (x y : Int) :
     y ∈ (insert x h).keys <-> y = x ∨ y ∈ h.keys := by
@@ -225,6 +239,11 @@ theorem union_correct {h₁ h₂ : FibHeap} {s₁ s₂ : Finset Int}
   constructor
   · simp [union, hrep₁.1, hrep₂.1]
   · simp [Valid, union]
+
+/-- Union normalizes counters, so the result is valid. -/
+theorem union_valid (h₁ h₂ : FibHeap) :
+    Valid (union h₁ h₂) := by
+  simp [Valid, union]
 
 /-- Key membership after union is exactly membership in either input heap. -/
 theorem union_mem_iff (h₁ h₂ : FibHeap) (x : Int) :
@@ -302,6 +321,17 @@ theorem extractMin_correct {h h' : FibHeap} {s : Finset Int} {x : Int}
     · constructor
       · simp [hrep.1]
       · simp [Valid]
+  · simp [hne] at hextract
+
+/-- A heap returned by extract-min has valid counters. -/
+theorem extractMin_valid {h h' : FibHeap} {x : Int}
+    (hextract : extractMin h = some (x, h')) :
+    Valid h' := by
+  unfold extractMin at hextract
+  by_cases hne : h.keys.Nonempty
+  · simp [hne] at hextract
+    rcases hextract with ⟨rfl, rfl⟩
+    simp [Valid]
   · simp [hne] at hextract
 
 /-- Key membership after extract-min is exactly old membership away from the extracted key. -/
@@ -405,6 +435,11 @@ theorem decreaseKey_correct {h : FibHeap} {s : Finset Int} {oldKey newKey : Int}
     · simp [Valid, decreaseKey]
   · exact hnew
 
+/-- Decrease-key normalizes counters, so the result is valid. -/
+theorem decreaseKey_valid (h : FibHeap) (oldKey newKey : Int) :
+    Valid (decreaseKey oldKey newKey h) := by
+  simp [Valid, decreaseKey]
+
 /--
 Key membership after decrease-key is exactly the new key or an old key other
 than the replaced key.
@@ -473,6 +508,11 @@ theorem delete_correct {h : FibHeap} {s : Finset Int} {x : Int}
   constructor
   · simp [delete, hrep.1]
   · simp [Valid, delete]
+
+/-- Deletion normalizes counters, so the result is valid. -/
+theorem delete_valid (h : FibHeap) (x : Int) :
+    Valid (delete x h) := by
+  simp [Valid, delete]
 
 /-- Key membership after deletion is exactly old membership away from the deleted key. -/
 theorem delete_mem_iff (h : FibHeap) (x y : Int) :
