@@ -91,7 +91,8 @@ Start with the chapter pages in the sidebar.
 * Chapter 13 - Red-Black Trees: local rotation, recoloring, red-red repair, and
   red-black shape invariant lemmas.
 * Chapter 14 - Augmenting Data Structures: order-statistic tree size
-  augmentation and rank-selection correctness for the current functional model.
+  augmentation, size-preserving local rotations, and rank-selection correctness
+  for the current functional model.
 * Chapter 15 - Dynamic Programming: rod-cutting Bellman recurrence facts,
   matrix-chain parenthesization optimality, and LCS certificate optimality.
 * Chapter 16 - Greedy Algorithms: activity-selection exchange infrastructure
@@ -411,6 +412,12 @@ Start with the chapter pages in the sidebar.
   Current results: {lit}`CLRS.Chapter14.OSTree.storedSize_eq_realSize_of_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.recomputeSizes_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.keys_recomputeSizes`,
+  {lit}`CLRS.Chapter14.OSTree.keys_rotateLeft`,
+  {lit}`CLRS.Chapter14.OSTree.keys_rotateRight`,
+  {lit}`CLRS.Chapter14.OSTree.realSize_rotateLeft`,
+  {lit}`CLRS.Chapter14.OSTree.realSize_rotateRight`,
+  {lit}`CLRS.Chapter14.OSTree.rotateLeft_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.rotateRight_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.osSelect?_eq_rankSelect?_of_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.osSelect?_recomputeSizes_eq_rankSelect?`.
 * 15.1 Rod cutting: {lit}`partial`.

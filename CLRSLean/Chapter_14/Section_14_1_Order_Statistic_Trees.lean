@@ -25,12 +25,18 @@ Main results:
   the augmentation invariant.
 * Theorem {lit}`keys_recomputeSizes`: recomputing size fields preserves the
   inorder key sequence.
+* Theorems {lit}`keys_rotateLeft` and {lit}`keys_rotateRight`: rotations
+  preserve the inorder key sequence.
+* Theorems {lit}`rotateLeft_wellSized` and {lit}`rotateRight_wellSized`:
+  rotations with local size recomputation preserve the size augmentation
+  invariant.
 * Theorem {lit}`osSelect?_eq_rankSelect?_of_wellSized`: on a well-sized tree,
   the augmented selector agrees with the ideal rank selector.
 
 Current gaps:
 
-* This file does not yet combine the size augmentation with red-black rotations.
+* The size-preserving rotation layer is functional; it is not yet connected to
+  the Chapter 13 red-black insertion/deletion fixup procedures.
 * Interval trees and the general augmentation theorem remain future targets.
 -/
 
@@ -76,6 +82,28 @@ def recomputeSizes : OSTree → OSTree
       let left' := recomputeSizes left
       let right' := recomputeSizes right
       node left' key (realSize left' + realSize right' + 1) right'
+
+/-! ## Local rotations -/
+
+/--
+Left rotation with local size recomputation.  If the right child is empty, the
+tree is left unchanged.
+-/
+def rotateLeft : OSTree → OSTree
+  | node a x _ (node b y _ c) =>
+      let left' := node a x (realSize a + realSize b + 1) b
+      node left' y (realSize left' + realSize c + 1) c
+  | t => t
+
+/--
+Right rotation with local size recomputation.  If the left child is empty, the
+tree is left unchanged.
+-/
+def rotateRight : OSTree → OSTree
+  | node (node a x _ b) y _ c =>
+      let right' := node b y (realSize b + realSize c + 1) c
+      node a x (realSize a + realSize right' + 1) right'
+  | t => t
 
 /-! ## Selectors -/
 
@@ -136,6 +164,92 @@ theorem recomputeSizes_wellSized (t : OSTree) :
       trivial
   | node left key size right ihLeft ihRight =>
       simp [recomputeSizes, WellSized, ihLeft, ihRight]
+
+/-! ## Rotation correctness for the size augmentation -/
+
+/-- Left rotation preserves the inorder key sequence. -/
+theorem keys_rotateLeft (t : OSTree) :
+    keys (rotateLeft t) = keys t := by
+  cases t with
+  | empty =>
+      rfl
+  | node a x sx right =>
+      cases right with
+      | empty =>
+          rfl
+      | node b y sy c =>
+          simp [rotateLeft, keys, List.append_assoc]
+
+/-- Right rotation preserves the inorder key sequence. -/
+theorem keys_rotateRight (t : OSTree) :
+    keys (rotateRight t) = keys t := by
+  cases t with
+  | empty =>
+      rfl
+  | node left y sy c =>
+      cases left with
+      | empty =>
+          rfl
+      | node a x sx b =>
+          simp [rotateRight, keys, List.append_assoc]
+
+/-- Left rotation preserves the mathematical subtree size. -/
+theorem realSize_rotateLeft (t : OSTree) :
+    realSize (rotateLeft t) = realSize t := by
+  cases t with
+  | empty =>
+      rfl
+  | node a x sx right =>
+      cases right with
+      | empty =>
+          rfl
+      | node b y sy c =>
+          simp [rotateLeft, realSize]
+          omega
+
+/-- Right rotation preserves the mathematical subtree size. -/
+theorem realSize_rotateRight (t : OSTree) :
+    realSize (rotateRight t) = realSize t := by
+  cases t with
+  | empty =>
+      rfl
+  | node left y sy c =>
+      cases left with
+      | empty =>
+          rfl
+      | node a x sx b =>
+          simp [rotateRight, realSize]
+          omega
+
+/-- Left rotation with local size recomputation preserves {lit}`WellSized`. -/
+theorem rotateLeft_wellSized {t : OSTree}
+    (h : WellSized t) : WellSized (rotateLeft t) := by
+  cases t with
+  | empty =>
+      trivial
+  | node a x sx right =>
+      cases right with
+      | empty =>
+          simpa [rotateLeft] using h
+      | node b y sy c =>
+          rcases h with ⟨ha, hRight, _hSize⟩
+          rcases hRight with ⟨hb, hc, _hRightSize⟩
+          simp [rotateLeft, WellSized, realSize, ha, hb, hc]
+
+/-- Right rotation with local size recomputation preserves {lit}`WellSized`. -/
+theorem rotateRight_wellSized {t : OSTree}
+    (h : WellSized t) : WellSized (rotateRight t) := by
+  cases t with
+  | empty =>
+      trivial
+  | node left y sy c =>
+      cases left with
+      | empty =>
+          simpa [rotateRight] using h
+      | node a x sx b =>
+          rcases h with ⟨hLeft, hc, _hSize⟩
+          rcases hLeft with ⟨ha, hb, _hLeftSize⟩
+          simp [rotateRight, WellSized, realSize, ha, hb, hc]
 
 /-- The augmented selector agrees with the ideal selector on well-sized trees. -/
 theorem osSelect?_eq_rankSelect?_of_wellSized {t : OSTree} {i : Nat}

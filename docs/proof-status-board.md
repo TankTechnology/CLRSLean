@@ -43,7 +43,7 @@ CLRS theorem is not yet internalized.
 | Chapter 11, Section 11.2 | Deterministic chained-hash-table insert/delete/search facts for a fixed hash function are proved. | Expected search time under a simple-uniform-hashing probability model. |
 | Chapter 12, Section 12.1 | Functional BST search, minimum/maximum, insertion, complete successor/predecessor `some`/`none` specifications, deletion membership wrappers, missing-key deletion identity, search-after-delete, and ordering preservation are proved. | Parent-pointer procedures, transplant, and imperative mutation refinement. |
 | Chapter 13, Section 13.1 | Local red-black tree rotations, recoloring, red-red repair certificates, black-height, and shape facts are proved. | Full `RB-INSERT`, `RB-INSERT-FIXUP`, `RB-DELETE`, and `RB-DELETE-FIXUP`. |
-| Chapter 14, Section 14.1 | Order-statistic tree size augmentation, size-field recomputation, key preservation, and augmented rank selection are proved for a functional tree. | Connect the augmentation to rotations/red-black balancing, interval trees, and the general augmentation theorem. |
+| Chapter 14, Section 14.1 | Order-statistic tree size augmentation, size-field recomputation, key preservation, size-preserving local rotations, and augmented rank selection are proved for a functional tree. | Connect the functional rotations to red-black balancing, plus interval trees and the general augmentation theorem. |
 | Chapter 15, Sections 15.1, 15.2, and 15.4 | Rod-cutting Bellman recurrence facts, matrix-chain parenthesization optimality, and LCS certificate optimality are proved. | Bottom-up/memoized implementations, reconstruction algorithms, and optimal BST. |
 | Chapter 23, Sections 23.1-23.2 | The cut property, safe-edge theorem, exact-component Kruskal scan facts, forest/spanning wrappers, and certificate-based Kruskal optimality interfaces exist. | Automatic simple path/cycle exchange extraction, fully prefix-local sorted-lightness wrapper, and Prim's theorem interface. |
 
@@ -60,7 +60,7 @@ section file yet or only enough scaffolding to identify the intended theorem.
 | Chapter 11, expected hashing analysis | Expected-time theorem for chained hashing under a formal probability model. |
 | Chapter 12 pointer-level BST layer | CLRS parent-pointer search/min/max/successor/predecessor/transplant/delete refinement. |
 | Chapter 13 full red-black algorithms | Full insertion/deletion fixup correctness and height theorem. |
-| Chapter 14 remaining augmentation targets | Rotation maintenance of size fields, interval trees, and the general augmentation theorem. |
+| Chapter 14 remaining augmentation targets | Connect size-preserving rotations to red-black balancing; add interval trees and the general augmentation theorem. |
 | Chapter 15 remaining dynamic-programming targets | Bottom-up/memoized rod cutting, matrix-chain and LCS table/reconstruction algorithms, and optimal binary search trees. |
 | Chapter 21-22 | Not yet represented in the current Lean tree. |
 | Chapter 17 Amortized Analysis | First-pass acceptance standard is fixed: generic aggregate/accounting/potential theorems plus `MULTIPOP`, binary counter, and dynamic-table examples. No Lean module exists yet. |

@@ -15,14 +15,20 @@ choose a branch.
   Main results: {lit}`CLRS.Chapter14.OSTree.storedSize_eq_realSize_of_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.recomputeSizes_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.keys_recomputeSizes`, and
+  {lit}`CLRS.Chapter14.OSTree.keys_rotateLeft`,
+  {lit}`CLRS.Chapter14.OSTree.keys_rotateRight`,
+  {lit}`CLRS.Chapter14.OSTree.realSize_rotateLeft`,
+  {lit}`CLRS.Chapter14.OSTree.realSize_rotateRight`,
+  {lit}`CLRS.Chapter14.OSTree.rotateLeft_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.rotateRight_wellSized`, and
   {lit}`CLRS.Chapter14.OSTree.osSelect?_eq_rankSelect?_of_wellSized`.
 
 ## Current Gaps
 
 The current model proves the augmentation invariant and rank-selection
-correctness for a functional tree.  It does not yet formalize rotations,
-red-black balancing, interval trees, or the full augmentation theorem from the
-textbook.
+correctness for a functional tree, including size-preserving local rotations.
+It does not yet connect those rotations to red-black balancing, interval trees,
+or the full augmentation theorem from the textbook.
 -/
 
 namespace CLRS

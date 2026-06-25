@@ -94,9 +94,10 @@ which areas should not yet be counted as proof-complete.
 * Chapter 13, Section 13.1: local red-black rotation/recoloring invariants are
   proved; full insertion and deletion fixup algorithms remain.
 * Chapter 14, Section 14.1: order-statistic tree size augmentation,
-  recomputation, key preservation, and rank-selection correctness are proved
-  for a functional augmented tree; rotations, interval trees, and the general
-  augmentation theorem remain.
+  recomputation, key preservation, size-preserving local rotations, and
+  rank-selection correctness are proved for a functional augmented tree;
+  connecting those rotations to red-black balancing, interval trees, and the
+  general augmentation theorem remain.
 * Chapter 15, Sections 15.1, 15.2, and 15.4: rod-cutting Bellman recurrence
   facts, matrix-chain parenthesization optimality, and LCS certificate
   optimality are proved; bottom-up/memoized execution, reconstruction
@@ -536,10 +537,16 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   current results {lit}`CLRS.Chapter14.OSTree.storedSize_eq_realSize_of_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.recomputeSizes_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.keys_recomputeSizes`,
+  {lit}`CLRS.Chapter14.OSTree.keys_rotateLeft`,
+  {lit}`CLRS.Chapter14.OSTree.keys_rotateRight`,
+  {lit}`CLRS.Chapter14.OSTree.realSize_rotateLeft`,
+  {lit}`CLRS.Chapter14.OSTree.realSize_rotateRight`,
+  {lit}`CLRS.Chapter14.OSTree.rotateLeft_wellSized`,
+  {lit}`CLRS.Chapter14.OSTree.rotateRight_wellSized`,
   {lit}`CLRS.Chapter14.OSTree.osSelect?_eq_rankSelect?_of_wellSized`, and
   {lit}`CLRS.Chapter14.OSTree.osSelect?_recomputeSizes_eq_rankSelect?`;
-  remaining gap: rotations connected to size fields, interval trees, and the
-  general augmentation theorem.
+  remaining gap: connect the functional rotations to red-black balancing,
+  interval trees, and the general augmentation theorem.
 * 15.1 Rod cutting:
   current results {lit}`CLRS.Chapter15.firstCutValue_le_of_rodCutRecurrence`,
   {lit}`CLRS.Chapter15.rodRevenue_le_of_firstCutValue_bounds`,

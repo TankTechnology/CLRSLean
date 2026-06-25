@@ -943,18 +943,28 @@ full balancing algorithms.
   - `CLRS.Chapter14.OSTree.storedSize_eq_realSize_of_wellSized`
   - `CLRS.Chapter14.OSTree.recomputeSizes_wellSized`
   - `CLRS.Chapter14.OSTree.keys_recomputeSizes`
+  - `CLRS.Chapter14.OSTree.keys_rotateLeft`
+  - `CLRS.Chapter14.OSTree.keys_rotateRight`
+  - `CLRS.Chapter14.OSTree.realSize_rotateLeft`
+  - `CLRS.Chapter14.OSTree.realSize_rotateRight`
+  - `CLRS.Chapter14.OSTree.rotateLeft_wellSized`
+  - `CLRS.Chapter14.OSTree.rotateRight_wellSized`
   - `CLRS.Chapter14.OSTree.osSelect?_eq_rankSelect?_of_wellSized`
   - `CLRS.Chapter14.OSTree.osSelect?_recomputeSizes_eq_rankSelect?`
 - Proof pattern: separate cached size fields from mathematical subtree size,
-  prove recomputation establishes the augmentation invariant, then prove the
-  cached order-statistic selector agrees with the ideal selector under that
-  invariant
-- Current gap: rotations connected to the size field, interval trees, and the
-  general augmentation theorem remain future targets
+  prove recomputation establishes the augmentation invariant, prove local
+  rotations preserve inorder keys, mathematical size, and the size invariant,
+  then prove the cached order-statistic selector agrees with the ideal selector
+  under that invariant
+- Current gap: connect the functional rotations to the Chapter 13 red-black
+  balancing layer; interval trees and the general augmentation theorem remain
+  future targets
 
 This first pass captures the core mathematical idea of order-statistic trees:
 the augmented size field is useful exactly because the selector can branch on
 cached left-subtree sizes while remaining equivalent to the ideal rank selector.
+The rotation layer now shows how the same size invariant can be locally
+maintained during tree restructuring.
 
 ## Chapter 15 - Dynamic Programming
 
