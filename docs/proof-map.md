@@ -1042,7 +1042,9 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.minKeys_monotone_height`
   - `CLRS.Chapter18.BTree.splitChild_preserves_model`
   - `CLRS.Chapter18.BTree.splitChild_mem_iff`
+  - `CLRS.Chapter18.BTree.splitChild_mem_old`
   - `CLRS.Chapter18.BTree.splitChild_search_iff`
+  - `CLRS.Chapter18.BTree.splitChild_search_old`
   - `CLRS.Chapter18.BTree.insert_preserves_model`
   - `CLRS.Chapter18.BTree.insert_mem_iff`
   - `CLRS.Chapter18.BTree.insert_search_iff`
@@ -1060,7 +1062,8 @@ allocator semantics remain future refinements.
 - Proof pattern: mathematical key-set model, structural validity predicate,
   minimum-key expression arithmetic and height monotonicity,
   specification-level split/insert/delete wrappers, search correctness reuse,
-  and direct inserted/deleted-key plus old-key query preservation corollaries
+  direct split preservation corollaries, and direct inserted/deleted-key plus
+  old-key query preservation corollaries
 - Current gap: full node occupancy/separator/same-depth invariant stack,
   node-level deletion repair, disk-page I/O, and pointer mutation remain
   strengthening targets.
@@ -1068,7 +1071,8 @@ allocator semantics remain future refinements.
 Chapter 18 now has a first-pass B-tree theorem surface.  Search, split-child,
 insertion, and deletion are proved against an abstract membership model, and
 the update wrappers expose direct search-after-update specifications plus
-direct inserted/deleted-key and old-key query preservation corollaries.  The height
+direct split preservation and inserted/deleted-key plus old-key query
+preservation corollaries.  The height
 expression is packaged as a minimum-key lower bound and a height-step
 recurrence, plus adjacent and arbitrary-height monotonicity facts.  The current split,
 insert, and delete operations are specification

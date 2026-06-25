@@ -16,6 +16,9 @@ Main results:
   split wrapper is unchanged.
 - Theorem {lit}`BTree.splitChild_search_iff`: searching after the first-pass
   split wrapper is equivalent to searching before it.
+- Theorems {lit}`BTree.splitChild_mem_old` and
+  {lit}`BTree.splitChild_search_old`: old members and searchable keys remain
+  so after the first-pass split wrapper.
 - Theorem {lit}`BTree.insert_preserves_model`: specification insertion preserves
   the first-pass validity predicate.
 - Theorem {lit}`BTree.insert_mem_iff`: insertion adds exactly the inserted key
@@ -49,6 +52,12 @@ theorem splitChild_mem_iff (x : Nat) (t : BTree) :
     mem x (splitChild t) <-> mem x t := by
   rfl
 
+/-- Old keys remain present after the first-pass split wrapper. -/
+theorem splitChild_mem_old (x : Nat) (t : BTree) (hx : mem x t) :
+    mem x (splitChild t) := by
+  rw [splitChild_mem_iff]
+  exact hx
+
 /-- The first-pass split wrapper preserves validity and membership. -/
 theorem splitChild_preserves_model {minDegree : Nat} {t : BTree}
     (hvalid : Valid minDegree t) :
@@ -64,6 +73,13 @@ theorem splitChild_search_iff {minDegree x : Nat} {t : BTree}
   rw [search_correct (minDegree := minDegree) (x := x) (t := splitChild t) hsplit.1]
   rw [hsplit.2 x]
   rw [← search_correct (minDegree := minDegree) (x := x) (t := t) hvalid]
+
+/-- Old searchable keys remain searchable after the first-pass split wrapper. -/
+theorem splitChild_search_old {minDegree x : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) (hx : search x t = true) :
+    search x (splitChild t) = true := by
+  rw [splitChild_search_iff (minDegree := minDegree) (x := x) (t := t) hvalid]
+  exact hx
 
 /-- Specification-level B-tree insertion: add the key at a fresh root. -/
 def insert (x : Nat) (t : BTree) : BTree :=

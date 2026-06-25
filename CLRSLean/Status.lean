@@ -98,7 +98,7 @@ which areas should not yet be counted as proof-complete.
   allocator and RAM refinements remain.
 * Chapter 18, Sections 18.1-18.3: a mathematical B-tree model has search,
   minimum-key height-expression recurrence and monotonicity, split-child preservation,
-  split-child search preservation, insertion/deletion membership, and
+  split-child direct membership/search preservation, insertion/deletion membership, and
   search-after-update theorem surfaces plus direct inserted/deleted-key and
   old-key query preservation corollaries; full separator/same-depth,
   node-level-deletion, and disk-page refinements remain.
@@ -551,7 +551,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter18.BTree.minKeys_monotone_height`,
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_search_old`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_iff`,

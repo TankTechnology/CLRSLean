@@ -13,7 +13,9 @@
 - `CLRS.Chapter18.BTree.minKeys_monotone_height`
 - `CLRS.Chapter18.BTree.splitChild_preserves_model`
 - `CLRS.Chapter18.BTree.splitChild_mem_iff`
+- `CLRS.Chapter18.BTree.splitChild_mem_old`
 - `CLRS.Chapter18.BTree.splitChild_search_iff`
+- `CLRS.Chapter18.BTree.splitChild_search_old`
 - `CLRS.Chapter18.BTree.insert_preserves_model`
 - `CLRS.Chapter18.BTree.insert_mem_iff`
 - `CLRS.Chapter18.BTree.insert_search_iff`
@@ -33,7 +35,8 @@
 
 The current chapter uses a mathematical key-membership model, a minimum-key
 height-expression recurrence plus monotonicity facts, and specification wrappers
-for split/insert/delete, including direct query corollaries for the inserted
-and deleted keys plus old-key preservation.
+for split/insert/delete, including direct split preservation corollaries and
+direct query corollaries for the inserted and deleted keys plus old-key
+preservation.
 Full separator ordering, same-depth leaves, node-level deletion repair,
 disk-page I/O, and pointer-level mutation remain future refinements.
