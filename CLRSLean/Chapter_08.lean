@@ -37,20 +37,23 @@ bucket-sort second-moment argument.
   {lit}`CLRS.Chapter08.radixDigitOrderRespectsKey_of_bounded`, and
   {lit}`CLRS.Chapter08.radixSortNatBy_correct_keyOrdered_of_bounded`.
 * 8.4 Bucket sort: {lit}`proved` for a deterministic bucket-index model, plus
-  a finite-uniform collision/second-moment interface for the expected-time
-  argument.
+  a finite-uniform collision/second-moment interface and abstract linear
+  expected-cost wrapper for the expected-time argument.
   Main results:
   {lit}`CLRS.Chapter08.bucketSortBy_correct` and
   {lit}`CLRS.Chapter08.bucketSortByRank_correct`;
   {lit}`CLRS.Chapter08.uniformAverageFin2_collision`,
-  {lit}`CLRS.Chapter08.expectedBucketQuadraticCost_self_eq`, and
-  {lit}`CLRS.Chapter08.expectedBucketQuadraticCost_self_linear_bound`.
+  {lit}`CLRS.Chapter08.expectedBucketQuadraticCost_self_eq`,
+  {lit}`CLRS.Chapter08.expectedBucketQuadraticCost_self_linear_bound`,
+  {lit}`CLRS.Chapter08.expectedBucketSortCost_self_eq`, and
+  {lit}`CLRS.Chapter08.expectedBucketSortCost_linear_bound`.
 
 ## Current Gaps
 
 * Imperative reverse-scan output-array implementation of {lit}`COUNTING-SORT`.
 * Full bucket-sort probabilistic expected-time analysis over an explicit input
-  distribution and independence model.
+  distribution and independence model; the current expected-cost theorem starts
+  from the already-isolated finite-uniform second-moment expression.
 -/
 
 namespace CLRS

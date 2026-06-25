@@ -23,7 +23,9 @@ The finite-uniform layer proves the collision fact behind the textbook expected
 time argument: two independently chosen uniform buckets collide with
 probability {lit}`1/m`; therefore the expected quadratic bucket-occupancy cost
 for {lit}`n` independent samples into {lit}`n` buckets is at most linear in
-{lit}`n`.
+{lit}`n`.  The final wrapper adds the linear scan/distribution term used by the
+CLRS expected-time proof and obtains a concrete {lit}`≤ 3n` bound for this
+abstract cost expression.
 -/
 
 namespace CLRS
@@ -294,6 +296,32 @@ bucket-occupancy cost is at most {lit}`2n`.
 theorem expectedBucketQuadraticCost_self_linear_bound (n : Nat) (hn : 0 < n) :
     expectedBucketQuadraticCost n n ≤ 2 * (n : ℝ) := by
   rw [expectedBucketQuadraticCost_self_eq n hn]
+  linarith
+
+/--
+Abstract CLRS bucket-sort expected cost: a linear scan/distribution term plus
+the expected quadratic bucket-occupancy cost for sorting the buckets.
+-/
+noncomputable def expectedBucketSortCost (n : Nat) : ℝ :=
+  (n : ℝ) + expectedBucketQuadraticCost n n
+
+/--
+With {lit}`n` buckets for {lit}`n` elements, the abstract expected bucket-sort
+cost is {lit}`3n - 1`.
+-/
+theorem expectedBucketSortCost_self_eq (n : Nat) (hn : 0 < n) :
+    expectedBucketSortCost n = 3 * (n : ℝ) - 1 := by
+  unfold expectedBucketSortCost
+  rw [expectedBucketQuadraticCost_self_eq n hn]
+  ring
+
+/--
+CLRS-facing linear expected-cost bound for the finite-uniform bucket-sort cost
+interface.
+-/
+theorem expectedBucketSortCost_linear_bound (n : Nat) (hn : 0 < n) :
+    expectedBucketSortCost n ≤ 3 * (n : ℝ) := by
+  rw [expectedBucketSortCost_self_eq n hn]
   linarith
 
 end Chapter08
