@@ -26,15 +26,33 @@ jobs:
           test: false
           use-mathlib-cache: true
 
-      - name: Build project
-        run: lake build
+      - name: Restore Verso literate cache
+        id: restore-verso-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/build/literate
+            .lake/build/literate-html
+          key: verso-literate-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.lean') }}-${{ github.sha }}
+          restore-keys: |
+            verso-literate-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.lean') }}-
 
       - name: Build Verso literate HTML
-        run: lake build :literateHtml
+        id: build-site
+        run: echo "path=$(lake query :literateHtml)" >> "$GITHUB_OUTPUT"
+
+      - name: Save Verso literate cache
+        if: steps.restore-verso-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/build/literate
+            .lake/build/literate-html
+          key: verso-literate-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.lean') }}-${{ github.sha }}
 
       - name: Assemble _site
         run: |
-          VERSO_OUT=$(lake query :literateHtml)
+          VERSO_OUT="${{ steps.build-site.outputs.path }}"
           echo "Verso output: $VERSO_OUT"
           mkdir -p _site
           cp -r "$VERSO_OUT"/* _site/
