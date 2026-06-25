@@ -287,16 +287,17 @@ similarly textbook-facing case-3 comparison scale.
   conclusions.  The packaged wrappers combine floor/ceiling recurrence
   extraction, the exact-power Master case theorem, and the corresponding
   all-input bridge.
-- New real-log bridge: `CLRS.Chapter04.realLogExponent`, `CLRS.Chapter04.realLogScale`, and
+- New real-log bridge: `CLRS.Chapter04.realLogExponent`,
+  `CLRS.Chapter04.realLogScale`, and
   `CLRS.Chapter04.criticalPowerScale_isBigTheta_realLogScale` now connect the
   discrete scale `a^(⌊log_b n⌋)` to the textbook scale `n^(log_b a)` for all
-  `a ≥ 1` and `b > 1`.  Case-1 and case-2 all-input Master wrappers compose
-  with this bridge via `isBigTheta_trans` to yield CLRS-facing
-  `Θ(n^(log_b a))` and `Θ((⌊log_b n⌋+1)n^(log_b a))` bounds without the
-  natural-exponent restriction.
-- Current gap: add a similarly textbook-facing case-3 comparison scale
-  (connecting the tail-dominated discrete scale to `f(n)` with the CLRS
-  regularity condition).
+  `a ≥ 1` and `b > 1`.  Case-1 and case-2 all-input Master wrappers can now be
+  composed with this bridge via `isBigTheta_trans`; the remaining packaging
+  work is to expose those compositions as named textbook-facing theorem
+  wrappers.
+- Current gap: add the named case-1/2 real-log wrappers and a similarly
+  textbook-facing case-3 comparison scale, connecting the tail-dominated
+  discrete scale to `f(n)` with the CLRS regularity condition.
 
 ## Chapter 5 - Probabilistic Analysis and Randomized Algorithms
 
@@ -1312,7 +1313,7 @@ accepted edge set is already known to be a spanning tree.
 | Chapter 9 randomized SELECT expected time | `blocked-design` | Selection-by-rank correctness is proved for the specification selector, pivot-style quickselect, and pivot-parametric deterministic SELECT; randomized expected time needs a probability model and cost recurrence. |
 | Chapter 9 deterministic linear-time SELECT | `future-work` | Pivot-parametric deterministic SELECT correctness is proved by `deterministicSelect?_correct`; executable median-of-medians SELECT correctness is proved by `medianOfMediansSelect?_correct`; the local five-element median certificate is proved by `medianOfFive?_certificate`; executable full-input split-count bounds are proved by `fullGroupsOfFive_medianPivot_fullInput_split_counts`; the `7n/10 + O(1)` branch-size bound is proved by `medianOfMediansPivot?_partition_size_bound`; the abstract recurrence induction and linear bound are proved by `selectRecurrence_linear_induction` and `medianOfMedians_linear_bound`. The remaining target is a concrete executable cost theorem feeding that recurrence. |
 | Maximum-subarray runtime analysis | `future-work` | Exhaustive-search, crossing-helper optimality, the executable combine step, and recursive split-tree/fuelled selector correctness are proved; runtime recurrence and RAM-cost refinement remain. |
-| Chapter 4 concrete all-input Master-theorem instantiation | `future-work` | Floor/ceiling exact-power extraction, generic all-input transfer, adjacent-power sandwich generation, the discrete critical-power, log-critical, and tail-dominated wrappers, packaged floor/ceiling cases 1/2/3, and natural-exponent polynomial wrappers for cases 1/2 are proved; the general `n^(log_b a)`, real-log, and case-3 comparison layers remain. |
+| Chapter 4 concrete all-input Master-theorem instantiation | `future-work` | Floor/ceiling exact-power extraction, generic all-input transfer, adjacent-power sandwich generation, the discrete critical-power, log-critical, and tail-dominated wrappers, packaged floor/ceiling cases 1/2/3, natural-exponent polynomial wrappers for cases 1/2, and the real-log bridge for the critical-power scale are proved; named case-1/2 real-log wrappers and the case-3 comparison layer remain. |
 | Hash-table expected-time analysis | `blocked-design` | The finite-uniform bucket theorem proves expected chain length equals load factor when the searched bucket is uniform; the remaining work is a full random key or random hash-function model with independence assumptions. |
 | Pointer-level linked lists and free lists | `future-work` | Requires an imperative memory model. |
 | BST transplant and parent-pointer navigation | `future-work` | Functional successor/predecessor queries and functional deletion are proved; pointer-transplant semantics remain. |

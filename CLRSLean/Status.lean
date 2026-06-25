@@ -42,7 +42,8 @@ which areas should not yet be counted as proof-complete.
   exact-power extraction, the all-input transfer bridge, adjacent-power
   sandwich generation from one-step scale bounds, and discrete all-input
   scale wrappers with packaged floor/ceiling Master cases 1, 2, and 3 are
-  proved.
+  proved; the critical-power scale is also connected to the textbook
+  {lit}`n^(log_b a)` scale by a real-log bridge.
 * Chapter 5, Section 5.1: the hiring problem is proved in the finite
   rank-symmetry model.
 * Chapter 6, Sections 6.1-6.5: the indexed array heap layer, recursive
@@ -85,8 +86,10 @@ which areas should not yet be counted as proof-complete.
   discrete all-input Master wrappers are proved, including floor/ceiling
   recurrence packaging for exact-power Master cases 1, 2, and 3, plus
   natural-exponent polynomial wrappers for cases 1 and 2 when
-  {lit}`a = b^p`.  The general {lit}`n^(log_b a)` and case-3 comparison
-  layers, plus selected runtime refinements, remain.
+  {lit}`a = b^p`, and a real-log comparison bridge from the discrete
+  critical-power scale to {lit}`n^(log_b a)`.  Named textbook-facing wrappers
+  that compose that bridge with the all-input case-1/2 theorems, the case-3
+  comparison layer, and selected runtime refinements remain.
 * Chapter 11, Section 11.2: deterministic chained-hash-table operations are
   proved for a fixed hash function, and the finite-uniform bucket interface
   proves expected chain length equals load factor; a full random key/hash
@@ -116,14 +119,15 @@ which areas should not yet be counted as proof-complete.
 
 ### Missing Core Theorem
 
-* Chapter 4 full Master-theorem instantiation: extend the comparison-scale
-  layer beyond the proved natural-exponent case-1 and case-2 wrappers to the
-  general all-input floor/ceiling Master cases.
+* Chapter 4 full Master-theorem instantiation: package the proved real-log
+  bridge into named textbook-facing case-1/2 all-input wrappers, and add the
+  case-3 forcing comparison scale.
 * Chapter 7 remaining refinements: index-level mutable-array partition
   refinement, an explicit probability space for pivot choices, sharp
   {lit}`n log n` tail bounds, and lower-bound packaging.
-* Chapter 9 remaining SELECT refinements: pivot-parametric deterministic
-  SELECT, the local five-element median certificate, executable grouping, the
+* Chapter 9 randomized SELECT and executable cost refinements:
+  pivot-parametric deterministic SELECT, executable median-of-medians SELECT,
+  the local five-element median certificate, executable grouping, the
   grouped/full-input split-count core, {lit}`7n/10` partition-size packaging,
   and the abstract linear recurrence theorem are proved; randomized expected
   time and the concrete executable runtime theorem remain.
@@ -135,8 +139,9 @@ which areas should not yet be counted as proof-complete.
 * Chapter 13 full red-black algorithms: compose the local insertion-fixup cases
   into executable insertion, then prove deletion fixup correctness and the
   logarithmic-height theorem.
-* Chapter 14 remaining augmentation targets: rotations connected to size
-  fields, interval trees, and the general augmentation theorem.
+* Chapter 14 remaining augmentation targets: connect the proved size-preserving
+  rotations to red-black balancing, then add interval trees and the general
+  augmentation theorem.
 * Chapter 15 remaining dynamic-programming targets: bottom-up and memoized rod
   cutting, executable matrix-chain and LCS table/reconstruction algorithms, and
   optimal binary search trees.
@@ -157,9 +162,13 @@ which areas should not yet be counted as proof-complete.
 * Chapter 24 onward: not yet represented.
 
 Near-term rule: do not return to a completed main-proof area, especially
-Chapter 6, without a concrete audit or refinement target.  The next
-proof-heavy targets are Chapter 4 all-input recurrence bridging, Chapter 23
-exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
+Chapter 6, without a concrete audit or refinement target.  On the current
+branch, the proof-heavy targets are Chapters 11--15: strengthen the functional
+BST boundary, connect order-statistic rotations to later balancing work,
+advance dynamic-programming reconstruction/table interfaces, clarify the
+finite-uniform hashing toolkit, and keep red-black insertion-fixup progress
+case-by-case.  Chapter 4, Chapter 7, Chapter 8, and Chapter 9 refinements are
+the next cleanup pass after this 11--15 track.
 
 ## Proved
 
@@ -217,6 +226,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter04.polynomialLogScale`,
   {lit}`CLRS.Chapter04.criticalPowerScale_isBigTheta_polynomialScale`, and
   {lit}`CLRS.Chapter04.criticalPowerLogScale_isBigTheta_polynomialLogScale`,
+  {lit}`CLRS.Chapter04.realLogExponent`,
+  {lit}`CLRS.Chapter04.realLogScale`,
+  {lit}`CLRS.Chapter04.criticalPowerScale_isBigTheta_realLogScale`,
   {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`,
   {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`,
   {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`,
@@ -661,8 +673,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`criticalPowerScale`, {lit}`criticalPowerLogScale`, and
   {lit}`tailDominatedScale` all-input
   wrappers are also proved, including floor/ceiling recurrence packaging for
-  exact-power Master cases 1, 2, and 3.  Analytic comparison scales still need
-  to be packaged for the textbook-facing statements.
+  exact-power Master cases 1, 2, and 3.  The real-log comparison bridge for
+  the critical-power scale is proved; what remains is named textbook-facing
+  case-1/2 packaging plus the case-3 forcing comparison scale.
 * Chapter 4 Strassen recursive refinement:
   {lit}`future-work`.
   Reason: the 2 by 2 block algebra is proved; recursive splitting,
@@ -694,8 +707,10 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   Reason: the discrete critical-power, log-critical, and tail-dominated scales
   now have all-input wrappers for cases 1, 2, and 3, and the natural-exponent
   special case {lit}`a = b^p` has polynomial and polynomial-log wrappers for
-  cases 1 and 2.  The remaining comparison work is the general
-  {lit}`n^(log_b a)` layer, real-log packaging, and the case-3 forcing scale.
+  cases 1 and 2.  The real-log bridge
+  {lit}`criticalPowerScale_isBigTheta_realLogScale` is proved; the remaining
+  comparison work is named case-1/2 wrapper packaging around that bridge and
+  the case-3 forcing scale.
 * General merge-sort recurrence: {lit}`future-work`.
   Reason: needs floor and ceiling arithmetic for all input sizes.
 * CLRS exercises and chapter-end problems: {lit}`future-work`.
