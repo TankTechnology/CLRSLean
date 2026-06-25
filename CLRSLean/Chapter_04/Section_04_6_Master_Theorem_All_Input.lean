@@ -174,6 +174,179 @@ theorem criticalPowerLogScale_powerStepBound
             simp [criticalPowerLogScale, criticalPowerScale]
             ring
 
+/-! ## Polynomial comparison scales -/
+
+/--
+The usual polynomial comparison scale {lit}`n^p`.  This is the
+textbook-facing specialization of the critical Master scale when
+{lit}`a = b^p`.
+-/
+noncomputable def polynomialScale (p : ℕ) (n : ℕ) : ℝ :=
+  (n : ℝ) ^ p
+
+/--
+The polynomial-logarithmic comparison scale
+{lit}`(⌊log_b n⌋ + 1)n^p`.  It is a discrete-log version of the CLRS
+case-2 scale {lit}`n^p log n`, chosen so that it connects directly to the
+all-input exact-power bridge.
+-/
+noncomputable def polynomialLogScale (b p : ℕ) (n : ℕ) : ℝ :=
+  ((Nat.log b n : ℝ) + 1) * polynomialScale p n
+
+theorem criticalPowerScale_of_base_pow (b p n : ℕ) :
+    criticalPowerScale (b ^ p) b n =
+      (((b ^ Nat.log b n : ℕ) : ℝ) ^ p) := by
+  simp only [criticalPowerScale, Nat.cast_pow]
+  rw [← pow_mul, ← pow_mul, Nat.mul_comm]
+
+theorem pow_succ_pow_eq_mul_pow (b i p : ℕ) :
+    (b ^ (i + 1)) ^ p = (b ^ p) * (b ^ i) ^ p := by
+  rw [show b ^ (i + 1) = b * b ^ i by
+    rw [pow_succ, Nat.mul_comm]]
+  rw [Nat.mul_pow]
+
+private theorem one_le_base_pow_of_one_lt (b p : ℕ) (hb : 1 < b) :
+    1 ≤ b ^ p := by
+  have hb_pos : 0 < b := Nat.lt_trans Nat.zero_lt_one hb
+  exact Nat.succ_le_iff.mpr (pow_pos hb_pos p)
+
+/--
+When {lit}`a = b^p`, the discrete critical-power scale is asymptotic to the
+ordinary polynomial scale {lit}`n^p`.  This is the main comparison lemma that
+turns case-1 all-input Master wrappers into textbook-looking statements
+whenever {lit}`log_b a` is a natural number.
+-/
+theorem criticalPowerScale_isBigTheta_polynomialScale
+    (b p : ℕ) (hb : 1 < b) :
+    Chapter03.isBigTheta (criticalPowerScale (b ^ p) b) (polynomialScale p) := by
+  constructor
+  · refine (Chapter03.isBigO_iff _ _).mpr ?_
+    refine ⟨1, by norm_num, 1, ?_⟩
+    intro n hn
+    have hn_ne_zero : n ≠ 0 := by omega
+    have hlow : b ^ Nat.log b n ≤ n :=
+      Nat.pow_log_le_self b hn_ne_zero
+    have hpow :
+        ((b ^ Nat.log b n : ℕ) : ℝ) ^ p ≤ (n : ℝ) ^ p := by
+      exact_mod_cast Nat.pow_le_pow_left hlow p
+    calc
+      |criticalPowerScale (b ^ p) b n|
+          = ((b ^ Nat.log b n : ℕ) : ℝ) ^ p := by
+            rw [criticalPowerScale_of_base_pow]
+            exact abs_of_nonneg (pow_nonneg (by positivity) p)
+      _ ≤ (n : ℝ) ^ p := hpow
+      _ = 1 * |polynomialScale p n| := by
+            rw [polynomialScale,
+              abs_of_nonneg (pow_nonneg (by positivity) p)]
+            ring
+  · refine (Chapter03.isBigOmega_iff _ _).mpr ?_
+    let B : ℝ := ((b ^ p : ℕ) : ℝ)
+    have hb_pos : 0 < b := Nat.lt_trans Nat.zero_lt_one hb
+    have hB_pos_nat : 0 < b ^ p := pow_pos hb_pos p
+    have hB_pos : 0 < B := by
+      dsimp [B]
+      exact_mod_cast hB_pos_nat
+    refine ⟨B⁻¹, inv_pos.mpr hB_pos, 1, ?_⟩
+    intro n hn
+    have hn_ne_zero : n ≠ 0 := by omega
+    let i := Nat.log b n
+    have hhigh : n < b ^ (i + 1) := by
+      simpa [i] using Nat.lt_pow_succ_log_self hb n
+    have hupper_nat : n ^ p ≤ (b ^ p) * (b ^ i) ^ p := by
+      calc
+        n ^ p ≤ (b ^ (i + 1)) ^ p :=
+          Nat.pow_le_pow_left (Nat.le_of_lt hhigh) p
+        _ = (b ^ p) * (b ^ i) ^ p :=
+          pow_succ_pow_eq_mul_pow b i p
+    have hupper_real :
+        (n : ℝ) ^ p ≤ B * (((b ^ i : ℕ) : ℝ) ^ p) := by
+      dsimp [B]
+      exact_mod_cast hupper_nat
+    calc
+      B⁻¹ * |polynomialScale p n|
+          = B⁻¹ * (n : ℝ) ^ p := by
+            rw [polynomialScale,
+              abs_of_nonneg (pow_nonneg (by positivity) p)]
+      _ ≤ B⁻¹ * (B * (((b ^ i : ℕ) : ℝ) ^ p)) := by
+            gcongr
+      _ = ((b ^ i : ℕ) : ℝ) ^ p := by
+            field_simp [ne_of_gt hB_pos]
+      _ = |criticalPowerScale (b ^ p) b n| := by
+            rw [criticalPowerScale_of_base_pow]
+            simp [i, abs_of_nonneg (pow_nonneg (by positivity) p)]
+
+/--
+When {lit}`a = b^p`, the discrete case-2 Master scale is asymptotic to
+{lit}`(⌊log_b n⌋ + 1)n^p`.  This keeps the statement discrete while matching
+the standard {lit}`n^p log n` shape used in CLRS.
+-/
+theorem criticalPowerLogScale_isBigTheta_polynomialLogScale
+    (b p : ℕ) (hb : 1 < b) :
+    Chapter03.isBigTheta (criticalPowerLogScale (b ^ p) b)
+      (polynomialLogScale b p) := by
+  constructor
+  · refine (Chapter03.isBigO_iff _ _).mpr ?_
+    refine ⟨1, by norm_num, 1, ?_⟩
+    intro n hn
+    have hn_ne_zero : n ≠ 0 := by omega
+    have hlow : b ^ Nat.log b n ≤ n :=
+      Nat.pow_log_le_self b hn_ne_zero
+    have hpow :
+        ((b ^ Nat.log b n : ℕ) : ℝ) ^ p ≤ (n : ℝ) ^ p := by
+      exact_mod_cast Nat.pow_le_pow_left hlow p
+    have hL_nonneg : 0 ≤ (Nat.log b n : ℝ) + 1 := by positivity
+    calc
+      |criticalPowerLogScale (b ^ p) b n|
+          = ((Nat.log b n : ℝ) + 1) *
+              (((b ^ Nat.log b n : ℕ) : ℝ) ^ p) := by
+            rw [abs_of_nonneg (criticalPowerLogScale_nonneg (b ^ p) b n)]
+            simp [criticalPowerLogScale, criticalPowerScale_of_base_pow]
+      _ ≤ ((Nat.log b n : ℝ) + 1) * ((n : ℝ) ^ p) := by
+            gcongr
+      _ = 1 * |polynomialLogScale b p n| := by
+            rw [polynomialLogScale, polynomialScale,
+              abs_of_nonneg
+                (mul_nonneg hL_nonneg (pow_nonneg (by positivity) p))]
+            ring
+  · refine (Chapter03.isBigOmega_iff _ _).mpr ?_
+    let B : ℝ := ((b ^ p : ℕ) : ℝ)
+    have hb_pos : 0 < b := Nat.lt_trans Nat.zero_lt_one hb
+    have hB_pos_nat : 0 < b ^ p := pow_pos hb_pos p
+    have hB_pos : 0 < B := by
+      dsimp [B]
+      exact_mod_cast hB_pos_nat
+    refine ⟨B⁻¹, inv_pos.mpr hB_pos, 1, ?_⟩
+    intro n hn
+    have hn_ne_zero : n ≠ 0 := by omega
+    let i := Nat.log b n
+    have hhigh : n < b ^ (i + 1) := by
+      simpa [i] using Nat.lt_pow_succ_log_self hb n
+    have hupper_nat : n ^ p ≤ (b ^ p) * (b ^ i) ^ p := by
+      calc
+        n ^ p ≤ (b ^ (i + 1)) ^ p :=
+          Nat.pow_le_pow_left (Nat.le_of_lt hhigh) p
+        _ = (b ^ p) * (b ^ i) ^ p :=
+          pow_succ_pow_eq_mul_pow b i p
+    have hupper_real :
+        (n : ℝ) ^ p ≤ B * (((b ^ i : ℕ) : ℝ) ^ p) := by
+      dsimp [B]
+      exact_mod_cast hupper_nat
+    have hL_nonneg : 0 ≤ (Nat.log b n : ℝ) + 1 := by positivity
+    calc
+      B⁻¹ * |polynomialLogScale b p n|
+          = B⁻¹ * (((Nat.log b n : ℝ) + 1) * (n : ℝ) ^ p) := by
+            rw [polynomialLogScale, polynomialScale,
+              abs_of_nonneg
+                (mul_nonneg hL_nonneg (pow_nonneg (by positivity) p))]
+      _ ≤ B⁻¹ * (((Nat.log b n : ℝ) + 1) *
+            (B * (((b ^ i : ℕ) : ℝ) ^ p))) := by
+            gcongr
+      _ = ((Nat.log b n : ℝ) + 1) * (((b ^ i : ℕ) : ℝ) ^ p) := by
+            field_simp [ne_of_gt hB_pos]
+      _ = |criticalPowerLogScale (b ^ p) b n| := by
+            rw [abs_of_nonneg (criticalPowerLogScale_nonneg (b ^ p) b n)]
+            simp [criticalPowerLogScale, criticalPowerScale_of_base_pow, i]
+
 /-! ## Floor/ceiling recurrence interfaces -/
 
 /--
@@ -612,6 +785,66 @@ theorem ceilDivide_allInput_masterCase1_criticalPowerScale
     ha hb hT_mono h_base_pos h_term_nonneg hr_nonneg hr_lt_one hC_pos
     h_term_upper
 
+/--
+Exact-power all-input Master case 1 specialized to {lit}`a = b^p`, with the
+result stated directly as {lit}`Θ(n^p)`.
+-/
+theorem exactPower_allInput_masterCase1_polynomialScale
+    (b p : ℕ) (f T : ℕ → ℝ)
+    (h_rec : ExactPowerRecurrence (b ^ p) b f T)
+    (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_pos : 0 < normalizedValue (b ^ p) b T 0)
+    (h_term_nonneg : ∀ k, 0 ≤ normalizedForcing (b ^ p) b f k)
+    {r C : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt_one : r < 1) (hC_pos : 0 < C)
+    (h_term_upper : ∀ k, normalizedForcing (b ^ p) b f k ≤ C * r ^ k) :
+    Chapter03.isBigTheta T (polynomialScale p) := by
+  exact Chapter03.isBigTheta_trans
+    (exactPower_allInput_masterCase1_criticalPowerScale (b ^ p) b f T h_rec
+      (one_le_base_pow_of_one_lt b p hb) hb hT_mono h_base_pos
+      h_term_nonneg hr_nonneg hr_lt_one hC_pos h_term_upper)
+    (criticalPowerScale_isBigTheta_polynomialScale b p hb)
+
+/--
+Floor-division all-input Master case 1 specialized to {lit}`a = b^p`, with
+the result stated directly as {lit}`Θ(n^p)`.
+-/
+theorem floorDivide_allInput_masterCase1_polynomialScale
+    (b p : ℕ) (f T : ℕ → ℝ)
+    (h_rec : FloorDivideRecurrence (b ^ p) b f T)
+    (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_pos : 0 < normalizedValue (b ^ p) b T 0)
+    (h_term_nonneg : ∀ k, 0 ≤ normalizedForcing (b ^ p) b f k)
+    {r C : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt_one : r < 1) (hC_pos : 0 < C)
+    (h_term_upper : ∀ k, normalizedForcing (b ^ p) b f k ≤ C * r ^ k) :
+    Chapter03.isBigTheta T (polynomialScale p) := by
+  exact Chapter03.isBigTheta_trans
+    (floorDivide_allInput_masterCase1_criticalPowerScale (b ^ p) b f T h_rec
+      (one_le_base_pow_of_one_lt b p hb) hb hT_mono h_base_pos
+      h_term_nonneg hr_nonneg hr_lt_one hC_pos h_term_upper)
+    (criticalPowerScale_isBigTheta_polynomialScale b p hb)
+
+/--
+Ceiling-division all-input Master case 1 specialized to {lit}`a = b^p`, with
+the result stated directly as {lit}`Θ(n^p)`.
+-/
+theorem ceilDivide_allInput_masterCase1_polynomialScale
+    (b p : ℕ) (f T : ℕ → ℝ)
+    (h_rec : CeilDivideRecurrence (b ^ p) b f T)
+    (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_pos : 0 < normalizedValue (b ^ p) b T 0)
+    (h_term_nonneg : ∀ k, 0 ≤ normalizedForcing (b ^ p) b f k)
+    {r C : ℝ} (hr_nonneg : 0 ≤ r) (hr_lt_one : r < 1) (hC_pos : 0 < C)
+    (h_term_upper : ∀ k, normalizedForcing (b ^ p) b f k ≤ C * r ^ k) :
+    Chapter03.isBigTheta T (polynomialScale p) := by
+  exact Chapter03.isBigTheta_trans
+    (ceilDivide_allInput_masterCase1_criticalPowerScale (b ^ p) b f T h_rec
+      (one_le_base_pow_of_one_lt b p hb) hb hT_mono h_base_pos
+      h_term_nonneg hr_nonneg hr_lt_one hC_pos h_term_upper)
+    (criticalPowerScale_isBigTheta_polynomialScale b p hb)
+
 /-! ## Packaged all-input Master case 2 wrappers -/
 
 /--
@@ -673,6 +906,66 @@ theorem ceilDivide_allInput_masterCase2_criticalPowerLogScale
   exact exactPower_allInput_masterCase2_criticalPowerLogScale a b f T
     (exactPowerRecurrence_of_ceilDivideRecurrence a b f T h_rec hb_pos)
     ha hb hT_mono h_base_nonneg hc_pos hC_pos h_term_lower h_term_upper
+
+/--
+Exact-power all-input Master case 2 specialized to {lit}`a = b^p`, with the
+result stated directly as {lit}`Θ((⌊log_b n⌋+1)n^p)`.
+-/
+theorem exactPower_allInput_masterCase2_polynomialLogScale
+    (b p : ℕ) (f T : ℕ → ℝ)
+    (h_rec : ExactPowerRecurrence (b ^ p) b f T)
+    (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_nonneg : 0 ≤ normalizedValue (b ^ p) b T 0)
+    {c C : ℝ} (hc_pos : 0 < c) (hC_pos : 0 < C)
+    (h_term_lower : ∀ k, c ≤ normalizedForcing (b ^ p) b f k)
+    (h_term_upper : ∀ k, normalizedForcing (b ^ p) b f k ≤ C) :
+    Chapter03.isBigTheta T (polynomialLogScale b p) := by
+  exact Chapter03.isBigTheta_trans
+    (exactPower_allInput_masterCase2_criticalPowerLogScale (b ^ p) b f T h_rec
+      (one_le_base_pow_of_one_lt b p hb) hb hT_mono h_base_nonneg
+      hc_pos hC_pos h_term_lower h_term_upper)
+    (criticalPowerLogScale_isBigTheta_polynomialLogScale b p hb)
+
+/--
+Floor-division all-input Master case 2 specialized to {lit}`a = b^p`, with
+the result stated directly as {lit}`Θ((⌊log_b n⌋+1)n^p)`.
+-/
+theorem floorDivide_allInput_masterCase2_polynomialLogScale
+    (b p : ℕ) (f T : ℕ → ℝ)
+    (h_rec : FloorDivideRecurrence (b ^ p) b f T)
+    (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_nonneg : 0 ≤ normalizedValue (b ^ p) b T 0)
+    {c C : ℝ} (hc_pos : 0 < c) (hC_pos : 0 < C)
+    (h_term_lower : ∀ k, c ≤ normalizedForcing (b ^ p) b f k)
+    (h_term_upper : ∀ k, normalizedForcing (b ^ p) b f k ≤ C) :
+    Chapter03.isBigTheta T (polynomialLogScale b p) := by
+  exact Chapter03.isBigTheta_trans
+    (floorDivide_allInput_masterCase2_criticalPowerLogScale (b ^ p) b f T h_rec
+      (one_le_base_pow_of_one_lt b p hb) hb hT_mono h_base_nonneg
+      hc_pos hC_pos h_term_lower h_term_upper)
+    (criticalPowerLogScale_isBigTheta_polynomialLogScale b p hb)
+
+/--
+Ceiling-division all-input Master case 2 specialized to {lit}`a = b^p`, with
+the result stated directly as {lit}`Θ((⌊log_b n⌋+1)n^p)`.
+-/
+theorem ceilDivide_allInput_masterCase2_polynomialLogScale
+    (b p : ℕ) (f T : ℕ → ℝ)
+    (h_rec : CeilDivideRecurrence (b ^ p) b f T)
+    (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_nonneg : 0 ≤ normalizedValue (b ^ p) b T 0)
+    {c C : ℝ} (hc_pos : 0 < c) (hC_pos : 0 < C)
+    (h_term_lower : ∀ k, c ≤ normalizedForcing (b ^ p) b f k)
+    (h_term_upper : ∀ k, normalizedForcing (b ^ p) b f k ≤ C) :
+    Chapter03.isBigTheta T (polynomialLogScale b p) := by
+  exact Chapter03.isBigTheta_trans
+    (ceilDivide_allInput_masterCase2_criticalPowerLogScale (b ^ p) b f T h_rec
+      (one_le_base_pow_of_one_lt b p hb) hb hT_mono h_base_nonneg
+      hc_pos hC_pos h_term_lower h_term_upper)
+    (criticalPowerLogScale_isBigTheta_polynomialLogScale b p hb)
 
 /-! ## Packaged all-input Master case 3 wrappers -/
 

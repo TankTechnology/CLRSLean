@@ -57,8 +57,11 @@ and by future divide-and-conquer runtime proofs.
   exact-power {lit}`T(b^i) = Θ(a^i)`, {lit}`T(b^i) = Θ((i+1)a^i)`, and
   tail-dominated bounds into all-input bounds, and Section 4.6 packages the
   floor/ceiling recurrence forms of exact-power Master cases 1, 2, and 3 for
-  these discrete scales.  The full textbook theorem still needs analytic
-  comparison scales for the standard CLRS-facing asymptotic statements.
+  these discrete scales.  It also proves the natural-exponent comparison
+  layer for {lit}`a = b^p`, exposing case-1 results as {lit}`Θ(n^p)` and
+  case-2 results as {lit}`Θ((⌊log_b n⌋+1)n^p)`.  The full textbook theorem
+  still needs the general {lit}`n^(log_b a)`, real-log, and case-3 comparison
+  scales for the standard CLRS-facing asymptotic statements.
 -/
 
 namespace CLRS

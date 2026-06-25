@@ -126,9 +126,11 @@ algebra correctness theorem, recurrence layers for the substitution and
 recursion-tree proof methods, the exact-power Master theorem core, and a first
 all-input asymptotic transfer bridge.  Section 4.6 now also proves the
 adjacent-power bridge that generates power-sandwich witnesses from one-step
-comparison-scale bounds, plus the first concrete discrete critical-power scale
-wrapper.  The full floor/ceiling Master Theorem still needs analytic comparison
-scales and recurrence instantiations packaged as final case statements.
+comparison-scale bounds, discrete case-1/2/3 Master-scale wrappers, packaged
+floor/ceiling Master cases, and natural-exponent polynomial comparison wrappers
+for cases 1 and 2.  The full floor/ceiling Master Theorem still needs the
+general `n^(log_b a)`, real-log, and case-3 comparison layers packaged as final
+case statements.
 
 ### Section 4.1 - The maximum-subarray problem
 
@@ -217,7 +219,8 @@ scales and recurrence instantiations packaged as final case statements.
 - Status: `partial` with floor/ceiling exact-power extraction, all-input
   transfer, adjacent-power sandwich generation, a discrete critical-power
   scale wrapper, a discrete log-critical scale wrapper, a tail-dominated scale
-  wrapper, and packaged floor/ceiling Master cases 1, 2, and 3 proved
+  wrapper, polynomial comparison wrappers for `a = b^p`, and packaged
+  floor/ceiling Master cases 1, 2, and 3 proved
 - Main proved theorems:
   - `CLRS.Chapter04.FloorDivideRecurrence`
   - `CLRS.Chapter04.CeilDivideRecurrence`
@@ -241,12 +244,22 @@ scales and recurrence instantiations packaged as final case statements.
   - `CLRS.Chapter04.tailDominatedScale`
   - `CLRS.Chapter04.tailDominatedScale_exactPower`
   - `CLRS.Chapter04.allInput_bigTheta_of_tailDominatedScale`
+  - `CLRS.Chapter04.polynomialScale`
+  - `CLRS.Chapter04.polynomialLogScale`
+  - `CLRS.Chapter04.criticalPowerScale_isBigTheta_polynomialScale`
+  - `CLRS.Chapter04.criticalPowerLogScale_isBigTheta_polynomialLogScale`
   - `CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`
   - `CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`
   - `CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`
+  - `CLRS.Chapter04.exactPower_allInput_masterCase1_polynomialScale`
+  - `CLRS.Chapter04.floorDivide_allInput_masterCase1_polynomialScale`
+  - `CLRS.Chapter04.ceilDivide_allInput_masterCase1_polynomialScale`
   - `CLRS.Chapter04.exactPower_allInput_masterCase2_criticalPowerLogScale`
   - `CLRS.Chapter04.floorDivide_allInput_masterCase2_criticalPowerLogScale`
   - `CLRS.Chapter04.ceilDivide_allInput_masterCase2_criticalPowerLogScale`
+  - `CLRS.Chapter04.exactPower_allInput_masterCase2_polynomialLogScale`
+  - `CLRS.Chapter04.floorDivide_allInput_masterCase2_polynomialLogScale`
+  - `CLRS.Chapter04.ceilDivide_allInput_masterCase2_polynomialLogScale`
   - `CLRS.Chapter04.exactPower_allInput_masterCase3_tailDominatedScale`
   - `CLRS.Chapter04.floorDivide_allInput_masterCase3_tailDominatedScale`
   - `CLRS.Chapter04.ceilDivide_allInput_masterCase3_tailDominatedScale`
@@ -263,12 +276,17 @@ scales and recurrence instantiations packaged as final case statements.
   `criticalPowerScale`, `criticalPowerLogScale`, and `tailDominatedScale`
   wrappers instantiate this bridge for the discrete scales
   `a^(⌊log_b n⌋)`, `(⌊log_b n⌋+1)a^(⌊log_b n⌋)`, and the case-3 last-forcing
-  scale, matching the three exact-power Master scales.  The packaged wrappers
-  combine floor/ceiling recurrence extraction, the exact-power Master case
-  theorem, and the corresponding all-input bridge.
-- Current gap: prove analytic comparison-scale wrappers for the usual CLRS
-  scales so the discrete all-input wrappers can be stated in the textbook's
-  standard asymptotic vocabulary.
+  scale, matching the three exact-power Master scales.  The polynomial
+  comparison layer proves that when `a = b^p`, the first scale is
+  `Θ(n^p)` and the second scale is `Θ((⌊log_b n⌋+1)n^p)`, then exports
+  exact/floor/ceiling case-1 and case-2 wrappers with those textbook-facing
+  conclusions.  The packaged wrappers combine floor/ceiling recurrence
+  extraction, the exact-power Master case theorem, and the corresponding
+  all-input bridge.
+- Current gap: extend the comparison-scale layer from the natural-exponent
+  special case to the general `n^(log_b a)` statement, connect the discrete
+  logarithm to `Real.log`, and add a similarly textbook-facing case-3
+  forcing-scale statement.
 
 ## Chapter 5 - Probabilistic Analysis and Randomized Algorithms
 
@@ -1044,7 +1062,7 @@ accepted edge set is already known to be a spanning tree.
 | Chapter 9 randomized SELECT expected time | `blocked-design` | Selection-by-rank correctness is proved for the specification selector, pivot-style quickselect, and pivot-parametric deterministic SELECT; randomized expected time needs a probability model and cost recurrence. |
 | Chapter 9 deterministic linear-time SELECT | `future-work` | Pivot-parametric deterministic SELECT correctness is proved by `deterministicSelect?_correct`; executable median-of-medians SELECT correctness is proved by `medianOfMediansSelect?_correct`; the local five-element median certificate is proved by `medianOfFive?_certificate`; executable full-input split-count bounds are proved by `fullGroupsOfFive_medianPivot_fullInput_split_counts`; the `7n/10 + O(1)` branch-size bound is proved by `medianOfMediansPivot?_partition_size_bound`. The recurrence proof remains. |
 | Maximum-subarray runtime analysis | `future-work` | Exhaustive-search, crossing-helper optimality, the executable combine step, and recursive split-tree/fuelled selector correctness are proved; runtime recurrence and RAM-cost refinement remain. |
-| Chapter 4 concrete all-input Master-theorem instantiation | `future-work` | Floor/ceiling exact-power extraction, generic all-input transfer, adjacent-power sandwich generation, the discrete critical-power, log-critical, and tail-dominated wrappers, and packaged floor/ceiling cases 1/2/3 are proved; analytic comparison-scale wrappers remain. |
+| Chapter 4 concrete all-input Master-theorem instantiation | `future-work` | Floor/ceiling exact-power extraction, generic all-input transfer, adjacent-power sandwich generation, the discrete critical-power, log-critical, and tail-dominated wrappers, packaged floor/ceiling cases 1/2/3, and natural-exponent polynomial wrappers for cases 1/2 are proved; the general `n^(log_b a)`, real-log, and case-3 comparison layers remain. |
 | Hash-table expected-time analysis | `blocked-design` | Needs a probability model for simple uniform hashing. |
 | Pointer-level linked lists and free lists | `future-work` | Requires an imperative memory model. |
 | BST transplant and parent-pointer navigation | `future-work` | Functional successor/predecessor queries and functional deletion are proved; pointer-transplant semantics remain. |

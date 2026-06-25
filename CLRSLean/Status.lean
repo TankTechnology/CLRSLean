@@ -79,8 +79,10 @@ which areas should not yet be counted as proof-complete.
   but the full CLRS table is not complete.
 * Chapter 4 as a whole: the local proof engines are strong and the first
   discrete all-input Master wrappers are proved, including floor/ceiling
-  recurrence packaging for exact-power Master cases 1, 2, and 3.  Analytic
-  comparison scales and selected runtime refinements remain.
+  recurrence packaging for exact-power Master cases 1, 2, and 3, plus
+  natural-exponent polynomial wrappers for cases 1 and 2 when
+  {lit}`a = b^p`.  The general {lit}`n^(log_b a)` and case-3 comparison
+  layers, plus selected runtime refinements, remain.
 * Chapter 11, Section 11.2: deterministic chained-hash-table operations are
   proved for a fixed hash function; expected-time hashing remains.
 * Chapter 12, Section 12.1: functional BST operations are proved; parent
@@ -95,8 +97,9 @@ which areas should not yet be counted as proof-complete.
 
 ### Missing Core Theorem
 
-* Chapter 4 full Master-theorem instantiation: instantiate analytic comparison
-  scales for the all-input floor/ceiling Master cases.
+* Chapter 4 full Master-theorem instantiation: extend the comparison-scale
+  layer beyond the proved natural-exponent case-1 and case-2 wrappers to the
+  general all-input floor/ceiling Master cases.
 * Chapter 7, Sections 7.2-7.4: index-level mutable-array partition refinement,
   performance recurrence, randomized quicksort, and expected-time theorem.
 * Chapter 9 linear-time SELECT refinements: pivot-parametric deterministic
@@ -171,12 +174,22 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter04.tailDominatedScale`,
   {lit}`CLRS.Chapter04.tailDominatedScale_exactPower`, and
   {lit}`CLRS.Chapter04.allInput_bigTheta_of_tailDominatedScale`,
+  {lit}`CLRS.Chapter04.polynomialScale`,
+  {lit}`CLRS.Chapter04.polynomialLogScale`,
+  {lit}`CLRS.Chapter04.criticalPowerScale_isBigTheta_polynomialScale`, and
+  {lit}`CLRS.Chapter04.criticalPowerLogScale_isBigTheta_polynomialLogScale`,
   {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`,
   {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`,
   {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`,
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_polynomialScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_polynomialScale`,
+  {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_polynomialScale`,
   {lit}`CLRS.Chapter04.exactPower_allInput_masterCase2_criticalPowerLogScale`,
   {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase2_criticalPowerLogScale`,
   {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase2_criticalPowerLogScale`,
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase2_polynomialLogScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase2_polynomialLogScale`,
+  {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase2_polynomialLogScale`,
   {lit}`CLRS.Chapter04.exactPower_allInput_masterCase3_tailDominatedScale`,
   {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase3_tailDominatedScale`,
   and {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase3_tailDominatedScale`.
@@ -552,9 +565,10 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   quicksort, and expected running time.
 * Chapter 4 concrete all-input Master-theorem instantiations: `future-work`.
   Reason: the discrete critical-power, log-critical, and tail-dominated scales
-  now have all-input wrappers for cases 1, 2, and 3, but the analytic
-  comparison scales still need to be packaged on top of the proved
-  floor/ceiling extraction and all-input transfer bridge.
+  now have all-input wrappers for cases 1, 2, and 3, and the natural-exponent
+  special case {lit}`a = b^p` has polynomial and polynomial-log wrappers for
+  cases 1 and 2.  The remaining comparison work is the general
+  {lit}`n^(log_b a)` layer, real-log packaging, and the case-3 forcing scale.
 * General merge-sort recurrence: `future-work`.
   Reason: needs floor and ceiling arithmetic for all input sizes.
 * CLRS exercises and chapter-end problems: `future-work`.

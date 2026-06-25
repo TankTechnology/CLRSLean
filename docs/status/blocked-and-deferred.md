@@ -65,12 +65,15 @@ scales.
 - Related sections: Sections 4.2 and 4.6
 - Status: `future-work`
 
-These sections are not excluded from CLRS-Lean.  They are pending because they
-need distinct representation choices: block matrices for Strassen and an
-all-input floor/ceiling instantiation for the full Master Theorem.  Sections
-4.3, 4.4, and 4.6 now provide reusable recurrence, recursion-tree, and
-all-input transfer infrastructure, including adjacent-power sandwich generation
-and a discrete critical-power all-input wrapper.
+These sections are not excluded from CLRS-Lean.  The remaining refinements need
+distinct representation choices: general-size block matrices for Strassen and
+the final comparison-scale layer for the full Master Theorem.  Sections 4.3,
+4.4, and 4.6 now provide reusable recurrence, recursion-tree, and all-input
+transfer infrastructure, including adjacent-power sandwich generation,
+discrete Master-scale wrappers, packaged floor/ceiling cases 1/2/3, and
+natural-exponent polynomial wrappers for Master cases 1 and 2.  The remaining
+Master-theorem comparison work is the general `n^(log_b a)`, real-log, and
+case-3 forcing-scale layer.
 
 ### Maximum-Subarray Runtime Analysis
 

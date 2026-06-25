@@ -52,8 +52,9 @@ Start with the chapter pages in the sidebar.
   recurrence proof infrastructure for the substitution and recursion-tree
   methods, Strassen's 2 by 2 block algebra correctness, plus the proved
   exact-power Master method core, floor/ceiling exact-power extraction, and
-  first all-input transfer bridge with adjacent-power sandwich generation and
-  a discrete critical-power scale wrapper.
+  all-input transfer bridge with adjacent-power sandwich generation, discrete
+  Master-scale wrappers, and natural-exponent polynomial wrappers for Master
+  cases 1 and 2.
 * Chapter 5 - Probabilistic Analysis: the finite rank-symmetry proof for the
   hiring problem and its logarithmic expected-hires bound.
 * Chapter 6 - Heapsort: recursive {lit}`MAX-HEAPIFY` repair, bottom-up
@@ -172,17 +173,27 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter04.allInput_bigTheta_of_criticalPowerLogScale`,
   `CLRS.Chapter04.tailDominatedScale`,
   `CLRS.Chapter04.allInput_bigTheta_of_tailDominatedScale`,
+  `CLRS.Chapter04.polynomialScale`,
+  `CLRS.Chapter04.polynomialLogScale`,
+  `CLRS.Chapter04.criticalPowerScale_isBigTheta_polynomialScale`,
+  `CLRS.Chapter04.criticalPowerLogScale_isBigTheta_polynomialLogScale`,
   `CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`,
   `CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`, and
   `CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`;
+  `CLRS.Chapter04.exactPower_allInput_masterCase1_polynomialScale`,
+  `CLRS.Chapter04.floorDivide_allInput_masterCase1_polynomialScale`, and
+  `CLRS.Chapter04.ceilDivide_allInput_masterCase1_polynomialScale`;
   `CLRS.Chapter04.exactPower_allInput_masterCase2_criticalPowerLogScale`,
   `CLRS.Chapter04.floorDivide_allInput_masterCase2_criticalPowerLogScale`,
   and `CLRS.Chapter04.ceilDivide_allInput_masterCase2_criticalPowerLogScale`;
+  `CLRS.Chapter04.exactPower_allInput_masterCase2_polynomialLogScale`,
+  `CLRS.Chapter04.floorDivide_allInput_masterCase2_polynomialLogScale`, and
+  `CLRS.Chapter04.ceilDivide_allInput_masterCase2_polynomialLogScale`;
   `CLRS.Chapter04.exactPower_allInput_masterCase3_tailDominatedScale`,
   `CLRS.Chapter04.floorDivide_allInput_masterCase3_tailDominatedScale`,
   and `CLRS.Chapter04.ceilDivide_allInput_masterCase3_tailDominatedScale`.
-  Remaining target: analytic comparison scales for the textbook-facing
-  asymptotic statements.
+  Remaining target: general {lit}`n^(log_b a)`, real-log, and case-3
+  comparison scales for the textbook-facing asymptotic statements.
 * 5.1 Hiring problem: `proved` for the finite rank-symmetry model.
   Public results: `CLRS.Chapter05.hireProbability_eq`,
   `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,
