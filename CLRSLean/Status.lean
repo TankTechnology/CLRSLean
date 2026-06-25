@@ -521,6 +521,7 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   current results {lit}`CLRS.Chapter18.BTree.search_correct`,
   {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,

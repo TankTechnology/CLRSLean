@@ -1019,6 +1019,7 @@ refinements.
   - `CLRS.Chapter18.BTree.search_correct`
   - `CLRS.Chapter18.BTree.minKeys_lower_bound`
   - `CLRS.Chapter18.BTree.splitChild_preserves_model`
+  - `CLRS.Chapter18.BTree.splitChild_mem_iff`
   - `CLRS.Chapter18.BTree.splitChild_search_iff`
   - `CLRS.Chapter18.BTree.insert_preserves_model`
   - `CLRS.Chapter18.BTree.insert_mem_iff`

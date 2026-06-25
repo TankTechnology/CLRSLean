@@ -12,6 +12,8 @@ Main results:
 
 - Theorem {lit}`BTree.splitChild_preserves_model`: the first-pass split wrapper
   preserves validity and membership.
+- Theorem {lit}`BTree.splitChild_mem_iff`: membership after the first-pass
+  split wrapper is unchanged.
 - Theorem {lit}`BTree.splitChild_search_iff`: searching after the first-pass
   split wrapper is equivalent to searching before it.
 - Theorem {lit}`BTree.insert_preserves_model`: specification insertion preserves
@@ -36,12 +38,17 @@ namespace BTree
 def splitChild (t : BTree) : BTree :=
   t
 
+/-- Membership after the first-pass split wrapper is unchanged. -/
+theorem splitChild_mem_iff (x : Nat) (t : BTree) :
+    mem x (splitChild t) <-> mem x t := by
+  rfl
+
 /-- The first-pass split wrapper preserves validity and membership. -/
 theorem splitChild_preserves_model {minDegree : Nat} {t : BTree}
     (hvalid : Valid minDegree t) :
     Valid minDegree (splitChild t) ∧
       forall x, mem x (splitChild t) <-> mem x t := by
-  exact ⟨hvalid, by intro x; rfl⟩
+  exact ⟨hvalid, by intro x; exact splitChild_mem_iff x t⟩
 
 /-- Searching after the first-pass split wrapper is unchanged. -/
 theorem splitChild_search_iff {minDegree x : Nat} {t : BTree}
