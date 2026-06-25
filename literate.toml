@@ -89,6 +89,8 @@ description = "A Lean 4 companion for CLRS-style algorithm correctness proofs."
 ]
 "CLRSLean.Chapter_17" = [
   "CLRSLean.Chapter_17.Section_17_1_Amortized_Framework",
+  "CLRSLean.Chapter_17.Section_17_2_Stack_And_Counter",
+  "CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables",
 ]
 "CLRSLean.Chapter_23" = [
   "CLRSLean.Chapter_23.Section_23_1_Growing_Minimum_Spanning_Trees",
@@ -253,6 +255,12 @@ title = "16.1. Activity Selection"
 
 [modules."CLRSLean.Chapter_17.Section_17_1_Amortized_Framework"]
 title = "17.1-17.3. Amortized Analysis Framework"
+
+[modules."CLRSLean.Chapter_17.Section_17_2_Stack_And_Counter"]
+title = "17.2. Stack and Counter Examples"
+
+[modules."CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables"]
+title = "17.4. Dynamic Tables"
 
 [modules."CLRSLean.Chapter_23.Section_23_1_Growing_Minimum_Spanning_Trees"]
 title = "23.1. Growing a Minimum Spanning Tree"

@@ -1,4 +1,6 @@
 import CLRSLean.Chapter_17.Section_17_1_Amortized_Framework
+import CLRSLean.Chapter_17.Section_17_2_Stack_And_Counter
+import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 
 #check CLRS.Chapter17.prefixCost
 #check CLRS.Chapter17.prefixCostR
@@ -11,3 +13,14 @@ import CLRSLean.Chapter_17.Section_17_1_Amortized_Framework
 #check CLRS.Chapter17.amortizedCost
 #check CLRS.Chapter17.potential_totalCost_eq_totalAmortized_sub_delta
 #check CLRS.Chapter17.potential_totalCost_le_totalAmortized
+#check CLRS.Chapter17.multiPop
+#check CLRS.Chapter17.multiPopCost
+#check CLRS.Chapter17.multiPop_totalCost_le
+#check CLRS.Chapter17.binaryCounterIncrement
+#check CLRS.Chapter17.bitFlipsForIncrement
+#check CLRS.Chapter17.binaryCounter_totalFlips_le
+#check CLRS.Chapter17.DynamicTableState
+#check CLRS.Chapter17.DynamicTableState.Valid
+#check CLRS.Chapter17.dynamicPotential
+#check CLRS.Chapter17.dynamicTableAmortizedCost
+#check CLRS.Chapter17.dynamicTable_amortizedBound

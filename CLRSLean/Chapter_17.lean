@@ -1,12 +1,15 @@
 import CLRSLean.Chapter_17.Section_17_1_Amortized_Framework
+import CLRSLean.Chapter_17.Section_17_2_Stack_And_Counter
+import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 
 /-!
 # Chapter 17 - Amortized Analysis
 
-Chapter 17 develops reusable finite-prefix arithmetic for amortized analysis.
-The current first pass contains the aggregate, accounting, and potential-method
-framework theorems.  Concrete {lit}`MULTIPOP`, binary-counter, dynamic-table, and
-later Fibonacci-heap instantiations build on this layer.
+Chapter 17 develops reusable finite-prefix arithmetic for amortized analysis
+and instantiates it on compact stack, counter, and dynamic-table examples.  The
+current first pass contains the aggregate, accounting, and potential-method
+framework theorems, a {lit}`MULTIPOP` stack cost bound, a first-pass binary
+counter cost wrapper, and an abstract dynamic-table potential wrapper.
 
 ## Sections
 
@@ -18,11 +21,18 @@ later Fibonacci-heap instantiations build on this layer.
   {lit}`CLRS.Chapter17.accounting_totalCost_le_totalCharge`,
   {lit}`CLRS.Chapter17.potential_totalCost_eq_totalAmortized_sub_delta`, and
   {lit}`CLRS.Chapter17.potential_totalCost_le_totalAmortized`.
+* 17.2 Stack and counter examples: {lit}`partial`.
+  Main results:
+  {lit}`CLRS.Chapter17.multiPop_totalCost_le` and
+  {lit}`CLRS.Chapter17.binaryCounter_totalFlips_le`.
+* 17.4 Dynamic tables: {lit}`partial`.
+  Main result:
+  {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`.
 
 ## Current Gaps
 
-The concrete {lit}`MULTIPOP`, binary-counter, and dynamic-table examples are not yet
-represented in Lean.
+The exact trailing-one binary-counter cost proof and concrete dynamic-table
+expansion/contraction transition predicates remain strengthening targets.
 -/
 
 namespace CLRS
