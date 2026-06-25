@@ -19,6 +19,9 @@ import CLRSLean.Chapter_19.Section_19_1_Fibonacci_Heap_Model
 #check CLRS.Chapter19.FibHeap.insert_mem_old
 #check CLRS.Chapter19.FibHeap.insert_not_mem_iff
 #check CLRS.Chapter19.FibHeap.insert_minimum_correct
+#check CLRS.Chapter19.FibHeap.insert_minimum_mem
+#check CLRS.Chapter19.FibHeap.insert_minimum_le_inserted
+#check CLRS.Chapter19.FibHeap.insert_minimum_le_old
 #check CLRS.Chapter19.FibHeap.insert_minimum_none_iff
 #check CLRS.Chapter19.FibHeap.union_correct
 #check CLRS.Chapter19.FibHeap.union_valid

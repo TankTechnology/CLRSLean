@@ -111,8 +111,9 @@ Start with the chapter pages in the sidebar.
   normalized counters, direct
   insert/union/extract-min/decrease-key/delete membership facts plus
   operation-key, old-key preservation, and failed membership corollaries,
-  returned minimum-after-update positive/empty specs, heap potential
-  zero/nonnegativity and telescoping facts, a Fibonacci lower-bound recurrence with positivity,
+  returned minimum-after-update positive/empty specs plus insert-minimum direct
+  membership/lower-bound wrappers, heap potential zero/nonnegativity and
+  telescoping facts, a Fibonacci lower-bound recurrence with positivity,
   monotonicity, and even/half-index power-of-two growth facts, conditional
   degree-to-binary-log wrappers, and a conservative degree-bound wrapper.
 * Chapter 20 - van Emde Boas Trees: high/low universe decomposition with
@@ -535,6 +536,9 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter19.FibHeap.insert_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_not_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_minimum_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_minimum_mem`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_minimum_le_inserted`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_minimum_le_old`,
   {lit}`CLRS.Chapter19.FibHeap.insert_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_valid`,

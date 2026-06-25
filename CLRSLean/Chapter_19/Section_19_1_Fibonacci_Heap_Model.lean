@@ -52,6 +52,10 @@ Main results:
   {lit}`FibHeap.decreaseKey_minimum_correct`, and
   {lit}`FibHeap.delete_minimum_correct`: returned minima after heap updates
   are least elements of the updated key sets.
+- Theorems {lit}`FibHeap.insert_minimum_mem`,
+  {lit}`FibHeap.insert_minimum_le_inserted`, and
+  {lit}`FibHeap.insert_minimum_le_old`: direct membership and lower-bound
+  corollaries for a returned minimum after insertion.
 - Theorems {lit}`FibHeap.insert_minimum_none_iff`,
   {lit}`FibHeap.union_minimum_none_iff`,
   {lit}`FibHeap.extractMin_remaining_minimum_none_iff`,
@@ -259,6 +263,28 @@ theorem insert_minimum_correct {h : FibHeap} {s : Finset Int} {x m : Int}
   · exact hmin'.2 x (by simp)
   · intro y hy
     exact hmin'.2 y (by simp [hy])
+
+/-- A returned minimum after insertion is either the inserted key or an old key. -/
+theorem insert_minimum_mem {h : FibHeap} {s : Finset Int} {x m : Int}
+    (hrep : Represents h s) (hmin : minimum (insert x h) = some m) :
+    m = x ∨ m ∈ s := by
+  exact (insert_minimum_correct
+    (h := h) (s := s) (x := x) (m := m) hrep hmin).1
+
+/-- A returned minimum after insertion is no larger than the inserted key. -/
+theorem insert_minimum_le_inserted {h : FibHeap} {s : Finset Int} {x m : Int}
+    (hrep : Represents h s) (hmin : minimum (insert x h) = some m) :
+    m <= x := by
+  exact (insert_minimum_correct
+    (h := h) (s := s) (x := x) (m := m) hrep hmin).2.1
+
+/-- A returned minimum after insertion is no larger than any old key. -/
+theorem insert_minimum_le_old {h : FibHeap} {s : Finset Int} {x m y : Int}
+    (hrep : Represents h s) (hmin : minimum (insert x h) = some m)
+    (hy : y ∈ s) :
+    m <= y := by
+  exact (insert_minimum_correct
+    (h := h) (s := s) (x := x) (m := m) hrep hmin).2.2 y hy
 
 /-- Insertion makes the updated heap nonempty, so no minimum-empty result is possible. -/
 theorem insert_minimum_none_iff {h : FibHeap} {s : Finset Int} {x : Int}

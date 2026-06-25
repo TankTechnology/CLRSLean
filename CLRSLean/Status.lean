@@ -111,8 +111,9 @@ which areas should not yet be counted as proof-complete.
   empty-result query specs, direct
   insert/union/extract-min/decrease-key/delete membership facts plus
   operation-key, old-key preservation, and failed membership corollaries,
-  minimum-after-update positive/empty specifications, heap-potential
-  zero/nonnegativity and telescoping facts, and Fibonacci
+  minimum-after-update positive/empty specifications plus insert-minimum
+  direct membership/lower-bound wrappers, heap-potential zero/nonnegativity
+  and telescoping facts, and Fibonacci
   lower-bound recurrence/positivity/monotonicity and even/half-index
   power-of-two growth facts plus conditional degree-to-log wrappers are
   proved; pointer
@@ -628,6 +629,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter19.FibHeap.insert_mem_old`,
   {lit}`CLRS.Chapter19.FibHeap.insert_not_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.insert_minimum_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_minimum_mem`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_minimum_le_inserted`,
+  {lit}`CLRS.Chapter19.FibHeap.insert_minimum_le_old`,
   {lit}`CLRS.Chapter19.FibHeap.insert_minimum_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_valid`,

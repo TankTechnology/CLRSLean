@@ -22,6 +22,9 @@
 - `CLRS.Chapter19.FibHeap.insert_mem_old`
 - `CLRS.Chapter19.FibHeap.insert_not_mem_iff`
 - `CLRS.Chapter19.FibHeap.insert_minimum_correct`
+- `CLRS.Chapter19.FibHeap.insert_minimum_mem`
+- `CLRS.Chapter19.FibHeap.insert_minimum_le_inserted`
+- `CLRS.Chapter19.FibHeap.insert_minimum_le_old`
 - `CLRS.Chapter19.FibHeap.insert_minimum_none_iff`
 - `CLRS.Chapter19.FibHeap.union_correct`
 - `CLRS.Chapter19.FibHeap.union_valid`
@@ -76,8 +79,9 @@ exposes direct operation-key membership corollaries for insert, extract-min,
 decrease-key, and delete, plus old-key preservation corollaries for the
 set-updating operations and exact failed membership specifications after heap
 operations, direct operation-result validity wrappers for normalized counters,
-direct minimum membership/lower-bound wrappers, and positive/empty
-minimum-after-update specifications.  It
+direct minimum membership/lower-bound wrappers, insert-minimum direct
+membership/lower-bound wrappers, and positive/empty minimum-after-update
+specifications.  It
 also includes the first power-of-two lower-bound bridge for the Fibonacci-style
 degree sequence, including the half-index form used by later logarithmic-degree
 arguments and a conditional natural binary-log bridge from a Fibonacci-style
