@@ -97,8 +97,8 @@ Start with the chapter pages in the sidebar.
   potential-method telescoping theorems, plus stack/counter/table examples with
   an executable multi-step counter trace bound.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
-  height-expression, split, insertion, deletion, and search-after-update
-  theorem surface.
+  height-expression, split, split search preservation, insertion, deletion,
+  and search-after-update theorem surface.
 * Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
   make-heap and operation-level correctness, heap potential telescoping, a
   Fibonacci lower-bound recurrence, and a conservative degree-bound wrapper.
@@ -441,6 +441,7 @@ Start with the chapter pages in the sidebar.
   Public results: {lit}`CLRS.Chapter18.BTree.search_correct`,
   {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_iff`,

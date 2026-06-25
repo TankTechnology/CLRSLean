@@ -1019,6 +1019,7 @@ refinements.
   - `CLRS.Chapter18.BTree.search_correct`
   - `CLRS.Chapter18.BTree.minKeys_lower_bound`
   - `CLRS.Chapter18.BTree.splitChild_preserves_model`
+  - `CLRS.Chapter18.BTree.splitChild_search_iff`
   - `CLRS.Chapter18.BTree.insert_preserves_model`
   - `CLRS.Chapter18.BTree.insert_mem_iff`
   - `CLRS.Chapter18.BTree.insert_search_iff`
@@ -1031,9 +1032,9 @@ refinements.
   node-level deletion repair, disk-page I/O, and pointer mutation remain
   strengthening targets.
 
-Chapter 18 now has a first-pass B-tree theorem surface.  Search, insertion, and
-deletion are proved against an abstract membership model, and the update
-wrappers expose direct search-after-update specifications.  The height
+Chapter 18 now has a first-pass B-tree theorem surface.  Search, split-child,
+insertion, and deletion are proved against an abstract membership model, and
+the update wrappers expose direct search-after-update specifications.  The height
 expression is packaged as a minimum-key lower bound.  The current split, insert,
 and delete operations are specification wrappers, so the chapter is still
 `partial` rather than a complete page-level mutation proof.
