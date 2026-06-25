@@ -95,7 +95,8 @@ Start with the chapter pages in the sidebar.
   study.
 * Chapter 17 - Amortized Analysis: finite-prefix aggregate, accounting, and
   potential-method telescoping theorems, plus stack/counter/table examples with
-  an executable multi-step counter trace bound.
+  an executable multi-step counter trace bound and size-level dynamic-table
+  capacity/transition wrappers.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
   height-expression, split, split membership/search preservation, insertion,
   deletion, and search-after-update theorem surface.
@@ -432,9 +433,11 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.binaryCounter_trace_totalFlips_le`, and
   {lit}`CLRS.Chapter17.binaryCounter_totalFlips_le`.
 * 17.4 Dynamic tables: {lit}`partial`.
-  Public results: {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
+  Public results: {lit}`CLRS.Chapter17.dynamicTableInsertSize_fits`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedBound`,
+  {lit}`CLRS.Chapter17.dynamicTableDeleteSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_valid`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedBound`, and

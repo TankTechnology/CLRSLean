@@ -11,6 +11,9 @@ Main results:
 
 - Predicate {lit}`DynamicTableState.Valid`: the number of stored elements does
   not exceed allocated table size.
+- Theorems {lit}`dynamicTableInsertSize_fits` and
+  {lit}`dynamicTableDeleteSize_fits`: the first-pass capacity choices can hold
+  the post-operation number of stored elements.
 - Theorem {lit}`dynamicTableInsert_valid`: the first-pass insertion transition
   preserves the table-size invariant.
 - Theorem {lit}`dynamicTableDelete_valid`: the first-pass deletion/contraction
@@ -76,6 +79,14 @@ def dynamicTableInsertCost (s : DynamicTableState) : Nat :=
   else
     s.num + 1
 
+/-- The insertion capacity choice can hold the inserted element. -/
+theorem dynamicTableInsertSize_fits (s : DynamicTableState) :
+    s.num + 1 <= dynamicTableInsertSize s := by
+  unfold dynamicTableInsertSize
+  by_cases hfit : s.num + 1 <= s.size
+  · simp [hfit]
+  · simp [hfit]
+
 /-- Dynamic-table insertion increments the stored-element count by one. -/
 theorem dynamicTableInsert_num (s : DynamicTableState) :
     (dynamicTableInsert s).num = s.num + 1 := by
@@ -85,10 +96,8 @@ theorem dynamicTableInsert_num (s : DynamicTableState) :
 theorem dynamicTableInsert_valid (s : DynamicTableState)
     (_hvalid : DynamicTableState.Valid s) :
     DynamicTableState.Valid (dynamicTableInsert s) := by
-  unfold DynamicTableState.Valid dynamicTableInsert dynamicTableInsertSize
-  by_cases hfit : s.num + 1 <= s.size
-  · simp [hfit]
-  · simp [hfit]
+  unfold DynamicTableState.Valid dynamicTableInsert
+  exact dynamicTableInsertSize_fits s
 
 /--
 Allocated size after one deletion.  If the post-deletion load is low, shrink
@@ -115,6 +124,17 @@ def dynamicTableDeleteCost (s : DynamicTableState) : Nat :=
   else
     1
 
+/-- The deletion capacity choice can hold the remaining elements of a valid table. -/
+theorem dynamicTableDeleteSize_fits (s : DynamicTableState)
+    (hvalid : DynamicTableState.Valid s) :
+    s.num - 1 <= dynamicTableDeleteSize s := by
+  unfold DynamicTableState.Valid at hvalid
+  unfold dynamicTableDeleteSize
+  by_cases hcontract : 4 * (s.num - 1) <= s.size
+  · simp [hcontract]
+  · simp [hcontract]
+    omega
+
 /-- Dynamic-table deletion decrements the stored-element count, saturating at zero. -/
 theorem dynamicTableDelete_num (s : DynamicTableState) :
     (dynamicTableDelete s).num = s.num - 1 := by
@@ -124,12 +144,8 @@ theorem dynamicTableDelete_num (s : DynamicTableState) :
 theorem dynamicTableDelete_valid (s : DynamicTableState)
     (hvalid : DynamicTableState.Valid s) :
     DynamicTableState.Valid (dynamicTableDelete s) := by
-  unfold DynamicTableState.Valid at hvalid
-  unfold DynamicTableState.Valid dynamicTableDelete dynamicTableDeleteSize
-  by_cases hcontract : 4 * (s.num - 1) <= s.size
-  · simp [hcontract]
-  · simp [hcontract]
-    omega
+  unfold DynamicTableState.Valid dynamicTableDelete
+  exact dynamicTableDeleteSize_fits s hvalid
 
 /--
 The abstract amortized transition cost is bounded by actual cost plus the

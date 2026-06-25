@@ -16,9 +16,11 @@
 - `CLRS.Chapter17.binaryCounter_trace_potential_le`
 - `CLRS.Chapter17.binaryCounter_trace_totalFlips_le`
 - `CLRS.Chapter17.binaryCounter_totalFlips_le`
+- `CLRS.Chapter17.dynamicTableInsertSize_fits`
 - `CLRS.Chapter17.dynamicTableInsert_valid`
 - `CLRS.Chapter17.dynamicTableInsert_num`
 - `CLRS.Chapter17.dynamicTableInsert_amortizedBound`
+- `CLRS.Chapter17.dynamicTableDeleteSize_fits`
 - `CLRS.Chapter17.dynamicTableDelete_valid`
 - `CLRS.Chapter17.dynamicTableDelete_num`
 - `CLRS.Chapter17.dynamicTableDelete_amortizedBound`
@@ -29,4 +31,6 @@
 The current chapter is a mathematical first pass.  It now includes the exact
 one-step and multi-step binary-counter flip/potential proofs, while deferring
 mutable-array copying, allocation, RAM-cost constants, and sharper load-factor
-potential refinements for dynamic tables.
+potential refinements for dynamic tables.  The dynamic-table layer currently
+checks that the chosen post-operation capacity can hold the resulting element
+count, but it is still a size-level model rather than an array-copying model.
