@@ -78,8 +78,9 @@ which areas should not yet be counted as proof-complete.
   but the full CLRS table is not complete.
 * Chapter 4 as a whole: the local proof engines are strong and the first
   discrete critical-power all-input wrapper is proved, including floor/ceiling
-  recurrence packaging for exact-power Master case 1.  Analytic comparison
-  scales, the remaining Master cases, and selected runtime refinements remain.
+  recurrence packaging for exact-power Master cases 1 and 2.  Analytic
+  comparison scales, the remaining Master case, and selected runtime
+  refinements remain.
 * Chapter 11, Section 11.2: deterministic chained-hash-table operations are
   proved for a fixed hash function; expected-time hashing remains.
 * Chapter 12, Section 12.1: functional BST operations are proved; parent
@@ -163,9 +164,17 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter04.criticalPowerScale_monotoneAbs`,
   {lit}`CLRS.Chapter04.criticalPowerScale_powerStepBound`, and
   {lit}`CLRS.Chapter04.allInput_bigTheta_of_criticalPowerScale`,
+  {lit}`CLRS.Chapter04.criticalPowerLogScale`,
+  {lit}`CLRS.Chapter04.criticalPowerLogScale_monotoneAbs`,
+  {lit}`CLRS.Chapter04.criticalPowerLogScale_powerStepBound`, and
+  {lit}`CLRS.Chapter04.allInput_bigTheta_of_criticalPowerLogScale`,
   {lit}`CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`,
   {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`,
-  and {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`.
+  {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`,
+  {lit}`CLRS.Chapter04.exactPower_allInput_masterCase2_criticalPowerLogScale`,
+  {lit}`CLRS.Chapter04.floorDivide_allInput_masterCase2_criticalPowerLogScale`,
+  and
+  {lit}`CLRS.Chapter04.ceilDivide_allInput_masterCase2_criticalPowerLogScale`.
 * 4.3 Substitution method, one-step recurrence model:
   {lit}`CLRS.Chapter04.substitution_upper_bound`,
   {lit}`CLRS.Chapter04.substitution_lower_bound`,
@@ -506,10 +515,11 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   Reason: exact powers, floor/ceiling exact-power extraction, the generic
   all-input transfer bridge, and adjacent-power sandwich generation from
   one-step comparison-scale bounds are proved; the discrete
-  {lit}`criticalPowerScale` all-input wrapper is also proved, including
-  floor/ceiling recurrence packaging for exact-power Master case 1.  Analytic
-  comparison scales and the remaining final floor/ceiling Master-case
-  statements still need to be packaged.
+  {lit}`criticalPowerScale` and {lit}`criticalPowerLogScale` all-input
+  wrappers are also proved, including floor/ceiling recurrence packaging for
+  exact-power Master cases 1 and 2.  Analytic comparison scales and the
+  remaining final floor/ceiling Master-case statement still need to be
+  packaged.
 * Chapter 4 Strassen recursive refinement:
   `future-work`.
   Reason: the 2 by 2 block algebra is proved; recursive splitting,
@@ -536,10 +546,10 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   index-level CLRS array `PARTITION` loop, recurrence analysis, randomized
   quicksort, and expected running time.
 * Chapter 4 concrete all-input Master-theorem instantiations: `future-work`.
-  Reason: the discrete critical-power scale now has an all-input wrapper, but
-  the analytic comparison scales and final case statements still need to be
-  packaged on top of the proved floor/ceiling extraction and all-input
-  transfer bridge.
+  Reason: the discrete critical-power and log-critical scales now have
+  all-input wrappers for cases 1 and 2, but the analytic comparison scales and
+  remaining final case statement still need to be packaged on top of the proved
+  floor/ceiling extraction and all-input transfer bridge.
 * General merge-sort recurrence: `future-work`.
   Reason: needs floor and ceiling arithmetic for all input sizes.
 * CLRS exercises and chapter-end problems: `future-work`.

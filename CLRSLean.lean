@@ -168,11 +168,16 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter04.allInput_bigTheta_of_powerStep`,
   `CLRS.Chapter04.criticalPowerScale`, and
   `CLRS.Chapter04.allInput_bigTheta_of_criticalPowerScale`,
+  `CLRS.Chapter04.criticalPowerLogScale`,
+  `CLRS.Chapter04.allInput_bigTheta_of_criticalPowerLogScale`,
   `CLRS.Chapter04.exactPower_allInput_masterCase1_criticalPowerScale`,
   `CLRS.Chapter04.floorDivide_allInput_masterCase1_criticalPowerScale`, and
-  `CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`.
+  `CLRS.Chapter04.ceilDivide_allInput_masterCase1_criticalPowerScale`;
+  `CLRS.Chapter04.exactPower_allInput_masterCase2_criticalPowerLogScale`,
+  `CLRS.Chapter04.floorDivide_allInput_masterCase2_criticalPowerLogScale`,
+  and `CLRS.Chapter04.ceilDivide_allInput_masterCase2_criticalPowerLogScale`.
   Remaining target: analytic comparison scales and the remaining final
-  floor/ceiling Master cases.
+  floor/ceiling Master case.
 * 5.1 Hiring problem: `proved` for the finite rank-symmetry model.
   Public results: `CLRS.Chapter05.hireProbability_eq`,
   `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,

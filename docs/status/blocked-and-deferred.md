@@ -53,10 +53,11 @@ proves the generic transfer bridge from exact powers to all natural input sizes
 under monotone-cost and power-sandwich hypotheses.  Section 4.6 also now proves
 the adjacent-power `Nat.log` interval and derives both sandwich hypotheses from
 monotone comparison scales with eventual one-step control.  It also proves the
-discrete `criticalPowerScale` all-input wrapper for exact-power `Θ(a^i)`
-bounds, including floor/ceiling recurrence wrappers for exact-power Master
-case 1.  The remaining strengthening is to relate this bridge to analytic CLRS
-comparison scales and package the remaining floor/ceiling statements.
+discrete `criticalPowerScale` and `criticalPowerLogScale` all-input wrappers
+for exact-power `Θ(a^i)` and `Θ((i+1)a^i)` bounds, including floor/ceiling
+recurrence wrappers for exact-power Master cases 1 and 2.  The remaining
+strengthening is to relate this bridge to analytic CLRS comparison scales and
+package the remaining floor/ceiling case 3 statement.
 
 ### Remaining Chapter 4 Sections
 

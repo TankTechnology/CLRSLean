@@ -32,22 +32,42 @@ def EventuallyPowerStepBound (b : ℕ) (g : ℕ → ℝ) : Prop :=
   ∃ A : ℝ, 0 < A ∧ ∃ n₀ : ℕ, ∀ n, n₀ ≤ n → |g (b * n)| ≤ A * |g n|
 
 /--
-Discrete critical-power scale for the exact-power Master theorem.  On exact
-powers it satisfies
+Discrete critical-power scale for the exact-power Master theorem case 1.  On
+exact powers it satisfies
 {lit}`criticalPowerScale a b (b^i) = a^i`; between exact powers it is the
 step function determined by {lit}`Nat.log b n`.
 
-This is deliberately weaker and cleaner than the analytic scale
+This and {lit}`criticalPowerLogScale` are deliberately weaker and cleaner than
+the analytic scales
 {lit}`n^(log_b a)`, but it is enough to make the exact-power-to-all-input
-bridge concrete.
+bridge concrete for Master cases 1 and 2.
 -/
 def criticalPowerScale (a b : ℕ) (n : ℕ) : ℝ :=
   (a : ℝ) ^ Nat.log b n
+
+/--
+Discrete case-2 Master scale.  On exact powers this is
+{lit}`(i+1) a^i`; between exact powers it is the step function determined by
+{lit}`Nat.log b n`.
+-/
+def criticalPowerLogScale (a b : ℕ) (n : ℕ) : ℝ :=
+  ((Nat.log b n : ℝ) + 1) * criticalPowerScale a b n
 
 theorem criticalPowerScale_exactPower
     (a b i : ℕ) (hb : 1 < b) :
     criticalPowerScale a b (b ^ i) = (a : ℝ) ^ i := by
   simp [criticalPowerScale, Nat.log_pow hb]
+
+theorem criticalPowerLogScale_exactPower
+    (a b i : ℕ) (hb : 1 < b) :
+    criticalPowerLogScale a b (b ^ i) =
+      ((i : ℝ) + 1) * ((a : ℝ) ^ i) := by
+  simp [criticalPowerLogScale, criticalPowerScale, Nat.log_pow hb]
+
+theorem criticalPowerLogScale_nonneg (a b n : ℕ) :
+    0 ≤ criticalPowerLogScale a b n := by
+  unfold criticalPowerLogScale criticalPowerScale
+  positivity
 
 theorem criticalPowerScale_monotoneAbs
     (a b : ℕ) (ha : 1 ≤ a) :
@@ -71,13 +91,72 @@ theorem criticalPowerScale_powerStepBound
   refine ⟨(a : ℝ), ?_, 1, ?_⟩
   · exact_mod_cast Nat.lt_of_lt_of_le Nat.zero_lt_one ha
   · intro n hn
-    have ha_nonneg : 0 ≤ (a : ℝ) := by positivity
     have hn_ne_zero : n ≠ 0 := by omega
     have hlog : Nat.log b (b * n) = Nat.log b n + 1 := by
       rw [Nat.mul_comm]
       exact Nat.log_mul_base hb hn_ne_zero
     simp [criticalPowerScale, hlog, abs_of_nonneg (pow_nonneg ha_nonneg _),
       pow_succ, mul_comm]
+
+theorem criticalPowerLogScale_monotoneAbs
+    (a b : ℕ) (ha : 1 ≤ a) :
+    MonotoneAbs (criticalPowerLogScale a b) := by
+  intro m n hmn
+  have ha_nonneg : 0 ≤ (a : ℝ) := by positivity
+  have ha_one : 1 ≤ (a : ℝ) := by exact_mod_cast ha
+  have hlog : Nat.log b m ≤ Nat.log b n :=
+    Nat.log_mono_right hmn
+  have hlog_real :
+      (Nat.log b m : ℝ) + 1 ≤ (Nat.log b n : ℝ) + 1 := by
+    have hcast : (Nat.log b m : ℝ) ≤ Nat.log b n := by
+      exact_mod_cast hlog
+    linarith
+  have hpow :
+      (a : ℝ) ^ Nat.log b m ≤ (a : ℝ) ^ Nat.log b n :=
+    pow_le_pow_right₀ ha_one hlog
+  rw [abs_of_nonneg (criticalPowerLogScale_nonneg a b m),
+    abs_of_nonneg (criticalPowerLogScale_nonneg a b n)]
+  unfold criticalPowerLogScale criticalPowerScale
+  exact mul_le_mul hlog_real hpow (pow_nonneg ha_nonneg _)
+    (by positivity)
+
+theorem criticalPowerLogScale_powerStepBound
+    (a b : ℕ) (ha : 1 ≤ a) (hb : 1 < b) :
+    EventuallyPowerStepBound b (criticalPowerLogScale a b) := by
+  refine ⟨2 * (a : ℝ), ?_, 1, ?_⟩
+  · have ha_pos : 0 < (a : ℝ) := by
+      exact_mod_cast Nat.lt_of_lt_of_le Nat.zero_lt_one ha
+    positivity
+  · intro n hn
+    have ha_nonneg : 0 ≤ (a : ℝ) := by positivity
+    have hn_ne_zero : n ≠ 0 := by omega
+    have hlog : Nat.log b (b * n) = Nat.log b n + 1 := by
+      rw [Nat.mul_comm]
+      exact Nat.log_mul_base hb hn_ne_zero
+    have hratio :
+        (Nat.log b n : ℝ) + 2 ≤
+          2 * ((Nat.log b n : ℝ) + 1) := by
+      have hlog_nonneg : 0 ≤ (Nat.log b n : ℝ) := by positivity
+      linarith
+    calc
+      |criticalPowerLogScale a b (b * n)|
+          = ((Nat.log b n : ℝ) + 2) *
+              ((a : ℝ) * (a : ℝ) ^ Nat.log b n) := by
+            rw [abs_of_nonneg (criticalPowerLogScale_nonneg a b (b * n))]
+            simp [criticalPowerLogScale, criticalPowerScale, hlog, pow_succ,
+              Nat.cast_add]
+            ring
+      _ = (a : ℝ) *
+            (((Nat.log b n : ℝ) + 2) *
+              (a : ℝ) ^ Nat.log b n) := by ring
+      _ ≤ (a : ℝ) *
+            (2 * ((Nat.log b n : ℝ) + 1) *
+              (a : ℝ) ^ Nat.log b n) := by
+            gcongr
+      _ = (2 * (a : ℝ)) * |criticalPowerLogScale a b n| := by
+            rw [abs_of_nonneg (criticalPowerLogScale_nonneg a b n)]
+            simp [criticalPowerLogScale, criticalPowerScale]
+            ring
 
 /-! ## Floor/ceiling recurrence interfaces -/
 
@@ -395,6 +474,31 @@ theorem allInput_bigTheta_of_criticalPowerScale
     (criticalPowerScale_powerStepBound a b ha hb)
     h_power_scale
 
+theorem allInput_bigTheta_of_criticalPowerLogScale
+    (a b : ℕ) (T : ℕ → ℝ) (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_power :
+      Chapter03.isBigTheta
+        (fun i : ℕ => T (b ^ i))
+        (fun i : ℕ => ((i : ℝ) + 1) * ((a : ℝ) ^ i))) :
+    Chapter03.isBigTheta T (criticalPowerLogScale a b) := by
+  have h_power_scale :
+      Chapter03.isBigTheta
+        (fun i : ℕ => T (b ^ i))
+        (fun i : ℕ => criticalPowerLogScale a b (b ^ i)) := by
+    have hscale :
+        (fun i : ℕ => criticalPowerLogScale a b (b ^ i)) =
+          (fun i : ℕ => ((i : ℝ) + 1) * ((a : ℝ) ^ i)) := by
+      funext i
+      exact criticalPowerLogScale_exactPower a b i hb
+    rw [hscale]
+    exact h_power
+  exact allInput_bigTheta_of_powerStep b T (criticalPowerLogScale a b) hb
+    hT_mono
+    (criticalPowerLogScale_monotoneAbs a b ha)
+    (criticalPowerLogScale_powerStepBound a b ha hb)
+    h_power_scale
+
 /-! ## Packaged all-input Master case 1 wrappers -/
 
 /--
@@ -463,6 +567,68 @@ theorem ceilDivide_allInput_masterCase1_criticalPowerScale
     (exactPowerRecurrence_of_ceilDivideRecurrence a b f T h_rec hb_pos)
     ha hb hT_mono h_base_pos h_term_nonneg hr_nonneg hr_lt_one hC_pos
     h_term_upper
+
+/-! ## Packaged all-input Master case 2 wrappers -/
+
+/--
+All-input wrapper for exact-power Master case 2, using the discrete
+{name}`criticalPowerLogScale`.  This is the all-input analogue of the exact
+power theorem `T(b^i) = Θ((i+1)a^i)`.
+-/
+theorem exactPower_allInput_masterCase2_criticalPowerLogScale
+    (a b : ℕ) (f T : ℕ → ℝ)
+    (h_rec : ExactPowerRecurrence a b f T)
+    (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_nonneg : 0 ≤ normalizedValue a b T 0)
+    {c C : ℝ} (hc_pos : 0 < c) (hC_pos : 0 < C)
+    (h_term_lower : ∀ k, c ≤ normalizedForcing a b f k)
+    (h_term_upper : ∀ k, normalizedForcing a b f k ≤ C) :
+    Chapter03.isBigTheta T (criticalPowerLogScale a b) := by
+  have ha_pos : 0 < (a : ℝ) := by
+    exact_mod_cast Nat.lt_of_lt_of_le Nat.zero_lt_one ha
+  exact allInput_bigTheta_of_criticalPowerLogScale a b T ha hb hT_mono
+    (master_case2_constant_forcing a b f T h_rec ha_pos h_base_nonneg
+      hc_pos hC_pos h_term_lower h_term_upper)
+
+/--
+Floor-division all-input Master case 2 wrapper.  It extracts the exact-power
+recurrence from `T(n) = a T(⌊n/b⌋) + f(n)`, applies exact-power case 2, and
+transfers the result to every natural input through the discrete log scale.
+-/
+theorem floorDivide_allInput_masterCase2_criticalPowerLogScale
+    (a b : ℕ) (f T : ℕ → ℝ)
+    (h_rec : FloorDivideRecurrence a b f T)
+    (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_nonneg : 0 ≤ normalizedValue a b T 0)
+    {c C : ℝ} (hc_pos : 0 < c) (hC_pos : 0 < C)
+    (h_term_lower : ∀ k, c ≤ normalizedForcing a b f k)
+    (h_term_upper : ∀ k, normalizedForcing a b f k ≤ C) :
+    Chapter03.isBigTheta T (criticalPowerLogScale a b) := by
+  have hb_pos : 0 < b := Nat.lt_trans Nat.zero_lt_one hb
+  exact exactPower_allInput_masterCase2_criticalPowerLogScale a b f T
+    (exactPowerRecurrence_of_floorDivideRecurrence a b f T h_rec hb_pos)
+    ha hb hT_mono h_base_nonneg hc_pos hC_pos h_term_lower h_term_upper
+
+/--
+Ceiling-division all-input Master case 2 wrapper.  This is the ceiling analogue
+of {name}`floorDivide_allInput_masterCase2_criticalPowerLogScale`.
+-/
+theorem ceilDivide_allInput_masterCase2_criticalPowerLogScale
+    (a b : ℕ) (f T : ℕ → ℝ)
+    (h_rec : CeilDivideRecurrence a b f T)
+    (ha : 1 ≤ a) (hb : 1 < b)
+    (hT_mono : MonotoneAbs T)
+    (h_base_nonneg : 0 ≤ normalizedValue a b T 0)
+    {c C : ℝ} (hc_pos : 0 < c) (hC_pos : 0 < C)
+    (h_term_lower : ∀ k, c ≤ normalizedForcing a b f k)
+    (h_term_upper : ∀ k, normalizedForcing a b f k ≤ C) :
+    Chapter03.isBigTheta T (criticalPowerLogScale a b) := by
+  have hb_pos : 0 < b := Nat.lt_trans Nat.zero_lt_one hb
+  exact exactPower_allInput_masterCase2_criticalPowerLogScale a b f T
+    (exactPowerRecurrence_of_ceilDivideRecurrence a b f T h_rec hb_pos)
+    ha hb hT_mono h_base_nonneg hc_pos hC_pos h_term_lower h_term_upper
 
 end Chapter04
 end CLRS
