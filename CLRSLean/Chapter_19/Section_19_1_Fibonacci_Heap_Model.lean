@@ -29,6 +29,10 @@ Main results:
 - Theorems {lit}`FibHeap.insert_mem_self`, {lit}`FibHeap.extractMin_not_mem`,
   {lit}`FibHeap.decreaseKey_mem_new`, and {lit}`FibHeap.delete_not_mem`:
   direct membership corollaries for the updated key after heap operations.
+- Theorems {lit}`FibHeap.insert_mem_old`, {lit}`FibHeap.union_mem_left`,
+  {lit}`FibHeap.union_mem_right`, {lit}`FibHeap.extractMin_mem_of_ne`,
+  {lit}`FibHeap.decreaseKey_mem_old`, and {lit}`FibHeap.delete_mem_of_ne`:
+  direct preservation corollaries for old keys after heap operations.
 - Theorem {lit}`FibHeap.heapPotential_telescope`: heap potential instantiates
   the Chapter 17 potential-method telescoping theorem.
 - Theorem {lit}`FibHeap.fibLowerBound_step`: the Fibonacci-style lower-bound
@@ -168,6 +172,12 @@ theorem insert_mem_self (h : FibHeap) (x : Int) :
   rw [insert_mem_iff]
   exact Or.inl rfl
 
+/-- Old keys remain present after insertion. -/
+theorem insert_mem_old (h : FibHeap) (x y : Int) (hy : y ∈ h.keys) :
+    y ∈ (insert x h).keys := by
+  rw [insert_mem_iff]
+  exact Or.inr hy
+
 /-- Meld two heaps. -/
 def union (h₁ h₂ : FibHeap) : FibHeap :=
   let ks := h₁.keys ∪ h₂.keys
@@ -185,6 +195,18 @@ theorem union_correct {h₁ h₂ : FibHeap} {s₁ s₂ : Finset Int}
 theorem union_mem_iff (h₁ h₂ : FibHeap) (x : Int) :
     x ∈ (union h₁ h₂).keys <-> x ∈ h₁.keys ∨ x ∈ h₂.keys := by
   simp [union]
+
+/-- Keys from the left heap remain present after union. -/
+theorem union_mem_left (h₁ h₂ : FibHeap) (x : Int) (hx : x ∈ h₁.keys) :
+    x ∈ (union h₁ h₂).keys := by
+  rw [union_mem_iff]
+  exact Or.inl hx
+
+/-- Keys from the right heap remain present after union. -/
+theorem union_mem_right (h₁ h₂ : FibHeap) (x : Int) (hx : x ∈ h₂.keys) :
+    x ∈ (union h₁ h₂).keys := by
+  rw [union_mem_iff]
+  exact Or.inr hx
 
 /-- Extract the minimum key, if present, and remove it from the heap. -/
 def extractMin (h : FibHeap) : Option (Int × FibHeap) :=
@@ -236,6 +258,14 @@ theorem extractMin_not_mem {h h' : FibHeap} {x : Int}
   rw [extractMin_mem_iff hextract]
   simp
 
+/-- Old keys different from the extracted minimum remain present after extract-min. -/
+theorem extractMin_mem_of_ne {h h' : FibHeap} {x y : Int}
+    (hextract : extractMin h = some (x, h')) (hxy : y ≠ x)
+    (hy : y ∈ h.keys) :
+    y ∈ h'.keys := by
+  rw [extractMin_mem_iff hextract]
+  exact ⟨hxy, hy⟩
+
 /-- Extract-min returns nothing exactly when the represented key set is empty. -/
 theorem extractMin_none_iff {h : FibHeap} {s : Finset Int}
     (hrep : Represents h s) :
@@ -285,6 +315,13 @@ theorem decreaseKey_mem_new (h : FibHeap) (oldKey newKey : Int) :
   rw [decreaseKey_mem_iff]
   exact Or.inl rfl
 
+/-- Old keys different from the replaced key remain present after decrease-key. -/
+theorem decreaseKey_mem_old (h : FibHeap) (oldKey newKey y : Int)
+    (hyold : y ≠ oldKey) (hy : y ∈ h.keys) :
+    y ∈ (decreaseKey oldKey newKey h).keys := by
+  rw [decreaseKey_mem_iff]
+  exact Or.inr ⟨hyold, hy⟩
+
 /-- Delete a key from the heap. -/
 def delete (x : Int) (h : FibHeap) : FibHeap :=
   let ks := h.keys.erase x
@@ -308,6 +345,13 @@ theorem delete_not_mem (h : FibHeap) (x : Int) :
     x ∉ (delete x h).keys := by
   rw [delete_mem_iff]
   simp
+
+/-- Old keys different from the deleted key remain present after deletion. -/
+theorem delete_mem_of_ne (h : FibHeap) (x y : Int) (hxy : y ≠ x)
+    (hy : y ∈ h.keys) :
+    y ∈ (delete x h).keys := by
+  rw [delete_mem_iff]
+  exact ⟨hxy, hy⟩
 
 /-- A heap-indexed potential trace for Chapter 17's potential method. -/
 def potentialTrace (heap : Nat -> FibHeap) (actual : Nat -> Int) :
