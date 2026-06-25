@@ -13,7 +13,9 @@
 - `CLRS.Chapter20.VEB.minimum_correct`
 - `CLRS.Chapter20.VEB.maximum_correct`
 - `CLRS.Chapter20.VEB.successor_correct`
+- `CLRS.Chapter20.VEB.successor_none_iff`
 - `CLRS.Chapter20.VEB.predecessor_correct`
+- `CLRS.Chapter20.VEB.predecessor_none_iff`
 - `CLRS.Chapter20.VEB.insert_correct`
 - `CLRS.Chapter20.VEB.delete_correct`
 - `CLRS.Chapter20.VEB.operationDepth_linear`

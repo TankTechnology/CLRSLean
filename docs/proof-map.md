@@ -1076,7 +1076,9 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.minimum_correct`
   - `CLRS.Chapter20.VEB.maximum_correct`
   - `CLRS.Chapter20.VEB.successor_correct`
+  - `CLRS.Chapter20.VEB.successor_none_iff`
   - `CLRS.Chapter20.VEB.predecessor_correct`
+  - `CLRS.Chapter20.VEB.predecessor_none_iff`
   - `CLRS.Chapter20.VEB.insert_correct`
   - `CLRS.Chapter20.VEB.delete_correct`
   - `CLRS.Chapter20.VEB.operationDepth_linear`
@@ -1087,10 +1089,10 @@ Fibonacci logarithmic theorem.
   strengthening targets.
 
 Chapter 20 now proves the high/low/index arithmetic and a set-specification
-layer for the main vEB queries and updates, including successor and
-predecessor.  The current operation-depth theorem is a linear wrapper over the
-universe exponent, not yet a full asymptotic translation for the original
-universe size.
+layer for the main vEB queries and updates, including both positive and
+empty-result successor/predecessor cases.  The current operation-depth theorem
+is a linear wrapper over the universe exponent, not yet a full asymptotic
+translation for the original universe size.
 
 ## Chapter 23 - Minimum Spanning Trees
 

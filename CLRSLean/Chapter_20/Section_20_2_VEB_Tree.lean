@@ -16,9 +16,13 @@ Main results:
   extrema are represented keys with the expected order property.
 - Theorem {lit}`VEB.successor_correct`: a returned successor is represented,
   greater than the query, and no larger than any represented greater key.
+- Theorem {lit}`VEB.successor_none_iff`: no successor is returned exactly when
+  no represented key is greater than the query.
 - Theorem {lit}`VEB.predecessor_correct`: a returned predecessor is
   represented, less than the query, and no smaller than any represented smaller
   key.
+- Theorem {lit}`VEB.predecessor_none_iff`: no predecessor is returned exactly
+  when no represented key is smaller than the query.
 - Theorems {lit}`VEB.insert_correct` and {lit}`VEB.delete_correct`: updates
   match finite-set insertion and deletion.
 - Theorem {lit}`VEB.operationDepth_linear`: the first-pass recurrence-depth
@@ -133,6 +137,25 @@ theorem successor_correct {t : Tree} {s : Finset Nat} {x y : Nat}
       exact Finset.min'_le (successorCandidates x t) z hzCand
   · simp [hne] at hsucc
 
+/-- No successor is returned exactly when no represented key is greater. -/
+theorem successor_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) :
+    successor x t = none <-> forall y, y ∈ s -> ¬ x < y := by
+  unfold successor
+  constructor
+  · intro hnone y hy hxy
+    have hyCand : y ∈ successorCandidates x t := by
+      simp [successorCandidates, hrep.1, hy, hxy]
+    have hne : (successorCandidates x t).Nonempty := ⟨y, hyCand⟩
+    simp [hne] at hnone
+  · intro hnone
+    by_cases hne : (successorCandidates x t).Nonempty
+    · rcases hne with ⟨y, hyCand⟩
+      have hy : y ∈ s ∧ x < y := by
+        simpa [successorCandidates, hrep.1] using hyCand
+      exact False.elim ((hnone y hy.1) hy.2)
+    · simp [hne]
+
 /-- Candidate predecessor set for query {lit}`x`. -/
 def predecessorCandidates (x : Nat) (t : Tree) : Finset Nat :=
   t.elems.filter (fun y => y < x)
@@ -166,6 +189,25 @@ theorem predecessor_correct {t : Tree} {s : Finset Nat} {x y : Nat}
         simp [predecessorCandidates, hrep.1, hz, hzx]
       exact Finset.le_max' (predecessorCandidates x t) z hzCand
   · simp [hne] at hpred
+
+/-- No predecessor is returned exactly when no represented key is smaller. -/
+theorem predecessor_none_iff {t : Tree} {s : Finset Nat} {x : Nat}
+    (hrep : Represents t s) :
+    predecessor x t = none <-> forall y, y ∈ s -> ¬ y < x := by
+  unfold predecessor
+  constructor
+  · intro hnone y hy hyx
+    have hyCand : y ∈ predecessorCandidates x t := by
+      simp [predecessorCandidates, hrep.1, hy, hyx]
+    have hne : (predecessorCandidates x t).Nonempty := ⟨y, hyCand⟩
+    simp [hne] at hnone
+  · intro hnone
+    by_cases hne : (predecessorCandidates x t).Nonempty
+    · rcases hne with ⟨y, hyCand⟩
+      have hy : y ∈ s ∧ y < x := by
+        simpa [predecessorCandidates, hrep.1] using hyCand
+      exact False.elim ((hnone y hy.1) hy.2)
+    · simp [hne]
 
 /-- Insert a key into the represented set. -/
 def insert (x : Nat) (t : Tree) : Tree :=
