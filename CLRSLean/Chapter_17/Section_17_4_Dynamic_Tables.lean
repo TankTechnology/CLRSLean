@@ -46,6 +46,11 @@ Main results:
 - Theorems {lit}`dynamicTableInsert_num`, {lit}`dynamicTableInsert_size`,
   {lit}`dynamicTableDelete_num`, and {lit}`dynamicTableDelete_size`: direct
   post-state field equations for the transition wrappers.
+- Theorems {lit}`dynamicTableInsert_size_of_fits`,
+  {lit}`dynamicTableInsert_size_of_expand`,
+  {lit}`dynamicTableDelete_size_of_contract`, and
+  {lit}`dynamicTableDelete_size_of_no_contract`: direct post-state
+  allocation-size case specifications for the transition wrappers.
 - Theorems {lit}`dynamicTableInsert_num_gt`,
   {lit}`dynamicTableInsert_num_ge`, {lit}`dynamicTableDelete_num_le`,
   {lit}`dynamicTableDelete_num_empty`, and
@@ -189,6 +194,18 @@ theorem dynamicTableInsert_num (s : DynamicTableState) :
 theorem dynamicTableInsert_size (s : DynamicTableState) :
     (dynamicTableInsert s).size = dynamicTableInsertSize s := by
   rfl
+
+/-- Insertion with spare capacity keeps the post-state allocation size. -/
+theorem dynamicTableInsert_size_of_fits (s : DynamicTableState)
+    (hfit : s.num + 1 <= s.size) :
+    (dynamicTableInsert s).size = s.size := by
+  rw [dynamicTableInsert_size, dynamicTableInsertSize_of_fits s hfit]
+
+/-- Insertion without spare capacity uses the expansion choice as the post-state size. -/
+theorem dynamicTableInsert_size_of_expand (s : DynamicTableState)
+    (hfull : ¬ s.num + 1 <= s.size) :
+    (dynamicTableInsert s).size = max (s.num + 1) (2 * s.size) := by
+  rw [dynamicTableInsert_size, dynamicTableInsertSize_of_expand s hfull]
 
 /-- Dynamic-table insertion strictly increases the stored-element count. -/
 theorem dynamicTableInsert_num_gt (s : DynamicTableState) :
@@ -352,6 +369,18 @@ theorem dynamicTableDelete_num (s : DynamicTableState) :
 theorem dynamicTableDelete_size (s : DynamicTableState) :
     (dynamicTableDelete s).size = dynamicTableDeleteSize s := by
   rfl
+
+/-- Deletion with low post-deletion load uses the contraction choice as the post-state size. -/
+theorem dynamicTableDelete_size_of_contract (s : DynamicTableState)
+    (hcontract : 4 * (s.num - 1) <= s.size) :
+    (dynamicTableDelete s).size = max (s.num - 1) (s.size / 2) := by
+  rw [dynamicTableDelete_size, dynamicTableDeleteSize_of_contract s hcontract]
+
+/-- Deletion without contraction keeps the old allocation size as the post-state size. -/
+theorem dynamicTableDelete_size_of_no_contract (s : DynamicTableState)
+    (hcontract : ¬ 4 * (s.num - 1) <= s.size) :
+    (dynamicTableDelete s).size = s.size := by
+  rw [dynamicTableDelete_size, dynamicTableDeleteSize_of_no_contract s hcontract]
 
 /-- Dynamic-table deletion never increases the stored-element count. -/
 theorem dynamicTableDelete_num_le (s : DynamicTableState) :

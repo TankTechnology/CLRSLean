@@ -28,6 +28,8 @@
 - `CLRS.Chapter17.dynamicTableInsert_valid`
 - `CLRS.Chapter17.dynamicTableInsert_num`
 - `CLRS.Chapter17.dynamicTableInsert_size`
+- `CLRS.Chapter17.dynamicTableInsert_size_of_fits`
+- `CLRS.Chapter17.dynamicTableInsert_size_of_expand`
 - `CLRS.Chapter17.dynamicTableInsert_num_gt`
 - `CLRS.Chapter17.dynamicTableInsert_num_ge`
 - `CLRS.Chapter17.dynamicTableInsert_capacity_fits`
@@ -47,6 +49,8 @@
 - `CLRS.Chapter17.dynamicTableDelete_valid`
 - `CLRS.Chapter17.dynamicTableDelete_num`
 - `CLRS.Chapter17.dynamicTableDelete_size`
+- `CLRS.Chapter17.dynamicTableDelete_size_of_contract`
+- `CLRS.Chapter17.dynamicTableDelete_size_of_no_contract`
 - `CLRS.Chapter17.dynamicTableDelete_num_le`
 - `CLRS.Chapter17.dynamicTableDelete_num_empty`
 - `CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty`
@@ -64,9 +68,11 @@ potential refinements for dynamic tables.  The dynamic-table layer currently
 exposes a nonnegative potential and checks that the chosen post-operation
 capacity can hold the resulting element count while moving in the expected
 direction for insertion and deletion, including direct post-state capacity
-corollaries, post-state field equations, and stored-count direction facts.  It
+corollaries, post-state field equations, allocation-size case wrappers, and
+stored-count direction facts.  It
 also records positive actual-cost facts for insertion and nonempty deletion,
-exact zero/positive deletion-cost wrappers, bounds the first-pass transition costs by the corresponding element-count
-copying budgets, and records direct actual-cost and capacity-choice case
-specifications, but it is still a size-level model rather than an array-copying
-model.
+exact zero/positive deletion-cost wrappers, bounds the first-pass transition
+costs by the corresponding element-count copying budgets, and records direct
+actual-cost, capacity-choice, and post-state allocation-size case
+specifications, but it is still a size-level model rather than an
+array-copying model.

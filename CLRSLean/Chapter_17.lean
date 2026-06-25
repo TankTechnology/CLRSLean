@@ -13,9 +13,9 @@ binary-counter one-step potential proof plus a multi-step executable trace
 bound, and size-level dynamic-table insertion/deletion capacity and transition
 wrappers with capacity-direction and actual-cost lower/upper-bound facts plus an
 explicit nonnegative potential fact, actual-cost and capacity-choice case
-specifications, direct post-state field equations, and direct post-state
-stored-count and capacity corollaries, including exact zero/positive deletion
-cost specifications.
+specifications, direct post-state field equations and allocation-size case
+wrappers, and direct post-state stored-count and capacity corollaries,
+including exact zero/positive deletion cost specifications.
 
 ## Sections
 
@@ -48,6 +48,8 @@ cost specifications.
   {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_size`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_size_of_fits`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_size_of_expand`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num_gt`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num_ge`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_fits`,
@@ -67,6 +69,8 @@ cost specifications.
   {lit}`CLRS.Chapter17.dynamicTableDelete_valid`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_size`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_size_of_contract`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_size_of_no_contract`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_le`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_empty`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty`,

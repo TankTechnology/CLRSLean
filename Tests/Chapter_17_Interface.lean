@@ -45,6 +45,8 @@ import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 #check CLRS.Chapter17.dynamicTableInsert_valid
 #check CLRS.Chapter17.dynamicTableInsert_num
 #check CLRS.Chapter17.dynamicTableInsert_size
+#check CLRS.Chapter17.dynamicTableInsert_size_of_fits
+#check CLRS.Chapter17.dynamicTableInsert_size_of_expand
 #check CLRS.Chapter17.dynamicTableInsert_num_gt
 #check CLRS.Chapter17.dynamicTableInsert_num_ge
 #check CLRS.Chapter17.dynamicTableInsert_capacity_fits
@@ -67,6 +69,8 @@ import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 #check CLRS.Chapter17.dynamicTableDelete_valid
 #check CLRS.Chapter17.dynamicTableDelete_num
 #check CLRS.Chapter17.dynamicTableDelete_size
+#check CLRS.Chapter17.dynamicTableDelete_size_of_contract
+#check CLRS.Chapter17.dynamicTableDelete_size_of_no_contract
 #check CLRS.Chapter17.dynamicTableDelete_num_le
 #check CLRS.Chapter17.dynamicTableDelete_num_empty
 #check CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty
