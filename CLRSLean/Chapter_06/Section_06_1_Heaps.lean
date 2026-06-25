@@ -21,6 +21,9 @@ Main results:
   left or right child of its parent.
 - Theorem {lit}`ArrayMaxHeap.getElem_le_root`: every element in an indexed
   max-heap prefix is bounded by the root.
+- Theorems {lit}`ArrayMaxHeapFrom.to_global` and
+  {lit}`ArrayMaxHeapExceptFrom.to_global`: localized heap predicates bridge
+  back to the original global predicates.
 - Theorem {lit}`orderedDesc_arrayMaxHeap`: the functional descending-list heap
   model refines the indexed max-heap predicate.
 - Theorems {lit}`buildMaxHeap_orderedDesc`, {lit}`buildMaxHeap_perm`,
@@ -264,6 +267,16 @@ theorem eq_left_or_right_parent {i : Nat} (hi : 0 < i) :
   unfold parent left right
   omega
 
+/-- The parent of a left child is the original parent index. -/
+theorem parent_left (i : Nat) : parent (left i) = i := by
+  unfold parent left
+  omega
+
+/-- The parent of a right child is the original parent index. -/
+theorem parent_right (i : Nat) : parent (right i) = i := by
+  unfold parent right
+  omega
+
 /--
 Indexed max-heap predicate over the prefix {lit}`0 ..< heapSize` of a list-backed
 array.  Every in-heap parent is at least each in-heap child.
@@ -292,6 +305,106 @@ structure ArrayMaxHeapExcept (a : List Nat) (heapSize bad : Nat) : Prop where
     (hr : right i < heapSize) →
     a[right i]'(Nat.lt_of_lt_of_le hr heapSize_le_length) ≤
     a[i]'(Nat.lt_of_lt_of_le hi heapSize_le_length)
+
+/-!
+For heapify-style proofs we also use a localized heap predicate.  It checks
+only parent nodes whose indices are at least {lit}`start`.  This matches the CLRS
+subtree view: when repairing the subtree rooted at {lit}`start`, edges entering the
+subtree root from smaller indices are outside the local obligation.
+-/
+
+/-- Max-heap obligations restricted to parent indices {lit}`start ..< heapSize`. -/
+structure ArrayMaxHeapFrom (a : List Nat) (heapSize start : Nat) : Prop where
+  heapSize_le_length : heapSize ≤ a.length
+  left_le : ∀ {i : Nat}, start ≤ i → (hi : i < heapSize) →
+    (hl : left i < heapSize) →
+    a[left i]'(Nat.lt_of_lt_of_le hl heapSize_le_length) ≤
+    a[i]'(Nat.lt_of_lt_of_le hi heapSize_le_length)
+  right_le : ∀ {i : Nat}, start ≤ i → (hi : i < heapSize) →
+    (hr : right i < heapSize) →
+    a[right i]'(Nat.lt_of_lt_of_le hr heapSize_le_length) ≤
+    a[i]'(Nat.lt_of_lt_of_le hi heapSize_le_length)
+
+/-- Localized heap obligations with one parent index temporarily exempted. -/
+structure ArrayMaxHeapExceptFrom (a : List Nat) (heapSize start bad : Nat) : Prop where
+  heapSize_le_length : heapSize ≤ a.length
+  left_le : ∀ {i : Nat}, start ≤ i → (hi : i < heapSize) → i ≠ bad →
+    (hl : left i < heapSize) →
+    a[left i]'(Nat.lt_of_lt_of_le hl heapSize_le_length) ≤
+    a[i]'(Nat.lt_of_lt_of_le hi heapSize_le_length)
+  right_le : ∀ {i : Nat}, start ≤ i → (hi : i < heapSize) → i ≠ bad →
+    (hr : right i < heapSize) →
+    a[right i]'(Nat.lt_of_lt_of_le hr heapSize_le_length) ≤
+    a[i]'(Nat.lt_of_lt_of_le hi heapSize_le_length)
+
+/-- A global heap satisfies every localized heap obligation. -/
+theorem ArrayMaxHeap.from_start {a : List Nat} {heapSize start : Nat}
+    (h : ArrayMaxHeap a heapSize) : ArrayMaxHeapFrom a heapSize start := by
+  refine ⟨h.heapSize_le_length, ?_, ?_⟩
+  · intro i _ hi hl
+    exact h.left_le hi hl
+  · intro i _ hi hr
+    exact h.right_le hi hr
+
+/-- A localized heap starting at zero is the ordinary global heap predicate. -/
+theorem ArrayMaxHeapFrom.to_global {a : List Nat} {heapSize : Nat}
+    (h : ArrayMaxHeapFrom a heapSize 0) : ArrayMaxHeap a heapSize := by
+  refine ⟨h.heapSize_le_length, ?_, ?_⟩
+  · intro i hi hl
+    exact h.left_le (Nat.zero_le i) hi hl
+  · intro i hi hr
+    exact h.right_le (Nat.zero_le i) hi hr
+
+/-- A localized heap remains localized after forgetting one parent obligation. -/
+theorem ArrayMaxHeapFrom.except {a : List Nat} {heapSize start bad : Nat}
+    (h : ArrayMaxHeapFrom a heapSize start) :
+    ArrayMaxHeapExceptFrom a heapSize start bad := by
+  refine ⟨h.heapSize_le_length, ?_, ?_⟩
+  · intro i hstart hi _ hl
+    exact h.left_le hstart hi hl
+  · intro i hstart hi _ hr
+    exact h.right_le hstart hi hr
+
+/-- Localized heap obligations may be restricted to a later start index. -/
+theorem ArrayMaxHeapFrom.mono_start {a : List Nat} {heapSize start newStart : Nat}
+    (h : ArrayMaxHeapFrom a heapSize start) (hle : start ≤ newStart) :
+    ArrayMaxHeapFrom a heapSize newStart := by
+  refine ⟨h.heapSize_le_length, ?_, ?_⟩
+  · intro i hnew hi hl
+    exact h.left_le (Nat.le_trans hle hnew) hi hl
+  · intro i hnew hi hr
+    exact h.right_le (Nat.le_trans hle hnew) hi hr
+
+/-- Localized except-heap obligations may be restricted to a later start index. -/
+theorem ArrayMaxHeapExceptFrom.mono_start {a : List Nat}
+    {heapSize start newStart bad : Nat}
+    (h : ArrayMaxHeapExceptFrom a heapSize start bad) (hle : start ≤ newStart) :
+    ArrayMaxHeapExceptFrom a heapSize newStart bad := by
+  refine ⟨h.heapSize_le_length, ?_, ?_⟩
+  · intro i hnew hi hbad hl
+    exact h.left_le (Nat.le_trans hle hnew) hi hbad hl
+  · intro i hnew hi hbad hr
+    exact h.right_le (Nat.le_trans hle hnew) hi hbad hr
+
+/-- The old global-except predicate is the zero-start special case. -/
+theorem ArrayMaxHeapExceptFrom.to_global {a : List Nat} {heapSize bad : Nat}
+    (h : ArrayMaxHeapExceptFrom a heapSize 0 bad) :
+    ArrayMaxHeapExcept a heapSize bad := by
+  refine ⟨h.heapSize_le_length, ?_, ?_⟩
+  · intro i hi hbad hl
+    exact h.left_le (Nat.zero_le i) hi hbad hl
+  · intro i hi hbad hr
+    exact h.right_le (Nat.zero_le i) hi hbad hr
+
+/-- A global-except heap can be weakened to any localized except heap. -/
+theorem ArrayMaxHeapExcept.from_start {a : List Nat} {heapSize start bad : Nat}
+    (h : ArrayMaxHeapExcept a heapSize bad) :
+    ArrayMaxHeapExceptFrom a heapSize start bad := by
+  refine ⟨h.heapSize_le_length, ?_, ?_⟩
+  · intro i _ hi hbad hl
+    exact h.left_le hi hbad hl
+  · intro i _ hi hbad hr
+    exact h.right_le hi hbad hr
 
 /-- A heap remains a heap after forgetting the obligations at one parent. -/
 theorem ArrayMaxHeap.except {a : List Nat} {heapSize bad : Nat}

@@ -19,7 +19,7 @@ properties: reflexivity, transitivity, sum and product rules.
 
 Proves concrete growth comparisons that matter for algorithm analysis:
 * polynomial `n^a` vs exponential `c^n` for every `c > 1`
-* logarithm `log n` vs polynomial `n^ε`
+* logarithm powers `(log n)^a` vs polynomial `n^ε`
 * exponential base comparisons `a^n = o(b^n)` for `0 ≤ a < b`
 * harmonic numbers `H_n ~ log n` and `H_n = Θ(log n)`
 * factorial upper/lower bounds, exponential-vs-factorial comparison, and

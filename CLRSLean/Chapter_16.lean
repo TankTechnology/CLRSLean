@@ -14,11 +14,25 @@ greedy-algorithm case study.
 * 16.1 Activity selection: {lit}`proved` for finite sorted lists.
   Main results: {name}`CLRS.ActivitySelection.finishSorted_head_minFinish`,
   {name}`CLRS.ActivitySelection.finishSorted_greedyChoiceCertificate`,
+  {name}`CLRS.ActivitySelection.activitySelection`,
+  {name}`CLRS.ActivitySelection.activitySelection_cons_eq`,
+  {name}`CLRS.ActivitySelection.greedySelect_cons_eq`,
   {name}`CLRS.ActivitySelection.greedySelect_sublist`,
-  {name}`CLRS.ActivitySelection.greedySelect_feasible`, and
-  {name}`CLRS.ActivitySelection.greedySelect_maxCardinality`.
+  {name}`CLRS.ActivitySelection.greedySelect_feasible`,
+  {name}`CLRS.ActivitySelection.greedySelect_after_maxCardinality`,
+  {name}`CLRS.ActivitySelection.greedySelect_cons_maxCardinality`,
+  {name}`CLRS.ActivitySelection.greedySelect_maxCardinality`,
+  {name}`CLRS.ActivitySelection.activitySelection_cons_maxCardinality`,
+  {name}`CLRS.ActivitySelection.activitySelection_maxCardinality`,
+  {name}`CLRS.ActivitySelection.greedySelect_optimal_length`,
+  {name}`CLRS.ActivitySelection.greedySelect_cons_recursive_correct`,
+  {name}`CLRS.ActivitySelection.activitySelection_cons_recursive_correct`,
+  {name}`CLRS.ActivitySelection.activitySelection_cons_correct`, and
+  {name}`CLRS.ActivitySelection.activitySelection_correct`.
 * 16.3 Huffman codes: {lit}`proved`.
-  Main result: {name}`CLRS.HuffmanV2.optimum_huffman_freqs`.
+  Main results: {name}`CLRS.HuffmanV2.optimum_huffman_freqs`,
+  {name}`CLRS.HuffmanV2.huffmanOfFreqs_correct`, and
+  {name}`CLRS.HuffmanV2.huffmanOfFreqs_cost_le`.
 
 ## Proof Theme
 
@@ -35,9 +49,10 @@ merge the two least frequent symbols
 -> compare costs against every competing tree
 ```
 
-The final public theorem is stated over a frequency table.  Readers do not need
-to work with the internal forest invariant unless they want to inspect the proof
-machinery.
+The final public theorems are stated over a frequency table.  Readers can use
+{name}`CLRS.HuffmanV2.huffmanOfFreqs_correct` for the bundled correctness
+statement or {name}`CLRS.HuffmanV2.huffmanOfFreqs_cost_le` for the direct
+minimum-cost comparison against any consistent tree with the same frequencies.
 
 ## Why This Page Matters
 
@@ -46,4 +61,17 @@ not only functional correctness.  Activity selection is the lighter companion:
 it proves the sorted-list greedy recursion directly.  The proof first builds
 the exchange certificate from sorted order, then composes it with the recursive
 tail optimum to obtain maximum cardinality for {name}`CLRS.ActivitySelection.greedySelect`.
+The theorem {name}`CLRS.ActivitySelection.greedySelect_cons_recursive_correct`
+exposes the nonempty recursive step itself: choose the first finish-sorted
+activity, solve the filtered compatible tail, and bundle the exact recursion
+equation with tail optimality, full optimality, feasibility, sublist membership,
+and the optimal-length inequality.
+The public wrapper {name}`CLRS.ActivitySelection.activitySelection` carries the
+same recursion equation and maximum-cardinality certificates under the
+CLRS-facing algorithm name.
+The theorem {name}`CLRS.ActivitySelection.activitySelection_correct` exposes
+the reader-facing theorem bundle: the greedy output is a feasible sublist and
+no feasible sublist is longer.  The theorem
+{name}`CLRS.ActivitySelection.activitySelection_cons_correct` gives the same
+bundle for the nonempty recursive step.
 -/

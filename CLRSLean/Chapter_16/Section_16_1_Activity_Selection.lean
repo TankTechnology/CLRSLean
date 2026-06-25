@@ -25,11 +25,35 @@ Main results:
   CLRS proof structure.
 - Theorem {lit}`finishSorted_greedyChoiceCertificate`: on a finish-time-sorted
   candidate list, the CLRS exchange certificate is derived automatically.
+- Theorem {lit}`greedySelect_cons_eq`: the executable selector follows the
+  CLRS recursive cons-case equation: choose the first finishing activity and
+  recurse on the filtered compatible tail.
 - Theorems {lit}`greedySelect_sublist` and {lit}`greedySelect_feasible`: the
   executable greedy selector always returns activities drawn from the input and
   arranged feasibly.
 - Theorem {lit}`greedySelect_maxCardinality`: on a finish-time-sorted input, the
   executable greedy selector has maximum cardinality among feasible sublists.
+- Theorem {lit}`greedySelect_cons_maxCardinality`: the nonempty sorted-input
+  recursion theorem, exposing the greedy choice plus optimal recursive
+  subproblem directly.
+- Theorem {lit}`greedySelect_after_maxCardinality`: the filtered compatible tail
+  is itself solved optimally by the same executable selector.
+- Theorem {lit}`greedySelect_optimal_length`: a direct reader-facing corollary:
+  every feasible sublist of a finish-time-sorted input has length at most the
+  greedy output.
+- Definition {lit}`activitySelection`: the CLRS-facing name for the executable
+  greedy selector.
+- Theorems {lit}`activitySelection_maxCardinality` and
+  {lit}`activitySelection_cons_maxCardinality`: top-level maximum-cardinality
+  certificates for the full input and the nonempty recursive step.
+- Theorems {lit}`activitySelection_correct` and
+  {lit}`activitySelection_cons_correct`: reader-facing correctness bundles for
+  the full sorted-list input and the nonempty recursive step.
+- Theorems {lit}`greedySelect_cons_recursive_correct` and
+  {lit}`activitySelection_cons_recursive_correct`: bundled nonempty recursion
+  theorems that expose the exact cons-case equation, optimal recursive tail,
+  optimal full solution, feasibility, sublist membership, and optimal-length
+  inequality in one statement.
 
 Current gaps:
 
@@ -265,6 +289,33 @@ decreasing_by
   omega
 
 /--
+Executable recursion equation for the nonempty CLRS activity-selection case:
+choose the first activity in the finish-time order and recurse on the remaining
+activities compatible with that choice.
+-/
+theorem greedySelect_cons_eq (a : Activity) (rest : List Activity) :
+    greedySelect (a :: rest) = a :: greedySelect (activitiesAfter a rest) := by
+  rw [greedySelect.eq_def]
+
+/--
+CLRS-facing wrapper around the executable recursive selector.  Keeping this
+name separate lets the proof expose {lit}`greedySelect` as the implementation
+while readers cite {lit}`activitySelection` as the algorithm.
+-/
+def activitySelection (xs : List Activity) : List Activity :=
+  greedySelect xs
+
+/-- The public algorithm name is definitionally the greedy recursive selector. -/
+theorem activitySelection_eq_greedySelect (xs : List Activity) :
+    activitySelection xs = greedySelect xs := by
+  rfl
+
+/-- CLRS-facing recursion equation for nonempty finish-time ordered input. -/
+theorem activitySelection_cons_eq (a : Activity) (rest : List Activity) :
+    activitySelection (a :: rest) = a :: activitySelection (activitiesAfter a rest) := by
+  simp [activitySelection, greedySelect_cons_eq]
+
+/--
 The executable greedy selector returns only activities from the input list.
 -/
 theorem greedySelect_sublist (xs : List Activity) :
@@ -465,6 +516,131 @@ theorem greedySelect_maxCardinality {xs : List Activity}
         ih hafter_sorted
       exact greedy_choice_optimal_from_certificate htail_opt
         (finishSorted_greedyChoiceCertificate hsorted htail_opt.sublist)
+
+/--
+Top-level CLRS-facing optimality certificate: on finish-time-sorted input,
+{lit}`activitySelection` is a feasible sublist of maximum cardinality.
+-/
+theorem activitySelection_maxCardinality {xs : List Activity}
+    (hsorted : FinishSorted xs) :
+    MaxCardinality xs (activitySelection xs) := by
+  simpa [activitySelection] using greedySelect_maxCardinality hsorted
+
+/--
+Recursive subproblem optimality.  After the greedy choice from a sorted
+nonempty candidate list, the executable selector is maximum-cardinality for the
+filtered compatible tail.
+-/
+theorem greedySelect_after_maxCardinality {a : Activity} {rest : List Activity}
+    (hsorted : FinishSorted (a :: rest)) :
+    MaxCardinality (activitiesAfter a rest)
+      (greedySelect (activitiesAfter a rest)) := by
+  have hrest_sorted : FinishSorted rest :=
+    (List.pairwise_cons.mp hsorted).2
+  exact greedySelect_maxCardinality (finishSorted_activitiesAfter hrest_sorted)
+
+/--
+Nonempty sorted-input recursion theorem.  The CLRS greedy choice followed by
+the recursively optimal compatible tail is itself maximum-cardinality for the
+whole candidate list.
+-/
+theorem greedySelect_cons_maxCardinality {a : Activity} {rest : List Activity}
+    (hsorted : FinishSorted (a :: rest)) :
+    MaxCardinality (a :: rest) (a :: greedySelect (activitiesAfter a rest)) := by
+  simpa [greedySelect_cons_eq] using
+    (greedySelect_maxCardinality (xs := a :: rest) hsorted)
+
+/--
+CLRS-facing nonempty recursion certificate: choose the first finish-sorted
+activity, recursively solve its compatible tail, and obtain a
+maximum-cardinality solution for the original candidate list.
+-/
+theorem activitySelection_cons_maxCardinality {a : Activity} {rest : List Activity}
+    (hsorted : FinishSorted (a :: rest)) :
+    MaxCardinality (a :: rest) (a :: activitySelection (activitiesAfter a rest)) := by
+  simpa [activitySelection] using greedySelect_cons_maxCardinality hsorted
+
+/--
+Reader-facing optimality corollary.  On finish-time-sorted inputs, any feasible
+sublist has cardinality at most the executable greedy selection.
+-/
+theorem greedySelect_optimal_length {xs other : List Activity}
+    (hsorted : FinishSorted xs) (hsub : other.Sublist xs)
+    (hfeasible : Feasible other) :
+    other.length ≤ (greedySelect xs).length :=
+  (greedySelect_maxCardinality hsorted).maximum other hsub hfeasible
+
+/--
+Reader-facing correctness theorem for the finite sorted-list activity-selection
+model: the executable greedy selector returns a feasible sublist and no
+feasible sublist of the input is longer.
+-/
+theorem activitySelection_correct {xs : List Activity}
+    (hsorted : FinishSorted xs) :
+    (activitySelection xs).Sublist xs ∧
+      Feasible (activitySelection xs) ∧
+      ∀ other, other.Sublist xs → Feasible other →
+        other.length ≤ (activitySelection xs).length := by
+  let hopt := activitySelection_maxCardinality hsorted
+  exact ⟨hopt.sublist, hopt.feasible, hopt.maximum⟩
+
+/--
+Reader-facing correctness theorem for the nonempty CLRS recursion step: choose
+the first finish-sorted activity, solve the compatible tail recursively, and no
+feasible competitor from the original nonempty list is longer.
+-/
+theorem activitySelection_cons_correct {a : Activity} {rest : List Activity}
+    (hsorted : FinishSorted (a :: rest)) :
+    (a :: activitySelection (activitiesAfter a rest)).Sublist (a :: rest) ∧
+      Feasible (a :: activitySelection (activitiesAfter a rest)) ∧
+      ∀ other, other.Sublist (a :: rest) → Feasible other →
+        other.length ≤ (a :: activitySelection (activitiesAfter a rest)).length := by
+  let hopt := activitySelection_cons_maxCardinality hsorted
+  exact ⟨hopt.sublist, hopt.feasible, hopt.maximum⟩
+
+/--
+Bundled executable recursion theorem for the sorted nonempty greedy selector.
+It exposes the exact cons-case equation, the optimal recursive subproblem, the
+optimal whole solution, and the reader-facing correctness facts in one place.
+-/
+theorem greedySelect_cons_recursive_correct {a : Activity} {rest : List Activity}
+    (hsorted : FinishSorted (a :: rest)) :
+    greedySelect (a :: rest) = a :: greedySelect (activitiesAfter a rest) ∧
+      MaxCardinality (activitiesAfter a rest)
+        (greedySelect (activitiesAfter a rest)) ∧
+      MaxCardinality (a :: rest) (greedySelect (a :: rest)) ∧
+      (greedySelect (a :: rest)).Sublist (a :: rest) ∧
+      Feasible (greedySelect (a :: rest)) ∧
+      ∀ other, other.Sublist (a :: rest) → Feasible other →
+        other.length ≤ (greedySelect (a :: rest)).length := by
+  let htail := greedySelect_after_maxCardinality hsorted
+  let hfull := greedySelect_maxCardinality hsorted
+  exact ⟨greedySelect_cons_eq a rest, htail, hfull, hfull.sublist,
+    hfull.feasible, hfull.maximum⟩
+
+/--
+CLRS-facing bundled recursion theorem for activity selection.  On a nonempty
+finish-time-sorted input, the public algorithm chooses the head, recursively
+solves the compatible tail, and the resulting executable output is feasible,
+drawn from the input, and maximum-cardinality.
+-/
+theorem activitySelection_cons_recursive_correct {a : Activity} {rest : List Activity}
+    (hsorted : FinishSorted (a :: rest)) :
+    activitySelection (a :: rest) =
+        a :: activitySelection (activitiesAfter a rest) ∧
+      MaxCardinality (activitiesAfter a rest)
+        (activitySelection (activitiesAfter a rest)) ∧
+      MaxCardinality (a :: rest) (activitySelection (a :: rest)) ∧
+      (activitySelection (a :: rest)).Sublist (a :: rest) ∧
+      Feasible (activitySelection (a :: rest)) ∧
+      ∀ other, other.Sublist (a :: rest) → Feasible other →
+        other.length ≤ (activitySelection (a :: rest)).length := by
+  let htail : MaxCardinality (activitiesAfter a rest)
+      (activitySelection (activitiesAfter a rest)) := by
+    simpa [activitySelection] using greedySelect_after_maxCardinality hsorted
+  let hfull := activitySelection_maxCardinality hsorted
+  exact ⟨activitySelection_cons_eq a rest, htail, hfull, hfull.sublist,
+    hfull.feasible, hfull.maximum⟩
 
 end ActivitySelection
 end CLRS

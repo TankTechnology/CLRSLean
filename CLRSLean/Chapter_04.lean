@@ -1,4 +1,5 @@
 import CLRSLean.Chapter_04.Section_04_1_Maximum_Subarray
+import CLRSLean.Chapter_04.Section_04_2_Strassen_Algorithm
 import CLRSLean.Chapter_04.Section_04_3_Substitution_Method
 import CLRSLean.Chapter_04.Section_04_4_Recursion_Tree_Method
 import CLRSLean.Chapter_04.Section_04_5_Master_Theorem
@@ -26,9 +27,10 @@ and by future divide-and-conquer runtime proofs.
   {lit}`maxSubarrayDivideFuel_correct` for a fuelled midpoint splitter.  The
   remaining refinement target is runtime/RAM-cost analysis.
 * Section 4.2 - Strassen's algorithm for matrix multiplication:
-  {lit}`future-work`.
-  This is formalizable as block-matrix algebra plus a proof that the seven
-  products reconstruct ordinary matrix multiplication.
+  {lit}`proved` for 2 by 2 block algebra.
+  The file proves {lit}`CLRS.Chapter04.strassen2x2_correct`: Strassen's seven
+  products reconstruct ordinary 2 by 2 block matrix multiplication over an
+  arbitrary ring.
 * Section 4.3 - The substitution method: {lit}`proved` for one-step recurrence
   bounds.
   The file proves upper-bound, lower-bound, sandwich, linear, and geometric

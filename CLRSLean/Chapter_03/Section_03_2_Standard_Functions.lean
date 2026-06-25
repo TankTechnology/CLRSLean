@@ -14,6 +14,7 @@ Concrete asymptotic comparisons for algorithm analysis.
 * `nᵃ = o(nᵇ)` when `a < b`
 * `nᵃ = o(cⁿ)` when `1 < c`
 * `log n = o(nʳ)` when `0 < r`
+* `(log n)ᵃ = o(nʳ)` when `0 < r`
 * `aⁿ = o(bⁿ)` when `0 ≤ a < b`
 * the harmonic numbers satisfy `Hₙ ~ log n` and `Hₙ = Θ(log n)`
 * `⌊n⌋ = Θ(n)` and `⌈n⌉ = Θ(n)` on ℕ
@@ -56,6 +57,22 @@ theorem isLittleO_log_rpow {r : ℝ} (hr : 0 < r) :
     isLittleO (fun n : ℕ => Real.log (n : ℝ)) (fun n : ℕ => (n : ℝ) ^ r) := by
   unfold isLittleO
   exact (isLittleO_log_rpow_atTop hr).comp_tendsto tendsto_natCast_atTop_atTop
+
+/-- For every fixed natural exponent `a` and positive real exponent `r`,
+`(log n)ᵃ = o(nʳ)`. -/
+theorem isLittleO_log_pow_rpow {a : ℕ} {r : ℝ} (hr : 0 < r) :
+    isLittleO (fun n : ℕ => Real.log (n : ℝ) ^ a) (fun n : ℕ => (n : ℝ) ^ r) := by
+  unfold isLittleO
+  have hreal :
+      (fun x : ℝ => Real.log x ^ (a : ℝ)) =o[atTop] (fun x : ℝ => x ^ r) :=
+    isLittleO_log_rpow_rpow_atTop (a : ℝ) hr
+  simpa [Function.comp_def, Real.rpow_natCast] using
+    hreal.comp_tendsto tendsto_natCast_atTop_atTop
+
+/-- Weak `O` form of `isLittleO_log_pow_rpow`. -/
+theorem isBigO_log_pow_rpow {a : ℕ} {r : ℝ} (hr : 0 < r) :
+    isBigO (fun n : ℕ => Real.log (n : ℝ) ^ a) (fun n : ℕ => (n : ℝ) ^ r) :=
+  (isLittleO_log_pow_rpow (a := a) hr).isBigO
 
 /-- If `0 ≤ a < b`, then `aⁿ = o(bⁿ)`. -/
 theorem isLittleO_exp_exp_of_lt {a b : ℝ} (ha : 0 ≤ a) (hab : a < b) :

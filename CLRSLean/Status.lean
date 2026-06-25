@@ -22,6 +22,73 @@ navigating the deployed pages.
 * `future-work`: exercises, chapter-end problems, or strengthening passes
   outside the current main track.
 
+## Planning Board
+
+This board is deliberately coarser than the theorem ledger below.  It answers
+the scheduling question: which areas already have their advertised main proof,
+which areas have useful Lean structure but still need a central theorem, and
+which areas should not yet be counted as proof-complete.
+
+### Main Proof Completed
+
+* Chapter 2, Sections 2.1-2.3: insertion sort, insertion-sort quadratic
+  comparison bound, merge-sort correctness, and the power-of-two merge-sort
+  recurrence are proved for the current models.
+* Chapter 3, Section 3.1: CLRS-facing asymptotic notation wrappers and basic
+  algebraic facts are proved.
+* Chapter 4, Sections 4.1-4.5, current models: maximum-subarray correctness,
+  Strassen 2 by 2 block algebra, substitution-method bounds, recursion-tree
+  additive expansions, and exact-power Master-method cases are proved.
+* Chapter 5, Section 5.1: the hiring problem is proved in the finite
+  rank-symmetry model.
+* Chapter 6, Sections 6.1-6.5: the indexed array heap layer, recursive
+  {lit}`MAX-HEAPIFY`, bottom-up {lit}`BUILD-MAX-HEAP`, in-place heapsort
+  sorted-suffix invariant, top-level heapsort correctness, and array-level
+  priority-queue state theorems are proved.
+* Chapter 10, Sections 10.1-10.2: functional stack, queue, and linked-list
+  operation specifications are proved.
+* Chapter 11, Section 11.1: direct-address table insert/search/delete behavior
+  is proved.
+* Chapter 16, Sections 16.1 and 16.3: activity selection has a recursive
+  greedy optimality theorem, and Huffman V2 has frequency-table optimality and
+  minimum-cost wrappers.
+
+### Structured But Not Complete
+
+* Chapter 3, Section 3.2: many standard-function asymptotic facts are proved,
+  but the full CLRS table is not complete.
+* Chapter 4 as a whole: the local proof engines are strong, but all-input
+  Master-theorem bridging and selected runtime refinements remain.
+* Chapter 11, Section 11.2: deterministic chained-hash-table operations are
+  proved for a fixed hash function; expected-time hashing remains.
+* Chapter 12, Section 12.1: functional BST operations are proved; parent
+  pointers, transplant, and mutation remain.
+* Chapter 13, Section 13.1: local red-black rotation/recoloring invariants are
+  proved; full insertion and deletion fixup algorithms remain.
+* Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
+  exact-component Kruskal scan facts, forest/spanning wrappers, and
+  certificate-based Kruskal optimality interfaces exist; automatic simple
+  path/cycle exchange extraction, fully prefix-local sorted-lightness wrapping,
+  and Prim remain.
+
+### Missing Core Theorem
+
+* Chapter 4, Section 4.6: full Master Theorem over all natural input sizes.
+* Chapters 7-9: sorting and order-statistics chapters are not yet represented.
+* Chapter 11 expected hashing analysis: expected-time theorem under a formal
+  probability model.
+* Chapter 12 pointer-level BST layer: CLRS parent-pointer procedures,
+  transplant, and mutation refinement.
+* Chapter 13 full red-black algorithms: insertion/deletion fixup correctness
+  and height theorem.
+* Chapters 14-15 and 17-22: not yet represented.
+* Chapter 23 Prim: theorem interface and proof have not been added.
+* Chapter 24 onward: not yet represented.
+
+Near-term rule: do not return to a completed main-proof area, especially
+Chapter 6, without a concrete audit or refinement target.  Prefer the highest
+value item in the structured-but-incomplete bucket.
+
 ## Proved
 
 * 4.1 Maximum-subarray specification:
@@ -37,6 +104,9 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter04.maxSubarrayDivideFuel_correct`,
   {lit}`CLRS.Chapter04.maxSubarray_exists_of_ne_nil`,
   {lit}`CLRS.Chapter04.maxSubarray_correct`.
+* 4.2 Strassen 2-by-2 block algebra:
+  {lit}`CLRS.Chapter04.Matrix2.strassen_eq_mul` and
+  {lit}`CLRS.Chapter04.strassen2x2_correct`.
 * 3.1 Asymptotic notation:
   `CLRS.Chapter03.isBigO_iff`,
   `CLRS.Chapter03.isLittleO_iff`,
@@ -70,18 +140,52 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter06.parent_lt_self`,
   {lit}`CLRS.Chapter06.eq_left_or_right_parent`,
   {lit}`CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`, and
-  {lit}`CLRS.Chapter06.orderedDesc_arrayMaxHeap`.
-* 6.2 Maintaining the heap property, partial array heapify layer:
+  {lit}`CLRS.Chapter06.orderedDesc_arrayMaxHeap`; localized predicate bridge:
+  {lit}`CLRS.Chapter06.ArrayMaxHeapFrom.to_global`.
+* 6.2 Maintaining the heap property, fuelled array heapify repair:
   {lit}`CLRS.Chapter06.swapAt_perm`,
   {lit}`CLRS.Chapter06.maxHeapifyFuel_perm`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_valAt_of_heapSize_le`,
   {lit}`CLRS.Chapter06.valAt_i_le_maxChildIndex`, and
-  {lit}`CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`.
-* 6.3 Building a heap, functional builder exposed through the array predicate:
-  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap` and
-  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_perm`.
-* 6.4 The heapsort algorithm, functional heapsort model:
-  {lit}`CLRS.Chapter06.arrayHeapSort_orderedAsc` and
-  {lit}`CLRS.Chapter06.arrayHeapSort_perm`.
+  {lit}`CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`;
+  recursive repair:
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_child_repair_after_swap`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_swap_branch_repair`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_repair_subtree` and
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_root_isMaxHeap`.
+* 6.3 Building a heap, bottom-up repeated heapify:
+  {lit}`CLRS.Chapter06.ArrayMaxHeapFrom.of_half`,
+  {lit}`CLRS.Chapter06.buildMaxHeapLoop_isMaxHeap`,
+  {lit}`CLRS.Chapter06.buildMaxHeapLoop_perm`,
+  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`, and
+  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_correct`.
+* 6.4 The heapsort algorithm, in-place loop refinement:
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_length`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_perm`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_length`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_perm`,
+  {lit}`CLRS.Chapter06.HeapSortLoopInvariant.initial`,
+  {lit}`CLRS.Chapter06.arrayHeapSortStep_suffix_head_eq_root`,
+  {lit}`CLRS.Chapter06.arrayHeapSortStep_suffix_head_bounds_prefix`,
+  {lit}`CLRS.Chapter06.HeapSortLoopInvariant.step`,
+  {lit}`CLRS.Chapter06.arrayHeapSortStep_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_exact_shrink_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_exact_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_orderedAsc`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_exact_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_orderedAsc`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_exact_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_eq_arrayHeapSortInPlace`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_exact_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_orderedAsc`, and
+  {lit}`CLRS.Chapter06.arrayHeapSort_correct`.
 * 6.5 Priority queues, functional heap interface:
   {lit}`CLRS.Chapter06.heapInsert_orderedDesc`,
   {lit}`CLRS.Chapter06.heapInsert_perm`,
@@ -90,9 +194,17 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter06.heapIncreaseKey_perm`,
   {lit}`CLRS.Chapter06.heapDelete_orderedDesc`, and
   {lit}`CLRS.Chapter06.heapDelete_perm`.
-* 6.5 Array-level heap maximum:
+* 6.5 Array-level heap maximum, full fuelled increase-key, extract-max, and
+  delete:
   {lit}`CLRS.Chapter06.ArrayMaxHeap.getElem_le_root` and
-  {lit}`CLRS.Chapter06.arrayHeapMaximum?_max`.
+  {lit}`CLRS.Chapter06.arrayHeapMaximum?_max`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeap.set_increased_except_up`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeapExceptUp.bubble_step`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeapExceptUp.bubbleUpFuel_global`,
+  {lit}`CLRS.Chapter06.arrayHeapIncreaseKey?_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapIncreaseKeyNoBubble?_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapExtractMax?_state_correct`, and
+  {lit}`CLRS.Chapter06.arrayHeapDelete?_state_correct`.
 * 2.1 Insertion sort:
   `CLRS.Chapter02.insertionSort_sorted`,
   `CLRS.Chapter02.insertionSort_perm`.
@@ -103,14 +215,28 @@ navigating the deployed pages.
   `CLRS.Chapter02.mergeSort_perm`,
   `CLRS.Chapter02.mergeSortRecurrenceOnPowersOfTwo_closedForm`.
 * 16.3 Huffman codes:
-  `CLRS.HuffmanV2.optimum_huffman_freqs`.
+  {lit}`CLRS.HuffmanV2.optimum_huffman_freqs`,
+  {lit}`CLRS.HuffmanV2.huffmanOfFreqs_correct`, and
+  {lit}`CLRS.HuffmanV2.huffmanOfFreqs_cost_le`.
 * 16.1 Activity selection, finite sorted-list model:
   {lit}`CLRS.ActivitySelection.earliest_finish_minFinish`,
   {lit}`CLRS.ActivitySelection.finishSorted_head_minFinish`,
   {lit}`CLRS.ActivitySelection.finishSorted_greedyChoiceCertificate`,
+  {lit}`CLRS.ActivitySelection.activitySelection`,
+  {lit}`CLRS.ActivitySelection.activitySelection_cons_eq`,
+  {lit}`CLRS.ActivitySelection.greedySelect_cons_eq`,
   {lit}`CLRS.ActivitySelection.greedySelect_sublist`,
-  {lit}`CLRS.ActivitySelection.greedySelect_feasible`, and
-  {lit}`CLRS.ActivitySelection.greedySelect_maxCardinality`.
+  {lit}`CLRS.ActivitySelection.greedySelect_feasible`,
+  {lit}`CLRS.ActivitySelection.greedySelect_after_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.greedySelect_cons_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.greedySelect_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.activitySelection_cons_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.activitySelection_maxCardinality`,
+  {lit}`CLRS.ActivitySelection.greedySelect_optimal_length`,
+  {lit}`CLRS.ActivitySelection.greedySelect_cons_recursive_correct`,
+  {lit}`CLRS.ActivitySelection.activitySelection_cons_recursive_correct`,
+  {lit}`CLRS.ActivitySelection.activitySelection_cons_correct`, and
+  {lit}`CLRS.ActivitySelection.activitySelection_correct`.
 * 10.1 Stacks and queues:
   `CLRS.Chapter10.pop_push`,
   `CLRS.Chapter10.dequeue_enqueue_empty`,
@@ -132,6 +258,8 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter03.isBigO_pow_pow`,
   {lit}`CLRS.Chapter03.isLittleO_pow_const_exp`,
   {lit}`CLRS.Chapter03.isLittleO_log_rpow`,
+  {lit}`CLRS.Chapter03.isLittleO_log_pow_rpow`,
+  {lit}`CLRS.Chapter03.isBigO_log_pow_rpow`,
   {lit}`CLRS.Chapter03.isLittleO_exp_exp_of_lt`,
   {lit}`CLRS.Chapter03.isEquivalent_harmonic_log`,
   {lit}`CLRS.Chapter03.isBigTheta_harmonic_log`,
@@ -154,21 +282,6 @@ navigating the deployed pages.
   {lit}`CLRS.Chapter11.hashSearch_hashDelete_iff`;
   remaining gap: expected search time under simple uniform hashing needs a
   probability model over keys or hash functions.
-* Chapter 6 array heap refinement:
-  current results {lit}`CLRS.Chapter06.orderedDesc_arrayMaxHeap`,
-  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`,
-  {lit}`CLRS.Chapter06.maxHeapifyFuel_length`,
-  {lit}`CLRS.Chapter06.maxHeapifyFuel_perm`,
-  {lit}`CLRS.Chapter06.valAt_i_le_maxChildIndex`,
-  {lit}`CLRS.Chapter06.valAt_left_le_maxChildIndex`,
-  {lit}`CLRS.Chapter06.valAt_right_le_maxChildIndex`,
-  {lit}`CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`,
-  {lit}`CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`, and
-  {lit}`CLRS.Chapter06.arrayHeapMaximum?_max`;
-  remaining gap: prove the recursive swap-branch repair theorem for
-  {lit}`MAX-HEAPIFY`, bottom-up {lit}`BUILD-MAX-HEAP` as repeated heapify,
-  the in-place heapsort loop invariant, index-based priority-queue updates,
-  and cost/RAM semantics.
 * 12.1 Binary search trees:
   current results {lit}`CLRS.Chapter12.BSTree.search_eq_true_iff`,
   {lit}`CLRS.Chapter12.BSTree.minimum?_inTree`,
@@ -197,11 +310,30 @@ navigating the deployed pages.
   remaining gap: full RB insertion/deletion fixup algorithms are not yet
   mechanized.
 * 23.1 Growing a minimum spanning tree:
-  current result {lit}`CLRS.MST.safe_edge_of_lightest_crossing`;
-  remaining gap: construct the concrete exchange edge from finite graph paths
-  or cycles.
+  current results {lit}`CLRS.MST.Graph.connected_crosses_cut`,
+  {lit}`CLRS.MST.FiniteGraph.minimumSpanningTree_of_mstExtending_empty`,
+  {lit}`CLRS.MST.FiniteGraph.mstExtending_empty_of_minimumSpanningTree`,
+  {lit}`CLRS.MST.FiniteGraph.minimumSpanningTree_iff_mstExtending_empty`,
+  {lit}`CLRS.MST.FiniteGraph.exists_crossing_tree_edge_of_cut`,
+  {lit}`CLRS.MST.FiniteGraph.exists_crossing_tree_edge_preserving_prefix`, and
+  {lit}`CLRS.MST.safe_edge_of_lightest_crossing`;
+  remaining gap: Section 23.2 proves replacement from an explicit
+  {lit}`ExchangePath`; the next step is deriving that certificate automatically
+  from a canonical finite simple path or cycle representation.
 * 23.2 Kruskal and Prim:
-  current results {lit}`CLRS.MST.lightest_crossing_of_sorted_prefix`,
+  current results {lit}`CLRS.MST.Graph.ExchangePath`,
+  {lit}`CLRS.MST.Graph.InsertedEdgeConnection`,
+  {lit}`CLRS.MST.Graph.exchangePath_connected_insert`,
+  {lit}`CLRS.MST.Graph.insertedEdgeConnection_of_exchangePath`,
+  {lit}`CLRS.MST.Graph.exchangePath_of_insert_connected`,
+  {lit}`CLRS.MST.Graph.exchangePath_iff_insertedEdgeConnection`,
+  {lit}`CLRS.MST.FiniteGraph.exchangePath_of_insert_connects_erased_edge`,
+  {lit}`CLRS.MST.FiniteGraph.exchangePath_iff_insertedEdgeConnection_of_spanningTree`,
+  {lit}`CLRS.MST.FiniteGraph.spanningTree_exchange_of_path_certificate`,
+  {lit}`CLRS.MST.FiniteGraph.cut_exchange_certificate`,
+  {lit}`CLRS.MST.FiniteGraph.exists_replacement_spanning_tree_of_cut`,
+  {lit}`CLRS.MST.FiniteGraph.cutCertificate_of_lightest_crossing`,
+  {lit}`CLRS.MST.lightest_crossing_of_sorted_prefix`,
   {lit}`CLRS.MST.cut_certificate_of_component_oracle_sorted_prefix`,
   {lit}`CLRS.MST.processed_edge_mem_or_connected_of_exact_component_kruskal`,
   {lit}`CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal`,
@@ -210,35 +342,48 @@ navigating the deployed pages.
   {lit}`CLRS.MST.FiniteGraph.kruskal_subset_edges`,
   {lit}`CLRS.MST.FiniteGraph.kruskal_forest_of_exact_component`,
   {lit}`CLRS.MST.FiniteGraph.kruskal_spans_of_complete_exact_component`,
-  {lit}`CLRS.MST.FiniteGraph.kruskal_spanning_tree_of_complete_exact_component`, and
-  {lit}`CLRS.MST.FiniteGraph.kruskal_optimal_of_complete_exact_component_empty`;
+  {lit}`CLRS.MST.FiniteGraph.kruskal_spanning_tree_of_complete_exact_component`,
+  {lit}`CLRS.MST.FiniteGraph.kruskal_minimum_spanning_tree_of_cycle_test`, and
+  {lit}`CLRS.MST.FiniteGraph.kruskal_minimum_spanning_tree_of_complete_exact_component_empty`;
   remaining gap: refine exact components to executable union-find if needed,
-  construct concrete exchange edges from graph paths/cycles, discharge the
-  prefix-local sorted-lightness proof in the full recursive optimality wrapper,
-  and add Prim's theorem interface.
+  derive the inserted-edge connection automatically from a canonical finite
+  simple path/cycle API, discharge the prefix-local sorted-lightness proof in the full
+  recursive optimality wrapper, and add Prim's theorem interface.
 
 ## Deferred or Blocked
 
 * Union-find correctness: `deferred-implementation`.
   Reason: not needed for the mathematical MST proof.
-* Concrete MST exchange edge: `blocked-design`.
-  Reason: needs a stable finite path or walk representation.
+* Automatic MST exchange-path extraction: `blocked-design`.
+  Reason: the cut-crossing tree-edge, prefix-preservation lemma, and
+  certificate-based replacement spanning-tree theorem are proved; deriving
+  the inserted-edge connection automatically still needs a stable finite simple
+  path/cycle API.
 * Full RAM semantics: `future-work`.
   Reason: requires a separate imperative machine and cost model.
-* Chapter 4 Strassen and full Master Theorem extension:
+* Chapter 4 full Master Theorem extension:
   `future-work`.
-  Reason: these sections are formalizable but still need their own models:
-  block matrices and all-input floor/ceiling recurrence sandwiching.
+  Reason: exact powers are proved; all-input floor/ceiling recurrence
+  sandwiching still needs a monotone recurrence model.
+* Chapter 4 Strassen recursive refinement:
+  `future-work`.
+  Reason: the 2 by 2 block algebra is proved; recursive splitting,
+  dimension bookkeeping, and runtime analysis remain separate refinements.
 * Chapter 4 maximum-subarray runtime analysis: `future-work`.
   Reason: the exhaustive-search specification, crossing-helper optimality,
   executable left/right/crossing combine step, and recursive split-tree/fuelled
   selector correctness are proved; the runtime recurrence and RAM-cost
   refinement remain future work.
-* Chapter 6 in-place heapsort and RAM costs: `deferred-implementation`.
-  Reason: the functional heap specification and a useful array heap proof spine
-  are proved; the remaining implementation layer is the full recursive
-  swap-branch repair for {lit}`MAX-HEAPIFY`, bottom-up heap construction,
-  shrinking-prefix heapsort loop, and line-by-line RAM-cost model.
+* Chapter 6 priority-queue RAM costs: `deferred-implementation`.
+  Reason: the functional heap specification, recursive {lit}`MAX-HEAPIFY`
+  repair, bottom-up {lit}`BUILD-MAX-HEAP` refinement, in-place heapsort loop
+  scaffold, exact-shrink invariant, loop permutation/length facts, root-to-
+  suffix-head step theorem, shrinking-prefix sorted-suffix invariant
+  preservation, bundled state-correctness theorem, and in-place
+  sortedness proof are proved; array-level {lit}`HEAP-MAXIMUM`, full fuelled
+  {lit}`HEAP-INCREASE-KEY`, {lit}`HEAP-EXTRACT-MAX`, and index-based
+  {lit}`HEAP-DELETE` state correctness are also proved.  The remaining
+  implementation layer is the line-by-line RAM-cost model.
 * Chapter 4 extension from exact powers to all input sizes: `future-work`.
   Reason: needs a monotone recurrence model and floor/ceiling sandwiching.
 * General merge-sort recurrence: `future-work`.

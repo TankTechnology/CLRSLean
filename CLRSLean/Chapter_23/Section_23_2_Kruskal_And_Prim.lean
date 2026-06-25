@@ -32,14 +32,27 @@ Main results:
 - Theorem {lit}`FiniteGraph.kruskal_spanning_tree_of_complete_exact_component`:
   a complete exact-component Kruskal scan starting from a forest returns a
   spanning tree.
+- Theorem {lit}`FiniteGraph.spanningTree_exchange_of_path_certificate`:
+  a path-decomposition certificate proves that adding one edge and deleting one
+  tree edge preserves the spanning-tree property.
+- Theorems {lit}`Graph.exchangePath_connected_insert`,
+  {lit}`Graph.exchangePath_of_insert_connected`,
+  {lit}`Graph.exchangePath_iff_insertedEdgeConnection`, and
+  {lit}`FiniteGraph.exchangePath_iff_insertedEdgeConnection_of_spanningTree`:
+  the bridge between a cycle-style inserted-edge connection and the reusable
+  {lit}`ExchangePath` certificate.
 - Theorem {lit}`kruskal_optimal`: safe-edge induction for the mathematical
   Kruskal pass.
+- Theorem {lit}`FiniteGraph.kruskal_minimum_spanning_tree_of_cycle_test`:
+  the finite-graph MST conclusion for any cycle-test implementation whose
+  accepted set is known to be a spanning tree.
 
 Current gaps:
 
 - Refine the exact component model to an executable union-find implementation
   if implementation correctness becomes part of scope.
-- Construct the concrete exchange edge from finite graph paths/cycles.
+- Derive {lit}`InsertedEdgeConnection` automatically from a canonical finite
+  simple path/cycle representation.
 - Add Prim's theorem interface.
 -/
 
@@ -197,6 +210,87 @@ theorem connected_insert_edge_cases {G : Graph V E} {A : Finset E} {e : E}
         · exact Or.inl (Relation.ReflTransGen.tail hA hadjA)
         · exact Or.inr (Or.inl ⟨hus, Relation.ReflTransGen.tail hdy hadjA⟩)
         · exact Or.inr (Or.inr ⟨hud, Relation.ReflTransGen.tail hsy hadjA⟩)
+
+/--
+A path-decomposition certificate for the CLRS tree-exchange step.  After
+removing tree edge {lit}`f`, the endpoints of the new edge {lit}`e` reconnect
+the two sides of {lit}`f`, in one of the two undirected orientations.
+-/
+def ExchangePath (G : Graph V E) (T : Finset E) (e f : E) : Prop :=
+  (G.ConnectedIn (T.erase f) (G.src f) (G.src e) ∧
+    G.ConnectedIn (T.erase f) (G.dst e) (G.dst f)) ∨
+  (G.ConnectedIn (T.erase f) (G.src f) (G.dst e) ∧
+    G.ConnectedIn (T.erase f) (G.src e) (G.dst f))
+
+/--
+Cycle-style exchange witness: after deleting tree edge {lit}`f`, inserting the
+new edge {lit}`e` reconnects the endpoints of {lit}`f`.  This is the compact
+connectivity fact a future finite path/cycle API should produce.
+-/
+def InsertedEdgeConnection (G : Graph V E) (T : Finset E) (e f : E) : Prop :=
+  G.ConnectedIn (insert e (T.erase f)) (G.src f) (G.dst f)
+
+omit [DecidableEq V] in
+/--
+An {lit}`ExchangePath` certificate reconnects the endpoints of the deleted tree
+edge after the new edge is inserted.
+-/
+theorem exchangePath_connected_insert {G : Graph V E} {T : Finset E} {e f : E}
+    (hpath : G.ExchangePath T e f) :
+    G.ConnectedIn (insert e (T.erase f)) (G.src f) (G.dst f) := by
+  have hmono : T.erase f ⊆ insert e (T.erase f) :=
+    Finset.subset_insert e (T.erase f)
+  have he_conn :
+      G.ConnectedIn (insert e (T.erase f)) (G.src e) (G.dst e) :=
+    Graph.connected_of_mem_edge (Finset.mem_insert_self e (T.erase f))
+  rcases hpath with ⟨hleft, hright⟩ | ⟨hleft, hright⟩
+  · have h₁ := Graph.connected_mono hmono hleft
+    have h₂ := Graph.connected_mono hmono hright
+    exact Graph.connected_trans (Graph.connected_trans h₁ he_conn) h₂
+  · have h₁ := Graph.connected_mono hmono hleft
+    have h₂ := Graph.connected_mono hmono hright
+    exact Graph.connected_trans (Graph.connected_trans h₁
+      (Graph.connected_symm he_conn)) h₂
+
+omit [DecidableEq V] in
+/-- An {lit}`ExchangePath` certificate is an inserted-edge connection. -/
+theorem insertedEdgeConnection_of_exchangePath {G : Graph V E} {T : Finset E}
+    {e f : E} (hpath : G.ExchangePath T e f) :
+    G.InsertedEdgeConnection T e f :=
+  Graph.exchangePath_connected_insert hpath
+
+omit [DecidableEq V] in
+/--
+Conversely, if inserting {lit}`e` reconnects the endpoints of {lit}`f`, and
+those endpoints were not already connected after erasing {lit}`f`, then the
+connection decomposes into an {lit}`ExchangePath` certificate.
+-/
+theorem exchangePath_of_insert_connected {G : Graph V E} {T : Finset E} {e f : E}
+    (hconn :
+      G.ConnectedIn (insert e (T.erase f)) (G.src f) (G.dst f))
+    (hnot :
+      ¬ G.ConnectedIn (T.erase f) (G.src f) (G.dst f)) :
+    G.ExchangePath T e f := by
+  rcases Graph.connected_insert_edge_cases hconn with hbase |
+      (⟨hleft, hright⟩ | ⟨hleft, hright⟩)
+  · exact False.elim (hnot hbase)
+  · exact Or.inl ⟨hleft, hright⟩
+  · exact Or.inr ⟨hleft, hright⟩
+
+omit [DecidableEq V] in
+/--
+Equivalence between the path-decomposition certificate and the compact
+cycle-style inserted-edge connection, assuming deleting {lit}`f` really
+separates its endpoints.
+-/
+theorem exchangePath_iff_insertedEdgeConnection {G : Graph V E} {T : Finset E}
+    {e f : E}
+    (hnot : ¬ G.ConnectedIn (T.erase f) (G.src f) (G.dst f)) :
+    G.ExchangePath T e f ↔ G.InsertedEdgeConnection T e f := by
+  constructor
+  · exact Graph.insertedEdgeConnection_of_exchangePath
+  · intro hconn
+    exact Graph.exchangePath_of_insert_connected hconn hnot
 
 end Graph
 
@@ -861,6 +955,162 @@ theorem isForest_insert_of_not_connected (G : FiniteGraph V E)
     · exact hnot (connected_insert_bridge_case_left hfA hleft hright)
     · exact hnot (connected_insert_bridge_case_right hfA hleft hright)
 
+/-- The edge-removal forest invariant is downward closed under edge subsets. -/
+theorem isForest_mono (G : FiniteGraph V E) {A B : Finset E}
+    (hforest : G.IsForest B) (hAB : A ⊆ B) :
+    G.IsForest A := by
+  intro e heA hconn
+  have hsubset : A.erase e ⊆ B.erase e := by
+    intro x hx
+    exact Finset.mem_erase.mpr
+      ⟨(Finset.mem_erase.mp hx).1, hAB (Finset.mem_of_mem_erase hx)⟩
+  exact hforest e (hAB heA) (Graph.connected_mono hsubset hconn)
+
+/--
+Finite-graph bridge from a cycle-style connection to the reusable
+{lit}`ExchangePath` certificate.  In a spanning tree, deleting {lit}`f`
+disconnects its endpoints; if inserting {lit}`e` reconnects them, Lean can
+decompose that connection into the two sides of the exchange path.
+-/
+theorem exchangePath_of_insert_connects_erased_edge (G : FiniteGraph V E)
+    {T : Finset E} {e f : E}
+    (hT : G.IsSpanningTree T) (hfT : f ∈ T)
+    (hconn :
+      G.toGraph.ConnectedIn (insert e (T.erase f)) (G.src f) (G.dst f)) :
+    G.toGraph.ExchangePath T e f := by
+  exact Graph.exchangePath_of_insert_connected hconn (hT.2.2 f hfT)
+
+/--
+Named finite-graph wrapper for the compact inserted-edge connection interface.
+In a spanning tree, erasing {lit}`f` disconnects its endpoints, so the compact
+cycle-style witness is equivalent to an {lit}`ExchangePath` certificate.
+-/
+theorem exchangePath_iff_insertedEdgeConnection_of_spanningTree
+    (G : FiniteGraph V E) {T : Finset E} {e f : E}
+    (hT : G.IsSpanningTree T) (hfT : f ∈ T) :
+    G.toGraph.ExchangePath T e f ↔ G.toGraph.InsertedEdgeConnection T e f :=
+  Graph.exchangePath_iff_insertedEdgeConnection (hT.2.2 f hfT)
+
+/--
+Finite-graph bridge from the named inserted-edge connection to the reusable
+{lit}`ExchangePath` certificate.
+-/
+theorem exchangePath_of_insertedEdgeConnection (G : FiniteGraph V E)
+    {T : Finset E} {e f : E}
+    (hT : G.IsSpanningTree T) (hfT : f ∈ T)
+    (hconn : G.toGraph.InsertedEdgeConnection T e f) :
+    G.toGraph.ExchangePath T e f :=
+  (G.exchangePath_iff_insertedEdgeConnection_of_spanningTree hT hfT).2 hconn
+
+/--
+If a path-decomposition certificate says that new edge {lit}`e` reconnects the
+two components produced by deleting tree edge {lit}`f`, then replacing
+{lit}`f` by {lit}`e` preserves the finite-graph spanning-tree property.
+-/
+theorem spanningTree_exchange_of_path_certificate (G : FiniteGraph V E)
+    {T : Finset E} {e f : E}
+    (hT : G.IsSpanningTree T) (heG : e ∈ G.edges) (hfT : f ∈ T)
+    (hpath : G.toGraph.ExchangePath T e f) :
+    G.IsSpanningTree (insert e (T.erase f)) := by
+  have hnew_subset : insert e (T.erase f) ⊆ G.edges := by
+    intro x hx
+    rw [Finset.mem_insert] at hx
+    rcases hx with hxe | hxT
+    · exact hxe ▸ heG
+    · exact hT.1 (Finset.mem_of_mem_erase hxT)
+  have hnot_connected :
+      ¬ G.toGraph.ConnectedIn (T.erase f) (G.src e) (G.dst e) := by
+    intro he_conn
+    have hf_conn : G.toGraph.ConnectedIn (T.erase f) (G.src f) (G.dst f) := by
+      rcases hpath with ⟨hleft, hright⟩ | ⟨hleft, hright⟩
+      · exact Graph.connected_trans (Graph.connected_trans hleft he_conn) hright
+      · exact Graph.connected_trans (Graph.connected_trans hleft
+          (Graph.connected_symm he_conn)) hright
+    exact hT.2.2 f hfT hf_conn
+  have hforest_erase : G.IsForest (T.erase f) :=
+    G.isForest_mono hT.2.2 (Finset.erase_subset f T)
+  have hforest_new : G.IsForest (insert e (T.erase f)) :=
+    G.isForest_insert_of_not_connected hforest_erase hnot_connected
+  have hedge :
+      ∀ g, g ∈ T →
+        G.toGraph.ConnectedIn (insert e (T.erase f)) (G.src g) (G.dst g) := by
+    intro g hgT
+    by_cases hgf : g = f
+    · subst g
+      exact Graph.exchangePath_connected_insert hpath
+    · have hgErase : g ∈ T.erase f := Finset.mem_erase.mpr ⟨hgf, hgT⟩
+      have hgNew : g ∈ insert e (T.erase f) := Finset.mem_insert_of_mem hgErase
+      exact Graph.connected_of_mem_edge hgNew
+  have hspans_new : G.Spans (insert e (T.erase f)) := by
+    intro u hu v hv
+    exact Graph.connected_of_edgewise_connected hedge (hT.2.1 u hu v hv)
+  exact ⟨hnew_subset, hspans_new, hforest_new⟩
+
+/--
+Cut-local exchange certificate from an explicit path-decomposition certificate.
+This packages the reusable finite-graph part needed by the CLRS safe-edge
+theorem.
+-/
+theorem cut_exchange_certificate (G : FiniteGraph V E)
+    {A T : Finset E} {S : Finset V} {e f : E}
+    (hT : G.IsSpanningTree T) (hAT : A ⊆ T)
+    (hrespects : G.toGraph.Respects S A)
+    (heG : e ∈ G.edges) (hfT : f ∈ T)
+    (hfCross : G.toGraph.Crosses S f)
+    (hpath : G.toGraph.ExchangePath T e f) :
+    f ∈ T ∧ G.toGraph.Crosses S f ∧
+      G.IsSpanningTree (insert e (T.erase f)) ∧
+      A ⊆ insert e (T.erase f) := by
+  have hf_not_A : f ∉ A := by
+    intro hfA
+    exact hrespects f hfA hfCross
+  refine ⟨hfT, hfCross,
+    G.spanningTree_exchange_of_path_certificate hT heG hfT hpath, ?_⟩
+  intro x hxA
+  exact Finset.mem_insert_of_mem
+    (Finset.mem_erase.mpr ⟨fun hxf => hf_not_A (hxf ▸ hxA), hAT hxA⟩)
+
+/--
+Existential replacement form: once a crossing tree edge is accompanied by an
+{lit}`ExchangePath` certificate, Lean constructs the exchanged spanning tree
+and proves that the accepted prefix is preserved.
+-/
+theorem exists_replacement_spanning_tree_of_cut (G : FiniteGraph V E)
+    {A T : Finset E} {S : Finset V} {e : E}
+    (hT : G.IsSpanningTree T) (hAT : A ⊆ T)
+    (hrespects : G.toGraph.Respects S A) (heG : e ∈ G.edges)
+    (hpath :
+      ∃ f, f ∈ T ∧ G.toGraph.Crosses S f ∧
+        G.toGraph.ExchangePath T e f) :
+    ∃ f, f ∈ T ∧ G.toGraph.Crosses S f ∧
+      G.IsSpanningTree (insert e (T.erase f)) ∧
+      A ⊆ insert e (T.erase f) := by
+  rcases hpath with ⟨f, hfT, hfCross, hcert⟩
+  exact ⟨f, G.cut_exchange_certificate hT hAT hrespects heG hfT hfCross hcert⟩
+
+/--
+Finite-graph cut certificate from a light crossing edge and explicit exchange
+paths for optimum trees.  This is the bridge between the mathematical
+path/cycle exchange argument and the abstract safe-edge theorem.
+-/
+theorem cutCertificate_of_lightest_crossing (G : FiniteGraph V E)
+    {w : E → Nat} {A : Finset E} {S : Finset V} {e : E}
+    (heG : e ∈ G.edges) (hcross : G.toGraph.Crosses S e)
+    (hrespects : G.toGraph.Respects S A)
+    (hlight : ∀ f, G.toGraph.Crosses S f → w e ≤ w f)
+    (hexchangePath :
+      ∀ T, IsMSTExtending G.toProblem w A T → e ∉ T →
+        ∃ f, f ∈ T ∧ G.toGraph.Crosses S f ∧
+          G.toGraph.ExchangePath T e f) :
+    CutCertificate G.toGraph G.toProblem w A S e := by
+  refine ⟨hcross, hrespects, hlight, ?_⟩
+  intro T hT heT
+  rcases hexchangePath T hT heT with ⟨f, hfT, hfCross, hpath⟩
+  rcases G.cut_exchange_certificate hT.tree hT.includes hrespects
+      heG hfT hfCross hpath with
+    ⟨hfT', hfCross', htree, hextends⟩
+  exact ⟨f, hfT', hfCross', htree, hextends⟩
+
 /--
 An exact-component Kruskal pass preserves the forest invariant: every accepted
 edge joins two previously disconnected components.
@@ -1017,6 +1267,33 @@ theorem kruskal_optimal_of_complete_exact_component_empty (G : FiniteGraph V E)
   exact G.kruskal_optimal_of_complete_exact_component C hexact hlight hexchange
     edges hstart (by simp) G.isForest_empty hedges hcomplete hconnected
 
+/--
+Reader-facing finite-graph MST theorem for a complete exact-component Kruskal
+scan from the empty prefix.
+-/
+theorem kruskal_minimum_spanning_tree_of_complete_exact_component_empty
+    (G : FiniteGraph V E) {w : E → Nat} (C : ComponentOracle G.toGraph)
+    (hexact : ExactComponentOracle G.toGraph C)
+    (hlight :
+      ∀ A e, acceptByComponent G.toGraph C A e = true →
+        ∀ f, G.toGraph.Crosses (C.component A (G.src e)) f → w e ≤ w f)
+    (hexchange :
+      ∀ A e, acceptByComponent G.toGraph C A e = true →
+        ∀ T, IsMSTExtending G.toProblem w A T → e ∉ T →
+          ∃ f, f ∈ T ∧ G.toGraph.Crosses (C.component A (G.src e)) f ∧
+            G.IsSpanningTree (insert e (T.erase f)) ∧
+            A ⊆ insert e (T.erase f))
+    (edges : List E) {T₀ : Finset E}
+    (hstart : IsMSTExtending G.toProblem w ∅ T₀)
+    (hedges : ∀ e, e ∈ edges → e ∈ G.edges)
+    (hcomplete : ∀ e, e ∈ G.edges → e ∈ edges)
+    (hconnected : G.Spans G.edges) :
+    G.IsMinimumSpanningTree w
+      (kruskal (acceptByComponent G.toGraph C) edges ∅) := by
+  exact G.minimumSpanningTree_of_mstExtending_empty
+    (G.kruskal_optimal_of_complete_exact_component_empty C hexact hlight
+      hexchange edges hstart hedges hcomplete hconnected)
+
 theorem kruskal_optimal_of_cycle_test (G : FiniteGraph V E)
     {w : E → Nat} {C : ComponentOracle G.toGraph}
     (impl : CycleTestImplementation G.toGraph C)
@@ -1038,6 +1315,30 @@ theorem kruskal_optimal_of_cycle_test (G : FiniteGraph V E)
     (by
       intro T hT hsub
       exact G.spanning_tree_maximal hfinal_tree hT hsub)
+
+/--
+Reader-facing finite-graph MST theorem for any Kruskal cycle-test
+implementation, once the accepted edge set is known to be a spanning tree.
+-/
+theorem kruskal_minimum_spanning_tree_of_cycle_test (G : FiniteGraph V E)
+    {w : E → Nat} {C : ComponentOracle G.toGraph}
+    (impl : CycleTestImplementation G.toGraph C)
+    (hlight :
+      ∀ A e, impl.accept A e = true →
+        ∀ f, G.toGraph.Crosses (C.component A (G.src e)) f → w e ≤ w f)
+    (hexchange :
+      ∀ A e, impl.accept A e = true →
+        ∀ T, IsMSTExtending G.toProblem w A T → e ∉ T →
+          ∃ f, f ∈ T ∧ G.toGraph.Crosses (C.component A (G.src e)) f ∧
+            G.IsSpanningTree (insert e (T.erase f)) ∧
+            A ⊆ insert e (T.erase f))
+    (edges : List E) {T₀ : Finset E}
+    (hstart : IsMSTExtending G.toProblem w ∅ T₀)
+    (hfinal_tree : G.IsSpanningTree (kruskal impl.accept edges ∅)) :
+    G.IsMinimumSpanningTree w (kruskal impl.accept edges ∅) := by
+  exact G.minimumSpanningTree_of_mstExtending_empty
+    (G.kruskal_optimal_of_cycle_test impl hlight hexchange edges hstart
+      hfinal_tree)
 
 end FiniteGraph
 

@@ -16,6 +16,20 @@ The graph-specific fact that a spanning tree plus a crossing edge contains a
 replaceable crossing edge is kept as an explicit certificate.  This keeps the
 first MST module focused on the reusable proof pattern rather than on a
 particular graph representation or union-find implementation.
+
+Main results:
+
+* Theorem {lit}`FiniteGraph.spanning_tree_maximal`: a finite spanning tree is
+  maximal among spanning trees under edge-set inclusion.
+* Theorems {lit}`FiniteGraph.minimumSpanningTree_of_mstExtending_empty` and
+  {lit}`FiniteGraph.minimumSpanningTree_iff_mstExtending_empty`: the abstract
+  empty-prefix optimum specification is equivalent to the concrete finite-graph
+  minimum-spanning-tree specification.
+* Theorem {lit}`FiniteGraph.exists_crossing_tree_edge_preserving_prefix`: a
+  spanning tree path across a respecting cut supplies a replaceable crossing
+  tree edge outside the accepted prefix.
+* Theorem {lit}`safe_edge_of_lightest_crossing`: the CLRS cut property in
+  safe-edge form.
 -/
 
 namespace CLRS
@@ -70,6 +84,29 @@ theorem connected_mono {G : Graph V E} {A B : Finset E} (hAB : A ⊆ B)
   | tail hpath hadj ih =>
       exact Relation.ReflTransGen.tail ih (Graph.adjIn_mono hAB hadj)
 
+omit [DecidableEq E] in
+/--
+Any selected-edge connection from one side of a cut to the other uses at least
+one selected edge crossing that cut.  This is the lightweight path/cut API used
+before introducing a heavier finite walk representation.
+-/
+theorem connected_crosses_cut {G : Graph V E} {A : Finset E}
+    {S : Finset V} {u v : V}
+    (hconn : G.ConnectedIn A u v) (hu : u ∈ S) (hv : v ∉ S) :
+    ∃ e, e ∈ A ∧ G.Crosses S e := by
+  induction hconn with
+  | refl =>
+      exact False.elim (hv hu)
+  | tail hpath hadj ih =>
+      rcases hadj with ⟨e, heA, hend⟩
+      rcases hend with ⟨hsrc, hdst⟩ | ⟨hsrc, hdst⟩
+      · by_cases hsrcS : G.src e ∈ S
+        · exact ⟨e, heA, Or.inl ⟨hsrcS, by simpa [hdst] using hv⟩⟩
+        · exact ih (by simpa [← hsrc] using hsrcS)
+      · by_cases hdstS : G.dst e ∈ S
+        · exact ⟨e, heA, Or.inr ⟨hdstS, by simpa [hsrc] using hv⟩⟩
+        · exact ih (by simpa [← hdst] using hdstS)
+
 end Graph
 
 /-! ## Concrete finite graph specification -/
@@ -97,6 +134,11 @@ def IsForest (G : FiniteGraph V E) (A : Finset E) : Prop :=
 and acyclic in the edge-removal sense. -/
 def IsSpanningTree (G : FiniteGraph V E) (A : Finset E) : Prop :=
   A ⊆ G.edges ∧ G.Spans A ∧ G.IsForest A
+
+/-- A concrete minimum spanning tree for a finite graph and edge-weight map. -/
+def IsMinimumSpanningTree (G : FiniteGraph V E) (w : E → Nat)
+    (T : Finset E) : Prop :=
+  G.IsSpanningTree T ∧ ∀ U, G.IsSpanningTree U → weight w T ≤ weight w U
 
 private theorem subset_erase_of_subset_of_not_mem {A T : Finset E} {e : E}
     (hAT : A ⊆ T) (heA : e ∉ A) : A ⊆ T.erase e := by
@@ -128,6 +170,45 @@ theorem spanning_tree_maximal (G : FiniteGraph V E) {K T : Finset E}
     Graph.connected_mono hK_erase hconnK
   exact hT.2.2 e heT hconnT
 
+/--
+A spanning tree path between the endpoints of an edge crossing a cut contains
+a tree edge crossing that same cut.
+-/
+theorem exists_crossing_tree_edge_of_cut (G : FiniteGraph V E)
+    {T : Finset E} {S : Finset V} {e : E}
+    (hT : G.IsSpanningTree T) (he : e ∈ G.edges)
+    (hcross : G.toGraph.Crosses S e) :
+    ∃ f, f ∈ T ∧ G.toGraph.Crosses S f := by
+  have hsrc : G.src e ∈ G.vertices := G.src_mem e he
+  have hdst : G.dst e ∈ G.vertices := G.dst_mem e he
+  rcases hcross with ⟨hsrcS, hdstNot⟩ | ⟨hdstS, hsrcNot⟩
+  · exact Graph.connected_crosses_cut
+      (hT.2.1 (G.src e) hsrc (G.dst e) hdst) hsrcS hdstNot
+  · exact Graph.connected_crosses_cut
+      (hT.2.1 (G.dst e) hdst (G.src e) hsrc) hdstS hsrcNot
+
+/--
+If the cut respects a prefix `A`, then the crossing tree edge found on the tree
+path is outside `A`.  Consequently deleting it while inserting the crossing
+edge preserves the prefix edge set.
+-/
+theorem exists_crossing_tree_edge_preserving_prefix (G : FiniteGraph V E)
+    {A T : Finset E} {S : Finset V} {e : E}
+    (hT : G.IsSpanningTree T) (hAT : A ⊆ T)
+    (hrespects : G.toGraph.Respects S A)
+    (he : e ∈ G.edges) (hcross : G.toGraph.Crosses S e) :
+    ∃ f, f ∈ T ∧ G.toGraph.Crosses S f ∧
+      A ⊆ insert e (T.erase f) := by
+  rcases G.exists_crossing_tree_edge_of_cut hT he hcross with
+    ⟨f, hfT, hfCross⟩
+  have hf_not_A : f ∉ A := by
+    intro hfA
+    exact hrespects f hfA hfCross
+  refine ⟨f, hfT, hfCross, ?_⟩
+  intro x hxA
+  exact Finset.mem_insert_of_mem
+    (Finset.mem_erase.mpr ⟨fun hxf => hf_not_A (hxf ▸ hxA), hAT hxA⟩)
+
 end FiniteGraph
 
 /-- A family of feasible spanning trees over the edge type. -/
@@ -147,6 +228,47 @@ structure IsMSTExtending (P : Problem E) (w : E → Nat)
   tree : P.IsSpanningTree T
   includes : A ⊆ T
   optimal : ∀ U, P.IsSpanningTree U → A ⊆ U → weight w T ≤ weight w U
+
+namespace FiniteGraph
+
+/--
+The abstract empty-prefix optimum specification is the concrete finite-graph
+minimum-spanning-tree specification.
+-/
+theorem minimumSpanningTree_of_mstExtending_empty (G : FiniteGraph V E)
+    {w : E → Nat} {T : Finset E}
+    (h : IsMSTExtending G.toProblem w ∅ T) :
+    G.IsMinimumSpanningTree w T := by
+  refine ⟨h.tree, ?_⟩
+  intro U hUtree
+  exact h.optimal U hUtree (by simp)
+
+/--
+Conversely, a concrete finite-graph MST is an abstract optimum extending the
+empty prefix.  This is useful when switching from textbook finite-graph
+statements back to the reusable Kruskal induction interface.
+-/
+theorem mstExtending_empty_of_minimumSpanningTree (G : FiniteGraph V E)
+    {w : E → Nat} {T : Finset E}
+    (h : G.IsMinimumSpanningTree w T) :
+    IsMSTExtending G.toProblem w ∅ T := by
+  refine ⟨h.1, ?_, ?_⟩
+  · simp
+  · intro U hUtree _hUextends
+    exact h.2 U hUtree
+
+/--
+The empty-prefix abstract MST specification is equivalent to the concrete
+finite-graph minimum-spanning-tree specification.
+-/
+theorem minimumSpanningTree_iff_mstExtending_empty (G : FiniteGraph V E)
+    {w : E → Nat} {T : Finset E} :
+    G.IsMinimumSpanningTree w T ↔ IsMSTExtending G.toProblem w ∅ T := by
+  constructor
+  · exact G.mstExtending_empty_of_minimumSpanningTree
+  · exact G.minimumSpanningTree_of_mstExtending_empty
+
+end FiniteGraph
 
 /-- An edge is safe for `A` if every optimum extending `A` can be turned into
 an optimum extending `A ∪ {e}` without losing optimality for the old prefix.

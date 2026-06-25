@@ -2971,5 +2971,35 @@ theorem optimum_huffman_freqs (xs : List (ℕ × ℕ))
         simpa [rootFreq] using h_pos (a, b) hp
       nonempty := sortForest_ne_nil (by simpa [leavesOfFreqs] using h_nonempty) }
 
+/--
+Reader-facing correctness theorem for the frequency-table interface: Huffman
+preserves the input frequencies and returns an optimum tree for those
+frequencies.
+-/
+theorem huffmanOfFreqs_correct (xs : List (ℕ × ℕ))
+    (h_nodup : (xs.map Prod.fst).Nodup)
+    (h_pos : ∀ p ∈ xs, p.2 > 0)
+    (h_nonempty : xs ≠ []) :
+    (∀ s, freqOf s (huffmanOfFreqs xs) = tableFreq xs s) ∧
+      optimum (huffmanOfFreqs xs) := by
+  exact ⟨fun s => freqOf_huffmanOfFreqs_eq_tableFreq xs s h_nonempty,
+    optimum_huffman_freqs xs h_nodup h_pos h_nonempty⟩
+
+/--
+Direct minimum-cost form of Huffman optimality for frequency tables.  Any
+consistent tree with the same frequencies has cost at least the Huffman tree's
+cost.
+-/
+theorem huffmanOfFreqs_cost_le (xs : List (ℕ × ℕ))
+    (h_nodup : (xs.map Prod.fst).Nodup)
+    (h_pos : ∀ p ∈ xs, p.2 > 0)
+    (h_nonempty : xs ≠ []) {u : HuffTree}
+    (h_consistent : consistent u)
+    (h_freq : ∀ s, freqOf s u = tableFreq xs s) :
+    cost (huffmanOfFreqs xs) ≤ cost u := by
+  have hcorrect := huffmanOfFreqs_correct xs h_nodup h_pos h_nonempty
+  exact hcorrect.2.2.2 u h_consistent (fun s => by
+    rw [hcorrect.1 s, h_freq s])
+
 end HuffmanV2
 end CLRS

@@ -47,12 +47,13 @@ Start with the chapter pages in the sidebar.
   asymptotics plus selected standard growth facts.
 * Chapter 4 - Divide-and-Conquer: maximum-subarray specification correctness,
   recurrence proof infrastructure for the substitution and recursion-tree
-  methods, plus the proved exact-power Master method core; Strassen remains a
-  planned algorithm track.
+  methods, Strassen's 2 by 2 block algebra correctness, plus the proved
+  exact-power Master method core.
 * Chapter 5 - Probabilistic Analysis: the finite rank-symmetry proof for the
   hiring problem and its logarithmic expected-hires bound.
-* Chapter 6 - Heapsort: a functional max-heap interface, heapsort sortedness
-  and permutation correctness, an indexed array heap proof spine, and
+* Chapter 6 - Heapsort: recursive {lit}`MAX-HEAPIFY` repair, bottom-up
+  {lit}`BUILD-MAX-HEAP`, the in-place heapsort loop with a proved sorted-suffix
+  invariant and sortedness theorem, an indexed array heap proof spine, and
   priority-queue operation specifications.
 * Chapter 10 - Elementary Data Structures: functional stack, queue, and
   linked-list operation proofs.
@@ -66,9 +67,10 @@ Start with the chapter pages in the sidebar.
 * Chapter 16 - Greedy Algorithms: activity-selection exchange infrastructure
   and the complete Huffman optimality proof, currently the flagship greedy case
   study.
-* Chapter 23 - Minimum Spanning Trees: the MST cut property and the
-  mathematical Kruskal skeleton.
-* Proof Status: a compact ledger of proved, partial, blocked, and deferred work.
+* Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
+  Kruskal skeleton, and finite-graph MST wrappers.
+* Proof Status: a planning board plus a compact ledger of proved, partial,
+  blocked, and deferred work.
 * Workflow: the contribution loop for adding or strengthening a CLRS section.
 
 ## Current Coverage
@@ -92,6 +94,8 @@ Start with the chapter pages in the sidebar.
   Current results: `CLRS.Chapter03.isLittleO_pow_pow`,
   `CLRS.Chapter03.isLittleO_pow_const_exp`,
   `CLRS.Chapter03.isLittleO_log_rpow`,
+  `CLRS.Chapter03.isLittleO_log_pow_rpow`,
+  `CLRS.Chapter03.isBigO_log_pow_rpow`,
   `CLRS.Chapter03.isLittleO_exp_exp_of_lt`,
   `CLRS.Chapter03.isEquivalent_harmonic_log`,
   `CLRS.Chapter03.isBigTheta_harmonic_log`,
@@ -115,8 +119,8 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter04.subarray_append_optimal_of_cases`,
   `CLRS.Chapter04.maxSubarray_exists_of_ne_nil`,
   `CLRS.Chapter04.maxSubarray_correct`.
-* 4.2 Strassen's algorithm: `future-work`.
-  Planned target: block-matrix reconstruction correctness.
+* 4.2 Strassen's algorithm: `proved` for 2 by 2 block algebra.
+  Public result: `CLRS.Chapter04.strassen2x2_correct`.
 * 4.3 Substitution method: `proved` for one-step recurrence bounds.
   Public results: `CLRS.Chapter04.substitution_upper_bound`,
   `CLRS.Chapter04.substitution_lower_bound`,
@@ -137,30 +141,64 @@ Start with the chapter pages in the sidebar.
   Public results: `CLRS.Chapter05.hireProbability_eq`,
   `CLRS.Chapter05.expectedHiresByIndicators_eq_harmonic`,
   `CLRS.Chapter05.expectedHires_isBigTheta_log`.
-* 6.1 Heaps: `partial` for the CLRS array refinement.
+* 6.1 Heaps: `proved` for the indexed heap predicate and root maximum.
   Public results: `CLRS.Chapter06.parent_lt_self`,
   `CLRS.Chapter06.eq_left_or_right_parent`,
   `CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`,
   `CLRS.Chapter06.orderedDesc_arrayMaxHeap`.
-* 6.2 Maintaining the heap property: `partial`.
+* 6.2 Maintaining the heap property: `proved` for fuelled `MAX-HEAPIFY`
+  recursive repair.
   Public results: `CLRS.Chapter06.swapAt_perm`,
   `CLRS.Chapter06.maxHeapifyFuel_perm`,
   `CLRS.Chapter06.valAt_i_le_maxChildIndex`,
-  `CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`.
-* 6.3 Building a heap: `partial`.
-  Public results: `CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`,
-  `CLRS.Chapter06.arrayBuildMaxHeap_perm`.
-* 6.4 The heapsort algorithm: `proved` for the functional heapsort model and
-  `partial` for the in-place CLRS loop refinement.
-  Public results: `CLRS.Chapter06.arrayHeapSort_orderedAsc`,
-  `CLRS.Chapter06.arrayHeapSort_perm`.
+  `CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`,
+  `CLRS.Chapter06.maxHeapifyFuel_swap_branch_repair`,
+  `CLRS.Chapter06.maxHeapifyFuel_repair_subtree`,
+  `CLRS.Chapter06.maxHeapifyFuel_root_isMaxHeap`.
+* 6.3 Building a heap: `proved` for bottom-up repeated heapify.
+  Public results: `CLRS.Chapter06.buildMaxHeapLoop_isMaxHeap`,
+  `CLRS.Chapter06.buildMaxHeapLoop_perm`,
+  `CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap`,
+  `CLRS.Chapter06.arrayBuildMaxHeap_correct`.
+* 6.4 The heapsort algorithm: `proved` for the in-place CLRS loop refinement.
+  Public results: `CLRS.Chapter06.arrayHeapSortInPlaceLoop_perm`,
+  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_length`,
+  `CLRS.Chapter06.arrayHeapSortInPlace_perm`,
+  `CLRS.Chapter06.arrayHeapSortInPlace_length`,
+  `CLRS.Chapter06.arrayHeapSortStep_suffix_head_eq_root`,
+  `CLRS.Chapter06.arrayHeapSortStep_suffix_head_bounds_prefix`,
+  `CLRS.Chapter06.HeapSortLoopInvariant.step`,
+  `CLRS.Chapter06.arrayHeapSortStep_state_correct`,
+  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_terminal_invariant`,
+  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_orderedAsc`,
+  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_state_correct`,
+  `CLRS.Chapter06.arrayHeapSortInPlaceLoop_exact_state_correct`,
+  `CLRS.Chapter06.arrayHeapSortInPlace_terminal_invariant`,
+  `CLRS.Chapter06.arrayHeapSortInPlace_orderedAsc`,
+  `CLRS.Chapter06.arrayHeapSortInPlace_state_correct`,
+  `CLRS.Chapter06.arrayHeapSortInPlace_exact_state_correct`,
+  `CLRS.Chapter06.arrayHeapSortInPlace_correct`,
+  `CLRS.Chapter06.arrayHeapSort_terminal_invariant`,
+  `CLRS.Chapter06.arrayHeapSort_state_correct`,
+  `CLRS.Chapter06.arrayHeapSort_exact_state_correct`,
+  `CLRS.Chapter06.arrayHeapSort_orderedAsc`,
+  `CLRS.Chapter06.arrayHeapSort_perm`,
+  `CLRS.Chapter06.arrayHeapSort_correct`.
 * 6.5 Priority queues: `proved` for the functional heap interface plus
-  array-level `HEAP-MAXIMUM`.
+  array-level `HEAP-MAXIMUM`, full fuelled `HEAP-INCREASE-KEY`, and
+  `HEAP-EXTRACT-MAX` / `HEAP-DELETE`.
   Public results: `CLRS.Chapter06.heapInsert_orderedDesc`,
   `CLRS.Chapter06.heapInsert_perm`,
   `CLRS.Chapter06.heapIncreaseKey_orderedDesc`,
   `CLRS.Chapter06.heapDelete_orderedDesc`,
-  `CLRS.Chapter06.arrayHeapMaximum?_max`.
+  `CLRS.Chapter06.arrayHeapMaximum?_max`,
+  `CLRS.Chapter06.ArrayMaxHeap.set_increased_except_up`,
+  `CLRS.Chapter06.ArrayMaxHeapExceptUp.bubble_step`,
+  `CLRS.Chapter06.ArrayMaxHeapExceptUp.bubbleUpFuel_global`,
+  `CLRS.Chapter06.arrayHeapIncreaseKey?_state_correct`,
+  `CLRS.Chapter06.arrayHeapIncreaseKeyNoBubble?_state_correct`,
+  `CLRS.Chapter06.arrayHeapExtractMax?_state_correct`,
+  `CLRS.Chapter06.arrayHeapDelete?_state_correct`.
 * 10.1 Stacks and queues: `proved` for the functional-list model.
   Public results: `CLRS.Chapter10.pop_push`,
   `CLRS.Chapter10.dequeue_enqueue_nonempty`.
@@ -198,19 +236,47 @@ Start with the chapter pages in the sidebar.
   Current results: `CLRS.ActivitySelection.earliest_finish_minFinish`,
   `CLRS.ActivitySelection.finishSorted_head_minFinish`,
   `CLRS.ActivitySelection.finishSorted_greedyChoiceCertificate`,
+  `CLRS.ActivitySelection.activitySelection`,
+  `CLRS.ActivitySelection.activitySelection_cons_eq`,
+  `CLRS.ActivitySelection.greedySelect_cons_eq`,
   `CLRS.ActivitySelection.greedySelect_sublist`,
   `CLRS.ActivitySelection.greedySelect_feasible`,
   `CLRS.ActivitySelection.greedy_choice_optimal_from_certificate`,
-  `CLRS.ActivitySelection.greedySelect_maxCardinality`.
+  `CLRS.ActivitySelection.greedySelect_after_maxCardinality`,
+  `CLRS.ActivitySelection.greedySelect_cons_maxCardinality`,
+  `CLRS.ActivitySelection.greedySelect_maxCardinality`,
+  `CLRS.ActivitySelection.activitySelection_cons_maxCardinality`,
+  `CLRS.ActivitySelection.activitySelection_maxCardinality`,
+  `CLRS.ActivitySelection.greedySelect_optimal_length`,
+  `CLRS.ActivitySelection.greedySelect_cons_recursive_correct`,
+  `CLRS.ActivitySelection.activitySelection_cons_recursive_correct`,
+  `CLRS.ActivitySelection.activitySelection_cons_correct`,
+  `CLRS.ActivitySelection.activitySelection_correct`.
 * 16.3 Huffman codes: `proved`.
-  Public result: `CLRS.HuffmanV2.optimum_huffman_freqs`.
+  Public results: `CLRS.HuffmanV2.optimum_huffman_freqs`,
+  `CLRS.HuffmanV2.huffmanOfFreqs_correct`, and
+  `CLRS.HuffmanV2.huffmanOfFreqs_cost_le`.
 * 23.1 Growing a minimum spanning tree: `partial`.
-  Current result: `CLRS.MST.safe_edge_of_lightest_crossing`.
+  Current results:
+  `CLRS.MST.Graph.connected_crosses_cut`,
+  `CLRS.MST.FiniteGraph.minimumSpanningTree_of_mstExtending_empty`,
+  `CLRS.MST.FiniteGraph.mstExtending_empty_of_minimumSpanningTree`,
+  `CLRS.MST.FiniteGraph.minimumSpanningTree_iff_mstExtending_empty`,
+  `CLRS.MST.FiniteGraph.exists_crossing_tree_edge_of_cut`,
+  `CLRS.MST.FiniteGraph.exists_crossing_tree_edge_preserving_prefix`, and
+  `CLRS.MST.safe_edge_of_lightest_crossing`.
 * 23.2 Kruskal and Prim: `partial`.
   Current results:
   {lit}`CLRS.MST.processed_prefix_excludes_of_exact_component_kruskal`,
   {lit}`CLRS.MST.cut_certificate_of_exact_component_kruskal_prefix`,
-  {lit}`CLRS.MST.kruskal_optimal`.
+  {lit}`CLRS.MST.Graph.InsertedEdgeConnection`,
+  {lit}`CLRS.MST.Graph.exchangePath_connected_insert`,
+  {lit}`CLRS.MST.Graph.exchangePath_of_insert_connected`,
+  {lit}`CLRS.MST.Graph.exchangePath_iff_insertedEdgeConnection`,
+  {lit}`CLRS.MST.FiniteGraph.exchangePath_of_insert_connects_erased_edge`,
+  {lit}`CLRS.MST.FiniteGraph.exchangePath_iff_insertedEdgeConnection_of_spanningTree`,
+  {lit}`CLRS.MST.kruskal_optimal`, and
+  {lit}`CLRS.MST.FiniteGraph.kruskal_minimum_spanning_tree_of_cycle_test`.
 
 ## Status Policy
 

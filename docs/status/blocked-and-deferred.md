@@ -4,17 +4,20 @@ This page records work that is not hidden but also not claimed as complete.
 
 ## Deferred Implementation
 
-### Chapter 6 Array Heap Implementation
+### Chapter 6 RAM-Cost Refinement
 
 - Related section: Sections 6.1-6.5 - Heapsort and priority queues
 - Status: `deferred-implementation`
 
-The current Chapter 6 proof uses a functional descending-list max-heap.  It
-proves heap construction, maximum correctness, heapsort sortedness and
-permutation preservation, and priority-queue operation specifications.  A future
-refinement should prove the CLRS array representation, `MAX-HEAPIFY`,
-`BUILD-MAX-HEAP`, in-place heapsort swaps, index-based priority-queue updates,
-and the associated RAM-cost bounds.
+The current Chapter 6 proof no longer treats the functional descending-list
+heap as the main result.  It proves the indexed array heap layer, recursive
+fuelled `MAX-HEAPIFY`, bottom-up `BUILD-MAX-HEAP`, in-place heapsort with a
+shrinking heap prefix and sorted suffix, top-level heapsort sortedness and
+permutation preservation, and array-level priority-queue state theorems for
+maximum, increase-key, extract-max, and delete.
+
+The deferred implementation layer is now the line-by-line CLRS RAM-cost model,
+not the array heap proof itself.
 
 ### Union-Find Correctness
 

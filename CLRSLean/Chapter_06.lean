@@ -8,48 +8,91 @@ import CLRSLean.Chapter_06.Section_06_5_Priority_Queues
 # Chapter 6 - Heapsort
 
 Chapter 6 introduces heaps, the heapsort algorithm, and max-priority queues.
-The current CLRS-Lean pass has two layers.  The compact functional layer proves
-the mathematical heapsort specification: heap construction preserves elements,
-the heap maximum is genuinely maximal, and heapsort returns an ascending
-permutation.  The array layer adds the zero-based CLRS child/parent formulas,
-an indexed heap predicate, {lit}`MAX-HEAPIFY`'s {lit}`largest` choice facts,
-no-swap repair, swap permutation/read lemmas, and the array-level
-{lit}`HEAP-MAXIMUM`
-theorem.
+The current CLRS-Lean pass has two layers.  The compact functional layer remains
+as a small mathematical scaffold for sortedness and permutation facts.  The
+reader-facing array layer now contains the zero-based CLRS child/parent
+formulas, an indexed heap predicate, {lit}`MAX-HEAPIFY`'s recursive repair
+theorem, bottom-up {lit}`BUILD-MAX-HEAP` by repeated heapify, the executable
+in-place {lit}`HEAPSORT` loop with a proved sorted-suffix invariant and
+sortedness theorem, and the array-level {lit}`HEAP-MAXIMUM` theorem.
 
 ## Sections
 
-* 6.1 Heaps: {lit}`partial` for the CLRS array refinement.  Main results:
+* 6.1 Heaps: {lit}`proved` for the indexed heap predicate and root maximum.
+  Main results:
   {lit}`CLRS.Chapter06.parent_lt_self`,
   {lit}`CLRS.Chapter06.eq_left_or_right_parent`,
   {lit}`CLRS.Chapter06.ArrayMaxHeap.getElem_le_root`, and
-  {lit}`CLRS.Chapter06.orderedDesc_arrayMaxHeap`.
-* 6.2 Maintaining the heap property: {lit}`partial`.  Main results:
+  {lit}`CLRS.Chapter06.orderedDesc_arrayMaxHeap`; localized predicates:
+  {lit}`CLRS.Chapter06.ArrayMaxHeapFrom.to_global` and
+  {lit}`CLRS.Chapter06.ArrayMaxHeapExceptFrom.to_global`.
+* 6.2 Maintaining the heap property: {lit}`proved` for fuelled
+  {lit}`MAX-HEAPIFY` recursive repair.  Main results:
   {lit}`CLRS.Chapter06.swapAt_perm`,
-  {lit}`CLRS.Chapter06.maxHeapifyFuel_perm`, and
-  {lit}`CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`.
-* 6.3 Building a heap: {lit}`partial`, using the functional builder as the
-  current executable model.  Main results:
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_perm`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_valAt_of_heapSize_le`, and
+  {lit}`CLRS.Chapter06.arrayMaxHeap_of_except_of_maxChildIndex_self`;
+  recursive repair:
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_child_repair_after_swap`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_swap_branch_repair`,
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_repair_subtree` and
+  {lit}`CLRS.Chapter06.maxHeapifyFuel_root_isMaxHeap`.
+* 6.3 Building a heap: {lit}`proved` for the bottom-up repeated
+  {lit}`MAX-HEAPIFY` builder.  Main results:
+  {lit}`CLRS.Chapter06.ArrayMaxHeapFrom.of_half`,
+  {lit}`CLRS.Chapter06.buildMaxHeapLoop_isMaxHeap`,
+  {lit}`CLRS.Chapter06.buildMaxHeapLoop_perm`,
   {lit}`CLRS.Chapter06.arrayBuildMaxHeap_isMaxHeap` and
-  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_perm`.
-* 6.4 The heapsort algorithm: {lit}`proved` for the functional heapsort model,
-  and {lit}`partial` for the in-place CLRS loop refinement.  Main results:
-  {lit}`CLRS.Chapter06.arrayHeapSort_orderedAsc` and
-  {lit}`CLRS.Chapter06.arrayHeapSort_perm`.
-* 6.5 Priority queues: {lit}`proved` for the functional heap interface, with an
-  array-level maximum theorem.  Main results:
+  {lit}`CLRS.Chapter06.arrayBuildMaxHeap_correct`.
+* 6.4 The heapsort algorithm: {lit}`proved` for the in-place CLRS loop
+  refinement.  Loop facts:
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_length`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_perm`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_length`, and
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_perm`; invariant facts:
+  {lit}`CLRS.Chapter06.HeapSortLoopInvariant.initial`,
+  {lit}`CLRS.Chapter06.arrayHeapSortStep_suffix_head_eq_root`,
+  {lit}`CLRS.Chapter06.arrayHeapSortStep_suffix_head_bounds_prefix`,
+  {lit}`CLRS.Chapter06.HeapSortLoopInvariant.step`,
+  {lit}`CLRS.Chapter06.arrayHeapSortStep_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_exact_shrink_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_exact_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_terminal_invariant`, and
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_orderedAsc`; state package:
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_state_correct` and
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlaceLoop_exact_state_correct`.  Main
+  specification results:
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_orderedAsc`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_exact_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSortInPlace_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_eq_arrayHeapSortInPlace`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_terminal_invariant`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapSort_exact_state_correct`, and
+  {lit}`CLRS.Chapter06.arrayHeapSort_correct`.
+* 6.5 Priority queues: {lit}`proved` for the functional heap interface, with
+  array-level {lit}`HEAP-MAXIMUM`, full fuelled
+  {lit}`HEAP-INCREASE-KEY`, {lit}`HEAP-EXTRACT-MAX`, and
+  {lit}`HEAP-DELETE` state theorems.
+  Main results:
   {lit}`CLRS.Chapter06.heapInsert_orderedDesc`,
   {lit}`CLRS.Chapter06.heapInsert_perm`,
   {lit}`CLRS.Chapter06.heapIncreaseKey_orderedDesc`, and
   {lit}`CLRS.Chapter06.heapDelete_orderedDesc`; array result:
-  {lit}`CLRS.Chapter06.arrayHeapMaximum?_max`.
+  {lit}`CLRS.Chapter06.arrayHeapMaximum?_max`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeap.set_increased_except_up`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeapExceptUp.bubble_step`,
+  {lit}`CLRS.Chapter06.ArrayMaxHeapExceptUp.bubbleUpFuel_global`,
+  {lit}`CLRS.Chapter06.arrayHeapIncreaseKey?_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapIncreaseKeyNoBubble?_state_correct`,
+  {lit}`CLRS.Chapter06.arrayHeapExtractMax?_state_correct`, and
+  {lit}`CLRS.Chapter06.arrayHeapDelete?_state_correct`.
 
 ## Current Gaps
 
-The full recursive repair theorem for the swap branch of {lit}`MAX-HEAPIFY`,
-bottom-up {lit}`BUILD-MAX-HEAP` as repeated heapify, the in-place heapsort loop
-with shrinking heap prefix and sorted suffix, index-based {lit}`HEAP-INCREASE-KEY`
-and {lit}`HEAP-DELETE`, and runtime/RAM semantics remain refinement targets.
+Runtime/RAM semantics remain refinement targets.
 -/
 
 namespace CLRS
