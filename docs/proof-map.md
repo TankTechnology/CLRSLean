@@ -598,14 +598,16 @@ proved comparison-count and recurrence facts.
 - Main proved theorems:
   - `CLRS.Chapter07.harmonic_succ`
   - `CLRS.Chapter07.sum_expectedComparisons_eq`
+  - `CLRS.Chapter07.expectedComparisons_closed_form`
   - `CLRS.Chapter07.expectedComparisons_recurrence`
   - `CLRS.Chapter07.expectedComparisons_telescope`
+  - `CLRS.Chapter07.expectedComparisons_clrs_harmonic_bound`
   - `CLRS.Chapter07.expectedComparisons_harmonic_bound`
   - `CLRS.Chapter07.expectedComparisons_quadratic`
   - `CLRS.Chapter07.expectedComparisons_monotone`
 - Proof pattern: define the CLRS expected-comparison sequence over rationals,
-  prove the recurrence identity and telescoping closed form, then bound the
-  closed form by a harmonic-number envelope
+  expose the named closed form, prove the recurrence identity and telescoping
+  relation, then bound the closed form by harmonic-number envelopes
 - Current gap: give the recurrence a formal probability-space semantics for
   random pivot choices and add sharper `n log n` tail/lower-bound results
 

@@ -23,8 +23,10 @@ Main results:
 - Lemma {lit}`harmonic_le_n`: {lit}`H_n <= n`
 - Lemma {lit}`sum_mul_harmonic_eq`: {lit}`sum_{k=1}^{n} k H_k = n(n+1)/2 H_n - n(n-1)/4`
 - Lemma {lit}`sum_expectedComparisons_eq`: closed form of {lit}`sum_{k=0}^{n-1} T(k)`
+- Theorem {lit}`expectedComparisons_closed_form`: named CLRS closed-form formula
 - Theorem {lit}`expectedComparisons_recurrence`: closed form satisfies CLRS (7.4)
 - Theorem {lit}`expectedComparisons_telescope`: {lit}`(n+1)T(n+1) = (n+2)T(n) + 2n`
+- Theorem {lit}`expectedComparisons_clrs_harmonic_bound`: {lit}`T(n) <= 2(n+1)H_n`
 - Theorem {lit}`expectedComparisons_harmonic_bound`: {lit}`T(n) <= 2n H_n`
 - Theorem {lit}`expectedComparisons_quadratic`: {lit}`T(n) <= n^2`
 - Theorem {lit}`expectedComparisons_monotone`: {lit}`T(n) <= T(n+1)`
@@ -101,6 +103,11 @@ coefficients, not into a probability space.
 -/
 def expectedComparisons (n : Nat) : Rat :=
   2 * ((n : Rat) + 1) * harmonic n - 4 * (n : Rat)
+
+/-- Named CLRS closed form for randomized-quicksort expected comparisons. -/
+theorem expectedComparisons_closed_form (n : Nat) :
+    expectedComparisons n = 2 * ((n : Rat) + 1) * harmonic n - 4 * (n : Rat) :=
+  rfl
 
 @[simp]
 theorem expectedComparisons_zero : expectedComparisons 0 = 0 := by
@@ -258,6 +265,16 @@ theorem expectedComparisons_harmonic_bound (n : Nat) :
     expectedComparisons n ≤ 2 * (n : Rat) * harmonic n := by
   have hle : harmonic n ≤ (n : Rat) := harmonic_le_n n
   rw [expectedComparisons]
+  nlinarith
+
+/--
+CLRS-facing harmonic upper bound using the closed-form scale
+{lit}`2(n+1)H_n`.
+-/
+theorem expectedComparisons_clrs_harmonic_bound (n : Nat) :
+    expectedComparisons n ≤ 2 * ((n : Rat) + 1) * harmonic n := by
+  rw [expectedComparisons_closed_form]
+  have hn : 0 ≤ (4 : Rat) * (n : Rat) := by positivity
   nlinarith
 
 /--

@@ -7,10 +7,10 @@ import CLRSLean.Chapter_07.Section_07_3_Randomized_Quicksort
 
 Chapter 7 now has three compiler-clean proof layers: the functional quicksort
 correctness spine, a deterministic comparison-count upper bound, and the
-expected-comparison recurrence with harmonic bounds for the current
-randomized-quicksort model.  The remaining gap is not the recurrence algebra
-itself, but the lower-level CLRS array refinement and an explicit probability
-space for random pivot choices.
+expected-comparison recurrence with a named closed form and harmonic bounds for
+the current randomized-quicksort model.  The remaining gap is not the recurrence
+algebra itself, but the lower-level CLRS array refinement and an explicit
+probability space for random pivot choices.
 
 ## Sections
 
@@ -40,8 +40,10 @@ space for random pivot choices.
   {lit}`CLRS.Chapter07.harmonic_succ`,
   {lit}`CLRS.Chapter07.sum_mul_harmonic_eq`,
   {lit}`CLRS.Chapter07.sum_expectedComparisons_eq`,
+  {lit}`CLRS.Chapter07.expectedComparisons_closed_form`,
   {lit}`CLRS.Chapter07.expectedComparisons_recurrence`,
   {lit}`CLRS.Chapter07.expectedComparisons_telescope`,
+  {lit}`CLRS.Chapter07.expectedComparisons_clrs_harmonic_bound`,
   {lit}`CLRS.Chapter07.expectedComparisons_harmonic_bound`,
   {lit}`CLRS.Chapter07.expectedComparisons_quadratic`, and
   {lit}`CLRS.Chapter07.expectedComparisons_monotone`.

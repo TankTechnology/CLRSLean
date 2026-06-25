@@ -57,7 +57,8 @@ which areas should not yet be counted as proof-complete.
   wrapper with an explicit adjacent-swap trace, functional quicksort
   sortedness/permutation preservation, a deterministic quadratic
   comparison-count bound, and the randomized-quicksort expected-comparison
-  recurrence with harmonic bounds are proved for the current models.
+  recurrence with a named closed form and harmonic bounds are proved for the
+  current models.
 * Chapter 8, Sections 8.2-8.4: stable counting-sort bucket correctness,
   abstract radix-sort correctness plus complete digit-signature stability from
   stable digit passes, a concrete base-{lit}`b` natural-key radix wrapper, a
@@ -381,8 +382,10 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter07.harmonic_succ`,
   {lit}`CLRS.Chapter07.sum_mul_harmonic_eq`,
   {lit}`CLRS.Chapter07.sum_expectedComparisons_eq`,
+  {lit}`CLRS.Chapter07.expectedComparisons_closed_form`,
   {lit}`CLRS.Chapter07.expectedComparisons_recurrence`,
   {lit}`CLRS.Chapter07.expectedComparisons_telescope`,
+  {lit}`CLRS.Chapter07.expectedComparisons_clrs_harmonic_bound`,
   {lit}`CLRS.Chapter07.expectedComparisons_harmonic_bound`,
   {lit}`CLRS.Chapter07.expectedComparisons_quadratic`, and
   {lit}`CLRS.Chapter07.expectedComparisons_monotone`.

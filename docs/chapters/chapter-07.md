@@ -2,10 +2,10 @@
 
 Chapter 7 now has three compiler-clean proof layers: the quicksort correctness
 spine, a deterministic comparison-count upper bound, and the
-randomized-quicksort expected-comparison recurrence with harmonic bounds.  The
-remaining gap is not the recurrence algebra itself, but the lower-level CLRS
-array refinement and an explicit probability-space interpretation of random
-pivot choices.
+randomized-quicksort expected-comparison recurrence with a named closed form
+and harmonic bounds.  The remaining gap is not the recurrence algebra itself,
+but the lower-level CLRS array refinement and an explicit probability-space
+interpretation of random pivot choices.
 
 ## Section 7.1 - Description of quicksort
 
@@ -104,7 +104,7 @@ The theorem layer proves:
 
 - Lean source: `CLRSLean/Chapter_07/Section_07_3_Randomized_Quicksort.lean`
 - Status: `proved` for the expected-comparison recurrence model
-- Main theorem: `CLRS.Chapter07.expectedComparisons_harmonic_bound`
+- Main theorem: `CLRS.Chapter07.expectedComparisons_clrs_harmonic_bound`
 
 The section formalizes the CLRS expected-comparison sequence as a deterministic
 recurrence over rationals.  It proves the recurrence identity, a telescoping
@@ -117,11 +117,15 @@ The theorem layer proves:
   telescoping.
 - `CLRS.Chapter07.sum_expectedComparisons_eq`: the recurrence sum is
   normalized into the closed-form expression.
+- `CLRS.Chapter07.expectedComparisons_closed_form`: the named CLRS closed-form
+  formula `T(n) = 2(n+1)H_n - 4n`.
 - `CLRS.Chapter07.expectedComparisons_recurrence`: the CLRS expected-comparison
   recurrence is satisfied.
 - `CLRS.Chapter07.expectedComparisons_telescope`: the telescoping closed form.
+- `CLRS.Chapter07.expectedComparisons_clrs_harmonic_bound`: the CLRS-facing
+  harmonic upper bound `T(n) <= 2(n+1)H_n`.
 - `CLRS.Chapter07.expectedComparisons_harmonic_bound`: the harmonic upper
-  bound.
+  bound `T(n) <= 2nH_n` used by the local recurrence model.
 - `CLRS.Chapter07.expectedComparisons_quadratic`: a coarse quadratic fallback
   bound.
 - `CLRS.Chapter07.expectedComparisons_monotone`: monotonicity of the expected
