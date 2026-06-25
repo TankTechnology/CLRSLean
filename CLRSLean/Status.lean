@@ -100,7 +100,8 @@ which areas should not yet be counted as proof-complete.
 * Chapter 12, Section 12.1: the functional BST theorem boundary is proved for
   search, min/max, insertion, complete successor/predecessor specifications,
   successor/predecessor existence wrappers, search-after-insert/delete wrappers,
-  and deletion wrappers; parent pointers, transplant, and mutation remain.
+  deletion wrappers, and successor/predecessor-after-delete wrappers; parent
+  pointers, transplant, and mutation remain.
 * Chapter 13, Section 13.1: local red-black rotation/recoloring invariants and
   the four local insertion-fixup case certificates are proved; composing them
   into full insertion and deletion fixup algorithms remains.
@@ -561,7 +562,11 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter12.BSTree.not_inTree_delete_self`,
   {lit}`CLRS.Chapter12.BSTree.delete_eq_self_of_not_inTree`,
   {lit}`CLRS.Chapter12.BSTree.search_delete_self_eq_false`,
-  and {lit}`CLRS.Chapter12.BSTree.search_delete_eq_true_iff`;
+  {lit}`CLRS.Chapter12.BSTree.search_delete_eq_true_iff`,
+  {lit}`CLRS.Chapter12.BSTree.successor?_delete_eq_some_iff`,
+  {lit}`CLRS.Chapter12.BSTree.successor?_delete_eq_none_iff`,
+  {lit}`CLRS.Chapter12.BSTree.predecessor?_delete_eq_some_iff`, and
+  {lit}`CLRS.Chapter12.BSTree.predecessor?_delete_eq_none_iff`;
   remaining gap: parent-pointer successor/predecessor procedures, transplant,
   and pointer-level mutation remain future section targets.
 * 13.1 Red-black trees:

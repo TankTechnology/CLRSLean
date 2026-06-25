@@ -931,6 +931,10 @@ stack top is list head, and queue front is list head with enqueue at the back.
   - `CLRS.Chapter12.BSTree.delete_eq_self_of_not_inTree`
   - `CLRS.Chapter12.BSTree.search_delete_self_eq_false`
   - `CLRS.Chapter12.BSTree.search_delete_eq_true_iff`
+  - `CLRS.Chapter12.BSTree.successor?_delete_eq_some_iff`
+  - `CLRS.Chapter12.BSTree.successor?_delete_eq_none_iff`
+  - `CLRS.Chapter12.BSTree.predecessor?_delete_eq_some_iff`
+  - `CLRS.Chapter12.BSTree.predecessor?_delete_eq_none_iff`
 - Proof pattern: inductive tree membership, bound predicates, ordered invariant,
   extremal-path recursion, iff specifications for successor/predecessor, and
   successor-replacement deletion
@@ -946,7 +950,9 @@ deletion removes exactly the requested key while preserving the BST ordering
 invariant.  Deleting a missing key is proved to leave an ordered tree
 unchanged, searching for a deleted key returns false, and the full
 search-after-delete wrapper says that exactly the old keys different from the
-deleted key remain searchable.
+deleted key remain searchable.  The successor/predecessor-after-delete wrappers
+state the same post-deletion view for extremal queries: the returned successor
+or predecessor is computed over the old tree with the deleted key excluded.
 
 ## Chapter 13 - Red-Black Trees
 

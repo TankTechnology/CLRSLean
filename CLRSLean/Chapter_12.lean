@@ -8,7 +8,8 @@ ordering invariant.  The current CLRS-Lean pass uses an inductive tree of natura
 keys and proves search, minimum/maximum, insertion, functional
 successor/predecessor, and functional deletion correctness for membership and
 ordering.  It now also exposes reader-facing wrappers for successor/predecessor
-existence and for Boolean search after insertion or deletion.
+existence, Boolean search after insertion/deletion, and successor/predecessor
+queries after deletion.
 
 ## Sections
 
@@ -33,6 +34,10 @@ existence and for Boolean search after insertion or deletion.
   {lit}`CLRS.Chapter12.BSTree.delete_eq_self_of_not_inTree`,
   {lit}`CLRS.Chapter12.BSTree.search_delete_self_eq_false`,
   {lit}`CLRS.Chapter12.BSTree.search_delete_eq_true_iff`,
+  {lit}`CLRS.Chapter12.BSTree.successor?_delete_eq_some_iff`,
+  {lit}`CLRS.Chapter12.BSTree.successor?_delete_eq_none_iff`,
+  {lit}`CLRS.Chapter12.BSTree.predecessor?_delete_eq_some_iff`,
+  {lit}`CLRS.Chapter12.BSTree.predecessor?_delete_eq_none_iff`,
   {lit}`CLRS.Chapter12.BSTree.delete_ordered`.
 
 ## Current Gaps

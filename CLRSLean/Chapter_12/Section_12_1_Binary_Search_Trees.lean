@@ -55,6 +55,18 @@ Main results:
   after deletion returns false.
 - Theorem {lit}`search_delete_eq_true_iff`: searching after deletion succeeds
   exactly for old keys different from the deleted key.
+- Theorem {lit}`successor?_delete_eq_some_iff`: after deletion, the returned
+  successor is the least old key above the query and different from the deleted
+  key.
+- Theorem {lit}`successor?_delete_eq_none_iff`: after deletion, no successor is
+  returned exactly when every old key except the deleted key is at most the
+  query.
+- Theorem {lit}`predecessor?_delete_eq_some_iff`: after deletion, the returned
+  predecessor is the greatest old key below the query and different from the
+  deleted key.
+- Theorem {lit}`predecessor?_delete_eq_none_iff`: after deletion, no
+  predecessor is returned exactly when every old key except the deleted key is
+  at least the query.
 
 Current gaps:
 
@@ -986,6 +998,108 @@ theorem search_delete_eq_true_iff {x y : Nat} {t : BSTree}
     have hyDeleted : InTree y (delete x t) :=
       (inTree_delete_iff (x := x) (y := y) ht).mpr ⟨hyOld, hyNe⟩
     exact (search_eq_true_iff hDeletedOrdered).mpr hyDeleted
+
+/-- Successor after deletion is the least old key above the query except the deleted key. -/
+theorem successor?_delete_eq_some_iff {x q s : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    successor? q (delete x t) = some s ↔
+      InTree s t ∧ s ≠ x ∧ q < s ∧
+        ∀ y, InTree y t → y ≠ x → q < y → s ≤ y := by
+  have hDeletedOrdered : Ordered (delete x t) := delete_ordered (x := x) ht
+  constructor
+  · intro hs
+    rcases (successor?_eq_some_iff hDeletedOrdered).mp hs with
+      ⟨hsDeleted, hqs, hLeastDeleted⟩
+    rcases (inTree_delete_iff (x := x) (y := s) ht).mp hsDeleted with
+      ⟨hsOld, hsNe⟩
+    exact ⟨
+      hsOld,
+      hsNe,
+      hqs,
+      by
+        intro y hyOld hyNe hqy
+        have hyDeleted : InTree y (delete x t) :=
+          (inTree_delete_iff (x := x) (y := y) ht).mpr ⟨hyOld, hyNe⟩
+        exact hLeastDeleted y hyDeleted hqy
+    ⟩
+  · intro hsSpec
+    rcases hsSpec with ⟨hsOld, hsNe, hqs, hLeastOld⟩
+    apply (successor?_eq_some_iff hDeletedOrdered).mpr
+    refine ⟨?_, hqs, ?_⟩
+    · exact (inTree_delete_iff (x := x) (y := s) ht).mpr ⟨hsOld, hsNe⟩
+    · intro y hyDeleted hqy
+      rcases (inTree_delete_iff (x := x) (y := y) ht).mp hyDeleted with
+        ⟨hyOld, hyNe⟩
+      exact hLeastOld y hyOld hyNe hqy
+
+/-- No successor remains after deletion exactly when every remaining old key is below the query. -/
+theorem successor?_delete_eq_none_iff {x q : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    successor? q (delete x t) = none ↔
+      ∀ y, InTree y t → y ≠ x → y ≤ q := by
+  have hDeletedOrdered : Ordered (delete x t) := delete_ordered (x := x) ht
+  constructor
+  · intro hs y hyOld hyNe
+    have hyDeleted : InTree y (delete x t) :=
+      (inTree_delete_iff (x := x) (y := y) ht).mpr ⟨hyOld, hyNe⟩
+    exact (successor?_eq_none_iff hDeletedOrdered).mp hs y hyDeleted
+  · intro hNoGreater
+    apply (successor?_eq_none_iff hDeletedOrdered).mpr
+    intro y hyDeleted
+    rcases (inTree_delete_iff (x := x) (y := y) ht).mp hyDeleted with
+      ⟨hyOld, hyNe⟩
+    exact hNoGreater y hyOld hyNe
+
+/-- Predecessor after deletion is the greatest old key below the query except the deleted key. -/
+theorem predecessor?_delete_eq_some_iff {x q p : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    predecessor? q (delete x t) = some p ↔
+      InTree p t ∧ p ≠ x ∧ p < q ∧
+        ∀ y, InTree y t → y ≠ x → y < q → y ≤ p := by
+  have hDeletedOrdered : Ordered (delete x t) := delete_ordered (x := x) ht
+  constructor
+  · intro hp
+    rcases (predecessor?_eq_some_iff hDeletedOrdered).mp hp with
+      ⟨hpDeleted, hpq, hGreatestDeleted⟩
+    rcases (inTree_delete_iff (x := x) (y := p) ht).mp hpDeleted with
+      ⟨hpOld, hpNe⟩
+    exact ⟨
+      hpOld,
+      hpNe,
+      hpq,
+      by
+        intro y hyOld hyNe hyq
+        have hyDeleted : InTree y (delete x t) :=
+          (inTree_delete_iff (x := x) (y := y) ht).mpr ⟨hyOld, hyNe⟩
+        exact hGreatestDeleted y hyDeleted hyq
+    ⟩
+  · intro hpSpec
+    rcases hpSpec with ⟨hpOld, hpNe, hpq, hGreatestOld⟩
+    apply (predecessor?_eq_some_iff hDeletedOrdered).mpr
+    refine ⟨?_, hpq, ?_⟩
+    · exact (inTree_delete_iff (x := x) (y := p) ht).mpr ⟨hpOld, hpNe⟩
+    · intro y hyDeleted hyq
+      rcases (inTree_delete_iff (x := x) (y := y) ht).mp hyDeleted with
+        ⟨hyOld, hyNe⟩
+      exact hGreatestOld y hyOld hyNe hyq
+
+/-- No predecessor remains after deletion exactly when every remaining old key is above the query. -/
+theorem predecessor?_delete_eq_none_iff {x q : Nat} {t : BSTree}
+    (ht : Ordered t) :
+    predecessor? q (delete x t) = none ↔
+      ∀ y, InTree y t → y ≠ x → q ≤ y := by
+  have hDeletedOrdered : Ordered (delete x t) := delete_ordered (x := x) ht
+  constructor
+  · intro hp y hyOld hyNe
+    have hyDeleted : InTree y (delete x t) :=
+      (inTree_delete_iff (x := x) (y := y) ht).mpr ⟨hyOld, hyNe⟩
+    exact (predecessor?_eq_none_iff hDeletedOrdered).mp hp y hyDeleted
+  · intro hNoLesser
+    apply (predecessor?_eq_none_iff hDeletedOrdered).mpr
+    intro y hyDeleted
+    rcases (inTree_delete_iff (x := x) (y := y) ht).mp hyDeleted with
+      ⟨hyOld, hyNe⟩
+    exact hNoLesser y hyOld hyNe
 
 /-! ## Membership after insertion -/
 
