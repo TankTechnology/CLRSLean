@@ -7,6 +7,9 @@
 ## Proved First-Pass Surface
 
 - `CLRS.Chapter18.BTree.search_correct`
+- `CLRS.Chapter18.BTree.minKeys_zero`
+- `CLRS.Chapter18.BTree.minKeys_pos`
+- `CLRS.Chapter18.BTree.one_le_minKeys`
 - `CLRS.Chapter18.BTree.minKeys_lower_bound`
 - `CLRS.Chapter18.BTree.minKeys_succ`
 - `CLRS.Chapter18.BTree.minKeys_le_succ`
@@ -34,9 +37,9 @@
 ## Remaining Work
 
 The current chapter uses a mathematical key-membership model, a minimum-key
-height-expression recurrence plus monotonicity facts, and specification wrappers
-for split/insert/delete, including direct split preservation corollaries and
-direct query corollaries for the inserted and deleted keys plus old-key
-preservation.
+height-expression base/positivity facts, recurrence, and monotonicity facts,
+and specification wrappers for split/insert/delete, including direct split
+preservation corollaries and direct query corollaries for the inserted and
+deleted keys plus old-key preservation.
 Full separator ordering, same-depth leaves, node-level deletion repair,
 disk-page I/O, and pointer-level mutation remain future refinements.

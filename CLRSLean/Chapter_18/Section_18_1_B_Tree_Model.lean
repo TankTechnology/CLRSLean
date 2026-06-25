@@ -12,6 +12,10 @@ Main results:
 
 - Theorem {lit}`BTree.search_correct`: Boolean search is equivalent to key
   membership.
+- Theorem {lit}`BTree.minKeys_zero`: the CLRS minimum-key expression is one at
+  height zero.
+- Theorems {lit}`BTree.minKeys_pos` and {lit}`BTree.one_le_minKeys`: for a
+  positive minimum degree, the expression is positive and at least one.
 - Theorem {lit}`BTree.minKeys_lower_bound`: the first-pass minimum-key function
   exposes the CLRS lower-bound expression {lit}`2 * t^h - 1`.
 - Theorem {lit}`BTree.minKeys_succ`: the CLRS lower-bound expression satisfies
@@ -72,6 +76,25 @@ B-tree of height {lit}`h` and minimum degree {lit}`minDegree`.
 -/
 def minKeys (minDegree height : Nat) : Nat :=
   2 * minDegree ^ height - 1
+
+/-- At height zero, the CLRS minimum-key expression is one. -/
+theorem minKeys_zero (minDegree : Nat) :
+    minKeys minDegree 0 = 1 := by
+  simp [minKeys]
+
+/-- With positive minimum degree, the CLRS minimum-key expression is positive. -/
+theorem minKeys_pos {minDegree height : Nat} (hdegree : 0 < minDegree) :
+    0 < minKeys minDegree height := by
+  unfold minKeys
+  have hpow : 0 < minDegree ^ height := pow_pos hdegree height
+  have hlt : 1 < 2 * minDegree ^ height := by omega
+  exact Nat.sub_pos_of_lt hlt
+
+/-- With positive minimum degree, the CLRS minimum-key expression is at least one. -/
+theorem one_le_minKeys {minDegree height : Nat} (hdegree : 0 < minDegree) :
+    1 <= minKeys minDegree height := by
+  exact Nat.succ_le_of_lt
+    (minKeys_pos (minDegree := minDegree) (height := height) hdegree)
 
 /-- The first-pass minimum-key function exposes the CLRS lower-bound expression. -/
 theorem minKeys_lower_bound {minDegree height : Nat}

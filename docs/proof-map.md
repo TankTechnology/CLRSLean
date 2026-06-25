@@ -1043,6 +1043,9 @@ future refinements.
 - Status: `partial`
 - Main proved theorems:
   - `CLRS.Chapter18.BTree.search_correct`
+  - `CLRS.Chapter18.BTree.minKeys_zero`
+  - `CLRS.Chapter18.BTree.minKeys_pos`
+  - `CLRS.Chapter18.BTree.one_le_minKeys`
   - `CLRS.Chapter18.BTree.minKeys_lower_bound`
   - `CLRS.Chapter18.BTree.minKeys_succ`
   - `CLRS.Chapter18.BTree.minKeys_le_succ`
@@ -1067,7 +1070,7 @@ future refinements.
   - `CLRS.Chapter18.BTree.delete_mem_of_ne`
   - `CLRS.Chapter18.BTree.delete_search_of_ne`
 - Proof pattern: mathematical key-set model, structural validity predicate,
-  minimum-key expression arithmetic and height monotonicity,
+  minimum-key expression base/positivity arithmetic and height monotonicity,
   specification-level split/insert/delete wrappers, search correctness reuse,
   direct split preservation corollaries, and direct inserted/deleted-key plus
   old-key query preservation corollaries
@@ -1080,8 +1083,9 @@ insertion, and deletion are proved against an abstract membership model, and
 the update wrappers expose direct search-after-update specifications plus
 direct split preservation and inserted/deleted-key plus old-key query
 preservation corollaries.  The height
-expression is packaged as a minimum-key lower bound and a height-step
-recurrence, plus adjacent and arbitrary-height monotonicity facts.  The current split,
+expression is packaged with a height-zero base case, positivity wrappers, a
+minimum-key lower bound and height-step recurrence, plus adjacent and
+arbitrary-height monotonicity facts.  The current split,
 insert, and delete operations are specification
 wrappers, so the chapter is still `partial` rather than a complete page-level
 mutation proof.

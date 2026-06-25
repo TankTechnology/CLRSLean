@@ -97,10 +97,10 @@ which areas should not yet be counted as proof-complete.
   post-state capacity corollaries, and insertion/deletion wrappers are proved;
   allocator and RAM refinements remain.
 * Chapter 18, Sections 18.1-18.3: a mathematical B-tree model has search,
-  minimum-key height-expression recurrence and monotonicity, split-child preservation,
-  split-child direct membership/search preservation, insertion/deletion membership, and
-  search-after-update theorem surfaces plus direct inserted/deleted-key and
-  old-key query preservation corollaries; full separator/same-depth,
+  minimum-key height-expression base/positivity facts, recurrence, and monotonicity,
+  split-child preservation, split-child direct membership/search preservation,
+  insertion/deletion membership, and search-after-update theorem surfaces plus
+  direct inserted/deleted-key and old-key query preservation corollaries; full separator/same-depth,
   node-level-deletion, and disk-page refinements remain.
 * Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
   empty-heap construction, empty-result query specs, direct
@@ -550,6 +550,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   CLRS load-factor potential refinements.
 * 18.1-18.3 B-trees:
   current results {lit}`CLRS.Chapter18.BTree.search_correct`,
+  {lit}`CLRS.Chapter18.BTree.minKeys_zero`,
+  {lit}`CLRS.Chapter18.BTree.minKeys_pos`,
+  {lit}`CLRS.Chapter18.BTree.one_le_minKeys`,
   {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
   {lit}`CLRS.Chapter18.BTree.minKeys_succ`,
   {lit}`CLRS.Chapter18.BTree.minKeys_le_succ`,

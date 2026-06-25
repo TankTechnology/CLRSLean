@@ -9,6 +9,9 @@ import CLRSLean.Chapter_18.Section_18_3_B_Tree_Deletion
 #check CLRS.Chapter18.BTree.search
 #check CLRS.Chapter18.BTree.search_correct
 #check CLRS.Chapter18.BTree.minKeys
+#check CLRS.Chapter18.BTree.minKeys_zero
+#check CLRS.Chapter18.BTree.minKeys_pos
+#check CLRS.Chapter18.BTree.one_le_minKeys
 #check CLRS.Chapter18.BTree.minKeys_lower_bound
 #check CLRS.Chapter18.BTree.minKeys_succ
 #check CLRS.Chapter18.BTree.minKeys_le_succ

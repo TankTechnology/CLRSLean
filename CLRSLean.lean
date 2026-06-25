@@ -99,9 +99,10 @@ Start with the chapter pages in the sidebar.
   potential/capacity-direction/stored-count direction/actual-cost
   case/post-state capacity/transition wrappers.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
-  height-expression recurrence and monotonicity, split, split membership/search
-  preservation, insertion, deletion, search-after-update theorem surface, and
-  direct inserted/deleted-key and old-key query preservation corollaries.
+  height-expression base/positivity/recurrence/monotonicity, split, split
+  membership/search preservation, insertion, deletion, search-after-update
+  theorem surface, and direct inserted/deleted-key and old-key query
+  preservation corollaries.
 * Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
   make-heap, operation-level correctness, direct
   insert/union/extract-min/decrease-key/delete membership facts plus
@@ -472,6 +473,9 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`.
 * 18.1-18.3 B-trees: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter18.BTree.search_correct`,
+  {lit}`CLRS.Chapter18.BTree.minKeys_zero`,
+  {lit}`CLRS.Chapter18.BTree.minKeys_pos`,
+  {lit}`CLRS.Chapter18.BTree.one_le_minKeys`,
   {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
   {lit}`CLRS.Chapter18.BTree.minKeys_succ`,
   {lit}`CLRS.Chapter18.BTree.minKeys_le_succ`,
