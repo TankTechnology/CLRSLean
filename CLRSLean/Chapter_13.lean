@@ -8,7 +8,8 @@ color and black-height invariants.  The current CLRS-Lean pass builds the local
 invariant layer: colored trees, membership preservation under rotations, the
 no-red-red property, black-height balance, root recoloring, and a bundled local
 red-black shape predicate.  It also isolates the four local
-{lit}`RB-INSERT-FIXUP` rotation/recoloring cases as small certificates.
+{lit}`RB-INSERT-FIXUP` rotation/recoloring cases as small certificates that
+preserve membership and local black height while establishing shape.
 
 ## Sections
 
@@ -27,6 +28,10 @@ red-black shape predicate.  It also isolates the four local
   {lit}`CLRS.Chapter13.RBTree.inTree_insertFixup_leftRight_iff`,
   {lit}`CLRS.Chapter13.RBTree.inTree_insertFixup_rightLeft_iff`,
   {lit}`CLRS.Chapter13.RBTree.inTree_insertFixup_rightRight_iff`,
+  {lit}`CLRS.Chapter13.RBTree.blackHeight_insertFixup_leftLeft`,
+  {lit}`CLRS.Chapter13.RBTree.blackHeight_insertFixup_leftRight`,
+  {lit}`CLRS.Chapter13.RBTree.blackHeight_insertFixup_rightLeft`,
+  {lit}`CLRS.Chapter13.RBTree.blackHeight_insertFixup_rightRight`,
   {lit}`CLRS.Chapter13.RBTree.redBlackShape_insertFixup_leftLeft`,
   {lit}`CLRS.Chapter13.RBTree.redBlackShape_insertFixup_leftRight`,
   {lit}`CLRS.Chapter13.RBTree.redBlackShape_insertFixup_rightLeft`, and

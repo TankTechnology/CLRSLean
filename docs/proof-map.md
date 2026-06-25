@@ -984,6 +984,10 @@ or predecessor is computed over the old tree with the deleted key excluded.
   - `CLRS.Chapter13.RBTree.inTree_insertFixup_leftRight_iff`
   - `CLRS.Chapter13.RBTree.inTree_insertFixup_rightLeft_iff`
   - `CLRS.Chapter13.RBTree.inTree_insertFixup_rightRight_iff`
+  - `CLRS.Chapter13.RBTree.blackHeight_insertFixup_leftLeft`
+  - `CLRS.Chapter13.RBTree.blackHeight_insertFixup_leftRight`
+  - `CLRS.Chapter13.RBTree.blackHeight_insertFixup_rightLeft`
+  - `CLRS.Chapter13.RBTree.blackHeight_insertFixup_rightRight`
   - `CLRS.Chapter13.RBTree.redBlackShape_insertFixup_leftLeft`
   - `CLRS.Chapter13.RBTree.redBlackShape_insertFixup_leftRight`
   - `CLRS.Chapter13.RBTree.redBlackShape_insertFixup_rightLeft`
@@ -991,8 +995,9 @@ or predecessor is computed over the old tree with the deleted key excluded.
 - Proof pattern: local colored-tree invariants, rotations, root recoloring,
   red-red rotation repair certificates, and four insertion-fixup local
   rotation/recoloring certificates.  Each insertion-fixup case separately
-  preserves local membership and establishes the bundled red-black shape
-  invariant from red-black-shaped fringe subtrees with matching black heights.
+  preserves local membership and black height, and establishes the bundled
+  red-black shape invariant from red-black-shaped fringe subtrees with matching
+  black heights.
 - Current gap: compose the local insertion-fixup certificates into executable
   `RB-INSERT`/`RB-INSERT-FIXUP`; full `RB-DELETE` and `RB-DELETE-FIXUP` are not
   mechanized

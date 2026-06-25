@@ -42,6 +42,12 @@ Main results:
   {lit}`RBTree.redBlackShape_insertFixup_rightRight`: four local
   {lit}`RB-INSERT-FIXUP` rotation/recoloring cases establish the bundled shape
   invariant.
+- Theorems {lit}`RBTree.blackHeight_insertFixup_leftLeft`,
+  {lit}`RBTree.blackHeight_insertFixup_leftRight`,
+  {lit}`RBTree.blackHeight_insertFixup_rightLeft`, and
+  {lit}`RBTree.blackHeight_insertFixup_rightRight`: the same four local
+  insertion-fixup rewrites preserve the subtree black height needed by a parent
+  context.
 
 Current gaps:
 
@@ -366,6 +372,46 @@ theorem inTree_insertFixup_rightRight_iff
       InTree q
         (node Color.black a w (node Color.red b x (node Color.red c y d))) := by
   simp [insertFixupRightRight, InTree, or_assoc, or_left_comm]
+
+/-- The left-left insertion-fixup case preserves local black height. -/
+theorem blackHeight_insertFixup_leftLeft
+    (a b c d : RBTree) (w x y : Nat) :
+    blackHeight
+        (insertFixupLeftLeft
+          (node Color.black (node Color.red (node Color.red a w b) x c) y d)) =
+      blackHeight
+        (node Color.black (node Color.red (node Color.red a w b) x c) y d) := by
+  simp [insertFixupLeftLeft, blackHeight]
+
+/-- The left-right insertion-fixup case preserves local black height. -/
+theorem blackHeight_insertFixup_leftRight
+    (a b c d : RBTree) (w x y : Nat) :
+    blackHeight
+        (insertFixupLeftRight
+          (node Color.black (node Color.red a w (node Color.red b x c)) y d)) =
+      blackHeight
+        (node Color.black (node Color.red a w (node Color.red b x c)) y d) := by
+  simp [insertFixupLeftRight, blackHeight]
+
+/-- The right-left insertion-fixup case preserves local black height. -/
+theorem blackHeight_insertFixup_rightLeft
+    (a b c d : RBTree) (w x y : Nat) :
+    blackHeight
+        (insertFixupRightLeft
+          (node Color.black a w (node Color.red (node Color.red b x c) y d))) =
+      blackHeight
+        (node Color.black a w (node Color.red (node Color.red b x c) y d)) := by
+  simp [insertFixupRightLeft, blackHeight]
+
+/-- The right-right insertion-fixup case preserves local black height. -/
+theorem blackHeight_insertFixup_rightRight
+    (a b c d : RBTree) (w x y : Nat) :
+    blackHeight
+        (insertFixupRightRight
+          (node Color.black a w (node Color.red b x (node Color.red c y d)))) =
+      blackHeight
+        (node Color.black a w (node Color.red b x (node Color.red c y d))) := by
+  simp [insertFixupRightRight, blackHeight]
 
 /-- The left-left local insertion-fixup case establishes red-black shape. -/
 theorem redBlackShape_insertFixup_leftLeft
