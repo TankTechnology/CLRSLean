@@ -50,9 +50,15 @@ import CLRSLean.Chapter_20.Section_20_2_VEB_Tree
 #check CLRS.Chapter20.VEB.insert_maximum_lt_univ
 #check CLRS.Chapter20.VEB.insert_maximum_none_iff
 #check CLRS.Chapter20.VEB.insert_successor_correct
+#check CLRS.Chapter20.VEB.insert_successor_mem
+#check CLRS.Chapter20.VEB.insert_successor_gt
+#check CLRS.Chapter20.VEB.insert_successor_le
 #check CLRS.Chapter20.VEB.insert_successor_lt_univ
 #check CLRS.Chapter20.VEB.insert_successor_none_iff
 #check CLRS.Chapter20.VEB.insert_predecessor_correct
+#check CLRS.Chapter20.VEB.insert_predecessor_mem
+#check CLRS.Chapter20.VEB.insert_predecessor_lt
+#check CLRS.Chapter20.VEB.insert_le_predecessor
 #check CLRS.Chapter20.VEB.insert_predecessor_lt_univ
 #check CLRS.Chapter20.VEB.insert_predecessor_none_iff
 #check CLRS.Chapter20.VEB.delete_correct

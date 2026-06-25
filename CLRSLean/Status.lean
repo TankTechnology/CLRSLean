@@ -124,9 +124,9 @@ which areas should not yet be counted as proof-complete.
   query universe-bound corollaries, membership-, extrema-, and
   neighbor-query-after-update positive/no-neighbor specs, extrema
   empty-after-update specs, direct extrema membership/lower- and upper-bound
-  wrappers, direct neighbor membership/order wrappers, direct member-query
-  preservation and failure corollaries, update-query universe-bound corollaries,
-  and operation-depth
+  wrappers, direct base/insertion neighbor membership/order wrappers, direct
+  member-query preservation and failure corollaries, update-query
+  universe-bound corollaries, and operation-depth
   recurrence/monotonicity specs, are proved; recursive cluster representation
   and the {lit}`O(log log u)` bridge remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
@@ -720,9 +720,15 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter20.VEB.insert_maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_successor_mem`,
+  {lit}`CLRS.Chapter20.VEB.insert_successor_gt`,
+  {lit}`CLRS.Chapter20.VEB.insert_successor_le`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_predecessor_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_predecessor_mem`,
+  {lit}`CLRS.Chapter20.VEB.insert_predecessor_lt`,
+  {lit}`CLRS.Chapter20.VEB.insert_le_predecessor`,
   {lit}`CLRS.Chapter20.VEB.insert_predecessor_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_correct`,

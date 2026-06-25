@@ -59,6 +59,11 @@ Main results:
   {lit}`VEB.insert_predecessor_correct`, {lit}`VEB.delete_successor_correct`,
   and {lit}`VEB.delete_predecessor_correct`: successor and predecessor queries
   after updates are extrema of the updated filtered finite set.
+- Theorems {lit}`VEB.insert_successor_mem`, {lit}`VEB.insert_successor_gt`,
+  {lit}`VEB.insert_successor_le`, {lit}`VEB.insert_predecessor_mem`,
+  {lit}`VEB.insert_predecessor_lt`, and {lit}`VEB.insert_le_predecessor`:
+  direct membership and order corollaries for returned neighbors after
+  insertion.
 - Theorems {lit}`VEB.insert_member_lt_univ`,
   {lit}`VEB.insert_minimum_lt_univ`, {lit}`VEB.insert_maximum_lt_univ`,
   {lit}`VEB.insert_successor_lt_univ`,
@@ -557,6 +562,31 @@ theorem insert_successor_correct {t : Tree} {s : Finset Nat} {x q y : Nat}
   · intro z hz hqz
     exact hsucc'.2.2 z (by simpa [Finset.mem_insert] using hz) hqz
 
+/-- A returned successor after insertion is either the inserted key or an old key. -/
+theorem insert_successor_mem {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hsucc : successor q (insert x t) = some y) :
+    y = x ∨ y ∈ s := by
+  exact (insert_successor_correct
+    (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hsucc).1
+
+/-- A returned successor after insertion is greater than the query. -/
+theorem insert_successor_gt {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hsucc : successor q (insert x t) = some y) :
+    q < y := by
+  exact (insert_successor_correct
+    (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hsucc).2.1
+
+/-- A returned successor after insertion is no larger than any updated greater key. -/
+theorem insert_successor_le {t : Tree} {s : Finset Nat} {x q y z : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hsucc : successor q (insert x t) = some y)
+    (hz : z = x ∨ z ∈ s) (hqz : q < z) :
+    y <= z := by
+  exact (insert_successor_correct
+    (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hsucc).2.2 z hz hqz
+
 /-- A returned successor after insertion lies inside the represented universe. -/
 theorem insert_successor_lt_univ {t : Tree} {s : Finset Nat} {x q y : Nat}
     (hrep : Represents t s) (hx : x < t.univSize)
@@ -594,6 +624,31 @@ theorem insert_predecessor_correct {t : Tree} {s : Finset Nat} {x q y : Nat}
   · simpa [Finset.mem_insert] using hpred'.1
   · intro z hz hzq
     exact hpred'.2.2 z (by simpa [Finset.mem_insert] using hz) hzq
+
+/-- A returned predecessor after insertion is either the inserted key or an old key. -/
+theorem insert_predecessor_mem {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hpred : predecessor q (insert x t) = some y) :
+    y = x ∨ y ∈ s := by
+  exact (insert_predecessor_correct
+    (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hpred).1
+
+/-- A returned predecessor after insertion is less than the query. -/
+theorem insert_predecessor_lt {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hpred : predecessor q (insert x t) = some y) :
+    y < q := by
+  exact (insert_predecessor_correct
+    (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hpred).2.1
+
+/-- Any updated key less than the query is no larger than a returned predecessor. -/
+theorem insert_le_predecessor {t : Tree} {s : Finset Nat} {x q y z : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hpred : predecessor q (insert x t) = some y)
+    (hz : z = x ∨ z ∈ s) (hzq : z < q) :
+    z <= y := by
+  exact (insert_predecessor_correct
+    (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hpred).2.2 z hz hzq
 
 /-- A returned predecessor after insertion lies inside the represented universe. -/
 theorem insert_predecessor_lt_univ {t : Tree} {s : Finset Nat} {x q y : Nat}

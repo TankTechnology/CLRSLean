@@ -49,9 +49,15 @@
 - `CLRS.Chapter20.VEB.insert_maximum_lt_univ`
 - `CLRS.Chapter20.VEB.insert_maximum_none_iff`
 - `CLRS.Chapter20.VEB.insert_successor_correct`
+- `CLRS.Chapter20.VEB.insert_successor_mem`
+- `CLRS.Chapter20.VEB.insert_successor_gt`
+- `CLRS.Chapter20.VEB.insert_successor_le`
 - `CLRS.Chapter20.VEB.insert_successor_lt_univ`
 - `CLRS.Chapter20.VEB.insert_successor_none_iff`
 - `CLRS.Chapter20.VEB.insert_predecessor_correct`
+- `CLRS.Chapter20.VEB.insert_predecessor_mem`
+- `CLRS.Chapter20.VEB.insert_predecessor_lt`
+- `CLRS.Chapter20.VEB.insert_le_predecessor`
 - `CLRS.Chapter20.VEB.insert_predecessor_lt_univ`
 - `CLRS.Chapter20.VEB.insert_predecessor_none_iff`
 - `CLRS.Chapter20.VEB.delete_correct`
@@ -85,10 +91,10 @@ high/low recomposition facts, and finite-set operation specifications.
 It also records direct member-query corollaries for inserted/deleted keys,
 old-key preservation, and exact failed member queries after updates,
 successful-query universe-bound corollaries, direct extrema
-membership/lower- and upper-bound wrappers, direct neighbor membership/order
-wrappers, positive and empty-result extrema-after-update specs, positive and
-no-neighbor update-query specs, update-query universe-bound corollaries, plus
-the first-pass operation-depth
+membership/lower- and upper-bound wrappers, direct base/insertion neighbor
+membership/order wrappers, positive and empty-result extrema-after-update
+specs, positive and no-neighbor update-query specs, update-query
+universe-bound corollaries, plus the first-pass operation-depth
 base, step, linear, and monotonicity facts.
 Recursive summary/cluster state, word-RAM base cases, and a full `O(log log u)`
 asymptotic bridge are still open.
