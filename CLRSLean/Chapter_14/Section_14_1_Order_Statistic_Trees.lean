@@ -21,10 +21,14 @@ Main results:
 
 * Theorem {lit}`storedSize_eq_realSize_of_wellSized`: a well-sized tree has a
   correct root size field.
+* Theorem {lit}`realSize_recomputeSizes`: recomputing cached size fields
+  preserves the mathematical subtree size.
 * Theorem {lit}`recomputeSizes_wellSized`: recomputing size fields establishes
   the augmentation invariant.
 * Theorem {lit}`keys_recomputeSizes`: recomputing size fields preserves the
   inorder key sequence.
+* Theorem {lit}`rankSelect?_recomputeSizes`: recomputing size fields preserves
+  the ideal rank-selection result.
 * Theorems {lit}`keys_rotateLeft` and {lit}`keys_rotateRight`: rotations
   preserve the inorder key sequence.
 * Theorems {lit}`rotateLeft_wellSized` and {lit}`rotateRight_wellSized`:
@@ -41,6 +45,13 @@ Main results:
   {lit}`osSelect?_rotateRight_eq_rankSelect?_of_wellSized`: after a
   size-preserving rotation, the augmented selector still implements the
   original ideal rank selector.
+* Theorems {lit}`rotateLeft_recomputeSizes_wellSized` and
+  {lit}`rotateRight_recomputeSizes_wellSized`: recompute-then-rotate produces a
+  well-sized tree from any input tree.
+* Theorems {lit}`osSelect?_rotateLeft_recomputeSizes_eq_rankSelect?` and
+  {lit}`osSelect?_rotateRight_recomputeSizes_eq_rankSelect?`: recompute-then-
+  rotate preserves the augmented selector's agreement with the original ideal
+  rank selector.
 
 Current gaps:
 
@@ -165,6 +176,15 @@ theorem keys_recomputeSizes (t : OSTree) :
       rfl
   | node left key size right ihLeft ihRight =>
       simp [recomputeSizes, keys, ihLeft, ihRight]
+
+/-- Recomputing cached size fields preserves the mathematical subtree size. -/
+theorem realSize_recomputeSizes (t : OSTree) :
+    realSize (recomputeSizes t) = realSize t := by
+  induction t with
+  | empty =>
+      rfl
+  | node left key size right ihLeft ihRight =>
+      simp [recomputeSizes, realSize, ihLeft, ihRight]
 
 /-- Recomputing cached size fields establishes the size augmentation invariant. -/
 theorem recomputeSizes_wellSized (t : OSTree) :
@@ -393,6 +413,21 @@ theorem osSelect?_eq_rankSelect?_of_wellSized {t : OSTree} {i : Nat}
         · simp [osSelect?, rankSelect?, hLeftSize, heq]
         · simp [osSelect?, rankSelect?, hLeftSize, hlt, heq, ihRight hRight]
 
+/-- Recomputing size fields preserves the ideal rank selector. -/
+theorem rankSelect?_recomputeSizes (t : OSTree) (i : Nat) :
+    rankSelect? (recomputeSizes t) i = rankSelect? t i := by
+  induction t generalizing i with
+  | empty =>
+      rfl
+  | node left key size right ihLeft ihRight =>
+      have hLeftSize : realSize (recomputeSizes left) = realSize left :=
+        realSize_recomputeSizes left
+      by_cases hlt : i < realSize left
+      · simp [recomputeSizes, rankSelect?, hLeftSize, hlt, ihLeft]
+      · by_cases heq : i = realSize left
+        · simp [recomputeSizes, rankSelect?, hLeftSize, heq]
+        · simp [recomputeSizes, rankSelect?, hLeftSize, hlt, heq, ihRight]
+
 /--
 After a size-preserving left rotation, the augmented selector still implements
 the original ideal rank selector.
@@ -424,6 +459,40 @@ selector without requiring an external invariant proof.
 theorem osSelect?_recomputeSizes_eq_rankSelect? (t : OSTree) (i : Nat) :
     osSelect? (recomputeSizes t) i = rankSelect? (recomputeSizes t) i := by
   exact osSelect?_eq_rankSelect?_of_wellSized (recomputeSizes_wellSized t)
+
+/-- Recomputing size fields and then rotating left produces a well-sized tree. -/
+theorem rotateLeft_recomputeSizes_wellSized (t : OSTree) :
+    WellSized (rotateLeft (recomputeSizes t)) := by
+  exact rotateLeft_wellSized (recomputeSizes_wellSized t)
+
+/-- Recomputing size fields and then rotating right produces a well-sized tree. -/
+theorem rotateRight_recomputeSizes_wellSized (t : OSTree) :
+    WellSized (rotateRight (recomputeSizes t)) := by
+  exact rotateRight_wellSized (recomputeSizes_wellSized t)
+
+/--
+After recomputing size fields and rotating left, the augmented selector still
+implements the original ideal rank selector.
+-/
+theorem osSelect?_rotateLeft_recomputeSizes_eq_rankSelect? (t : OSTree) (i : Nat) :
+    osSelect? (rotateLeft (recomputeSizes t)) i = rankSelect? t i := by
+  calc
+    osSelect? (rotateLeft (recomputeSizes t)) i =
+        rankSelect? (recomputeSizes t) i :=
+      osSelect?_rotateLeft_eq_rankSelect?_of_wellSized (recomputeSizes_wellSized t)
+    _ = rankSelect? t i := rankSelect?_recomputeSizes t i
+
+/--
+After recomputing size fields and rotating right, the augmented selector still
+implements the original ideal rank selector.
+-/
+theorem osSelect?_rotateRight_recomputeSizes_eq_rankSelect? (t : OSTree) (i : Nat) :
+    osSelect? (rotateRight (recomputeSizes t)) i = rankSelect? t i := by
+  calc
+    osSelect? (rotateRight (recomputeSizes t)) i =
+        rankSelect? (recomputeSizes t) i :=
+      osSelect?_rotateRight_eq_rankSelect?_of_wellSized (recomputeSizes_wellSized t)
+    _ = rankSelect? t i := rankSelect?_recomputeSizes t i
 
 end OSTree
 

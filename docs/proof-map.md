@@ -1016,11 +1016,19 @@ full balancing algorithms.
   - `CLRS.Chapter14.OSTree.osSelect?_rotateLeft_eq_rankSelect?_of_wellSized`
   - `CLRS.Chapter14.OSTree.osSelect?_rotateRight_eq_rankSelect?_of_wellSized`
   - `CLRS.Chapter14.OSTree.osSelect?_recomputeSizes_eq_rankSelect?`
+  - `CLRS.Chapter14.OSTree.realSize_recomputeSizes`
+  - `CLRS.Chapter14.OSTree.rankSelect?_recomputeSizes`
+  - `CLRS.Chapter14.OSTree.rotateLeft_recomputeSizes_wellSized`
+  - `CLRS.Chapter14.OSTree.rotateRight_recomputeSizes_wellSized`
+  - `CLRS.Chapter14.OSTree.osSelect?_rotateLeft_recomputeSizes_eq_rankSelect?`
+  - `CLRS.Chapter14.OSTree.osSelect?_rotateRight_recomputeSizes_eq_rankSelect?`
 - Proof pattern: separate cached size fields from mathematical subtree size,
   prove recomputation establishes the augmentation invariant, prove local
   rotations preserve inorder keys, mathematical size, cached root size, the
   ideal rank-selection result, and the size invariant, then prove the cached
-  order-statistic selector agrees with the ideal selector under that invariant
+  order-statistic selector agrees with the ideal selector under that invariant.
+  The recompute-then-rotate bridge removes the need for an incoming well-sized
+  hypothesis when preparing a local balancing step.
 - Current gap: connect the functional rotations to the Chapter 13 red-black
   balancing layer; interval trees and the general augmentation theorem remain
   future targets
@@ -1031,7 +1039,9 @@ cached left-subtree sizes while remaining equivalent to the ideal rank selector.
 The rotation layer now shows how the same size invariant can be locally
 maintained during tree restructuring, and that local rotations preserve both
 the ideal rank-selection semantics and the augmented selector's connection to
-that ideal semantics on well-sized trees.
+that ideal semantics on well-sized trees.  The recompute-then-rotate wrappers
+also show that an arbitrary functional tree can be locally prepared for a
+rotation and still expose the same ideal rank-selection behavior afterward.
 
 ## Chapter 15 - Dynamic Programming
 
