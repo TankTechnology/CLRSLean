@@ -50,8 +50,8 @@ which areas should not yet be counted as proof-complete.
   priority-queue state theorems are proved.
 * Chapter 7, Section 7.1: stable functional partition classification,
   scan-state partition-loop correctness, a returned pivot-index partition
-  wrapper, and functional quicksort sortedness/permutation preservation are
-  proved.
+  wrapper with an explicit adjacent-swap trace, and functional quicksort
+  sortedness/permutation preservation are proved.
 * Chapter 8, Sections 8.2-8.4: stable counting-sort bucket correctness,
   abstract radix-sort correctness plus complete digit-signature stability from
   stable digit passes, a concrete base-{lit}`b` natural-key radix wrapper, a
@@ -96,7 +96,7 @@ which areas should not yet be counted as proof-complete.
 
 * Chapter 4 full Master-theorem instantiation: instantiate analytic comparison
   scales and package the all-input floor/ceiling Master cases.
-* Chapter 7, Sections 7.2-7.4: swap-trace mutable-array partition refinement,
+* Chapter 7, Sections 7.2-7.4: index-level mutable-array partition refinement,
   performance recurrence, randomized quicksort, and expected-time theorem.
 * Chapter 9 linear-time SELECT refinements: pivot-parametric deterministic
   SELECT, the local five-element median certificate, executable grouping, and
@@ -262,6 +262,8 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter07.partitionAround_perm`,
   {lit}`CLRS.Chapter07.partitionAround_left_allLeUpper`,
   {lit}`CLRS.Chapter07.partitionAround_right_allGt`,
+  {lit}`CLRS.Chapter07.AdjacentSwapTrace.to_perm`,
+  {lit}`CLRS.Chapter07.AdjacentSwapTrace.of_perm`,
   {lit}`CLRS.Chapter07.partitionLoop_invariant`,
   {lit}`CLRS.Chapter07.partitionLoop_correct`,
   {lit}`CLRS.Chapter07.clrsPartition_correct`,
@@ -269,7 +271,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter07.clrsPartitionArray_left_bound`,
   {lit}`CLRS.Chapter07.clrsPartitionArray_right_bound`,
   {lit}`CLRS.Chapter07.clrsPartitionArray_perm`,
+  {lit}`CLRS.Chapter07.clrsPartitionArray_swapTrace`,
   {lit}`CLRS.Chapter07.clrsPartitionArray_correct`,
+  {lit}`CLRS.Chapter07.clrsPartitionArray_correct_with_trace`,
   {lit}`CLRS.Chapter07.quickSort_perm`,
   {lit}`CLRS.Chapter07.quickSort_ordered`, and
   {lit}`CLRS.Chapter07.quickSort_correct`.
@@ -519,8 +523,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
 * Chapter 7 mutable-array partition and randomized analysis: `future-work`.
   Reason: Section 7.1 now proves the pure partition/quicksort correctness
   spine, a scan-state partition-loop invariant, and a returned pivot-index
-  wrapper; the harder refinements are the CLRS array `PARTITION` swap trace,
-  recurrence analysis, randomized quicksort, and expected running time.
+  wrapper with an adjacent-swap trace; the harder refinements are the
+  index-level CLRS array `PARTITION` loop, recurrence analysis, randomized
+  quicksort, and expected running time.
 * Chapter 4 concrete all-input Master-theorem instantiations: `future-work`.
   Reason: the discrete critical-power scale now has an all-input wrapper, but
   the analytic comparison scales and final case statements still need to be

@@ -466,7 +466,7 @@ scales and recurrence instantiations packaged as final case statements.
 
 - Lean source: `CLRSLean/Chapter_07/Section_07_1_Description_Of_Quicksort.lean`
 - Status: `proved` for the current functional-list model, scan-state partition
-  loop, and returned pivot-index wrapper
+  loop, returned pivot-index wrapper, and adjacent-swap trace
 - Main proved theorems:
   - `CLRS.Chapter07.partitionAround_left_eq_filter`
   - `CLRS.Chapter07.partitionAround_right_eq_filter`
@@ -476,6 +476,8 @@ scales and recurrence instantiations packaged as final case statements.
   - `CLRS.Chapter07.partitionAround_perm`
   - `CLRS.Chapter07.partitionAround_left_allLeUpper`
   - `CLRS.Chapter07.partitionAround_right_allGt`
+  - `CLRS.Chapter07.AdjacentSwapTrace.to_perm`
+  - `CLRS.Chapter07.AdjacentSwapTrace.of_perm`
   - `CLRS.Chapter07.partitionLoop_invariant`
   - `CLRS.Chapter07.partitionLoop_eq_partitionAround`
   - `CLRS.Chapter07.partitionLoop_correct`
@@ -484,7 +486,9 @@ scales and recurrence instantiations packaged as final case statements.
   - `CLRS.Chapter07.clrsPartitionArray_left_bound`
   - `CLRS.Chapter07.clrsPartitionArray_right_bound`
   - `CLRS.Chapter07.clrsPartitionArray_perm`
+  - `CLRS.Chapter07.clrsPartitionArray_swapTrace`
   - `CLRS.Chapter07.clrsPartitionArray_correct`
+  - `CLRS.Chapter07.clrsPartitionArray_correct_with_trace`
   - `CLRS.Chapter07.quickSort_perm`
   - `CLRS.Chapter07.quickSort_ordered`
   - `CLRS.Chapter07.quickSort_correct`
@@ -492,11 +496,11 @@ scales and recurrence instantiations packaged as final case statements.
   corresponding stable filter, derive membership classification and
   permutation preservation, prove a scan-state CLRS partition-loop invariant,
   connect the loop to the stable partition specification, package a returned
-  pivot-index postcondition, then prove a fuelled functional quicksort by
-  induction on fuel.  The fuel parameter makes the decreasing subproblem
-  obligation explicit: each partition side has length at most the original
-  tail.
-- Current gap: a mutable-array `PARTITION` swap trace, deterministic
+  pivot-index postcondition, derive an explicit adjacent-swap trace from the
+  permutation theorem, then prove a fuelled functional quicksort by induction
+  on fuel.  The fuel parameter makes the decreasing subproblem obligation
+  explicit: each partition side has length at most the original tail.
+- Current gap: an index-level mutable-array `PARTITION` loop, deterministic
   performance analysis, randomized quicksort, and expected running time remain
   future strengthening targets
 
@@ -506,17 +510,18 @@ introducing array mutation or probability.  The theorem
 classification, `CLRS.Chapter07.partitionLoop_correct` packages the scan-state
 partition-loop invariant consequences,
 `CLRS.Chapter07.clrsPartitionArray_correct` packages the returned pivot-index
-postcondition, and `CLRS.Chapter07.quickSort_correct` packages sortedness and
-permutation preservation.  This gives Chapter 7 a stable base for later CLRS
-refinements: the next proof layer should refine the scan-state loop to a
-swap-level mutable array `PARTITION` procedure.
+postcondition, `CLRS.Chapter07.clrsPartitionArray_correct_with_trace` adds an
+adjacent-swap trace, and `CLRS.Chapter07.quickSort_correct` packages sortedness
+and permutation preservation.  This gives Chapter 7 a stable base for later
+CLRS refinements: the next proof layer should refine the scan-state loop to an
+index-level mutable array `PARTITION` procedure.
 
 ### Sections 7.2-7.4 - Performance and randomized quicksort
 
 - Lean source: not yet created
 - Status: `future-work`
 - Planned theorem targets:
-  - mutable-array `PARTITION` refinement with an explicit swap trace;
+  - mutable-array `PARTITION` refinement with an index-level loop invariant;
   - deterministic quicksort recurrence bounds for selected input models;
   - randomized quicksort specification;
   - expected running time under a formal probability model.
@@ -1005,7 +1010,7 @@ accepted edge set is already known to be a spanning tree.
 | --- | --- | --- |
 | Union-find implementation correctness | `deferred-implementation` | Not needed for the mathematical MST correctness theorem. |
 | Chapter 6 priority-queue RAM costs | `deferred-implementation` | Array heap predicates, localized heap predicates, `largest` lemmas, no-swap heapify repair, recursive fuelled `MAX-HEAPIFY` repair, bottom-up build-heap, in-place heapsort loop correctness, bundled heapsort state-correctness, swap preservation, array `HEAP-MAXIMUM`, full fuelled `HEAP-INCREASE-KEY`, array `HEAP-EXTRACT-MAX`, and index-based `HEAP-DELETE` state correctness are proved; RAM costs remain refinement targets. |
-| Chapter 7 mutable-array partition | `future-work` | Stable-filter partition classification, scan-state partition-loop correctness, a returned pivot-index wrapper, and functional quicksort correctness are proved; the next refinement is the CLRS array `PARTITION` swap trace. |
+| Chapter 7 mutable-array partition | `future-work` | Stable-filter partition classification, scan-state partition-loop correctness, a returned pivot-index wrapper, an adjacent-swap trace, and functional quicksort correctness are proved; the next refinement is the CLRS array `PARTITION` index-level loop invariant. |
 | Chapter 7 randomized expected time | `blocked-design` | Needs a probability model for random pivots or random permutations and a cost recurrence/indicator argument. |
 | Chapter 8 count-array implementation | `future-work` | Stable bucket correctness is proved; the next refinement is an array count table and prefix-sum implementation of `COUNTING-SORT` connected to `countingSortBy`. |
 | Chapter 8 bucket-sort expected time | `blocked-design` | Deterministic bucket-sort correctness is proved by `bucketSortByRank_correct`; expected-time analysis needs a probability model for input distribution. |

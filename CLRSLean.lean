@@ -62,7 +62,8 @@ Start with the chapter pages in the sidebar.
   priority-queue operation specifications.
 * Chapter 7 - Quicksort: stable functional partition classification,
   scan-state partition-loop correctness, a returned pivot-index partition
-  wrapper, and functional quicksort sortedness/permutation preservation.
+  wrapper with an explicit adjacent-swap trace, and functional quicksort
+  sortedness/permutation preservation.
 * Chapter 8 - Sorting in Linear Time: stable counting-sort bucket correctness,
   abstract radix-sort correctness and complete digit-signature stability from
   stable digit passes, a concrete base-{lit}`b` digit wrapper for natural-key
@@ -234,7 +235,8 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter06.arrayHeapExtractMax?_state_correct`,
   `CLRS.Chapter06.arrayHeapDelete?_state_correct`.
 * 7.1 Description of quicksort: `proved` for the functional-list model,
-  scan-state partition loop, and returned pivot-index wrapper.
+  scan-state partition loop, and returned pivot-index wrapper with an explicit
+  adjacent-swap trace.
   Public results: `CLRS.Chapter07.partitionAround_left_eq_filter`,
   `CLRS.Chapter07.partitionAround_right_eq_filter`,
   `CLRS.Chapter07.mem_partitionAround_left_iff`,
@@ -243,6 +245,8 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter07.partitionAround_perm`,
   `CLRS.Chapter07.partitionAround_left_allLeUpper`,
   `CLRS.Chapter07.partitionAround_right_allGt`,
+  `CLRS.Chapter07.AdjacentSwapTrace.to_perm`,
+  `CLRS.Chapter07.AdjacentSwapTrace.of_perm`,
   `CLRS.Chapter07.partitionLoop_invariant`,
   `CLRS.Chapter07.partitionLoop_correct`,
   `CLRS.Chapter07.clrsPartition_correct`,
@@ -250,12 +254,14 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter07.clrsPartitionArray_left_bound`,
   `CLRS.Chapter07.clrsPartitionArray_right_bound`,
   `CLRS.Chapter07.clrsPartitionArray_perm`,
+  `CLRS.Chapter07.clrsPartitionArray_swapTrace`,
   `CLRS.Chapter07.clrsPartitionArray_correct`,
+  `CLRS.Chapter07.clrsPartitionArray_correct_with_trace`,
   `CLRS.Chapter07.quickSort_perm`, `CLRS.Chapter07.quickSort_ordered`,
   `CLRS.Chapter07.quickSort_correct`.
 * 7.2-7.4 Quicksort performance and randomized quicksort: `future-work`.
-  Planned targets: swap-trace mutable-array `PARTITION`, deterministic recurrence
-  analysis, randomized quicksort, and expected running time.
+  Planned targets: index-level mutable-array `PARTITION`, deterministic
+  recurrence analysis, randomized quicksort, and expected running time.
 * 8.2 Counting sort: `proved` for the stable bucket specification.
   Public results: `CLRS.Chapter08.countingSortBy_ordered`,
   `CLRS.Chapter08.countingSortBy_bucket_eq`,

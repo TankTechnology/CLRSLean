@@ -15,10 +15,12 @@ proof:
   same regions as the specification partition;
 * an array-facing wrapper returns a pivot index whose prefix/suffix satisfy the
   CLRS partition postcondition;
+* the array-facing partition output is reachable from the input by an explicit
+  finite adjacent-swap trace;
 * functional quicksort returns an ordered permutation of the input.
 
 The remaining array-level strengthening target is to refine this proof to a
-swap trace over a mutable array-segment model.  Randomized/expected-time
+concrete index-level mutable array-segment loop.  Randomized/expected-time
 analysis is also separate.
 -/
 
@@ -204,6 +206,54 @@ theorem perm_append_cons (x : Nat) (left right : List Nat) :
       simp
   | cons y ys ih =>
       exact (List.Perm.cons y ih).trans (List.Perm.swap x y (ys ++ right))
+
+/-! ## Adjacent swap traces -/
+
+/--
+An explicit finite trace of adjacent swaps from one list to another.
+
+This is a lightweight array-facing refinement of {lit}`List.Perm`: every
+constructor corresponds either to keeping a common head, swapping two adjacent
+cells, or composing two traces.
+-/
+inductive AdjacentSwapTrace : List Nat → List Nat → Prop where
+  /-- Empty trace. -/
+  | refl (xs : List Nat) : AdjacentSwapTrace xs xs
+  /-- Preserve a common head while tracing the tails. -/
+  | cons (x : Nat) {xs ys : List Nat} :
+      AdjacentSwapTrace xs ys → AdjacentSwapTrace (x :: xs) (x :: ys)
+  /-- Swap two adjacent cells. -/
+  | swap (x y : Nat) (xs : List Nat) :
+      AdjacentSwapTrace (x :: y :: xs) (y :: x :: xs)
+  /-- Compose traces. -/
+  | trans {xs ys zs : List Nat} :
+      AdjacentSwapTrace xs ys → AdjacentSwapTrace ys zs →
+        AdjacentSwapTrace xs zs
+
+namespace AdjacentSwapTrace
+
+/-- Every adjacent-swap trace preserves the multiset of list elements. -/
+theorem to_perm {xs ys : List Nat} :
+    AdjacentSwapTrace xs ys → xs.Perm ys
+  | .refl xs => List.Perm.refl xs
+  | .cons x h => List.Perm.cons x (to_perm h)
+  | .swap x y xs => (List.Perm.swap x y xs).symm
+  | .trans hxy hyz => (to_perm hxy).trans (to_perm hyz)
+
+/-- Any list permutation can be represented as a finite adjacent-swap trace. -/
+theorem of_perm {xs ys : List Nat} (h : xs.Perm ys) :
+    AdjacentSwapTrace xs ys := by
+  induction h with
+  | nil =>
+      exact .refl []
+  | cons x _ ih =>
+      exact .cons x ih
+  | swap x y zs =>
+      exact .swap y x zs
+  | trans _ _ ih₁ ih₂ =>
+      exact .trans ih₁ ih₂
+
+end AdjacentSwapTrace
 
 /-- Partition returns exactly the input elements, just split by the pivot test. -/
 theorem partitionAround_perm (p : Nat) (xs : List Nat) :
@@ -527,6 +577,11 @@ theorem clrsPartitionArray_perm (p : Nat) (xs : List Nat) :
     (clrsPartitionArray p xs).out.Perm (p :: xs) := by
   simpa [clrsPartitionArray_out] using (clrsPartition_correct p xs).2.2.2.1
 
+/-- The array-facing partition output is reachable by adjacent swaps. -/
+theorem clrsPartitionArray_swapTrace (p : Nat) (xs : List Nat) :
+    AdjacentSwapTrace (p :: xs) (clrsPartitionArray p xs).out :=
+  AdjacentSwapTrace.of_perm (clrsPartitionArray_perm p xs).symm
+
 /--
 Reader-facing correctness theorem for the array-facing partition wrapper.
 
@@ -552,6 +607,31 @@ theorem clrsPartitionArray_correct (p : Nat) (xs : List Nat) :
     clrsPartitionArray_left_bound p xs,
     clrsPartitionArray_right_bound p xs,
     clrsPartitionArray_perm p xs⟩
+
+/--
+Array-facing partition correctness with an explicit adjacent-swap trace.
+
+This strengthens {lit}`clrsPartitionArray_correct` by recording that the output
+segment is not merely a permutation of the input segment, but is reachable by a
+finite sequence of adjacent swaps.
+-/
+theorem clrsPartitionArray_correct_with_trace (p : Nat) (xs : List Nat) :
+    (clrsPartitionArray p xs).pivotIndex <
+        (clrsPartitionArray p xs).out.length ∧
+      (clrsPartitionArray p xs).out[(clrsPartitionArray p xs).pivotIndex]? =
+        some p ∧
+      AllLeUpper
+        ((clrsPartitionArray p xs).out.take
+          (clrsPartitionArray p xs).pivotIndex) p ∧
+      AllGt p
+        ((clrsPartitionArray p xs).out.drop
+          ((clrsPartitionArray p xs).pivotIndex + 1)) ∧
+      AdjacentSwapTrace (p :: xs) (clrsPartitionArray p xs).out :=
+  ⟨clrsPartitionArray_pivotIndex_lt p xs,
+    clrsPartitionArray_pivot p xs,
+    clrsPartitionArray_left_bound p xs,
+    clrsPartitionArray_right_bound p xs,
+    clrsPartitionArray_swapTrace p xs⟩
 
 /-! ## Functional quicksort -/
 

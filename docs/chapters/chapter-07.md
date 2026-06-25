@@ -2,17 +2,18 @@
 
 Chapter 7 now has a compiler-clean correctness spine for quicksort, including
 the functional partition specification, a scan-state proof spine for the CLRS
-partition loop, and a returned pivot-index partition wrapper.
+partition loop, and a returned pivot-index partition wrapper with an explicit
+adjacent-swap trace.
 
 ## Section 7.1 - Description of quicksort
 
 - Lean source: `CLRSLean/Chapter_07/Section_07_1_Description_Of_Quicksort.lean`
 - Status: `proved` for the current functional-list model, scan-state partition
-  loop, and returned pivot-index wrapper
+  loop, and returned pivot-index wrapper with an explicit adjacent-swap trace
 - Main theorems: `CLRS.Chapter07.partitionAround_correct`,
   `CLRS.Chapter07.partitionLoop_correct`,
   `CLRS.Chapter07.clrsPartition_correct`,
-  `CLRS.Chapter07.clrsPartitionArray_correct`, and
+  `CLRS.Chapter07.clrsPartitionArray_correct_with_trace`, and
   `CLRS.Chapter07.quickSort_correct`
 
 The first model uses a stable pivot partition.  The proved partition facts are:
@@ -33,6 +34,13 @@ The first model uses a stable pivot partition.  The proved partition facts are:
   greater than the pivot.
 - `CLRS.Chapter07.partitionAround_correct`: the reader-facing bundle of the
   partition classification, bounds, and permutation facts.
+
+The section also uses an explicit finite adjacent-swap trace:
+
+- `CLRS.Chapter07.AdjacentSwapTrace.to_perm`: every adjacent-swap trace
+  preserves the list elements as a permutation.
+- `CLRS.Chapter07.AdjacentSwapTrace.of_perm`: any list permutation can be
+  represented as a finite adjacent-swap trace.
 
 The section also proves a CLRS-style scan loop for partition:
 
@@ -56,8 +64,12 @@ The array-facing wrapper exposes the returned-index postcondition:
   returned index is greater than the pivot.
 - `CLRS.Chapter07.clrsPartitionArray_perm`: the output segment is a permutation
   of the pivot followed by the scanned tail.
+- `CLRS.Chapter07.clrsPartitionArray_swapTrace`: the output segment is reachable
+  from the input segment by adjacent swaps.
 - `CLRS.Chapter07.clrsPartitionArray_correct`: the reader-facing bundle of the
   returned-index, bounds, and permutation facts.
+- `CLRS.Chapter07.clrsPartitionArray_correct_with_trace`: the same bundle with
+  the adjacent-swap trace in place of the abstract permutation fact.
 
 The quicksort theorem layer proves:
 
@@ -69,9 +81,9 @@ The quicksort theorem layer proves:
 
 ## Hard Follow-Up Work
 
-- Mutable-array `PARTITION` refinement: the scan-state loop invariant and
-  returned-index postcondition are proved, but a true swap trace over an
-  array-segment model remains.
+- Mutable-array `PARTITION` refinement: the scan-state loop invariant,
+  returned-index postcondition, and adjacent-swap trace are proved, but the
+  concrete index-level CLRS loop over an array segment remains.
 - Deterministic performance analysis: requires a cost recurrence tied to the
   partition sizes.
 - Randomized quicksort expected time: requires a probability model for random
