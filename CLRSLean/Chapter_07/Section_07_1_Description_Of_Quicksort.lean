@@ -216,6 +216,62 @@ theorem partitionAround_perm (p : Nat) (xs : List Nat) :
         exact by
           simpa [partitionAround, hxle] using hmiddle.trans (List.Perm.cons x ih)
 
+/-- The left partition is exactly the stable filter of elements at most the pivot. -/
+theorem partitionAround_left_eq_filter (p : Nat) (xs : List Nat) :
+    (partitionAround p xs).1 = xs.filter (fun x => decide (x ≤ p)) := by
+  induction xs with
+  | nil =>
+      simp [partitionAround]
+  | cons x xs ih =>
+      by_cases hx : x ≤ p
+      · simp [partitionAround, hx, ih]
+      · simp [partitionAround, hx, ih]
+
+/-- The right partition is exactly the stable filter of elements greater than the pivot. -/
+theorem partitionAround_right_eq_filter (p : Nat) (xs : List Nat) :
+    (partitionAround p xs).2 = xs.filter (fun x => decide (p < x)) := by
+  induction xs with
+  | nil =>
+      simp [partitionAround]
+  | cons x xs ih =>
+      by_cases hx : x ≤ p
+      · have hnlt : ¬ p < x := not_lt_of_ge hx
+        simp [partitionAround, hx, hnlt, ih]
+      · have hlt : p < x := Nat.lt_of_not_ge hx
+        simp [partitionAround, hx, hlt, ih]
+
+/-- Membership characterization for the left partition. -/
+theorem mem_partitionAround_left_iff (p : Nat) (xs : List Nat) (x : Nat) :
+    x ∈ (partitionAround p xs).1 ↔ x ∈ xs ∧ x ≤ p := by
+  rw [partitionAround_left_eq_filter]
+  simp
+
+/-- Membership characterization for the right partition. -/
+theorem mem_partitionAround_right_iff (p : Nat) (xs : List Nat) (x : Nat) :
+    x ∈ (partitionAround p xs).2 ↔ x ∈ xs ∧ p < x := by
+  rw [partitionAround_right_eq_filter]
+  simp
+
+/--
+Reader-facing correctness theorem for stable partition around a pivot.
+
+It packages the facts used by the quicksort proof: the left side contains
+exactly the input elements at most the pivot, the right side contains exactly
+the input elements greater than the pivot, and concatenating the two sides is a
+permutation of the original input tail.
+-/
+theorem partitionAround_correct (p : Nat) (xs : List Nat) :
+    AllLeUpper (partitionAround p xs).1 p ∧
+      AllGt p (partitionAround p xs).2 ∧
+      ((partitionAround p xs).1 ++ (partitionAround p xs).2).Perm xs ∧
+      (∀ x, x ∈ (partitionAround p xs).1 ↔ x ∈ xs ∧ x ≤ p) ∧
+      (∀ x, x ∈ (partitionAround p xs).2 ↔ x ∈ xs ∧ p < x) :=
+  ⟨partitionAround_left_allLeUpper p xs,
+    partitionAround_right_allGt p xs,
+    partitionAround_perm p xs,
+    mem_partitionAround_left_iff p xs,
+    mem_partitionAround_right_iff p xs⟩
+
 /-! ## Functional quicksort -/
 
 /--

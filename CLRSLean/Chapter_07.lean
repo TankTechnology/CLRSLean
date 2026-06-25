@@ -11,6 +11,9 @@ analysis.
 
 * 7.1 Description of quicksort: {lit}`proved` for the current functional-list
   model.  Main results:
+  {lit}`CLRS.Chapter07.partitionAround_left_eq_filter`,
+  {lit}`CLRS.Chapter07.partitionAround_right_eq_filter`,
+  {lit}`CLRS.Chapter07.partitionAround_correct`,
   {lit}`CLRS.Chapter07.partitionAround_perm`,
   {lit}`CLRS.Chapter07.quickSort_perm`,
   {lit}`CLRS.Chapter07.quickSort_ordered`, and

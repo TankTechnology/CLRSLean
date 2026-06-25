@@ -46,7 +46,7 @@ which areas should not yet be counted as proof-complete.
   {lit}`MAX-HEAPIFY`, bottom-up {lit}`BUILD-MAX-HEAP`, in-place heapsort
   sorted-suffix invariant, top-level heapsort correctness, and array-level
   priority-queue state theorems are proved.
-* Chapter 7, Section 7.1: stable functional partition correctness and
+* Chapter 7, Section 7.1: stable functional partition classification and
   functional quicksort sortedness/permutation preservation are proved.
 * Chapter 8, Sections 8.2-8.3: stable counting-sort bucket correctness and
   abstract radix-sort correctness from stable digit passes are proved.
@@ -229,6 +229,11 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter06.arrayHeapExtractMax?_state_correct`, and
   {lit}`CLRS.Chapter06.arrayHeapDelete?_state_correct`.
 * 7.1 Description of quicksort, functional-list model:
+  {lit}`CLRS.Chapter07.partitionAround_left_eq_filter`,
+  {lit}`CLRS.Chapter07.partitionAround_right_eq_filter`,
+  {lit}`CLRS.Chapter07.mem_partitionAround_left_iff`,
+  {lit}`CLRS.Chapter07.mem_partitionAround_right_iff`,
+  {lit}`CLRS.Chapter07.partitionAround_correct`,
   {lit}`CLRS.Chapter07.partitionAround_perm`,
   {lit}`CLRS.Chapter07.partitionAround_left_allLeUpper`,
   {lit}`CLRS.Chapter07.partitionAround_right_allGt`,

@@ -59,7 +59,7 @@ Start with the chapter pages in the sidebar.
   {lit}`BUILD-MAX-HEAP`, the in-place heapsort loop with a proved sorted-suffix
   invariant and sortedness theorem, an indexed array heap proof spine, and
   priority-queue operation specifications.
-* Chapter 7 - Quicksort: stable functional partition correctness and
+* Chapter 7 - Quicksort: stable functional partition classification and
   functional quicksort sortedness/permutation preservation.
 * Chapter 8 - Sorting in Linear Time: stable counting-sort bucket correctness
   and abstract radix-sort correctness from stable digit passes.
@@ -218,7 +218,12 @@ Start with the chapter pages in the sidebar.
   `CLRS.Chapter06.arrayHeapExtractMax?_state_correct`,
   `CLRS.Chapter06.arrayHeapDelete?_state_correct`.
 * 7.1 Description of quicksort: `proved` for the functional-list model.
-  Public results: `CLRS.Chapter07.partitionAround_perm`,
+  Public results: `CLRS.Chapter07.partitionAround_left_eq_filter`,
+  `CLRS.Chapter07.partitionAround_right_eq_filter`,
+  `CLRS.Chapter07.mem_partitionAround_left_iff`,
+  `CLRS.Chapter07.mem_partitionAround_right_iff`,
+  `CLRS.Chapter07.partitionAround_correct`,
+  `CLRS.Chapter07.partitionAround_perm`,
   `CLRS.Chapter07.partitionAround_left_allLeUpper`,
   `CLRS.Chapter07.partitionAround_right_allGt`,
   `CLRS.Chapter07.quickSort_perm`, `CLRS.Chapter07.quickSort_ordered`,

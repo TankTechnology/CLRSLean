@@ -174,9 +174,10 @@ input sizes.
   randomized analysis
 
 Section 7.1 proves the functional partition/quicksort correctness spine:
-`CLRS.Chapter07.partitionAround_perm` proves that partition preserves exactly
-the input tail elements, and `CLRS.Chapter07.quickSort_correct` packages
-sortedness plus permutation preservation for the functional quicksort model.
+`CLRS.Chapter07.partitionAround_correct` proves stable-filter partition
+classification plus permutation preservation, and
+`CLRS.Chapter07.quickSort_correct` packages sortedness plus permutation
+preservation for the functional quicksort model.
 
 The remaining CLRS refinements are harder.  The in-place `PARTITION` proof
 needs an array segment invariant that tracks the less/equal and greater
