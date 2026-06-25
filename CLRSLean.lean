@@ -13,6 +13,7 @@ import CLRSLean.Chapter_12
 import CLRSLean.Chapter_13
 import CLRSLean.Chapter_16
 import CLRSLean.Chapter_17
+import CLRSLean.Chapter_18
 import CLRSLean.Chapter_23
 import CLRSLean.Progress
 import CLRSLean.Status
@@ -92,6 +93,8 @@ Start with the chapter pages in the sidebar.
   study.
 * Chapter 17 - Amortized Analysis: finite-prefix aggregate, accounting, and
   potential-method telescoping theorems for later amortized examples.
+* Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
+  height-expression, split, and insertion theorem surface.
 * Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
   Kruskal skeleton, and finite-graph MST wrappers.
 * Progress Dashboard: a compact, generated chapter-by-chapter view of current
@@ -409,6 +412,12 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.accounting_totalCost_le_totalCharge`,
   {lit}`CLRS.Chapter17.potential_totalCost_eq_totalAmortized_sub_delta`, and
   {lit}`CLRS.Chapter17.potential_totalCost_le_totalAmortized`.
+* 18.1-18.2 B-trees: {lit}`partial`.
+  Public results: {lit}`CLRS.Chapter18.BTree.search_correct`,
+  {lit}`CLRS.Chapter18.BTree.minKeys_lower_bound`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.insert_preserves_model`, and
+  {lit}`CLRS.Chapter18.BTree.insert_mem_iff`.
 * 23.1 Growing a minimum spanning tree: {lit}`partial`.
   Current results:
   {lit}`CLRS.MST.Graph.connected_crosses_cut`,
