@@ -26,6 +26,11 @@ Main results:
   preserves the table-size invariant.
 - Theorem {lit}`dynamicTableDelete_valid`: the first-pass deletion/contraction
   transition preserves the table-size invariant.
+- Theorems {lit}`dynamicTableInsert_capacity_fits`,
+  {lit}`dynamicTableInsert_capacity_ge_size`,
+  {lit}`dynamicTableDelete_capacity_fits`, and
+  {lit}`dynamicTableDelete_capacity_le_size`: direct post-state capacity
+  corollaries for insertion and deletion.
 - Theorems {lit}`dynamicTableInsert_amortizedBound` and
   {lit}`dynamicTableDelete_amortizedBound`: the concrete first-pass transitions
   instantiate the generic amortized-cost wrapper.
@@ -123,6 +128,16 @@ theorem dynamicTableInsert_num (s : DynamicTableState) :
     (dynamicTableInsert s).num = s.num + 1 := by
   rfl
 
+/-- Dynamic-table insertion leaves enough capacity for the post-insertion count. -/
+theorem dynamicTableInsert_capacity_fits (s : DynamicTableState) :
+    (dynamicTableInsert s).num <= (dynamicTableInsert s).size := by
+  exact dynamicTableInsertSize_fits s
+
+/-- Dynamic-table insertion never shrinks the post-state capacity below the old size. -/
+theorem dynamicTableInsert_capacity_ge_size (s : DynamicTableState) :
+    s.size <= (dynamicTableInsert s).size := by
+  exact dynamicTableInsertSize_ge_size s
+
 /-- Dynamic-table insertion preserves the table-size invariant. -/
 theorem dynamicTableInsert_valid (s : DynamicTableState)
     (_hvalid : DynamicTableState.Valid s) :
@@ -195,6 +210,18 @@ theorem dynamicTableDeleteSize_le_size (s : DynamicTableState)
 theorem dynamicTableDelete_num (s : DynamicTableState) :
     (dynamicTableDelete s).num = s.num - 1 := by
   rfl
+
+/-- Dynamic-table deletion leaves enough capacity for the post-deletion count. -/
+theorem dynamicTableDelete_capacity_fits (s : DynamicTableState)
+    (hvalid : DynamicTableState.Valid s) :
+    (dynamicTableDelete s).num <= (dynamicTableDelete s).size := by
+  exact dynamicTableDeleteSize_fits s hvalid
+
+/-- Dynamic-table deletion never grows the post-state capacity for a valid table. -/
+theorem dynamicTableDelete_capacity_le_size (s : DynamicTableState)
+    (hvalid : DynamicTableState.Valid s) :
+    (dynamicTableDelete s).size <= s.size := by
+  exact dynamicTableDeleteSize_le_size s hvalid
 
 /-- Dynamic-table deletion/contraction preserves the table-size invariant. -/
 theorem dynamicTableDelete_valid (s : DynamicTableState)

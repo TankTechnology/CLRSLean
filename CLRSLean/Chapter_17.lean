@@ -12,7 +12,7 @@ framework theorems, a {lit}`MULTIPOP` stack cost bound, an executable
 binary-counter one-step potential proof plus a multi-step executable trace
 bound, and size-level dynamic-table insertion/deletion capacity and transition
 wrappers with capacity-direction and actual-cost upper-bound facts plus an
-explicit nonnegative potential fact.
+explicit nonnegative potential fact and direct post-state capacity corollaries.
 
 ## Sections
 
@@ -39,12 +39,16 @@ explicit nonnegative potential fact.
   {lit}`CLRS.Chapter17.dynamicTableInsertSize_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_valid`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_num`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_fits`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedBound`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_le_num`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_fits`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteSize_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_valid`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_fits`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedBound`, and
   {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`.
 
