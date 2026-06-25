@@ -29,6 +29,10 @@ Main results:
   match finite-set insertion and deletion.
 - Theorems {lit}`VEB.insert_member_iff` and {lit}`VEB.delete_member_iff`:
   membership queries after updates match the expected finite-set update.
+- Theorems {lit}`VEB.insert_minimum_correct`,
+  {lit}`VEB.insert_maximum_correct`, {lit}`VEB.delete_minimum_correct`, and
+  {lit}`VEB.delete_maximum_correct`: extrema returned after updates are
+  exactly extrema of the updated finite set.
 - Theorem {lit}`VEB.operationDepth_linear`: the first-pass recurrence-depth
   wrapper is linear in the universe exponent.
 
@@ -277,6 +281,36 @@ theorem insert_member_iff {t : Tree} {s : Finset Nat} {x y : Nat}
   rw [Finset.mem_insert]
   rw [← member_correct (t := t) (s := s) (x := y) hrep]
 
+/-- A returned minimum after insertion is the least key among the inserted key and old set. -/
+theorem insert_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmin : minimum (insert x t) = some m) :
+    (m = x ∨ m ∈ s) ∧ m <= x ∧ forall y, y ∈ s -> m <= y := by
+  have hinsert : Represents (insert x t) (Insert.insert x s) :=
+    insert_correct (t := t) (s := s) (x := x) hrep hx
+  have hmin' := minimum_correct
+    (t := insert x t) (s := Insert.insert x s) (x := m) hinsert hmin
+  refine ⟨?_, ?_, ?_⟩
+  · simpa [Finset.mem_insert] using hmin'.1
+  · exact hmin'.2 x (by simp)
+  · intro y hy
+    exact hmin'.2 y (by simp [hy])
+
+/-- A returned maximum after insertion is the greatest key among the inserted key and old set. -/
+theorem insert_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmax : maximum (insert x t) = some m) :
+    (m = x ∨ m ∈ s) ∧ x <= m ∧ forall y, y ∈ s -> y <= m := by
+  have hinsert : Represents (insert x t) (Insert.insert x s) :=
+    insert_correct (t := t) (s := s) (x := x) hrep hx
+  have hmax' := maximum_correct
+    (t := insert x t) (s := Insert.insert x s) (x := m) hinsert hmax
+  refine ⟨?_, ?_, ?_⟩
+  · simpa [Finset.mem_insert] using hmax'.1
+  · exact hmax'.2 x (by simp)
+  · intro y hy
+    exact hmax'.2 y (by simp [hy])
+
 /-- Delete a key from the represented set. -/
 def delete (x : Nat) (t : Tree) : Tree :=
   { t with elems := t.elems.erase x }
@@ -300,6 +334,34 @@ theorem delete_member_iff {t : Tree} {s : Finset Nat} {x y : Nat}
   rw [member_correct (t := delete x t) (s := s.erase x) (x := y) hdelete]
   rw [Finset.mem_erase]
   rw [← member_correct (t := t) (s := s) (x := y) hrep]
+
+/-- A returned minimum after deletion is the least remaining old key. -/
+theorem delete_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hmin : minimum (delete x t) = some m) :
+    m ≠ x ∧ m ∈ s ∧ forall y, y ∈ s -> y ≠ x -> m <= y := by
+  have hdelete : Represents (delete x t) (s.erase x) :=
+    delete_correct (t := t) (s := s) (x := x) hrep
+  have hmin' := minimum_correct
+    (t := delete x t) (s := s.erase x) (x := m) hdelete hmin
+  have hmem : m ≠ x ∧ m ∈ s := by
+    simpa [Finset.mem_erase] using hmin'.1
+  refine ⟨hmem.1, hmem.2, ?_⟩
+  intro y hy hyx
+  exact hmin'.2 y (by simp [Finset.mem_erase, hyx, hy])
+
+/-- A returned maximum after deletion is the greatest remaining old key. -/
+theorem delete_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hmax : maximum (delete x t) = some m) :
+    m ≠ x ∧ m ∈ s ∧ forall y, y ∈ s -> y ≠ x -> y <= m := by
+  have hdelete : Represents (delete x t) (s.erase x) :=
+    delete_correct (t := t) (s := s) (x := x) hrep
+  have hmax' := maximum_correct
+    (t := delete x t) (s := s.erase x) (x := m) hdelete hmax
+  have hmem : m ≠ x ∧ m ∈ s := by
+    simpa [Finset.mem_erase] using hmax'.1
+  refine ⟨hmem.1, hmem.2, ?_⟩
+  intro y hy hyx
+  exact hmax'.2 y (by simp [Finset.mem_erase, hyx, hy])
 
 /-- First-pass operation-depth recurrence over a tower exponent. -/
 def operationDepth (k : Nat) : Nat :=

@@ -106,8 +106,9 @@ which areas should not yet be counted as proof-complete.
   cascading cuts, and the true Fibonacci logarithmic degree theorem remain.
 * Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic and finite-set
   operation specs, including extrema/successor/predecessor positive and
-  empty-result cases plus membership-after-update specs, are proved; recursive
-  cluster representation and the {lit}`O(log log u)` bridge remain.
+  empty-result cases plus membership- and extrema-after-update specs, are
+  proved; recursive cluster representation and the {lit}`O(log log u)` bridge
+  remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
   exact-component Kruskal scan facts, forest/spanning wrappers, and
   certificate-based Kruskal optimality interfaces exist; automatic simple
@@ -566,8 +567,12 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter20.VEB.predecessor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_member_iff`,
+  {lit}`CLRS.Chapter20.VEB.insert_minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_correct`,
-  {lit}`CLRS.Chapter20.VEB.delete_member_iff`, and
+  {lit}`CLRS.Chapter20.VEB.delete_member_iff`,
+  {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`, and
   {lit}`CLRS.Chapter20.VEB.operationDepth_linear`;
   remaining gap: recursive summary/cluster state, word-RAM base cases, and the
   explicit {lit}`O(log log u)` asymptotic bridge.
