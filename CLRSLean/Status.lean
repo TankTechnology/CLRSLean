@@ -100,8 +100,9 @@ which areas should not yet be counted as proof-complete.
   surfaces; full separator/same-depth, node-level-deletion, and disk-page
   refinements remain.
 * Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
-  empty-heap construction, empty-result query specs, direct insert/delete
-  membership facts, heap-potential telescoping, and Fibonacci lower-bound
+  empty-heap construction, empty-result query specs, direct
+  insert/union/extract-min/decrease-key/delete membership facts,
+  heap-potential telescoping, and Fibonacci lower-bound
   recurrence/positivity/monotonicity facts are proved; pointer handles,
   cascading cuts, and the true Fibonacci logarithmic degree theorem remain.
 * Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic and finite-set
@@ -538,6 +539,7 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter19.FibHeap.union_correct`,
   {lit}`CLRS.Chapter19.FibHeap.union_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_correct`,
+  {lit}`CLRS.Chapter19.FibHeap.extractMin_mem_iff`,
   {lit}`CLRS.Chapter19.FibHeap.extractMin_none_iff`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_correct`,
   {lit}`CLRS.Chapter19.FibHeap.decreaseKey_mem_iff`,

@@ -21,7 +21,8 @@ Main results:
   {lit}`FibHeap.extractMin_correct`, {lit}`FibHeap.decreaseKey_correct`, and
   {lit}`FibHeap.delete_correct`: operations match finite-set specifications.
 - Theorems {lit}`FibHeap.insert_mem_iff`, {lit}`FibHeap.union_mem_iff`,
-  {lit}`FibHeap.decreaseKey_mem_iff`, and {lit}`FibHeap.delete_mem_iff`:
+  {lit}`FibHeap.extractMin_mem_iff`, {lit}`FibHeap.decreaseKey_mem_iff`, and
+  {lit}`FibHeap.delete_mem_iff`:
   key membership after set-updating operations matches the finite-set update.
 - Theorem {lit}`FibHeap.heapPotential_telescope`: heap potential instantiates
   the Chapter 17 potential-method telescoping theorem.
@@ -183,6 +184,17 @@ theorem extractMin_correct {h h' : FibHeap} {s : Finset Int} {x : Int}
     · constructor
       · simp [hrep.1]
       · simp [Valid]
+  · simp [hne] at hextract
+
+/-- Key membership after extract-min is exactly old membership away from the extracted key. -/
+theorem extractMin_mem_iff {h h' : FibHeap} {x y : Int}
+    (hextract : extractMin h = some (x, h')) :
+    y ∈ h'.keys <-> y ≠ x ∧ y ∈ h.keys := by
+  unfold extractMin at hextract
+  by_cases hne : h.keys.Nonempty
+  · simp [hne] at hextract
+    rcases hextract with ⟨rfl, rfl⟩
+    simp
   · simp [hne] at hextract
 
 /-- Extract-min returns nothing exactly when the represented key set is empty. -/

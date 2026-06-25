@@ -1054,6 +1054,7 @@ and delete operations are specification wrappers, so the chapter is still
   - `CLRS.Chapter19.FibHeap.union_correct`
   - `CLRS.Chapter19.FibHeap.union_mem_iff`
   - `CLRS.Chapter19.FibHeap.extractMin_correct`
+  - `CLRS.Chapter19.FibHeap.extractMin_mem_iff`
   - `CLRS.Chapter19.FibHeap.extractMin_none_iff`
   - `CLRS.Chapter19.FibHeap.decreaseKey_correct`
   - `CLRS.Chapter19.FibHeap.decreaseKey_mem_iff`
@@ -1074,9 +1075,10 @@ and delete operations are specification wrappers, so the chapter is still
 
 Chapter 19 now records the operation-level Fibonacci-heap contracts against an
 abstract finite key set, including empty-heap construction and empty-result
-minimum/extract-min specifications plus direct insert/delete membership facts.
-The standard potential function is connected to the Chapter 17 telescoping
-theorem, and the Fibonacci lower-bound
+minimum/extract-min specifications plus direct
+insert/union/extract-min/decrease-key/delete membership facts.  The standard
+potential function is connected to the Chapter 17 telescoping theorem, and the
+Fibonacci lower-bound
 sequence now exposes its local recurrence, positivity, and adjacent
 monotonicity, plus the derived arbitrary-index monotonicity theorem.  The
 degree theorem is deliberately conservative for this first pass; it bounds the current
