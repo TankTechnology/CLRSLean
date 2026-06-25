@@ -16,6 +16,8 @@ Main results:
   membership of a key different from the deleted key.
 - Theorem {lit}`BTree.delete_search_iff`: searching after deletion succeeds
   exactly for old searchable keys different from the deleted key.
+- Theorem {lit}`BTree.delete_search_false_iff`: searching after deletion fails
+  exactly for the deleted key or keys that failed before.
 - Theorems {lit}`BTree.delete_not_mem` and
   {lit}`BTree.delete_search_deleted_false`: the deleted key is absent and not
   searchable after deletion.
@@ -96,6 +98,38 @@ theorem delete_search_of_ne {minDegree x y : Nat} {t : BTree}
     search y (delete x t) = true := by
   rw [delete_search_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid]
   exact ⟨hxy, hy⟩
+
+/-- Searching after deletion fails exactly for the deleted key or an old failed search. -/
+theorem delete_search_false_iff {minDegree x y : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) :
+    search y (delete x t) = false <-> y = x ∨ search y t = false := by
+  constructor
+  · intro hdeleteFalse
+    by_cases hxy : y = x
+    · exact Or.inl hxy
+    · right
+      cases hold : search y t
+      · rfl
+      · have hneq : (y != x) = true := by
+          simp [hxy]
+        have hdeleteTrue : search y (delete x t) = true :=
+          (delete_search_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid).mpr
+            ⟨hneq, hold⟩
+        rw [hdeleteFalse] at hdeleteTrue
+        contradiction
+  · intro h
+    cases h with
+    | inl hyx =>
+        rw [hyx]
+        exact delete_search_deleted_false (minDegree := minDegree) (x := x) (t := t) hvalid
+    | inr holdFalse =>
+        cases hdelete : search y (delete x t)
+        · rfl
+        · have hcases : (y != x) = true ∧ search y t = true :=
+            (delete_search_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid).mp
+              hdelete
+          rw [holdFalse] at hcases
+          simp at hcases
 
 end BTree
 end Chapter18

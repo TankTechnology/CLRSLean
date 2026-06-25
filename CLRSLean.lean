@@ -100,10 +100,10 @@ Start with the chapter pages in the sidebar.
   actual-cost lower/upper bounds, post-state field equations, stored-count
   direction, post-state capacity, and transition wrappers.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
-  height-expression base/positivity/recurrence/monotonicity, split, split
-  membership/search preservation, insertion, deletion, search-after-update
-  theorem surface, and direct inserted/deleted-key and old-key query
-  preservation corollaries.
+  height-expression base/positivity/recurrence/monotonicity, split-child direct
+  validity and membership/search preservation, insertion, deletion,
+  successful/unsuccessful search-after-update theorem surface, and direct
+  inserted/deleted-key and old-key query preservation corollaries.
 * Chapter 19 - Fibonacci Heaps: abstract finite-set heap model with
   make-heap, operation-level correctness, direct operation-result validity for
   normalized counters, direct
@@ -492,15 +492,19 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.minKeys_le_succ`,
   {lit}`CLRS.Chapter18.BTree.minKeys_monotone_height`,
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_valid`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_old`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_search_false_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_iff`,
+  {lit}`CLRS.Chapter18.BTree.insert_search_false_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
-  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`, and
-  {lit}`CLRS.Chapter18.BTree.delete_search_iff`.
+  {lit}`CLRS.Chapter18.BTree.delete_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_search_iff`, and
+  {lit}`CLRS.Chapter18.BTree.delete_search_false_iff`.
 * 19.1 Fibonacci heaps: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter19.FibHeap.makeHeap_correct`,
   {lit}`CLRS.Chapter19.FibHeap.makeHeap_valid`,

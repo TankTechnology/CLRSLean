@@ -99,10 +99,11 @@ which areas should not yet be counted as proof-complete.
   allocator and RAM refinements remain.
 * Chapter 18, Sections 18.1-18.3: a mathematical B-tree model has search,
   minimum-key height-expression base/positivity facts, recurrence, and monotonicity,
-  split-child preservation, split-child direct membership/search preservation,
-  insertion/deletion membership, and search-after-update theorem surfaces plus
-  direct inserted/deleted-key and old-key query preservation corollaries; full separator/same-depth,
-  node-level-deletion, and disk-page refinements remain.
+  split-child preservation, direct split validity, split-child direct
+  membership/search preservation, insertion/deletion membership, and successful
+  and unsuccessful search-after-update theorem surfaces plus direct
+  inserted/deleted-key and old-key query preservation corollaries; full
+  separator/same-depth, node-level-deletion, and disk-page refinements remain.
 * Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
   empty-heap construction, direct operation-result validity wrappers,
   empty-result query specs, direct
@@ -570,10 +571,12 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter18.BTree.minKeys_le_succ`,
   {lit}`CLRS.Chapter18.BTree.minKeys_monotone_height`,
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_valid`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_old`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_search_false_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_iff`,
@@ -581,13 +584,15 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter18.BTree.insert_search_self`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_old`,
   {lit}`CLRS.Chapter18.BTree.insert_search_old`,
+  {lit}`CLRS.Chapter18.BTree.insert_search_false_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.delete_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_search_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_not_mem`,
   {lit}`CLRS.Chapter18.BTree.delete_search_deleted_false`,
-  {lit}`CLRS.Chapter18.BTree.delete_mem_of_ne`, and
-  {lit}`CLRS.Chapter18.BTree.delete_search_of_ne`;
+  {lit}`CLRS.Chapter18.BTree.delete_mem_of_ne`,
+  {lit}`CLRS.Chapter18.BTree.delete_search_of_ne`, and
+  {lit}`CLRS.Chapter18.BTree.delete_search_false_iff`;
   remaining gap: full occupancy/separator/same-depth invariants, node-level
   deletion repair, and disk-page/mutation semantics.
 * 19.1 Fibonacci heaps:

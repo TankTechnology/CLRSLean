@@ -12,10 +12,14 @@ Main results:
 
 - Theorem {lit}`BTree.splitChild_preserves_model`: the first-pass split wrapper
   preserves validity and membership.
+- Theorem {lit}`BTree.splitChild_valid`: the first-pass split wrapper preserves
+  validity.
 - Theorem {lit}`BTree.splitChild_mem_iff`: membership after the first-pass
   split wrapper is unchanged.
 - Theorem {lit}`BTree.splitChild_search_iff`: searching after the first-pass
   split wrapper is equivalent to searching before it.
+- Theorem {lit}`BTree.splitChild_search_false_iff`: unsuccessful search is also
+  preserved by the first-pass split wrapper.
 - Theorems {lit}`BTree.splitChild_mem_old` and
   {lit}`BTree.splitChild_search_old`: old members and searchable keys remain
   so after the first-pass split wrapper.
@@ -25,6 +29,8 @@ Main results:
   to the membership specification.
 - Theorem {lit}`BTree.insert_search_iff`: searching after insertion succeeds
   exactly for the inserted key or an old searchable key.
+- Theorem {lit}`BTree.insert_search_false_iff`: searching after insertion fails
+  exactly for keys different from the inserted key that failed before.
 - Theorems {lit}`BTree.insert_mem_self` and
   {lit}`BTree.insert_search_self`: the inserted key is present and searchable
   after insertion.
@@ -65,6 +71,12 @@ theorem splitChild_preserves_model {minDegree : Nat} {t : BTree}
       forall x, mem x (splitChild t) <-> mem x t := by
   exact ⟨hvalid, by intro x; exact splitChild_mem_iff x t⟩
 
+/-- The first-pass split wrapper preserves validity. -/
+theorem splitChild_valid {minDegree : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) :
+    Valid minDegree (splitChild t) := by
+  exact (splitChild_preserves_model (minDegree := minDegree) (t := t) hvalid).1
+
 /-- Searching after the first-pass split wrapper is unchanged. -/
 theorem splitChild_search_iff {minDegree x : Nat} {t : BTree}
     (hvalid : Valid minDegree t) :
@@ -80,6 +92,26 @@ theorem splitChild_search_old {minDegree x : Nat} {t : BTree}
     search x (splitChild t) = true := by
   rw [splitChild_search_iff (minDegree := minDegree) (x := x) (t := t) hvalid]
   exact hx
+
+/-- Unsuccessful search is preserved by the first-pass split wrapper. -/
+theorem splitChild_search_false_iff {minDegree x : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) :
+    search x (splitChild t) = false <-> search x t = false := by
+  constructor
+  · intro hsplitFalse
+    cases hold : search x t
+    · rfl
+    · have hsplitTrue : search x (splitChild t) = true :=
+        (splitChild_search_iff (minDegree := minDegree) (x := x) (t := t) hvalid).mpr hold
+      rw [hsplitFalse] at hsplitTrue
+      contradiction
+  · intro holdFalse
+    cases hsplit : search x (splitChild t)
+    · rfl
+    · have holdTrue : search x t = true :=
+        (splitChild_search_iff (minDegree := minDegree) (x := x) (t := t) hvalid).mp hsplit
+      rw [holdFalse] at holdTrue
+      contradiction
 
 /-- Specification-level B-tree insertion: add the key at a fresh root. -/
 def insert (x : Nat) (t : BTree) : BTree :=
@@ -133,6 +165,40 @@ theorem insert_search_old {minDegree x y : Nat} {t : BTree}
     search y (insert x t) = true := by
   rw [insert_search_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid]
   exact Or.inr hy
+
+/-- Searching after insertion fails exactly for noninserted keys that failed before. -/
+theorem insert_search_false_iff {minDegree x y : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) :
+    search y (insert x t) = false <-> y ≠ x ∧ search y t = false := by
+  constructor
+  · intro hinsertFalse
+    constructor
+    · intro hyx
+      have hinsertTrue : search y (insert x t) = true :=
+        (insert_search_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid).mpr
+          (Or.inl hyx)
+      rw [hinsertFalse] at hinsertTrue
+      contradiction
+    · cases hold : search y t
+      · rfl
+      · have hinsertTrue : search y (insert x t) = true :=
+          (insert_search_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid).mpr
+            (Or.inr hold)
+        rw [hinsertFalse] at hinsertTrue
+        contradiction
+  · intro h
+    rcases h with ⟨hyx, holdFalse⟩
+    cases hinsert : search y (insert x t)
+    · rfl
+    · have hcases : y = x ∨ search y t = true :=
+        (insert_search_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid).mp
+          hinsert
+      cases hcases with
+      | inl hyxEq =>
+          exact False.elim (hyx hyxEq)
+      | inr holdTrue =>
+          rw [holdFalse] at holdTrue
+          contradiction
 
 end BTree
 end Chapter18

@@ -9,9 +9,10 @@ Chapter 18 starts with a first-pass mathematical B-tree model.  The current
 Lean surface fixes key membership, search correctness, the CLRS minimum-key
 height expression, base/positivity facts, height-step recurrence, height
 monotonicity, and specification-level split/insert/delete wrappers with split
-membership/search preservation plus direct split old-key corollaries,
-search-after-update specifications, and direct inserted/deleted-key plus
-old-key query preservation corollaries.
+membership/search preservation plus direct split old-key corollaries, direct
+split validity, successful and unsuccessful search-after-update
+specifications, and direct inserted/deleted-key plus old-key query preservation
+corollaries.
 
 ## Sections
 
@@ -28,17 +29,20 @@ old-key query preservation corollaries.
 * 18.2 B-tree insertion: {lit}`partial`.
   Main results:
   {lit}`CLRS.Chapter18.BTree.splitChild_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_valid`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_old`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_search_false_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_self`,
   {lit}`CLRS.Chapter18.BTree.insert_search_self`,
-  {lit}`CLRS.Chapter18.BTree.insert_mem_old`, and
-  {lit}`CLRS.Chapter18.BTree.insert_search_old`.
+  {lit}`CLRS.Chapter18.BTree.insert_mem_old`,
+  {lit}`CLRS.Chapter18.BTree.insert_search_old`, and
+  {lit}`CLRS.Chapter18.BTree.insert_search_false_iff`.
 * 18.3 B-tree deletion: {lit}`partial`.
   Main results:
   {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
@@ -46,8 +50,9 @@ old-key query preservation corollaries.
   {lit}`CLRS.Chapter18.BTree.delete_search_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_not_mem`,
   {lit}`CLRS.Chapter18.BTree.delete_search_deleted_false`,
-  {lit}`CLRS.Chapter18.BTree.delete_mem_of_ne`, and
-  {lit}`CLRS.Chapter18.BTree.delete_search_of_ne`.
+  {lit}`CLRS.Chapter18.BTree.delete_mem_of_ne`,
+  {lit}`CLRS.Chapter18.BTree.delete_search_of_ne`, and
+  {lit}`CLRS.Chapter18.BTree.delete_search_false_iff`.
 
 ## Current Gaps
 
