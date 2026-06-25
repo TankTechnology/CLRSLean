@@ -8,7 +8,8 @@ Chapter 11 introduces direct-address tables and hash tables.  The current
 CLRS-Lean pass separates deterministic table correctness from probabilistic
 performance analysis.  Section 11.2 now includes a finite-uniform bucket
 interface: when the searched bucket is uniformly distributed, expected chain
-length is exactly the load factor.
+length is exactly the load factor, and one insertion increases load factor and
+unsuccessful-search cost by {lit}`1/m`.
 
 ## Sections
 
@@ -23,16 +24,23 @@ length is exactly the load factor.
   {lit}`CLRS.Chapter11.hashSearch_hashDelete_self`,
   {lit}`CLRS.Chapter11.hashSearch_hashDelete_iff`,
   {lit}`CLRS.Chapter11.uniformAverageFin_indicator_singleton`,
+  {lit}`CLRS.Chapter11.uniformAverageFin_add`,
+  {lit}`CLRS.Chapter11.uniformAverageFin_nonneg`,
+  {lit}`CLRS.Chapter11.finiteHashLoadFactor_nonneg`,
   {lit}`CLRS.Chapter11.expectedSearchChainLength_eq_loadFactor`,
+  {lit}`CLRS.Chapter11.expectedSearchChainLength_nonneg`,
   {lit}`CLRS.Chapter11.expectedUnsuccessfulSearchCost_eq_one_plus_loadFactor`,
-  and {lit}`CLRS.Chapter11.expectedSearchChainLength_finiteHashInsert`.
+  {lit}`CLRS.Chapter11.expectedUnsuccessfulSearchCost_ge_one`,
+  {lit}`CLRS.Chapter11.expectedSearchChainLength_finiteHashInsert`,
+  {lit}`CLRS.Chapter11.finiteHashLoadFactor_finiteHashInsert`,
+  and {lit}`CLRS.Chapter11.expectedUnsuccessfulSearchCost_finiteHashInsert`.
 
 ## Current Gaps
 
 The deterministic insert/delete/search layer is compiler-clean, and the
-finite-uniform bucket layer proves the first expected-chain-length interface.
-The remaining probability gap is a full model over random keys or random hash
-functions with independence assumptions.
+finite-uniform bucket layer now proves the load-factor, nonnegativity, and
+single-insert expected-cost interfaces.  The remaining probability gap is a full
+model over random keys or random hash functions with independence assumptions.
 -/
 
 namespace CLRS

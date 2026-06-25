@@ -95,8 +95,9 @@ which areas should not yet be counted as proof-complete.
   The case-3 comparison layer and selected runtime refinements remain.
 * Chapter 11, Section 11.2: deterministic chained-hash-table operations are
   proved for a fixed hash function, and the finite-uniform bucket interface
-  proves expected chain length equals load factor; a full random key/hash
-  function model remains.
+  proves expected chain length equals load factor, nonnegativity facts, and
+  single-insert load-factor/unsuccessful-search cost changes; a full random
+  key/hash function model remains.
 * Chapter 12, Section 12.1: the functional BST theorem boundary is proved for
   search, min/max, insertion, complete successor/predecessor specifications,
   successor/predecessor existence wrappers, search-after-insert/delete wrappers,
@@ -535,11 +536,18 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter11.hashSearch_hashInsert_iff`,
   {lit}`CLRS.Chapter11.hashSearch_hashDelete_self`,
   {lit}`CLRS.Chapter11.hashSearch_hashDelete_iff`,
+  {lit}`CLRS.Chapter11.uniformAverageFin_add`,
+  {lit}`CLRS.Chapter11.uniformAverageFin_nonneg`,
   {lit}`CLRS.Chapter11.uniformAverageFin_indicator_singleton`,
+  {lit}`CLRS.Chapter11.finiteHashLoadFactor_nonneg`,
   {lit}`CLRS.Chapter11.expectedSearchChainLength_eq_loadFactor`,
+  {lit}`CLRS.Chapter11.expectedSearchChainLength_nonneg`,
   {lit}`CLRS.Chapter11.expectedUnsuccessfulSearchCost_eq_one_plus_loadFactor`,
-  {lit}`CLRS.Chapter11.totalBucketLength_finiteHashInsert`, and
-  {lit}`CLRS.Chapter11.expectedSearchChainLength_finiteHashInsert`;
+  {lit}`CLRS.Chapter11.expectedUnsuccessfulSearchCost_ge_one`,
+  {lit}`CLRS.Chapter11.totalBucketLength_finiteHashInsert`,
+  {lit}`CLRS.Chapter11.expectedSearchChainLength_finiteHashInsert`,
+  {lit}`CLRS.Chapter11.finiteHashLoadFactor_finiteHashInsert`, and
+  {lit}`CLRS.Chapter11.expectedUnsuccessfulSearchCost_finiteHashInsert`;
   remaining gap: lift the finite-uniform bucket abstraction to a probability
   model over random keys or random hash functions.
 * 12.1 Binary search trees:

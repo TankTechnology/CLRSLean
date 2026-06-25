@@ -23,6 +23,10 @@ Main results:
 - Theorem {lit}`hashSearch_hashDelete_iff`: after deletion, searching for any
   query succeeds exactly when it is different from the deleted key and was
   already present.
+- Theorem {lit}`expectedSearchChainLength_eq_loadFactor`: in the finite-uniform
+  bucket model, expected chain length is exactly the load factor.
+- Theorem {lit}`expectedUnsuccessfulSearchCost_finiteHashInsert`: inserting one
+  key increases expected unsuccessful-search cost by {lit}`1/m`.
 
 Current gaps:
 
@@ -136,6 +140,21 @@ def probabilityIndicator (P : Prop) [Decidable P] : ℝ :=
 noncomputable def uniformAverageFin {m : Nat} (X : Fin m → ℝ) : ℝ :=
   (∑ i : Fin m, X i) / (m : ℝ)
 
+/-- Uniform averages are additive. -/
+theorem uniformAverageFin_add {m : Nat} (X Y : Fin m → ℝ) :
+    uniformAverageFin (fun i => X i + Y i) =
+      uniformAverageFin X + uniformAverageFin Y := by
+  simp [uniformAverageFin, Finset.sum_add_distrib, add_div]
+
+/-- A uniform average of nonnegative quantities is nonnegative. -/
+theorem uniformAverageFin_nonneg {m : Nat} {X : Fin m → ℝ}
+    (hX : ∀ i, 0 ≤ X i) :
+    0 ≤ uniformAverageFin X := by
+  unfold uniformAverageFin
+  refine div_nonneg ?_ ?_
+  · exact Finset.sum_nonneg (fun i _hi => hX i)
+  · exact_mod_cast Nat.zero_le m
+
 /-- A singleton bucket has probability {lit}`1/m` under the uniform bucket model. -/
 theorem uniformAverageFin_indicator_singleton {m : Nat} (j : Fin m) :
     uniformAverageFin (fun i => probabilityIndicator (i = j)) = 1 / (m : ℝ) := by
@@ -165,6 +184,15 @@ noncomputable def finiteHashLoadFactor {m : Nat}
     (T : FiniteChainedHashTable m K) : ℝ :=
   (∑ i : Fin m, ((T i).length : ℝ)) / (m : ℝ)
 
+/-- Load factor is nonnegative. -/
+theorem finiteHashLoadFactor_nonneg {m : Nat}
+    (T : FiniteChainedHashTable m K) :
+    0 ≤ finiteHashLoadFactor T := by
+  unfold finiteHashLoadFactor
+  refine div_nonneg ?_ ?_
+  · exact Finset.sum_nonneg (fun i _hi => by exact_mod_cast Nat.zero_le (T i).length)
+  · exact_mod_cast Nat.zero_le m
+
 /--
 Expected chain length for an unsuccessful search when the searched bucket is
 uniform over all buckets.
@@ -190,6 +218,13 @@ theorem expectedSearchChainLength_eq_loadFactor {m : Nat}
     expectedSearchChainLength T = finiteHashLoadFactor T := by
   rfl
 
+/-- Expected chain length is nonnegative in the finite-uniform bucket model. -/
+theorem expectedSearchChainLength_nonneg {m : Nat}
+    (T : FiniteChainedHashTable m K) :
+    0 ≤ expectedSearchChainLength T := by
+  rw [expectedSearchChainLength_eq_loadFactor]
+  exact finiteHashLoadFactor_nonneg T
+
 /--
 Under uniform hashing over buckets, unsuccessful search has cost
 {lit}`1 + load factor` in the current finite-bucket abstraction.
@@ -198,6 +233,14 @@ theorem expectedUnsuccessfulSearchCost_eq_one_plus_loadFactor {m : Nat}
     (T : FiniteChainedHashTable m K) :
     expectedUnsuccessfulSearchCost T = 1 + finiteHashLoadFactor T := by
   rfl
+
+/-- Expected unsuccessful-search cost is at least the initial bucket access. -/
+theorem expectedUnsuccessfulSearchCost_ge_one {m : Nat}
+    (T : FiniteChainedHashTable m K) :
+    1 ≤ expectedUnsuccessfulSearchCost T := by
+  unfold expectedUnsuccessfulSearchCost
+  have hnonneg := expectedSearchChainLength_nonneg T
+  linarith
 
 /-- Inserting one key into a finite chained table increases total chain length by one. -/
 theorem totalBucketLength_finiteHashInsert {m : Nat} (h : K → Fin m)
@@ -240,6 +283,27 @@ theorem expectedSearchChainLength_finiteHashInsert {m : Nat} (h : K → Fin m)
       expectedSearchChainLength T + 1 / (m : ℝ) := by
   simp [expectedSearchChainLength, uniformAverageFin,
     totalBucketLength_finiteHashInsert, add_div]
+
+/--
+Inserting one key increases the finite-bucket load factor by {lit}`1/m`.
+-/
+theorem finiteHashLoadFactor_finiteHashInsert {m : Nat} (h : K → Fin m)
+    (T : FiniteChainedHashTable m K) (x : K) :
+    finiteHashLoadFactor (finiteHashInsert h x T) =
+      finiteHashLoadFactor T + 1 / (m : ℝ) := by
+  simp [finiteHashLoadFactor, totalBucketLength_finiteHashInsert, add_div]
+
+/--
+Inserting one key increases expected unsuccessful-search cost by {lit}`1/m` in
+the finite-uniform bucket model.
+-/
+theorem expectedUnsuccessfulSearchCost_finiteHashInsert {m : Nat} (h : K → Fin m)
+    (T : FiniteChainedHashTable m K) (x : K) :
+    expectedUnsuccessfulSearchCost (finiteHashInsert h x T) =
+      expectedUnsuccessfulSearchCost T + 1 / (m : ℝ) := by
+  rw [expectedUnsuccessfulSearchCost, expectedSearchChainLength_finiteHashInsert,
+    expectedUnsuccessfulSearchCost]
+  ring
 
 end Chapter11
 end CLRS
