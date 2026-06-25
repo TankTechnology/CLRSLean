@@ -103,8 +103,8 @@ which areas should not yet be counted as proof-complete.
   and a Fibonacci lower-bound recurrence are proved; pointer handles,
   cascading cuts, and the true Fibonacci logarithmic degree theorem remain.
 * Chapter 20, Sections 20.1-20.2: vEB high/low/index arithmetic and finite-set
-  operation specs, including successor/predecessor positive and empty-result
-  cases, are proved; recursive cluster representation and the
+  operation specs, including extrema/successor/predecessor positive and
+  empty-result cases, are proved; recursive cluster representation and the
   {lit}`O(log log u)` bridge remain.
 * Chapter 23, Sections 23.1-23.2: the cut property, safe-edge theorem,
   exact-component Kruskal scan facts, forest/spanning wrappers, and
@@ -547,7 +547,9 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter20.VEB.low_lt`,
   {lit}`CLRS.Chapter20.VEB.member_correct`,
   {lit}`CLRS.Chapter20.VEB.minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.successor_correct`,
   {lit}`CLRS.Chapter20.VEB.successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.predecessor_correct`,

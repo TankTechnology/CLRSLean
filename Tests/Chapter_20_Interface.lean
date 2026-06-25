@@ -12,7 +12,9 @@ import CLRSLean.Chapter_20.Section_20_2_VEB_Tree
 #check CLRS.Chapter20.VEB.member
 #check CLRS.Chapter20.VEB.member_correct
 #check CLRS.Chapter20.VEB.minimum_correct
+#check CLRS.Chapter20.VEB.minimum_none_iff
 #check CLRS.Chapter20.VEB.maximum_correct
+#check CLRS.Chapter20.VEB.maximum_none_iff
 #check CLRS.Chapter20.VEB.successor_correct
 #check CLRS.Chapter20.VEB.successor_none_iff
 #check CLRS.Chapter20.VEB.predecessor_correct

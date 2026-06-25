@@ -104,7 +104,8 @@ Start with the chapter pages in the sidebar.
   Fibonacci lower-bound recurrence, and a conservative degree-bound wrapper.
 * Chapter 20 - van Emde Boas Trees: high/low universe decomposition and a
   finite-set specification layer for membership, extrema, successor,
-  predecessor, empty successor/predecessor queries, insert, and delete.
+  predecessor, empty-result extrema/successor/predecessor queries, insert, and
+  delete.
 * Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
   Kruskal skeleton, and finite-graph MST wrappers.
 * Progress Dashboard: a compact, generated chapter-by-chapter view of current
@@ -464,7 +465,9 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter20.VEB.high_lt`, {lit}`CLRS.Chapter20.VEB.low_lt`,
   {lit}`CLRS.Chapter20.VEB.member_correct`,
   {lit}`CLRS.Chapter20.VEB.minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.successor_correct`,
   {lit}`CLRS.Chapter20.VEB.successor_none_iff`,
   {lit}`CLRS.Chapter20.VEB.predecessor_correct`,

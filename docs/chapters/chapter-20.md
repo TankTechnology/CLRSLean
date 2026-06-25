@@ -11,7 +11,9 @@
 - `CLRS.Chapter20.VEB.low_lt`
 - `CLRS.Chapter20.VEB.member_correct`
 - `CLRS.Chapter20.VEB.minimum_correct`
+- `CLRS.Chapter20.VEB.minimum_none_iff`
 - `CLRS.Chapter20.VEB.maximum_correct`
+- `CLRS.Chapter20.VEB.maximum_none_iff`
 - `CLRS.Chapter20.VEB.successor_correct`
 - `CLRS.Chapter20.VEB.successor_none_iff`
 - `CLRS.Chapter20.VEB.predecessor_correct`

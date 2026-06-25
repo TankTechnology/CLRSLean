@@ -14,6 +14,8 @@ Main results:
   set.
 - Theorems {lit}`VEB.minimum_correct` and {lit}`VEB.maximum_correct`: returned
   extrema are represented keys with the expected order property.
+- Theorems {lit}`VEB.minimum_none_iff` and {lit}`VEB.maximum_none_iff`:
+  extrema queries return no key exactly when the represented set is empty.
 - Theorem {lit}`VEB.successor_correct`: a returned successor is represented,
   greater than the query, and no larger than any represented greater key.
 - Theorem {lit}`VEB.successor_none_iff`: no successor is returned exactly when
@@ -87,6 +89,25 @@ theorem minimum_correct {t : Tree} {s : Finset Nat} {x : Nat}
       exact Finset.min'_le t.elems y hyt
   · simp [hne] at hmin
 
+/-- No minimum is returned exactly when the represented set is empty. -/
+theorem minimum_none_iff {t : Tree} {s : Finset Nat}
+    (hrep : Represents t s) :
+    minimum t = none <-> s = ∅ := by
+  unfold minimum
+  constructor
+  · intro hnone
+    by_cases hne : t.elems.Nonempty
+    · simp [hne] at hnone
+    · have helemsEmpty : t.elems = ∅ :=
+        Finset.not_nonempty_iff_eq_empty.mp hne
+      simpa [hrep.1] using helemsEmpty
+  · intro hs
+    have helemsEmpty : t.elems = ∅ := by
+      simpa [hrep.1] using hs
+    have hne : ¬ t.elems.Nonempty :=
+      Finset.not_nonempty_iff_eq_empty.mpr helemsEmpty
+    simp [hne]
+
 /-- The returned maximum is represented and is an upper bound for all keys. -/
 theorem maximum_correct {t : Tree} {s : Finset Nat} {x : Nat}
     (hrep : Represents t s) (hmax : maximum t = some x) :
@@ -102,6 +123,25 @@ theorem maximum_correct {t : Tree} {s : Finset Nat} {x : Nat}
         simpa [hrep.1] using hy
       exact Finset.le_max' t.elems y hyt
   · simp [hne] at hmax
+
+/-- No maximum is returned exactly when the represented set is empty. -/
+theorem maximum_none_iff {t : Tree} {s : Finset Nat}
+    (hrep : Represents t s) :
+    maximum t = none <-> s = ∅ := by
+  unfold maximum
+  constructor
+  · intro hnone
+    by_cases hne : t.elems.Nonempty
+    · simp [hne] at hnone
+    · have helemsEmpty : t.elems = ∅ :=
+        Finset.not_nonempty_iff_eq_empty.mp hne
+      simpa [hrep.1] using helemsEmpty
+  · intro hs
+    have helemsEmpty : t.elems = ∅ := by
+      simpa [hrep.1] using hs
+    have hne : ¬ t.elems.Nonempty :=
+      Finset.not_nonempty_iff_eq_empty.mpr helemsEmpty
+    simp [hne]
 
 /-- Candidate successor set for query {lit}`x`. -/
 def successorCandidates (x : Nat) (t : Tree) : Finset Nat :=
