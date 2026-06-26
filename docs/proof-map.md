@@ -1102,10 +1102,12 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.splitChild_search_false_old`
   - `CLRS.Chapter18.BTree.splitChild_search_false_of_not_mem`
   - `CLRS.Chapter18.BTree.insert_preserves_model`
+  - `CLRS.Chapter18.BTree.insert_valid`
   - `CLRS.Chapter18.BTree.insert_mem_iff`
   - `CLRS.Chapter18.BTree.insert_search_iff`
   - `CLRS.Chapter18.BTree.insert_mem_self`
   - `CLRS.Chapter18.BTree.insert_search_self`
+  - `CLRS.Chapter18.BTree.insert_search_of_eq`
   - `CLRS.Chapter18.BTree.insert_mem_old`
   - `CLRS.Chapter18.BTree.insert_search_old`
   - `CLRS.Chapter18.BTree.insert_search_of_mem`
@@ -1115,10 +1117,12 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.insert_search_false_of_ne`
   - `CLRS.Chapter18.BTree.insert_search_false_of_not_mem_ne`
   - `CLRS.Chapter18.BTree.delete_preserves_model`
+  - `CLRS.Chapter18.BTree.delete_valid`
   - `CLRS.Chapter18.BTree.delete_mem_iff`
   - `CLRS.Chapter18.BTree.delete_search_iff`
   - `CLRS.Chapter18.BTree.delete_not_mem`
   - `CLRS.Chapter18.BTree.delete_search_deleted_false`
+  - `CLRS.Chapter18.BTree.delete_search_false_of_eq`
   - `CLRS.Chapter18.BTree.delete_mem_of_ne`
   - `CLRS.Chapter18.BTree.delete_search_of_ne`
   - `CLRS.Chapter18.BTree.delete_search_of_mem_ne`
@@ -1134,8 +1138,9 @@ allocator semantics remain future refinements.
   split/insert/delete wrappers, search correctness reuse,
   direct split validity/preservation corollaries, and direct inserted/deleted-key
   plus old-key successful and unsuccessful query preservation corollaries,
-  membership-driven search-after-update wrappers, old failed-search preservation
-  wrappers, exact failed membership
+  direct insertion/deletion validity short-name wrappers, equality-key
+  update-query wrappers, membership-driven search-after-update wrappers, old
+  failed-search preservation wrappers, exact failed membership
   specifications, and direct failed-membership preservation wrappers
 - Current gap: full node occupancy/separator/same-depth invariant stack,
   node-level deletion repair, disk-page I/O, and pointer mutation remain
@@ -1145,9 +1150,10 @@ Chapter 18 now has a first-pass B-tree theorem surface.  Search, split-child,
 insertion, and deletion are proved against an abstract membership model, and
 the update wrappers expose direct search-after-update specifications plus
 direct split validity/preservation and inserted/deleted-key plus old-key query
-preservation corollaries, including membership-driven search-after-update
-wrappers, exact unsuccessful-search specifications, and direct old failed-search
-preservation wrappers.
+preservation corollaries, direct insertion/deletion validity short-name
+wrappers, equality-key update-query wrappers, membership-driven
+search-after-update wrappers, exact unsuccessful-search specifications, and
+direct old failed-search preservation wrappers.
 The same specification layer now exposes exact failed membership facts for
 split-child, insertion, and deletion.
 The height

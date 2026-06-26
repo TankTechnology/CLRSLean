@@ -12,6 +12,8 @@ Main results:
 
 - Theorem {lit}`BTree.delete_preserves_model`: specification deletion preserves
   the first-pass validity predicate.
+- Theorem {lit}`BTree.delete_valid`: direct validity-preservation wrapper for
+  specification deletion.
 - Theorem {lit}`BTree.delete_mem_iff`: after deletion, membership is exactly
   membership of a key different from the deleted key.
 - Theorem {lit}`BTree.delete_search_iff`: searching after deletion succeeds
@@ -28,6 +30,8 @@ Main results:
 - Theorems {lit}`BTree.delete_not_mem` and
   {lit}`BTree.delete_search_deleted_false`: the deleted key is absent and not
   searchable after deletion.
+- Theorem {lit}`BTree.delete_search_false_of_eq`: any query key equal to the
+  deleted key is not searchable after deletion.
 - Theorems {lit}`BTree.delete_mem_of_ne` and
   {lit}`BTree.delete_search_of_ne`: old keys different from the deleted key
   remain present and searchable after deletion.
@@ -54,6 +58,12 @@ theorem delete_preserves_model {minDegree x : Nat} {t : BTree}
     (hvalid : Valid minDegree t) :
     Valid minDegree (delete x t) := by
   exact hvalid
+
+/-- Specification deletion preserves validity under the direct operation name. -/
+theorem delete_valid {minDegree x : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) :
+    Valid minDegree (delete x t) := by
+  exact delete_preserves_model (minDegree := minDegree) (x := x) (t := t) hvalid
 
 /-- Specification deletion removes exactly the requested key from membership. -/
 theorem delete_mem_iff (x y : Nat) (t : BTree) :
@@ -135,6 +145,13 @@ theorem delete_search_deleted_false {minDegree x : Nat} {t : BTree}
         mem x (delete x t) :=
         (search_correct (minDegree := minDegree) (x := x) (t := delete x t) hdelete).mp hsearch
     exact False.elim ((delete_not_mem x t) hmem)
+
+/-- Any key equal to the deleted key is not searchable after specification deletion. -/
+theorem delete_search_false_of_eq {minDegree x y : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) (hyx : y = x) :
+    search y (delete x t) = false := by
+  rw [hyx]
+  exact delete_search_deleted_false (minDegree := minDegree) (x := x) (t := t) hvalid
 
 /-- Old searchable keys different from the deleted key remain searchable after deletion. -/
 theorem delete_search_of_ne {minDegree x y : Nat} {t : BTree}

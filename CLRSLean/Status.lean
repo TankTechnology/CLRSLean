@@ -105,10 +105,11 @@ which areas should not yet be counted as proof-complete.
   base/positivity facts, recurrence, and monotonicity, split-child
   preservation, direct split validity, split-child direct
   membership/search preservation, insertion/deletion membership, and successful
-  and unsuccessful search-after-update theorem surfaces plus membership-driven
-  search-after-update wrappers, direct inserted/deleted-key, old-key query
-  preservation, and failed membership corollaries plus direct
-  failed-membership preservation wrappers; full
+  and unsuccessful search-after-update theorem surfaces plus direct
+  insertion/deletion validity short-name wrappers, equality-key update-query
+  wrappers, membership-driven search-after-update wrappers, direct
+  inserted/deleted-key, old-key query preservation, and failed membership
+  corollaries plus direct failed-membership preservation wrappers; full
   separator/same-depth, node-level-deletion, and disk-page refinements remain.
 * Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
   empty-heap construction, direct operation-result validity wrappers,
@@ -621,10 +622,12 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter18.BTree.splitChild_search_false_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_false_of_not_mem`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.insert_valid`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_self`,
   {lit}`CLRS.Chapter18.BTree.insert_search_self`,
+  {lit}`CLRS.Chapter18.BTree.insert_search_of_eq`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_old`,
   {lit}`CLRS.Chapter18.BTree.insert_search_old`,
   {lit}`CLRS.Chapter18.BTree.insert_search_of_mem`,
@@ -634,10 +637,12 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter18.BTree.insert_search_false_of_ne`,
   {lit}`CLRS.Chapter18.BTree.insert_search_false_of_not_mem_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.delete_valid`,
   {lit}`CLRS.Chapter18.BTree.delete_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_search_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_not_mem`,
   {lit}`CLRS.Chapter18.BTree.delete_search_deleted_false`,
+  {lit}`CLRS.Chapter18.BTree.delete_search_false_of_eq`,
   {lit}`CLRS.Chapter18.BTree.delete_mem_of_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_search_of_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_search_of_mem_ne`,

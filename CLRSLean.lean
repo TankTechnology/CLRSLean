@@ -106,7 +106,7 @@ Start with the chapter pages in the sidebar.
   direct base search success/failure wrappers, height-expression
   base/positivity/recurrence/monotonicity, split-child direct validity and
   membership/search preservation, direct failed-membership preservation,
-  insertion, deletion,
+  insertion/deletion direct validity, equality-key query wrappers,
   successful/unsuccessful search-after-update theorem surface,
   membership-driven search-after-update wrappers, and direct inserted/deleted-key,
   old-key query preservation, and failed membership corollaries.
@@ -540,8 +540,10 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.splitChild_search_false_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_false_of_not_mem`,
   {lit}`CLRS.Chapter18.BTree.insert_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.insert_valid`,
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_iff`,
+  {lit}`CLRS.Chapter18.BTree.insert_search_of_eq`,
   {lit}`CLRS.Chapter18.BTree.insert_search_of_mem`,
   {lit}`CLRS.Chapter18.BTree.insert_not_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_not_mem_of_ne`,
@@ -549,8 +551,10 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.insert_search_false_of_ne`,
   {lit}`CLRS.Chapter18.BTree.insert_search_false_of_not_mem_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
+  {lit}`CLRS.Chapter18.BTree.delete_valid`,
   {lit}`CLRS.Chapter18.BTree.delete_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_search_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_search_false_of_eq`,
   {lit}`CLRS.Chapter18.BTree.delete_search_of_mem_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_not_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_not_mem_old`,

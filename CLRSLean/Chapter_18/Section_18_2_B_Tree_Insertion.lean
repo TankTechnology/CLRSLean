@@ -34,6 +34,8 @@ Main results:
   give direct post-split successful and failed searches.
 - Theorem {lit}`BTree.insert_preserves_model`: specification insertion preserves
   the first-pass validity predicate.
+- Theorem {lit}`BTree.insert_valid`: direct validity-preservation wrapper for
+  specification insertion.
 - Theorem {lit}`BTree.insert_mem_iff`: insertion adds exactly the inserted key
   to the membership specification.
 - Theorem {lit}`BTree.insert_search_iff`: searching after insertion succeeds
@@ -49,6 +51,8 @@ Main results:
 - Theorems {lit}`BTree.insert_mem_self` and
   {lit}`BTree.insert_search_self`: the inserted key is present and searchable
   after insertion.
+- Theorem {lit}`BTree.insert_search_of_eq`: any query key equal to the inserted
+  key is searchable after insertion.
 - Theorems {lit}`BTree.insert_mem_old` and
   {lit}`BTree.insert_search_old`: old members and searchable keys remain so
   after insertion.
@@ -173,6 +177,12 @@ theorem insert_preserves_model {minDegree x : Nat} {t : BTree}
     Valid minDegree (insert x t) := by
   exact hvalid
 
+/-- Specification insertion preserves validity under the direct operation name. -/
+theorem insert_valid {minDegree x : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) :
+    Valid minDegree (insert x t) := by
+  exact insert_preserves_model (minDegree := minDegree) (x := x) (t := t) hvalid
+
 /-- Specification insertion adds exactly the inserted key to membership. -/
 theorem insert_mem_iff (x y : Nat) (t : BTree) :
     mem y (insert x t) <-> y = x ∨ mem y t := by
@@ -231,6 +241,13 @@ theorem insert_search_self {minDegree x : Nat} {t : BTree}
     insert_preserves_model (minDegree := minDegree) (x := x) (t := t) hvalid
   rw [search_correct (minDegree := minDegree) (x := x) (t := insert x t) hinsert]
   exact insert_mem_self x t
+
+/-- Any key equal to the inserted key is searchable after specification insertion. -/
+theorem insert_search_of_eq {minDegree x y : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) (hyx : y = x) :
+    search y (insert x t) = true := by
+  rw [hyx]
+  exact insert_search_self (minDegree := minDegree) (x := x) (t := t) hvalid
 
 /-- Old searchable keys remain searchable after specification insertion. -/
 theorem insert_search_old {minDegree x y : Nat} {t : BTree}

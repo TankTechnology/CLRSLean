@@ -37,10 +37,12 @@ import CLRSLean.Chapter_18.Section_18_3_B_Tree_Deletion
 #check CLRS.Chapter18.BTree.splitChild_search_false_of_not_mem
 #check CLRS.Chapter18.BTree.insert
 #check CLRS.Chapter18.BTree.insert_preserves_model
+#check CLRS.Chapter18.BTree.insert_valid
 #check CLRS.Chapter18.BTree.insert_mem_iff
 #check CLRS.Chapter18.BTree.insert_search_iff
 #check CLRS.Chapter18.BTree.insert_mem_self
 #check CLRS.Chapter18.BTree.insert_search_self
+#check CLRS.Chapter18.BTree.insert_search_of_eq
 #check CLRS.Chapter18.BTree.insert_mem_old
 #check CLRS.Chapter18.BTree.insert_search_old
 #check CLRS.Chapter18.BTree.insert_search_of_mem
@@ -51,10 +53,12 @@ import CLRSLean.Chapter_18.Section_18_3_B_Tree_Deletion
 #check CLRS.Chapter18.BTree.insert_search_false_of_not_mem_ne
 #check CLRS.Chapter18.BTree.delete
 #check CLRS.Chapter18.BTree.delete_preserves_model
+#check CLRS.Chapter18.BTree.delete_valid
 #check CLRS.Chapter18.BTree.delete_mem_iff
 #check CLRS.Chapter18.BTree.delete_search_iff
 #check CLRS.Chapter18.BTree.delete_not_mem
 #check CLRS.Chapter18.BTree.delete_search_deleted_false
+#check CLRS.Chapter18.BTree.delete_search_false_of_eq
 #check CLRS.Chapter18.BTree.delete_mem_of_ne
 #check CLRS.Chapter18.BTree.delete_search_of_ne
 #check CLRS.Chapter18.BTree.delete_search_of_mem_ne

@@ -33,10 +33,12 @@
 - `CLRS.Chapter18.BTree.splitChild_search_false_old`
 - `CLRS.Chapter18.BTree.splitChild_search_false_of_not_mem`
 - `CLRS.Chapter18.BTree.insert_preserves_model`
+- `CLRS.Chapter18.BTree.insert_valid`
 - `CLRS.Chapter18.BTree.insert_mem_iff`
 - `CLRS.Chapter18.BTree.insert_search_iff`
 - `CLRS.Chapter18.BTree.insert_mem_self`
 - `CLRS.Chapter18.BTree.insert_search_self`
+- `CLRS.Chapter18.BTree.insert_search_of_eq`
 - `CLRS.Chapter18.BTree.insert_mem_old`
 - `CLRS.Chapter18.BTree.insert_search_old`
 - `CLRS.Chapter18.BTree.insert_search_of_mem`
@@ -46,10 +48,12 @@
 - `CLRS.Chapter18.BTree.insert_search_false_of_ne`
 - `CLRS.Chapter18.BTree.insert_search_false_of_not_mem_ne`
 - `CLRS.Chapter18.BTree.delete_preserves_model`
+- `CLRS.Chapter18.BTree.delete_valid`
 - `CLRS.Chapter18.BTree.delete_mem_iff`
 - `CLRS.Chapter18.BTree.delete_search_iff`
 - `CLRS.Chapter18.BTree.delete_not_mem`
 - `CLRS.Chapter18.BTree.delete_search_deleted_false`
+- `CLRS.Chapter18.BTree.delete_search_false_of_eq`
 - `CLRS.Chapter18.BTree.delete_mem_of_ne`
 - `CLRS.Chapter18.BTree.delete_search_of_ne`
 - `CLRS.Chapter18.BTree.delete_search_of_mem_ne`
@@ -67,8 +71,9 @@ height-expression base/positivity facts, recurrence, and monotonicity facts,
 direct base search success/failure wrappers, and specification wrappers for
 split/insert/delete, including direct split validity/preservation corollaries
 and direct successful/unsuccessful query corollaries for the inserted and
-deleted keys plus old-key preservation, membership-driven search-after-update
-wrappers, and old failed-search preservation, plus
+deleted keys plus old-key preservation, insertion/deletion validity short-name
+wrappers, equality-key update-query wrappers, membership-driven
+search-after-update wrappers, and old failed-search preservation, plus
 exact failed membership specifications and direct failed-membership preservation
 wrappers.
 Full separator ordering, same-depth leaves, node-level deletion repair,
