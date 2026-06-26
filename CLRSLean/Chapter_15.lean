@@ -8,16 +8,22 @@ import CLRSLean.Chapter_15.Section_15_4_Longest_Common_Subsequence
 Chapter 15 studies optimal substructure and overlapping subproblems.  The first
 CLRS-Lean pass covers three dynamic-programming examples at the mathematical
 optimality-interface level: rod cutting, matrix-chain multiplication, and LCS.
-For matrix-chain multiplication and LCS, the chapter now also records
-table/reconstruction certificates, recurrence wrappers on certified LCS
-tables, direct recurrence consequences for matching and nonmatching LCS heads,
-and direct reconstruction optimality inequalities, while concrete bottom-up
+For rod cutting, the chapter now records both the Bellman recurrence layer and
+a finite bottom-up table-certificate layer, plus an executable recurrence-valued
+function.  For matrix-chain multiplication and LCS, the chapter records
+table/reconstruction certificates, recurrence wrappers on certified LCS tables,
+direct recurrence consequences for matching and nonmatching LCS heads, and
+direct reconstruction optimality inequalities, while concrete mutable-array
 implementations remain future refinements.
 
 ## Sections
 
 * 15.1 Rod cutting: {lit}`partial`.
   Main results: {lit}`CLRS.Chapter15.firstCutValue_le_of_rodCutRecurrence`,
+  {lit}`CLRS.Chapter15.bottomUpRodRevenue_rodCutRecurrence`,
+  {lit}`CLRS.Chapter15.firstCutValue_le_of_rodCutTableRecurrence`,
+  {lit}`CLRS.Chapter15.planValue_le_table_of_rodCutTableRecurrence`,
+  {lit}`CLRS.Chapter15.planValue_le_bottomUpRodRevenue`,
   {lit}`CLRS.Chapter15.rodRevenue_le_of_firstCutValue_bounds`,
   {lit}`CLRS.Chapter15.planValue_le_revenue_of_rodCutRecurrence`, and
   {lit}`CLRS.Chapter15.planValue_le_optimalPlanValue_of_same_length`.
@@ -48,9 +54,10 @@ implementations remain future refinements.
 ## Current Gaps
 
 The current files prove mathematical optimality interfaces for rod cutting,
-matrix-chain multiplication, and LCS.  Concrete bottom-up table construction,
-memoized recursion, executable reconstruction procedures, and optimal binary
-search trees are future section targets.
+matrix-chain multiplication, and LCS.  Rod cutting now has a finite table-prefix
+correctness theorem and executable recurrence-valued function; mutable-array
+table construction, memoized recursion, executable reconstruction procedures,
+and optimal binary search trees are future section targets.
 -/
 
 namespace CLRS

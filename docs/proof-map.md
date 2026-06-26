@@ -1088,16 +1088,30 @@ rotation and still expose the same ideal rank-selection behavior afterward.
   - `CLRS.Chapter15.firstCutValue_le_of_rodCutRecurrence`
   - `CLRS.Chapter15.rodRevenue_le_of_firstCutValue_bounds`
   - `CLRS.Chapter15.price_le_revenue_of_rodCutRecurrence`
+  - `CLRS.Chapter15.bottomUpRodRevenue_zero`
+  - `CLRS.Chapter15.bottomUpRodRevenue_succ`
+  - `CLRS.Chapter15.bottomUpRodRevenue_rodCutRecurrence`
+  - `CLRS.Chapter15.rodCutTableRecurrence_of_rodCutRecurrence`
+  - `CLRS.Chapter15.bottomUpRodRevenue_rodCutTableRecurrence`
+  - `CLRS.Chapter15.firstCutValue_le_of_rodCutTableRecurrence`
+  - `CLRS.Chapter15.rodTableValue_le_of_firstCutValue_bounds`
+  - `CLRS.Chapter15.price_le_table_of_rodCutTableRecurrence`
+  - `CLRS.Chapter15.planValue_le_table_of_rodCutTableRecurrence`
+  - `CLRS.Chapter15.planValue_le_bottomUpRodRevenue`
   - `CLRS.Chapter15.planValue_le_revenue_of_rodCutRecurrence`
   - `CLRS.Chapter15.planValue_le_optimalPlanValue_of_same_length`
-- Proof pattern: state the Bellman first-cut recurrence abstractly, prove every
-  admissible first cut is bounded by the recurrence value, then induct over
-  positive-piece cutting plans to prove global optimality certificates
-- Current gap: bottom-up and memoized implementation correctness remains a
-  future target
+  - `CLRS.Chapter15.planValue_le_tablePlanValue_of_same_length`
+  - `CLRS.Chapter15.planValue_le_bottomUpRodPlanValue_of_same_length`
+- Proof pattern: state the Bellman first-cut recurrence abstractly, expose a
+  finite bottom-up table-prefix recurrence, prove every admissible first cut is
+  bounded by the recurrence/table value, then induct over positive-piece
+  cutting plans to prove global optimality certificates
+- Current gap: mutable-array and memoized implementation correctness remains a
+  future refinement target
 
 This first dynamic-programming proof establishes the textbook optimal
-substructure argument independently of a particular table implementation.
+substructure argument and the correctness condition for a bottom-up table
+prefix independently of a particular mutable-array implementation.
 
 ### Section 15.2 - Matrix-chain multiplication
 

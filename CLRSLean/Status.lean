@@ -117,11 +117,12 @@ which areas should not yet be counted as proof-complete.
   Connecting those rotation wrappers to full red-black balancing, interval
   trees, and the general augmentation theorem remain.
 * Chapter 15, Sections 15.1, 15.2, and 15.4: rod-cutting Bellman recurrence
-  facts, matrix-chain parenthesization optimality plus split-table
-  reconstruction certificates, and LCS certificate optimality plus
+  facts plus finite bottom-up table-prefix correctness and an executable
+  recurrence-valued function, matrix-chain parenthesization optimality plus
+  split-table reconstruction certificates, and LCS certificate optimality plus
   table-recurrence reconstruction certificates and recurrence wrappers are
   proved, including matching-head and nonmatching-head recurrence consequences;
-  bottom-up/memoized execution, executable reconstruction procedures, and
+  mutable-array/memoized execution, executable reconstruction procedures, and
   optimal binary search trees remain.
 * Chapter 17, Sections 17.1-17.4: finite-prefix aggregate/accounting/potential
   theorems plus {lit}`MULTIPOP`, executable binary-counter one-step potential
@@ -213,9 +214,9 @@ which areas should not yet be counted as proof-complete.
 * Chapter 14 remaining augmentation targets: connect the proved
   size/rank-preserving rotations to red-black balancing, then add interval
   trees and the general augmentation theorem.
-* Chapter 15 remaining dynamic-programming targets: bottom-up and memoized rod
-  cutting, executable matrix-chain and LCS table/reconstruction algorithms, and
-  optimal binary search trees.
+* Chapter 15 remaining dynamic-programming targets: mutable-array and memoized
+  rod cutting, executable matrix-chain and LCS table/reconstruction algorithms,
+  and optimal binary search trees.
 * Chapter 17 dynamic-table refinements: mutable-array copying, allocator/RAM
   cost semantics, and sharper load-factor potential refinements.
 * Chapter 18 B-tree refinements: full occupancy/separator/same-depth invariant
@@ -705,8 +706,20 @@ the next cleanup pass after this 11--15 track.
   current results {lit}`CLRS.Chapter15.firstCutValue_le_of_rodCutRecurrence`,
   {lit}`CLRS.Chapter15.rodRevenue_le_of_firstCutValue_bounds`,
   {lit}`CLRS.Chapter15.price_le_revenue_of_rodCutRecurrence`,
-  {lit}`CLRS.Chapter15.planValue_le_revenue_of_rodCutRecurrence`, and
-  {lit}`CLRS.Chapter15.planValue_le_optimalPlanValue_of_same_length`;
+  {lit}`CLRS.Chapter15.bottomUpRodRevenue_zero`,
+  {lit}`CLRS.Chapter15.bottomUpRodRevenue_succ`,
+  {lit}`CLRS.Chapter15.bottomUpRodRevenue_rodCutRecurrence`,
+  {lit}`CLRS.Chapter15.rodCutTableRecurrence_of_rodCutRecurrence`,
+  {lit}`CLRS.Chapter15.bottomUpRodRevenue_rodCutTableRecurrence`,
+  {lit}`CLRS.Chapter15.firstCutValue_le_of_rodCutTableRecurrence`,
+  {lit}`CLRS.Chapter15.rodTableValue_le_of_firstCutValue_bounds`,
+  {lit}`CLRS.Chapter15.price_le_table_of_rodCutTableRecurrence`,
+  {lit}`CLRS.Chapter15.planValue_le_table_of_rodCutTableRecurrence`,
+  {lit}`CLRS.Chapter15.planValue_le_bottomUpRodRevenue`,
+  {lit}`CLRS.Chapter15.planValue_le_revenue_of_rodCutRecurrence`,
+  {lit}`CLRS.Chapter15.planValue_le_optimalPlanValue_of_same_length`,
+  {lit}`CLRS.Chapter15.planValue_le_tablePlanValue_of_same_length`, and
+  {lit}`CLRS.Chapter15.planValue_le_bottomUpRodPlanValue_of_same_length`;
 * 15.2 Matrix-chain multiplication:
   current results {lit}`CLRS.Chapter15.ChainPlan.start_le_end`,
   {lit}`CLRS.Chapter15.MatrixChainLowerBound`,
