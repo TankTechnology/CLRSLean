@@ -13,8 +13,9 @@ successor, and predecessor plus membership-, extrema-, and
 neighbor-query-after-update positive and no-neighbor specifications,
 successful-query universe-bound corollaries, direct extrema
 membership/lower- and upper-bound wrappers, direct base/insert/delete neighbor
-membership/order wrappers, extrema empty-after-update specifications,
-update-query universe-bound corollaries, direct
+membership/order wrappers, direct extrema-after-update membership/order
+wrappers, extrema empty-after-update specifications, update-query
+universe-bound corollaries, direct
 inserted/deleted key and old-key member-preservation corollaries, exact
 failed member-query specifications after updates, and operation-depth
 base/step/linear and monotonicity wrappers.
@@ -63,9 +64,15 @@ base/step/linear and monotonicity wrappers.
   {lit}`CLRS.Chapter20.VEB.insert_member_old`,
   {lit}`CLRS.Chapter20.VEB.insert_member_false_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_minimum_mem`,
+  {lit}`CLRS.Chapter20.VEB.insert_minimum_le_inserted`,
+  {lit}`CLRS.Chapter20.VEB.insert_minimum_le_old`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.insert_maximum_mem`,
+  {lit}`CLRS.Chapter20.VEB.insert_maximum_inserted_le`,
+  {lit}`CLRS.Chapter20.VEB.insert_maximum_old_le`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_correct`,
@@ -87,9 +94,15 @@ base/step/linear and monotonicity wrappers.
   {lit}`CLRS.Chapter20.VEB.delete_member_of_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_member_false_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_minimum_ne`,
+  {lit}`CLRS.Chapter20.VEB.delete_minimum_mem`,
+  {lit}`CLRS.Chapter20.VEB.delete_minimum_le_old`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`,
+  {lit}`CLRS.Chapter20.VEB.delete_maximum_ne`,
+  {lit}`CLRS.Chapter20.VEB.delete_maximum_mem`,
+  {lit}`CLRS.Chapter20.VEB.delete_maximum_old_le`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_none_iff`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_correct`,

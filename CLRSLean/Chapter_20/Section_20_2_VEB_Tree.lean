@@ -51,6 +51,15 @@ Main results:
   {lit}`VEB.insert_maximum_correct`, {lit}`VEB.delete_minimum_correct`, and
   {lit}`VEB.delete_maximum_correct`: extrema returned after updates are
   exactly extrema of the updated finite set.
+- Theorems {lit}`VEB.insert_minimum_mem`,
+  {lit}`VEB.insert_minimum_le_inserted`, {lit}`VEB.insert_minimum_le_old`,
+  {lit}`VEB.insert_maximum_mem`, {lit}`VEB.insert_maximum_inserted_le`, and
+  {lit}`VEB.insert_maximum_old_le`: direct membership and order corollaries
+  for extrema returned after insertion.
+- Theorems {lit}`VEB.delete_minimum_ne`, {lit}`VEB.delete_minimum_mem`,
+  {lit}`VEB.delete_minimum_le_old`, {lit}`VEB.delete_maximum_ne`,
+  {lit}`VEB.delete_maximum_mem`, and {lit}`VEB.delete_maximum_old_le`:
+  direct membership and order corollaries for extrema returned after deletion.
 - Theorems {lit}`VEB.insert_minimum_none_iff`,
   {lit}`VEB.insert_maximum_none_iff`, {lit}`VEB.delete_minimum_none_iff`, and
   {lit}`VEB.delete_maximum_none_iff`: empty extrema results after updates
@@ -498,6 +507,30 @@ theorem insert_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   · intro y hy
     exact hmin'.2 y (by simp [hy])
 
+/-- A returned minimum after insertion is the inserted key or an old key. -/
+theorem insert_minimum_mem {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmin : minimum (insert x t) = some m) :
+    m = x ∨ m ∈ s := by
+  exact (insert_minimum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hx hmin).1
+
+/-- A returned minimum after insertion is no larger than the inserted key. -/
+theorem insert_minimum_le_inserted {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmin : minimum (insert x t) = some m) :
+    m <= x := by
+  exact (insert_minimum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hx hmin).2.1
+
+/-- A returned minimum after insertion is no larger than any old key. -/
+theorem insert_minimum_le_old {t : Tree} {s : Finset Nat} {x m y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmin : minimum (insert x t) = some m) (hy : y ∈ s) :
+    m <= y := by
+  exact (insert_minimum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hx hmin).2.2 y hy
+
 /-- A returned minimum after insertion lies inside the represented universe. -/
 theorem insert_minimum_lt_univ {t : Tree} {s : Finset Nat} {x m : Nat}
     (hrep : Represents t s) (hx : x < t.univSize)
@@ -531,6 +564,30 @@ theorem insert_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   · exact hmax'.2 x (by simp)
   · intro y hy
     exact hmax'.2 y (by simp [hy])
+
+/-- A returned maximum after insertion is the inserted key or an old key. -/
+theorem insert_maximum_mem {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmax : maximum (insert x t) = some m) :
+    m = x ∨ m ∈ s := by
+  exact (insert_maximum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hx hmax).1
+
+/-- The inserted key is no larger than a returned maximum after insertion. -/
+theorem insert_maximum_inserted_le {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmax : maximum (insert x t) = some m) :
+    x <= m := by
+  exact (insert_maximum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hx hmax).2.1
+
+/-- Any old key is no larger than a returned maximum after insertion. -/
+theorem insert_maximum_old_le {t : Tree} {s : Finset Nat} {x m y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmax : maximum (insert x t) = some m) (hy : y ∈ s) :
+    y <= m := by
+  exact (insert_maximum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hx hmax).2.2 y hy
 
 /-- A returned maximum after insertion lies inside the represented universe. -/
 theorem insert_maximum_lt_univ {t : Tree} {s : Finset Nat} {x m : Nat}
@@ -772,6 +829,28 @@ theorem delete_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   intro y hy hyx
   exact hmin'.2 y (by simp [Finset.mem_erase, hyx, hy])
 
+/-- A returned minimum after deletion is not the deleted key. -/
+theorem delete_minimum_ne {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hmin : minimum (delete x t) = some m) :
+    m ≠ x := by
+  exact (delete_minimum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hmin).1
+
+/-- A returned minimum after deletion is an old key. -/
+theorem delete_minimum_mem {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hmin : minimum (delete x t) = some m) :
+    m ∈ s := by
+  exact (delete_minimum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hmin).2.1
+
+/-- A returned minimum after deletion is no larger than any old remaining key. -/
+theorem delete_minimum_le_old {t : Tree} {s : Finset Nat} {x m y : Nat}
+    (hrep : Represents t s) (hmin : minimum (delete x t) = some m)
+    (hy : y ∈ s) (hyx : y ≠ x) :
+    m <= y := by
+  exact (delete_minimum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hmin).2.2 y hy hyx
+
 /-- A returned minimum after deletion lies inside the represented universe. -/
 theorem delete_minimum_lt_univ {t : Tree} {s : Finset Nat} {x m : Nat}
     (hrep : Represents t s) (hmin : minimum (delete x t) = some m) :
@@ -818,6 +897,28 @@ theorem delete_maximum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
   refine ⟨hmem.1, hmem.2, ?_⟩
   intro y hy hyx
   exact hmax'.2 y (by simp [Finset.mem_erase, hyx, hy])
+
+/-- A returned maximum after deletion is not the deleted key. -/
+theorem delete_maximum_ne {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hmax : maximum (delete x t) = some m) :
+    m ≠ x := by
+  exact (delete_maximum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hmax).1
+
+/-- A returned maximum after deletion is an old key. -/
+theorem delete_maximum_mem {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hmax : maximum (delete x t) = some m) :
+    m ∈ s := by
+  exact (delete_maximum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hmax).2.1
+
+/-- Any old remaining key is no larger than a returned maximum after deletion. -/
+theorem delete_maximum_old_le {t : Tree} {s : Finset Nat} {x m y : Nat}
+    (hrep : Represents t s) (hmax : maximum (delete x t) = some m)
+    (hy : y ∈ s) (hyx : y ≠ x) :
+    y <= m := by
+  exact (delete_maximum_correct
+    (t := t) (s := s) (x := x) (m := m) hrep hmax).2.2 y hy hyx
 
 /-- A returned maximum after deletion lies inside the represented universe. -/
 theorem delete_maximum_lt_univ {t : Tree} {s : Finset Nat} {x m : Nat}

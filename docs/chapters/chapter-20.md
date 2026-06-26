@@ -43,9 +43,15 @@
 - `CLRS.Chapter20.VEB.insert_member_old`
 - `CLRS.Chapter20.VEB.insert_member_false_iff`
 - `CLRS.Chapter20.VEB.insert_minimum_correct`
+- `CLRS.Chapter20.VEB.insert_minimum_mem`
+- `CLRS.Chapter20.VEB.insert_minimum_le_inserted`
+- `CLRS.Chapter20.VEB.insert_minimum_le_old`
 - `CLRS.Chapter20.VEB.insert_minimum_lt_univ`
 - `CLRS.Chapter20.VEB.insert_minimum_none_iff`
 - `CLRS.Chapter20.VEB.insert_maximum_correct`
+- `CLRS.Chapter20.VEB.insert_maximum_mem`
+- `CLRS.Chapter20.VEB.insert_maximum_inserted_le`
+- `CLRS.Chapter20.VEB.insert_maximum_old_le`
 - `CLRS.Chapter20.VEB.insert_maximum_lt_univ`
 - `CLRS.Chapter20.VEB.insert_maximum_none_iff`
 - `CLRS.Chapter20.VEB.insert_successor_correct`
@@ -67,9 +73,15 @@
 - `CLRS.Chapter20.VEB.delete_member_of_ne`
 - `CLRS.Chapter20.VEB.delete_member_false_iff`
 - `CLRS.Chapter20.VEB.delete_minimum_correct`
+- `CLRS.Chapter20.VEB.delete_minimum_ne`
+- `CLRS.Chapter20.VEB.delete_minimum_mem`
+- `CLRS.Chapter20.VEB.delete_minimum_le_old`
 - `CLRS.Chapter20.VEB.delete_minimum_lt_univ`
 - `CLRS.Chapter20.VEB.delete_minimum_none_iff`
 - `CLRS.Chapter20.VEB.delete_maximum_correct`
+- `CLRS.Chapter20.VEB.delete_maximum_ne`
+- `CLRS.Chapter20.VEB.delete_maximum_mem`
+- `CLRS.Chapter20.VEB.delete_maximum_old_le`
 - `CLRS.Chapter20.VEB.delete_maximum_lt_univ`
 - `CLRS.Chapter20.VEB.delete_maximum_none_iff`
 - `CLRS.Chapter20.VEB.delete_successor_correct`
@@ -97,7 +109,8 @@ high/low recomposition facts, and finite-set operation specifications.
 It also records direct member-query corollaries for inserted/deleted keys,
 old-key preservation, and exact failed member queries after updates,
 successful-query universe-bound corollaries, direct extrema
-membership/lower- and upper-bound wrappers, direct base/insert/delete neighbor
+membership/lower- and upper-bound wrappers, direct extrema-after-update
+membership/order wrappers, direct base/insert/delete neighbor
 membership/order wrappers, positive and empty-result extrema-after-update
 specs, positive and no-neighbor update-query specs, update-query
 universe-bound corollaries, plus the first-pass operation-depth
