@@ -53,6 +53,7 @@
 - `CLRS.Chapter20.VEB.insert_member_false_of_ne`
 - `CLRS.Chapter20.VEB.insert_minimum_correct`
 - `CLRS.Chapter20.VEB.insert_minimum_mem`
+- `CLRS.Chapter20.VEB.insert_minimum_mem_old_of_ne`
 - `CLRS.Chapter20.VEB.insert_minimum_le_inserted`
 - `CLRS.Chapter20.VEB.insert_minimum_le_old`
 - `CLRS.Chapter20.VEB.insert_minimum_lt_univ`
@@ -60,6 +61,7 @@
 - `CLRS.Chapter20.VEB.insert_minimum_ne_none`
 - `CLRS.Chapter20.VEB.insert_maximum_correct`
 - `CLRS.Chapter20.VEB.insert_maximum_mem`
+- `CLRS.Chapter20.VEB.insert_maximum_mem_old_of_ne`
 - `CLRS.Chapter20.VEB.insert_maximum_inserted_le`
 - `CLRS.Chapter20.VEB.insert_maximum_old_le`
 - `CLRS.Chapter20.VEB.insert_maximum_lt_univ`
@@ -67,6 +69,7 @@
 - `CLRS.Chapter20.VEB.insert_maximum_ne_none`
 - `CLRS.Chapter20.VEB.insert_successor_correct`
 - `CLRS.Chapter20.VEB.insert_successor_mem`
+- `CLRS.Chapter20.VEB.insert_successor_mem_old_of_ne`
 - `CLRS.Chapter20.VEB.insert_successor_gt`
 - `CLRS.Chapter20.VEB.insert_successor_le`
 - `CLRS.Chapter20.VEB.insert_successor_lt_univ`
@@ -77,6 +80,7 @@
 - `CLRS.Chapter20.VEB.insert_successor_ne_none_of_old_gt`
 - `CLRS.Chapter20.VEB.insert_predecessor_correct`
 - `CLRS.Chapter20.VEB.insert_predecessor_mem`
+- `CLRS.Chapter20.VEB.insert_predecessor_mem_old_of_ne`
 - `CLRS.Chapter20.VEB.insert_predecessor_lt`
 - `CLRS.Chapter20.VEB.insert_le_predecessor`
 - `CLRS.Chapter20.VEB.insert_predecessor_lt_univ`

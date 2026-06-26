@@ -56,10 +56,14 @@ Main results:
   {lit}`VEB.delete_maximum_correct`: extrema returned after updates are
   exactly extrema of the updated finite set.
 - Theorems {lit}`VEB.insert_minimum_mem`,
+  {lit}`VEB.insert_minimum_mem_old_of_ne`,
   {lit}`VEB.insert_minimum_le_inserted`, {lit}`VEB.insert_minimum_le_old`,
-  {lit}`VEB.insert_maximum_mem`, {lit}`VEB.insert_maximum_inserted_le`, and
+  {lit}`VEB.insert_maximum_mem`,
+  {lit}`VEB.insert_maximum_mem_old_of_ne`,
+  {lit}`VEB.insert_maximum_inserted_le`, and
   {lit}`VEB.insert_maximum_old_le`: direct membership and order corollaries
-  for extrema returned after insertion.
+  for extrema returned after insertion, including old-key membership when the
+  returned extremum is not the inserted key.
 - Theorems {lit}`VEB.delete_minimum_ne`, {lit}`VEB.delete_minimum_mem`,
   {lit}`VEB.delete_minimum_le_old`, {lit}`VEB.delete_maximum_ne`,
   {lit}`VEB.delete_maximum_mem`, and {lit}`VEB.delete_maximum_old_le`:
@@ -85,11 +89,15 @@ Main results:
   {lit}`VEB.insert_predecessor_correct`, {lit}`VEB.delete_successor_correct`,
   and {lit}`VEB.delete_predecessor_correct`: successor and predecessor queries
   after updates are extrema of the updated filtered finite set.
-- Theorems {lit}`VEB.insert_successor_mem`, {lit}`VEB.insert_successor_gt`,
-  {lit}`VEB.insert_successor_le`, {lit}`VEB.insert_predecessor_mem`,
+- Theorems {lit}`VEB.insert_successor_mem`,
+  {lit}`VEB.insert_successor_mem_old_of_ne`,
+  {lit}`VEB.insert_successor_gt`, {lit}`VEB.insert_successor_le`,
+  {lit}`VEB.insert_predecessor_mem`,
+  {lit}`VEB.insert_predecessor_mem_old_of_ne`,
   {lit}`VEB.insert_predecessor_lt`, and {lit}`VEB.insert_le_predecessor`:
   direct membership and order corollaries for returned neighbors after
-  insertion.
+  insertion, including old-key membership when the returned neighbor is not the
+  inserted key.
 - Theorems {lit}`VEB.delete_successor_mem`, {lit}`VEB.delete_successor_gt`,
   {lit}`VEB.delete_successor_le`, {lit}`VEB.delete_predecessor_mem`,
   {lit}`VEB.delete_predecessor_lt`, and {lit}`VEB.delete_le_predecessor`:
@@ -624,6 +632,16 @@ theorem insert_minimum_mem {t : Tree} {s : Finset Nat} {x m : Nat}
   exact (insert_minimum_correct
     (t := t) (s := s) (x := x) (m := m) hrep hx hmin).1
 
+/-- A returned minimum after insertion that is not the inserted key is an old key. -/
+theorem insert_minimum_mem_old_of_ne {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmin : minimum (insert x t) = some m) (hmx : m ≠ x) :
+    m ∈ s := by
+  cases insert_minimum_mem
+      (t := t) (s := s) (x := x) (m := m) hrep hx hmin with
+  | inl hmxEq => exact False.elim (hmx hmxEq)
+  | inr hmem => exact hmem
+
 /-- A returned minimum after insertion is no larger than the inserted key. -/
 theorem insert_minimum_le_inserted {t : Tree} {s : Finset Nat} {x m : Nat}
     (hrep : Represents t s) (hx : x < t.univSize)
@@ -688,6 +706,16 @@ theorem insert_maximum_mem {t : Tree} {s : Finset Nat} {x m : Nat}
     m = x ∨ m ∈ s := by
   exact (insert_maximum_correct
     (t := t) (s := s) (x := x) (m := m) hrep hx hmax).1
+
+/-- A returned maximum after insertion that is not the inserted key is an old key. -/
+theorem insert_maximum_mem_old_of_ne {t : Tree} {s : Finset Nat} {x m : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hmax : maximum (insert x t) = some m) (hmx : m ≠ x) :
+    m ∈ s := by
+  cases insert_maximum_mem
+      (t := t) (s := s) (x := x) (m := m) hrep hx hmax with
+  | inl hmxEq => exact False.elim (hmx hmxEq)
+  | inr hmem => exact hmem
 
 /-- The inserted key is no larger than a returned maximum after insertion. -/
 theorem insert_maximum_inserted_le {t : Tree} {s : Finset Nat} {x m : Nat}
@@ -754,6 +782,16 @@ theorem insert_successor_mem {t : Tree} {s : Finset Nat} {x q y : Nat}
     y = x ∨ y ∈ s := by
   exact (insert_successor_correct
     (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hsucc).1
+
+/-- A returned successor after insertion that is not the inserted key is an old key. -/
+theorem insert_successor_mem_old_of_ne {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hsucc : successor q (insert x t) = some y) (hyx : y ≠ x) :
+    y ∈ s := by
+  cases insert_successor_mem
+      (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hsucc with
+  | inl hyxEq => exact False.elim (hyx hyxEq)
+  | inr hmem => exact hmem
 
 /-- A returned successor after insertion is greater than the query. -/
 theorem insert_successor_gt {t : Tree} {s : Finset Nat} {x q y : Nat}
@@ -863,6 +901,16 @@ theorem insert_predecessor_mem {t : Tree} {s : Finset Nat} {x q y : Nat}
     y = x ∨ y ∈ s := by
   exact (insert_predecessor_correct
     (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hpred).1
+
+/-- A returned predecessor after insertion that is not the inserted key is an old key. -/
+theorem insert_predecessor_mem_old_of_ne {t : Tree} {s : Finset Nat} {x q y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hpred : predecessor q (insert x t) = some y) (hyx : y ≠ x) :
+    y ∈ s := by
+  cases insert_predecessor_mem
+      (t := t) (s := s) (x := x) (q := q) (y := y) hrep hx hpred with
+  | inl hyxEq => exact False.elim (hyx hyxEq)
+  | inr hmem => exact hmem
 
 /-- A returned predecessor after insertion is less than the query. -/
 theorem insert_predecessor_lt {t : Tree} {s : Finset Nat} {x q y : Nat}

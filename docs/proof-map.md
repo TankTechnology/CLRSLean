@@ -1374,6 +1374,7 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.insert_member_false_of_ne`
   - `CLRS.Chapter20.VEB.insert_minimum_correct`
   - `CLRS.Chapter20.VEB.insert_minimum_mem`
+  - `CLRS.Chapter20.VEB.insert_minimum_mem_old_of_ne`
   - `CLRS.Chapter20.VEB.insert_minimum_le_inserted`
   - `CLRS.Chapter20.VEB.insert_minimum_le_old`
   - `CLRS.Chapter20.VEB.insert_minimum_lt_univ`
@@ -1381,6 +1382,7 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.insert_minimum_ne_none`
   - `CLRS.Chapter20.VEB.insert_maximum_correct`
   - `CLRS.Chapter20.VEB.insert_maximum_mem`
+  - `CLRS.Chapter20.VEB.insert_maximum_mem_old_of_ne`
   - `CLRS.Chapter20.VEB.insert_maximum_inserted_le`
   - `CLRS.Chapter20.VEB.insert_maximum_old_le`
   - `CLRS.Chapter20.VEB.insert_maximum_lt_univ`
@@ -1388,6 +1390,7 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.insert_maximum_ne_none`
   - `CLRS.Chapter20.VEB.insert_successor_correct`
   - `CLRS.Chapter20.VEB.insert_successor_mem`
+  - `CLRS.Chapter20.VEB.insert_successor_mem_old_of_ne`
   - `CLRS.Chapter20.VEB.insert_successor_gt`
   - `CLRS.Chapter20.VEB.insert_successor_le`
   - `CLRS.Chapter20.VEB.insert_successor_lt_univ`
@@ -1398,6 +1401,7 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.insert_successor_ne_none_of_old_gt`
   - `CLRS.Chapter20.VEB.insert_predecessor_correct`
   - `CLRS.Chapter20.VEB.insert_predecessor_mem`
+  - `CLRS.Chapter20.VEB.insert_predecessor_mem_old_of_ne`
   - `CLRS.Chapter20.VEB.insert_predecessor_lt`
   - `CLRS.Chapter20.VEB.insert_le_predecessor`
   - `CLRS.Chapter20.VEB.insert_predecessor_lt_univ`
@@ -1457,7 +1461,8 @@ Fibonacci logarithmic theorem.
   high/low recomposition, finite-set representation semantics,
   extrema/successor via `Finset.min'`/`max'`, successful-query universe-bound
   bridges, direct extrema membership/lower- and upper-bound wrappers, direct
-  base/insert/delete neighbor membership/order wrappers, direct updated-key,
+  insertion-query old-key membership wrappers, direct base/insert/delete
+  neighbor membership/order wrappers, direct updated-key,
   old-key preservation, failed member queries after updates, and direct
   failed member-query preservation wrappers, direct no-neighbor query wrappers,
   premise-light no-neighbor wrappers over old represented sets, direct extrema
@@ -1477,6 +1482,7 @@ of bounded high/low recomposition, and a set-specification layer for the main
 vEB queries and updates.  This includes both positive and empty-result
 extrema/successor/predecessor cases plus successful-query universe-bound
 corollaries, direct extrema membership/lower- and upper-bound wrappers,
+direct insertion-query old-key membership wrappers,
 direct base/insert/delete neighbor membership/order wrappers,
 membership-after-update, direct extrema-after-update membership/order wrappers,
 direct updated-key and old-key member-preservation corollaries, exact failed
