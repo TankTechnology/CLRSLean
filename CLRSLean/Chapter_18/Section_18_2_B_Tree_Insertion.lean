@@ -29,6 +29,9 @@ Main results:
 - Theorems {lit}`BTree.splitChild_mem_old` and
   {lit}`BTree.splitChild_search_old`: old members and searchable keys remain
   so after the first-pass split wrapper.
+- Theorems {lit}`BTree.splitChild_search_of_mem` and
+  {lit}`BTree.splitChild_search_false_of_not_mem`: old membership and absence
+  give direct post-split successful and failed searches.
 - Theorem {lit}`BTree.insert_preserves_model`: specification insertion preserves
   the first-pass validity predicate.
 - Theorem {lit}`BTree.insert_mem_iff`: insertion adds exactly the inserted key
@@ -49,6 +52,9 @@ Main results:
 - Theorems {lit}`BTree.insert_mem_old` and
   {lit}`BTree.insert_search_old`: old members and searchable keys remain so
   after insertion.
+- Theorems {lit}`BTree.insert_search_of_mem` and
+  {lit}`BTree.insert_search_false_of_not_mem_ne`: old membership and absent
+  noninserted keys give direct post-insertion search results.
 
 Current gaps:
 
@@ -116,6 +122,13 @@ theorem splitChild_search_old {minDegree x : Nat} {t : BTree}
   rw [splitChild_search_iff (minDegree := minDegree) (x := x) (t := t) hvalid]
   exact hx
 
+/-- Old members are directly searchable after the first-pass split wrapper. -/
+theorem splitChild_search_of_mem {minDegree x : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) (hx : mem x t) :
+    search x (splitChild t) = true := by
+  exact splitChild_search_old (minDegree := minDegree) (x := x) (t := t)
+    hvalid (search_true_of_mem x t hx)
+
 /-- Unsuccessful search is preserved by the first-pass split wrapper. -/
 theorem splitChild_search_false_iff {minDegree x : Nat} {t : BTree}
     (hvalid : Valid minDegree t) :
@@ -142,6 +155,13 @@ theorem splitChild_search_false_old {minDegree x : Nat} {t : BTree}
     search x (splitChild t) = false := by
   rw [splitChild_search_false_iff (minDegree := minDegree) (x := x) (t := t) hvalid]
   exact hx
+
+/-- Old absent keys directly remain failed searches after the first-pass split wrapper. -/
+theorem splitChild_search_false_of_not_mem {minDegree x : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) (hx : ¬ mem x t) :
+    search x (splitChild t) = false := by
+  exact splitChild_search_false_old (minDegree := minDegree) (x := x) (t := t)
+    hvalid (search_false_of_not_mem x t hx)
 
 /-- Specification-level B-tree insertion: add the key at a fresh root. -/
 def insert (x : Nat) (t : BTree) : BTree :=
@@ -219,6 +239,13 @@ theorem insert_search_old {minDegree x y : Nat} {t : BTree}
   rw [insert_search_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid]
   exact Or.inr hy
 
+/-- Old members are directly searchable after specification insertion. -/
+theorem insert_search_of_mem {minDegree x y : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) (hy : mem y t) :
+    search y (insert x t) = true := by
+  exact insert_search_old (minDegree := minDegree) (x := x) (y := y) (t := t)
+    hvalid (search_true_of_mem y t hy)
+
 /-- Searching after insertion fails exactly for noninserted keys that failed before. -/
 theorem insert_search_false_iff {minDegree x y : Nat} {t : BTree}
     (hvalid : Valid minDegree t) :
@@ -259,6 +286,14 @@ theorem insert_search_false_of_ne {minDegree x y : Nat} {t : BTree}
     search y (insert x t) = false := by
   rw [insert_search_false_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid]
   exact ⟨hxy, hy⟩
+
+/-- Old absent keys different from the inserted key are directly failed searches after insertion. -/
+theorem insert_search_false_of_not_mem_ne {minDegree x y : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) (hxy : y ≠ x) (hy : ¬ mem y t) :
+    search y (insert x t) = false := by
+  exact insert_search_false_of_ne
+    (minDegree := minDegree) (x := x) (y := y) (t := t)
+    hvalid hxy (search_false_of_not_mem y t hy)
 
 end BTree
 end Chapter18

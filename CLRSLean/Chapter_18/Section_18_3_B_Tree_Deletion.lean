@@ -31,6 +31,9 @@ Main results:
 - Theorems {lit}`BTree.delete_mem_of_ne` and
   {lit}`BTree.delete_search_of_ne`: old keys different from the deleted key
   remain present and searchable after deletion.
+- Theorems {lit}`BTree.delete_search_of_mem_ne` and
+  {lit}`BTree.delete_search_false_of_not_mem`: old membership and absence give
+  direct post-deletion successful and failed searches.
 
 Current gaps:
 
@@ -141,6 +144,14 @@ theorem delete_search_of_ne {minDegree x y : Nat} {t : BTree}
   rw [delete_search_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid]
   exact ⟨hxy, hy⟩
 
+/-- Old members different from the deleted key are directly searchable after deletion. -/
+theorem delete_search_of_mem_ne {minDegree x y : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) (hxy : (y != x) = true) (hy : mem y t) :
+    search y (delete x t) = true := by
+  exact delete_search_of_ne
+    (minDegree := minDegree) (x := x) (y := y) (t := t)
+    hvalid hxy (search_true_of_mem y t hy)
+
 /-- Searching after deletion fails exactly for the deleted key or an old failed search. -/
 theorem delete_search_false_iff {minDegree x y : Nat} {t : BTree}
     (hvalid : Valid minDegree t) :
@@ -179,6 +190,14 @@ theorem delete_search_false_old {minDegree x y : Nat} {t : BTree}
     search y (delete x t) = false := by
   rw [delete_search_false_iff (minDegree := minDegree) (x := x) (y := y) (t := t) hvalid]
   exact Or.inr hy
+
+/-- Old absent keys are directly failed searches after specification deletion. -/
+theorem delete_search_false_of_not_mem {minDegree x y : Nat} {t : BTree}
+    (hvalid : Valid minDegree t) (hy : ¬ mem y t) :
+    search y (delete x t) = false := by
+  exact delete_search_false_old
+    (minDegree := minDegree) (x := x) (y := y) (t := t)
+    hvalid (search_false_of_not_mem y t hy)
 
 end BTree
 end Chapter18
