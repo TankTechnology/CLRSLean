@@ -60,6 +60,10 @@ Main results:
   {lit}`FibHeap.union_minimum_le_left`, and
   {lit}`FibHeap.union_minimum_le_right`: direct membership and lower-bound
   corollaries for a returned minimum after union.
+- Theorems {lit}`FibHeap.extractMin_remaining_minimum_ne`,
+  {lit}`FibHeap.extractMin_remaining_minimum_mem`, and
+  {lit}`FibHeap.extractMin_remaining_minimum_le_old`: direct membership and
+  lower-bound corollaries for a returned minimum after extract-min.
 - Theorems {lit}`FibHeap.insert_minimum_none_iff`,
   {lit}`FibHeap.union_minimum_none_iff`,
   {lit}`FibHeap.extractMin_remaining_minimum_none_iff`,
@@ -525,6 +529,36 @@ theorem extractMin_remaining_minimum_correct {h h' : FibHeap}
   refine ⟨hmem.1, hmem.2, ?_⟩
   intro y hy hyx
   exact hmin'.2 y (by simp [Finset.mem_erase, hyx, hy])
+
+/-- A returned remaining minimum after extract-min is not the extracted key. -/
+theorem extractMin_remaining_minimum_ne {h h' : FibHeap}
+    {s : Finset Int} {x m : Int} (hrep : Represents h s)
+    (hextract : extractMin h = some (x, h'))
+    (hmin : minimum h' = some m) :
+    m ≠ x := by
+  exact (extractMin_remaining_minimum_correct
+    (h := h) (h' := h') (s := s) (x := x) (m := m)
+    hrep hextract hmin).1
+
+/-- A returned remaining minimum after extract-min is an old key. -/
+theorem extractMin_remaining_minimum_mem {h h' : FibHeap}
+    {s : Finset Int} {x m : Int} (hrep : Represents h s)
+    (hextract : extractMin h = some (x, h'))
+    (hmin : minimum h' = some m) :
+    m ∈ s := by
+  exact (extractMin_remaining_minimum_correct
+    (h := h) (h' := h') (s := s) (x := x) (m := m)
+    hrep hextract hmin).2.1
+
+/-- A returned remaining minimum after extract-min is no larger than any remaining old key. -/
+theorem extractMin_remaining_minimum_le_old {h h' : FibHeap}
+    {s : Finset Int} {x m y : Int} (hrep : Represents h s)
+    (hextract : extractMin h = some (x, h'))
+    (hmin : minimum h' = some m) (hy : y ∈ s) (hyx : y ≠ x) :
+    m <= y := by
+  exact (extractMin_remaining_minimum_correct
+    (h := h) (h' := h') (s := s) (x := x) (m := m)
+    hrep hextract hmin).2.2 y hy hyx
 
 /-- No remaining minimum after extract-min means every old key was the extracted key. -/
 theorem extractMin_remaining_minimum_none_iff {h h' : FibHeap}

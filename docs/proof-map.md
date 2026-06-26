@@ -1170,6 +1170,9 @@ mutation proof.
   - `CLRS.Chapter19.FibHeap.extractMin_not_mem_iff`
   - `CLRS.Chapter19.FibHeap.extractMin_none_iff`
   - `CLRS.Chapter19.FibHeap.extractMin_remaining_minimum_correct`
+  - `CLRS.Chapter19.FibHeap.extractMin_remaining_minimum_ne`
+  - `CLRS.Chapter19.FibHeap.extractMin_remaining_minimum_mem`
+  - `CLRS.Chapter19.FibHeap.extractMin_remaining_minimum_le_old`
   - `CLRS.Chapter19.FibHeap.extractMin_remaining_minimum_none_iff`
   - `CLRS.Chapter19.FibHeap.decreaseKey_correct`
   - `CLRS.Chapter19.FibHeap.decreaseKey_valid`
@@ -1201,7 +1204,8 @@ mutation proof.
 - Proof pattern: finite-set key semantics, normalized root/mark counters,
   direct operation-result validity wrappers, empty-result query
   characterization, direct minimum membership/lower-bound wrappers,
-  insert/union-minimum direct membership/lower-bound wrappers, heap-potential nonnegativity and
+  insert/union/extract-min-remaining minimum direct membership/lower-bound
+  wrappers, heap-potential nonnegativity and
   Chapter 17 potential-method instantiation, direct operation-key and old-key
   preservation membership corollaries, exact failed membership specifications,
   returned minimum-after-update positive and empty-result specifications,
@@ -1215,7 +1219,8 @@ mutation proof.
 Chapter 19 now records the operation-level Fibonacci-heap contracts against an
 abstract finite key set, including empty-heap construction and empty-result
 minimum/extract-min specifications, direct minimum membership/lower-bound
-wrappers, insert/union-minimum direct membership/lower-bound wrappers, plus direct
+wrappers, insert/union/extract-min-remaining minimum direct
+membership/lower-bound wrappers, plus direct
 insert/union/extract-min/decrease-key/delete membership facts plus
 operation-key and old-key preservation membership corollaries plus exact failed
 membership specifications, direct operation-result validity wrappers, and
