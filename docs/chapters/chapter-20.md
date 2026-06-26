@@ -19,11 +19,13 @@
 - `CLRS.Chapter20.VEB.minimum_le`
 - `CLRS.Chapter20.VEB.minimum_lt_univ`
 - `CLRS.Chapter20.VEB.minimum_none_iff`
+- `CLRS.Chapter20.VEB.minimum_none_of_empty`
 - `CLRS.Chapter20.VEB.maximum_correct`
 - `CLRS.Chapter20.VEB.maximum_mem`
 - `CLRS.Chapter20.VEB.le_maximum`
 - `CLRS.Chapter20.VEB.maximum_lt_univ`
 - `CLRS.Chapter20.VEB.maximum_none_iff`
+- `CLRS.Chapter20.VEB.maximum_none_of_empty`
 - `CLRS.Chapter20.VEB.successor_correct`
 - `CLRS.Chapter20.VEB.successor_mem`
 - `CLRS.Chapter20.VEB.successor_gt`
@@ -51,12 +53,14 @@
 - `CLRS.Chapter20.VEB.insert_minimum_le_old`
 - `CLRS.Chapter20.VEB.insert_minimum_lt_univ`
 - `CLRS.Chapter20.VEB.insert_minimum_none_iff`
+- `CLRS.Chapter20.VEB.insert_minimum_ne_none`
 - `CLRS.Chapter20.VEB.insert_maximum_correct`
 - `CLRS.Chapter20.VEB.insert_maximum_mem`
 - `CLRS.Chapter20.VEB.insert_maximum_inserted_le`
 - `CLRS.Chapter20.VEB.insert_maximum_old_le`
 - `CLRS.Chapter20.VEB.insert_maximum_lt_univ`
 - `CLRS.Chapter20.VEB.insert_maximum_none_iff`
+- `CLRS.Chapter20.VEB.insert_maximum_ne_none`
 - `CLRS.Chapter20.VEB.insert_successor_correct`
 - `CLRS.Chapter20.VEB.insert_successor_mem`
 - `CLRS.Chapter20.VEB.insert_successor_gt`
@@ -85,12 +89,14 @@
 - `CLRS.Chapter20.VEB.delete_minimum_le_old`
 - `CLRS.Chapter20.VEB.delete_minimum_lt_univ`
 - `CLRS.Chapter20.VEB.delete_minimum_none_iff`
+- `CLRS.Chapter20.VEB.delete_minimum_none_of_all_eq`
 - `CLRS.Chapter20.VEB.delete_maximum_correct`
 - `CLRS.Chapter20.VEB.delete_maximum_ne`
 - `CLRS.Chapter20.VEB.delete_maximum_mem`
 - `CLRS.Chapter20.VEB.delete_maximum_old_le`
 - `CLRS.Chapter20.VEB.delete_maximum_lt_univ`
 - `CLRS.Chapter20.VEB.delete_maximum_none_iff`
+- `CLRS.Chapter20.VEB.delete_maximum_none_of_all_eq`
 - `CLRS.Chapter20.VEB.delete_successor_correct`
 - `CLRS.Chapter20.VEB.delete_successor_mem`
 - `CLRS.Chapter20.VEB.delete_successor_gt`
@@ -119,11 +125,12 @@ It also records direct member-query corollaries for inserted/deleted keys,
 old-key preservation, and exact failed member queries after updates,
 direct failed member-query preservation wrappers, successful-query
 universe-bound corollaries, direct extrema membership/lower- and upper-bound
-wrappers, direct extrema-after-update
-membership/order wrappers, direct base/insert/delete neighbor
-membership/order wrappers, positive and empty-result extrema-after-update
+wrappers, direct extrema-after-update membership/order wrappers, direct
+base/insert/delete neighbor membership/order wrappers, positive and
+empty-result extrema-after-update
 specs, positive and no-neighbor update-query specs, update-query
-universe-bound corollaries, direct no-neighbor query wrappers, plus the
-first-pass operation-depth base, step, linear, and monotonicity facts.
+universe-bound corollaries, direct no-neighbor query wrappers, direct extrema
+empty-result wrappers, plus the first-pass operation-depth base, step, linear,
+and monotonicity facts.
 Recursive summary/cluster state, word-RAM base cases, and a full `O(log log u)`
 asymptotic bridge are still open.

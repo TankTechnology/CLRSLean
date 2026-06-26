@@ -1291,11 +1291,13 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.minimum_le`
   - `CLRS.Chapter20.VEB.minimum_lt_univ`
   - `CLRS.Chapter20.VEB.minimum_none_iff`
+  - `CLRS.Chapter20.VEB.minimum_none_of_empty`
   - `CLRS.Chapter20.VEB.maximum_correct`
   - `CLRS.Chapter20.VEB.maximum_mem`
   - `CLRS.Chapter20.VEB.le_maximum`
   - `CLRS.Chapter20.VEB.maximum_lt_univ`
   - `CLRS.Chapter20.VEB.maximum_none_iff`
+  - `CLRS.Chapter20.VEB.maximum_none_of_empty`
   - `CLRS.Chapter20.VEB.successor_correct`
   - `CLRS.Chapter20.VEB.successor_mem`
   - `CLRS.Chapter20.VEB.successor_gt`
@@ -1323,12 +1325,14 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.insert_minimum_le_old`
   - `CLRS.Chapter20.VEB.insert_minimum_lt_univ`
   - `CLRS.Chapter20.VEB.insert_minimum_none_iff`
+  - `CLRS.Chapter20.VEB.insert_minimum_ne_none`
   - `CLRS.Chapter20.VEB.insert_maximum_correct`
   - `CLRS.Chapter20.VEB.insert_maximum_mem`
   - `CLRS.Chapter20.VEB.insert_maximum_inserted_le`
   - `CLRS.Chapter20.VEB.insert_maximum_old_le`
   - `CLRS.Chapter20.VEB.insert_maximum_lt_univ`
   - `CLRS.Chapter20.VEB.insert_maximum_none_iff`
+  - `CLRS.Chapter20.VEB.insert_maximum_ne_none`
   - `CLRS.Chapter20.VEB.insert_successor_correct`
   - `CLRS.Chapter20.VEB.insert_successor_mem`
   - `CLRS.Chapter20.VEB.insert_successor_gt`
@@ -1357,12 +1361,14 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.delete_minimum_le_old`
   - `CLRS.Chapter20.VEB.delete_minimum_lt_univ`
   - `CLRS.Chapter20.VEB.delete_minimum_none_iff`
+  - `CLRS.Chapter20.VEB.delete_minimum_none_of_all_eq`
   - `CLRS.Chapter20.VEB.delete_maximum_correct`
   - `CLRS.Chapter20.VEB.delete_maximum_ne`
   - `CLRS.Chapter20.VEB.delete_maximum_mem`
   - `CLRS.Chapter20.VEB.delete_maximum_old_le`
   - `CLRS.Chapter20.VEB.delete_maximum_lt_univ`
   - `CLRS.Chapter20.VEB.delete_maximum_none_iff`
+  - `CLRS.Chapter20.VEB.delete_maximum_none_of_all_eq`
   - `CLRS.Chapter20.VEB.delete_successor_correct`
   - `CLRS.Chapter20.VEB.delete_successor_mem`
   - `CLRS.Chapter20.VEB.delete_successor_gt`
@@ -1389,7 +1395,8 @@ Fibonacci logarithmic theorem.
   base/insert/delete neighbor membership/order wrappers, direct updated-key,
   old-key preservation, failed member queries after updates, and direct
   failed member-query preservation wrappers, direct no-neighbor query wrappers,
-  direct extrema-after-update membership/order wrappers, update-query
+  direct extrema empty-result wrappers, direct extrema-after-update
+  membership/order wrappers, update-query
   universe-bound corollaries, and definition unfolding for
   first-pass operation-depth recurrence and monotonicity facts
 - Current gap: recursive min/max-summary-cluster state, word-RAM base cases,
@@ -1407,8 +1414,8 @@ direct updated-key and old-key member-preservation corollaries, exact failed
 member-query corollaries, direct failed member-query preservation wrappers,
 positive and empty-result extrema-after-update, and both positive and
 no-neighbor specifications for neighbor queries after updates, plus direct
-no-neighbor query wrappers and direct universe-bound corollaries for
-successful queries after updates.  The
+no-neighbor query wrappers, direct extrema empty-result wrappers, and direct
+universe-bound corollaries for successful queries after updates.  The
 current operation-depth facts expose the base case, successor step, and a
 linear/monotone wrapper over the universe exponent, not yet a full asymptotic
 translation for the original universe size.

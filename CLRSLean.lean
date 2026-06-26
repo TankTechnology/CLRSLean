@@ -127,8 +127,8 @@ Start with the chapter pages in the sidebar.
   bounds, empty-result extrema/successor/predecessor queries, insert, and
   delete, including membership-, extrema-, and neighbor-query-after-update
   positive/no-neighbor specs, direct no-neighbor query wrappers,
-  extrema empty-after-update specs, direct extrema membership/lower- and
-  upper-bound wrappers, direct
+  extrema empty-after-update specs, direct extrema empty-result wrappers,
+  direct extrema membership/lower- and upper-bound wrappers, direct
   extrema-after-update membership/order wrappers, direct base/insert/delete
   neighbor membership/order wrappers, member-query preservation and failure
   corollaries, direct failed member-query preservation wrappers,
@@ -628,11 +628,13 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter20.VEB.minimum_le`,
   {lit}`CLRS.Chapter20.VEB.minimum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.minimum_none_iff`,
+  {lit}`CLRS.Chapter20.VEB.minimum_none_of_empty`,
   {lit}`CLRS.Chapter20.VEB.maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.maximum_mem`,
   {lit}`CLRS.Chapter20.VEB.le_maximum`,
   {lit}`CLRS.Chapter20.VEB.maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.maximum_none_iff`,
+  {lit}`CLRS.Chapter20.VEB.maximum_none_of_empty`,
   {lit}`CLRS.Chapter20.VEB.successor_correct`,
   {lit}`CLRS.Chapter20.VEB.successor_mem`,
   {lit}`CLRS.Chapter20.VEB.successor_gt`,
@@ -660,12 +662,14 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter20.VEB.insert_minimum_le_old`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_none_iff`,
+  {lit}`CLRS.Chapter20.VEB.insert_minimum_ne_none`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_mem`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_inserted_le`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_old_le`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.insert_maximum_none_iff`,
+  {lit}`CLRS.Chapter20.VEB.insert_maximum_ne_none`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_mem`,
   {lit}`CLRS.Chapter20.VEB.insert_successor_gt`,
@@ -694,12 +698,14 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter20.VEB.delete_minimum_le_old`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_none_iff`,
+  {lit}`CLRS.Chapter20.VEB.delete_minimum_none_of_all_eq`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_mem`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_old_le`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_lt_univ`,
   {lit}`CLRS.Chapter20.VEB.delete_maximum_none_iff`,
+  {lit}`CLRS.Chapter20.VEB.delete_maximum_none_of_all_eq`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_mem`,
   {lit}`CLRS.Chapter20.VEB.delete_successor_gt`,
