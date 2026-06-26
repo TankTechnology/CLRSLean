@@ -117,6 +117,8 @@ The theorem layer proves:
   is linearly bounded.
 - `CLRS.Chapter09.medianOfMedians_linear_bound`: the reader-facing linear-bound
   wrapper for the abstract recurrence model.
+- `CLRS.Chapter09.clrsSelectRecurrence_linear_bound`: the CLRS-facing theorem
+  name for the same median-of-medians SELECT linear recurrence closure.
 - `CLRS.Chapter09.deterministicPivot?_mem`: the deterministic median-pivot rule
   returns only input elements.
 - `CLRS.Chapter09.deterministicSelect?_correct`: the deterministic median-pivot

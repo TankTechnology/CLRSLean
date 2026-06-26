@@ -42,6 +42,7 @@ linear-bound wrapper used by the textbook linear-time argument.
   {lit}`CLRS.Chapter09.medianOfMediansPivot?_high_branch_linear_work_step`,
   {lit}`CLRS.Chapter09.selectRecurrence_linear_induction`,
   {lit}`CLRS.Chapter09.medianOfMedians_linear_bound`,
+  {lit}`CLRS.Chapter09.clrsSelectRecurrence_linear_bound`,
   {lit}`CLRS.Chapter09.medianGroupCertificates_selectPivot_split_counts`, and
   {lit}`CLRS.Chapter09.medianOfMediansPivot?_partition_size_bound`, and
   {lit}`CLRS.Chapter09.medianOfMediansSelect?_correct`.

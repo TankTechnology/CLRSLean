@@ -72,8 +72,8 @@ which areas should not yet be counted as proof-complete.
   order-statistic certificate; the median-of-medians pivot/select wrapper, the
   local five-element median certificate, executable five-element grouping plus
   the grouped split-count core for the median-of-medians argument, the
-  CLRS-style partition-size bound, and the abstract linear recurrence wrapper
-  are also proved.
+  CLRS-style partition-size bound, the abstract linear recurrence wrapper, and
+  the CLRS-facing SELECT recurrence wrapper are also proved.
 * Chapter 10, Sections 10.1-10.2: functional stack, queue, and linked-list
   operation specifications are proved.
 * Chapter 11, Section 11.1: direct-address table insert/search/delete behavior
@@ -199,8 +199,9 @@ which areas should not yet be counted as proof-complete.
   pivot-parametric deterministic SELECT, executable median-of-medians SELECT,
   the local five-element median certificate, executable grouping, the
   grouped/full-input split-count core, {lit}`7n/10` partition-size packaging,
-  and the abstract linear recurrence theorem are proved; randomized expected
-  time and the concrete executable runtime theorem remain.
+  the abstract linear recurrence theorem, and the CLRS-facing recurrence wrapper
+  are proved; randomized expected time and the concrete executable runtime
+  theorem remain.
 * Chapter 11 expected hashing analysis: extend the finite-uniform bucket
   interface to a formal random key or random hash-function model with
   independence assumptions.
@@ -518,6 +519,7 @@ the next cleanup pass after this 11--15 track.
   {lit}`CLRS.Chapter09.medianOfMediansPivot?_high_branch_linear_work_step`,
   {lit}`CLRS.Chapter09.selectRecurrence_linear_induction`,
   {lit}`CLRS.Chapter09.medianOfMedians_linear_bound`,
+  {lit}`CLRS.Chapter09.clrsSelectRecurrence_linear_bound`,
   {lit}`CLRS.Chapter09.deterministicSelect?_mem`,
   {lit}`CLRS.Chapter09.deterministicSelect?_rankCorrect`, and
   {lit}`CLRS.Chapter09.deterministicSelect?_correct`;

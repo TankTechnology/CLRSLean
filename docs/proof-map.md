@@ -804,6 +804,7 @@ The rank certificate handles duplicates directly.  If `selectByRank? k xs` or
   - `CLRS.Chapter09.medianOfMediansPivot?_high_branch_linear_work_step`
   - `CLRS.Chapter09.selectRecurrence_linear_induction`
   - `CLRS.Chapter09.medianOfMedians_linear_bound`
+  - `CLRS.Chapter09.clrsSelectRecurrence_linear_bound`
   - `CLRS.Chapter09.deterministicPivot?_mem`
   - `CLRS.Chapter09.deterministicSelect?_mem`
   - `CLRS.Chapter09.deterministicSelect?_rankCorrect`
@@ -840,7 +841,7 @@ The rank certificate handles duplicates directly.  If `selectByRank? k xs` or
   - randomized SELECT returns a value satisfying
     `CLRS.Chapter09.RankCertificate`;
   - connect executable `medianOfMediansSelect?` cost semantics to the proved
-    abstract recurrence and `CLRS.Chapter09.medianOfMedians_linear_bound`;
+    abstract recurrence and `CLRS.Chapter09.clrsSelectRecurrence_linear_bound`;
   - expected randomized bounds under an explicit probability model.
 - Difficulty note: randomized expected-time analysis requires a probability
   model; deterministic linear time now mainly requires a cost-refinement layer
@@ -1870,7 +1871,7 @@ accepted edge set is already known to be a spanning tree.
 | Chapter 8 mutable output-array implementation | `future-work` | Stable bucket correctness, count-table lengths, cumulative boundaries, and per-key reverse-scan refinement are proved; the next refinement is a single mutable output array with mutable cumulative counters connected to `countingSortBy`. |
 | Chapter 8 bucket-sort expected time | `blocked-design` | Deterministic bucket-sort correctness is proved by `bucketSortByRank_correct`; the finite-uniform collision, second-moment bound, and abstract `≤ 3n` expected-cost wrapper are proved, but the full expected-time theorem still needs an explicit independent input distribution and concrete cost model. |
 | Chapter 9 randomized SELECT expected time | `blocked-design` | Selection-by-rank correctness is proved for the specification selector, pivot-style quickselect, and pivot-parametric deterministic SELECT; randomized expected time needs a probability model and cost recurrence. |
-| Chapter 9 deterministic linear-time SELECT | `future-work` | Pivot-parametric deterministic SELECT correctness is proved by `deterministicSelect?_correct`; executable median-of-medians SELECT correctness is proved by `medianOfMediansSelect?_correct`; the local five-element median certificate is proved by `medianOfFive?_certificate`; executable full-input split-count bounds are proved by `fullGroupsOfFive_medianPivot_fullInput_split_counts`; the `7n/10 + O(1)` branch-size bound is proved by `medianOfMediansPivot?_partition_size_bound`; the abstract recurrence induction and linear bound are proved by `selectRecurrence_linear_induction` and `medianOfMedians_linear_bound`. The remaining target is a concrete executable cost theorem feeding that recurrence. |
+| Chapter 9 deterministic linear-time SELECT | `future-work` | Pivot-parametric deterministic SELECT correctness is proved by `deterministicSelect?_correct`; executable median-of-medians SELECT correctness is proved by `medianOfMediansSelect?_correct`; the local five-element median certificate is proved by `medianOfFive?_certificate`; executable full-input split-count bounds are proved by `fullGroupsOfFive_medianPivot_fullInput_split_counts`; the `7n/10 + O(1)` branch-size bound is proved by `medianOfMediansPivot?_partition_size_bound`; the abstract recurrence induction, linear bound, and CLRS-facing recurrence wrapper are proved by `selectRecurrence_linear_induction`, `medianOfMedians_linear_bound`, and `clrsSelectRecurrence_linear_bound`. The remaining target is a concrete executable cost theorem feeding that recurrence. |
 | Maximum-subarray runtime analysis | `future-work` | Exhaustive-search, crossing-helper optimality, the executable combine step, and recursive split-tree/fuelled selector correctness are proved; runtime recurrence and RAM-cost refinement remain. |
 | Chapter 4 concrete all-input Master-theorem instantiation | `future-work` | Floor/ceiling exact-power extraction, generic all-input transfer, adjacent-power sandwich generation, the discrete critical-power, log-critical, and tail-dominated wrappers, packaged floor/ceiling cases 1/2/3, natural-exponent polynomial wrappers for cases 1/2, the real-log bridge and named case-1 wrappers, and the real-log-log bridge and named case-2 wrappers are proved; the case-3 comparison layer remains. |
 | Hash-table expected-time analysis | `blocked-design` | The finite-uniform bucket toolkit proves load-factor equality, nonnegativity, and single-insert expected-cost changes when the searched bucket is uniform; the remaining work is a full random key or random hash-function model with independence assumptions. |

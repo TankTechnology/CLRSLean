@@ -50,6 +50,8 @@ Main results:
   the standard median-of-medians branch sizes {lit}`n/5` and {lit}`(7n+12)/10`,
   proving linear cost whenever the per-element work coefficient is bounded
   relative to the overall constant.
+* Theorem {lit}`clrsSelectRecurrence_linear_bound`: a CLRS-facing name for the
+  same linear-time SELECT recurrence closure.
 
 Current gaps:
 
@@ -1099,6 +1101,28 @@ theorem medianOfMedians_linear_bound
     exact hT_step n hn50
   exact selectRecurrence_linear_induction (by omega) f g h
     hmedian_size hstrict_size hlocal_work T hT_step_wrapped hT_base
+
+/--
+CLRS-facing linear-time SELECT recurrence theorem.
+
+If a cost function satisfies the standard median-of-medians recurrence with
+subproblem sizes {lit}`⌊n/5⌋` and {lit}`⌊(7n+12)/10⌋`, and if the base cases
+respect the same linear envelope, then the cost is globally linear.
+
+This theorem is intentionally still an abstract recurrence wrapper: connecting
+the executable {lit}`medianOfMediansSelect?` implementation to a concrete cost
+function remains a separate refinement target.
+-/
+theorem clrsSelectRecurrence_linear_bound
+    {C a : Nat}
+    (hCpos : 0 < C)
+    (ha_bound : 20 * a ≤ C)
+    (T : Nat → Nat)
+    (hT_step : ∀ n, 50 ≤ n →
+      T n ≤ T (n / 5) + T ((7 * n + 12) / 10) + a * n)
+    (hT_base : ∀ n, n < 50 → T n ≤ C * n) :
+    ∀ n, T n ≤ C * n :=
+  medianOfMedians_linear_bound hCpos ha_bound T hT_step hT_base
 
 /-- SELECT specialized to the executable median-of-medians pivot rule. -/
 def medianOfMediansSelect? (k : Nat) (xs : List Nat) : Option Nat :=
