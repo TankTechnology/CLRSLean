@@ -8,6 +8,12 @@ import CLRSLean.Chapter_18.Section_18_3_B_Tree_Deletion
 #check CLRS.Chapter18.BTree.Valid
 #check CLRS.Chapter18.BTree.search
 #check CLRS.Chapter18.BTree.search_correct
+#check CLRS.Chapter18.BTree.search_true_iff
+#check CLRS.Chapter18.BTree.search_true_of_mem
+#check CLRS.Chapter18.BTree.mem_of_search_true
+#check CLRS.Chapter18.BTree.search_false_iff
+#check CLRS.Chapter18.BTree.search_false_of_not_mem
+#check CLRS.Chapter18.BTree.not_mem_of_search_false
 #check CLRS.Chapter18.BTree.minKeys
 #check CLRS.Chapter18.BTree.minKeys_zero
 #check CLRS.Chapter18.BTree.minKeys_pos

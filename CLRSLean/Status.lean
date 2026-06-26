@@ -100,8 +100,9 @@ which areas should not yet be counted as proof-complete.
   insertion/deletion wrappers are proved;
   allocator and RAM refinements remain.
 * Chapter 18, Sections 18.1-18.3: a mathematical B-tree model has search,
-  minimum-key height-expression base/positivity facts, recurrence, and monotonicity,
-  split-child preservation, direct split validity, split-child direct
+  direct base search success/failure wrappers, minimum-key height-expression
+  base/positivity facts, recurrence, and monotonicity, split-child
+  preservation, direct split validity, split-child direct
   membership/search preservation, insertion/deletion membership, and successful
   and unsuccessful search-after-update theorem surfaces plus direct
   inserted/deleted-key, old-key query preservation, and failed membership
@@ -581,6 +582,12 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   CLRS load-factor potential refinements.
 * 18.1-18.3 B-trees:
   current results {lit}`CLRS.Chapter18.BTree.search_correct`,
+  {lit}`CLRS.Chapter18.BTree.search_true_iff`,
+  {lit}`CLRS.Chapter18.BTree.search_true_of_mem`,
+  {lit}`CLRS.Chapter18.BTree.mem_of_search_true`,
+  {lit}`CLRS.Chapter18.BTree.search_false_iff`,
+  {lit}`CLRS.Chapter18.BTree.search_false_of_not_mem`,
+  {lit}`CLRS.Chapter18.BTree.not_mem_of_search_false`,
   {lit}`CLRS.Chapter18.BTree.minKeys_zero`,
   {lit}`CLRS.Chapter18.BTree.minKeys_pos`,
   {lit}`CLRS.Chapter18.BTree.one_le_minKeys`,

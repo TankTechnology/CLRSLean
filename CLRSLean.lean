@@ -101,8 +101,9 @@ Start with the chapter pages in the sidebar.
   direction, post-state capacity, resize-branch capacity wrappers, exact
   zero/positive deletion-cost wrappers, and transition wrappers.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
-  height-expression base/positivity/recurrence/monotonicity, split-child direct
-  validity and membership/search preservation, insertion, deletion,
+  direct base search success/failure wrappers, height-expression
+  base/positivity/recurrence/monotonicity, split-child direct validity and
+  membership/search preservation, insertion, deletion,
   successful/unsuccessful search-after-update theorem surface, and direct
   inserted/deleted-key, old-key query preservation, and failed membership
   corollaries.
@@ -500,6 +501,12 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`.
 * 18.1-18.3 B-trees: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter18.BTree.search_correct`,
+  {lit}`CLRS.Chapter18.BTree.search_true_iff`,
+  {lit}`CLRS.Chapter18.BTree.search_true_of_mem`,
+  {lit}`CLRS.Chapter18.BTree.mem_of_search_true`,
+  {lit}`CLRS.Chapter18.BTree.search_false_iff`,
+  {lit}`CLRS.Chapter18.BTree.search_false_of_not_mem`,
+  {lit}`CLRS.Chapter18.BTree.not_mem_of_search_false`,
   {lit}`CLRS.Chapter18.BTree.minKeys_zero`,
   {lit}`CLRS.Chapter18.BTree.minKeys_pos`,
   {lit}`CLRS.Chapter18.BTree.one_le_minKeys`,

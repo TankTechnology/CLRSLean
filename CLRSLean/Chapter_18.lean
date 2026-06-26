@@ -6,11 +6,12 @@ import CLRSLean.Chapter_18.Section_18_3_B_Tree_Deletion
 # Chapter 18 - B-Trees
 
 Chapter 18 starts with a first-pass mathematical B-tree model.  The current
-Lean surface fixes key membership, search correctness, the CLRS minimum-key
-height expression, base/positivity facts, height-step recurrence, height
-monotonicity, and specification-level split/insert/delete wrappers with split
-membership/search preservation plus direct split old-key corollaries, direct
-split validity, successful and unsuccessful search-after-update
+Lean surface fixes key membership, search correctness, direct base search
+success/failure wrappers, the CLRS minimum-key height expression,
+base/positivity facts, height-step recurrence, height monotonicity, and
+specification-level split/insert/delete wrappers with split membership/search
+preservation plus direct split old-key corollaries, direct split validity,
+successful and unsuccessful search-after-update
 specifications, and direct inserted/deleted-key plus old-key query preservation
 corollaries, including old failed-search preservation wrappers, together with
 exact failed membership specifications after split, insert, and delete.
@@ -20,6 +21,12 @@ exact failed membership specifications after split, insert, and delete.
 * 18.1 B-tree model: {lit}`partial`.
   Main results:
   {lit}`CLRS.Chapter18.BTree.search_correct`,
+  {lit}`CLRS.Chapter18.BTree.search_true_iff`,
+  {lit}`CLRS.Chapter18.BTree.search_true_of_mem`,
+  {lit}`CLRS.Chapter18.BTree.mem_of_search_true`,
+  {lit}`CLRS.Chapter18.BTree.search_false_iff`,
+  {lit}`CLRS.Chapter18.BTree.search_false_of_not_mem`,
+  {lit}`CLRS.Chapter18.BTree.not_mem_of_search_false`,
   {lit}`CLRS.Chapter18.BTree.minKeys_zero`,
   {lit}`CLRS.Chapter18.BTree.minKeys_pos`,
   {lit}`CLRS.Chapter18.BTree.one_le_minKeys`,

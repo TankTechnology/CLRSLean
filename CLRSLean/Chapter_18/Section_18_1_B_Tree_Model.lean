@@ -12,6 +12,11 @@ Main results:
 
 - Theorem {lit}`BTree.search_correct`: Boolean search is equivalent to key
   membership.
+- Theorems {lit}`BTree.search_true_iff`, {lit}`BTree.search_true_of_mem`,
+  {lit}`BTree.mem_of_search_true`, {lit}`BTree.search_false_iff`,
+  {lit}`BTree.search_false_of_not_mem`, and
+  {lit}`BTree.not_mem_of_search_false`: direct success and failure wrappers for
+  the Boolean search specification.
 - Theorem {lit}`BTree.minKeys_zero`: the CLRS minimum-key expression is one at
   height zero.
 - Theorems {lit}`BTree.minKeys_pos` and {lit}`BTree.one_le_minKeys`: for a
@@ -65,10 +70,43 @@ def search (x : Nat) (t : BTree) : Bool :=
   decide (mem x t)
 
 /-- Boolean search succeeds exactly for keys occurring in the tree. -/
+theorem search_true_iff (x : Nat) (t : BTree) :
+    search x t = true <-> mem x t := by
+  simp [search]
+
+/-- Membership implies successful Boolean search. -/
+theorem search_true_of_mem (x : Nat) (t : BTree) (hx : mem x t) :
+    search x t = true := by
+  exact (search_true_iff x t).mpr hx
+
+/-- Successful Boolean search returns a key present in the tree. -/
+theorem mem_of_search_true (x : Nat) (t : BTree)
+    (hx : search x t = true) :
+    mem x t := by
+  exact (search_true_iff x t).mp hx
+
+/-- Boolean search fails exactly for keys absent from the tree. -/
+theorem search_false_iff (x : Nat) (t : BTree) :
+    search x t = false <-> ¬ mem x t := by
+  simp [search]
+
+/-- Absence implies failed Boolean search. -/
+theorem search_false_of_not_mem (x : Nat) (t : BTree)
+    (hx : ¬ mem x t) :
+    search x t = false := by
+  exact (search_false_iff x t).mpr hx
+
+/-- Failed Boolean search returns a key absent from the tree. -/
+theorem not_mem_of_search_false (x : Nat) (t : BTree)
+    (hx : search x t = false) :
+    ¬ mem x t := by
+  exact (search_false_iff x t).mp hx
+
+/-- Boolean search succeeds exactly for keys occurring in the tree. -/
 theorem search_correct {minDegree x : Nat} {t : BTree}
     (_hvalid : Valid minDegree t) :
     search x t = true <-> mem x t := by
-  simp [search]
+  exact search_true_iff x t
 
 /--
 The CLRS lower-bound expression for the minimum number of keys in a nonempty

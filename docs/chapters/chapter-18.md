@@ -7,6 +7,12 @@
 ## Proved First-Pass Surface
 
 - `CLRS.Chapter18.BTree.search_correct`
+- `CLRS.Chapter18.BTree.search_true_iff`
+- `CLRS.Chapter18.BTree.search_true_of_mem`
+- `CLRS.Chapter18.BTree.mem_of_search_true`
+- `CLRS.Chapter18.BTree.search_false_iff`
+- `CLRS.Chapter18.BTree.search_false_of_not_mem`
+- `CLRS.Chapter18.BTree.not_mem_of_search_false`
 - `CLRS.Chapter18.BTree.minKeys_zero`
 - `CLRS.Chapter18.BTree.minKeys_pos`
 - `CLRS.Chapter18.BTree.one_le_minKeys`
@@ -48,9 +54,10 @@
 
 The current chapter uses a mathematical key-membership model, a minimum-key
 height-expression base/positivity facts, recurrence, and monotonicity facts,
-and specification wrappers for split/insert/delete, including direct split
-validity/preservation corollaries and direct successful/unsuccessful query
-corollaries for the inserted and deleted keys plus old-key preservation and
-old failed-search preservation, plus exact failed membership specifications.
+direct base search success/failure wrappers, and specification wrappers for
+split/insert/delete, including direct split validity/preservation corollaries
+and direct successful/unsuccessful query corollaries for the inserted and
+deleted keys plus old-key preservation and old failed-search preservation, plus
+exact failed membership specifications.
 Full separator ordering, same-depth leaves, node-level deletion repair,
 disk-page I/O, and pointer-level mutation remain future refinements.

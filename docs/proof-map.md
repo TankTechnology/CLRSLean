@@ -1066,6 +1066,12 @@ allocator semantics remain future refinements.
 - Status: `partial`
 - Main proved theorems:
   - `CLRS.Chapter18.BTree.search_correct`
+  - `CLRS.Chapter18.BTree.search_true_iff`
+  - `CLRS.Chapter18.BTree.search_true_of_mem`
+  - `CLRS.Chapter18.BTree.mem_of_search_true`
+  - `CLRS.Chapter18.BTree.search_false_iff`
+  - `CLRS.Chapter18.BTree.search_false_of_not_mem`
+  - `CLRS.Chapter18.BTree.not_mem_of_search_false`
   - `CLRS.Chapter18.BTree.minKeys_zero`
   - `CLRS.Chapter18.BTree.minKeys_pos`
   - `CLRS.Chapter18.BTree.one_le_minKeys`
@@ -1103,8 +1109,9 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.delete_search_false_iff`
   - `CLRS.Chapter18.BTree.delete_search_false_old`
 - Proof pattern: mathematical key-set model, structural validity predicate,
-  minimum-key expression base/positivity arithmetic and height monotonicity,
-  specification-level split/insert/delete wrappers, search correctness reuse,
+  base search success/failure wrappers, minimum-key expression
+  base/positivity arithmetic and height monotonicity, specification-level
+  split/insert/delete wrappers, search correctness reuse,
   direct split validity/preservation corollaries, and direct inserted/deleted-key
   plus old-key successful and unsuccessful query preservation corollaries,
   old failed-search preservation wrappers, and exact failed membership
