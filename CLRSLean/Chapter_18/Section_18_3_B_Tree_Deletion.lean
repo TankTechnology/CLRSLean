@@ -22,6 +22,9 @@ Main results:
   remain unsuccessful after deletion.
 - Theorem {lit}`BTree.delete_not_mem_iff`: membership after deletion fails
   exactly for the deleted key or keys that were absent before.
+- Theorems {lit}`BTree.delete_not_mem_old` and
+  {lit}`BTree.delete_not_mem_of_eq`: old absent keys and keys equal to the
+  deleted key remain absent after deletion.
 - Theorems {lit}`BTree.delete_not_mem` and
   {lit}`BTree.delete_search_deleted_false`: the deleted key is absent and not
   searchable after deletion.
@@ -92,6 +95,20 @@ theorem delete_not_mem_iff (x y : Nat) (t : BTree) :
         simp at hmem
     | inr hyNot =>
         exact hyNot hmem.2
+
+/-- Old absent keys remain absent after specification deletion. -/
+theorem delete_not_mem_old (x y : Nat) (t : BTree)
+    (hy : ¬ mem y t) :
+    ¬ mem y (delete x t) := by
+  rw [delete_not_mem_iff]
+  exact Or.inr hy
+
+/-- Any key equal to the deleted key is absent after specification deletion. -/
+theorem delete_not_mem_of_eq (x y : Nat) (t : BTree)
+    (hyx : y = x) :
+    ¬ mem y (delete x t) := by
+  rw [delete_not_mem_iff]
+  exact Or.inl hyx
 
 /-- Searching after deletion succeeds exactly for remaining old keys. -/
 theorem delete_search_iff {minDegree x y : Nat} {t : BTree}

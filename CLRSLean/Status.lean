@@ -106,7 +106,7 @@ which areas should not yet be counted as proof-complete.
   membership/search preservation, insertion/deletion membership, and successful
   and unsuccessful search-after-update theorem surfaces plus direct
   inserted/deleted-key, old-key query preservation, and failed membership
-  corollaries; full
+  corollaries plus direct failed-membership preservation wrappers; full
   separator/same-depth, node-level-deletion, and disk-page refinements remain.
 * Chapter 19, Section 19.1: abstract Fibonacci-heap finite-set operations,
   empty-heap construction, direct operation-result validity wrappers,
@@ -600,6 +600,7 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_not_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_not_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_false_iff`,
@@ -612,6 +613,7 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter18.BTree.insert_mem_old`,
   {lit}`CLRS.Chapter18.BTree.insert_search_old`,
   {lit}`CLRS.Chapter18.BTree.insert_not_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.insert_not_mem_of_ne`,
   {lit}`CLRS.Chapter18.BTree.insert_search_false_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_false_of_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
@@ -622,6 +624,8 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter18.BTree.delete_mem_of_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_search_of_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_not_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_not_mem_old`,
+  {lit}`CLRS.Chapter18.BTree.delete_not_mem_of_eq`,
   {lit}`CLRS.Chapter18.BTree.delete_search_false_iff`, and
   {lit}`CLRS.Chapter18.BTree.delete_search_false_old`;
   remaining gap: full occupancy/separator/same-depth invariants, node-level

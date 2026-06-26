@@ -1084,6 +1084,7 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.splitChild_mem_iff`
   - `CLRS.Chapter18.BTree.splitChild_mem_old`
   - `CLRS.Chapter18.BTree.splitChild_not_mem_iff`
+  - `CLRS.Chapter18.BTree.splitChild_not_mem_old`
   - `CLRS.Chapter18.BTree.splitChild_search_iff`
   - `CLRS.Chapter18.BTree.splitChild_search_old`
   - `CLRS.Chapter18.BTree.splitChild_search_false_iff`
@@ -1096,6 +1097,7 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.insert_mem_old`
   - `CLRS.Chapter18.BTree.insert_search_old`
   - `CLRS.Chapter18.BTree.insert_not_mem_iff`
+  - `CLRS.Chapter18.BTree.insert_not_mem_of_ne`
   - `CLRS.Chapter18.BTree.insert_search_false_iff`
   - `CLRS.Chapter18.BTree.insert_search_false_of_ne`
   - `CLRS.Chapter18.BTree.delete_preserves_model`
@@ -1106,6 +1108,8 @@ allocator semantics remain future refinements.
   - `CLRS.Chapter18.BTree.delete_mem_of_ne`
   - `CLRS.Chapter18.BTree.delete_search_of_ne`
   - `CLRS.Chapter18.BTree.delete_not_mem_iff`
+  - `CLRS.Chapter18.BTree.delete_not_mem_old`
+  - `CLRS.Chapter18.BTree.delete_not_mem_of_eq`
   - `CLRS.Chapter18.BTree.delete_search_false_iff`
   - `CLRS.Chapter18.BTree.delete_search_false_old`
 - Proof pattern: mathematical key-set model, structural validity predicate,
@@ -1114,8 +1118,8 @@ allocator semantics remain future refinements.
   split/insert/delete wrappers, search correctness reuse,
   direct split validity/preservation corollaries, and direct inserted/deleted-key
   plus old-key successful and unsuccessful query preservation corollaries,
-  old failed-search preservation wrappers, and exact failed membership
-  specifications
+  old failed-search preservation wrappers, exact failed membership
+  specifications, and direct failed-membership preservation wrappers
 - Current gap: full node occupancy/separator/same-depth invariant stack,
   node-level deletion repair, disk-page I/O, and pointer mutation remain
   strengthening targets.

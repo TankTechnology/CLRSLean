@@ -14,7 +14,8 @@ preservation plus direct split old-key corollaries, direct split validity,
 successful and unsuccessful search-after-update
 specifications, and direct inserted/deleted-key plus old-key query preservation
 corollaries, including old failed-search preservation wrappers, together with
-exact failed membership specifications after split, insert, and delete.
+exact failed membership specifications and direct failed-membership
+preservation wrappers after split, insert, and delete.
 
 ## Sections
 
@@ -41,6 +42,7 @@ exact failed membership specifications after split, insert, and delete.
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_not_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_not_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_false_iff`,
@@ -53,6 +55,7 @@ exact failed membership specifications after split, insert, and delete.
   {lit}`CLRS.Chapter18.BTree.insert_mem_old`,
   {lit}`CLRS.Chapter18.BTree.insert_search_old`,
   {lit}`CLRS.Chapter18.BTree.insert_not_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.insert_not_mem_of_ne`,
   {lit}`CLRS.Chapter18.BTree.insert_search_false_iff`, and
   {lit}`CLRS.Chapter18.BTree.insert_search_false_of_ne`.
 * 18.3 B-tree deletion: {lit}`partial`.
@@ -65,6 +68,8 @@ exact failed membership specifications after split, insert, and delete.
   {lit}`CLRS.Chapter18.BTree.delete_mem_of_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_search_of_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_not_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_not_mem_old`,
+  {lit}`CLRS.Chapter18.BTree.delete_not_mem_of_eq`,
   {lit}`CLRS.Chapter18.BTree.delete_search_false_iff`, and
   {lit}`CLRS.Chapter18.BTree.delete_search_false_old`.
 

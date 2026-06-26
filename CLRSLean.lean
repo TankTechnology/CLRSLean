@@ -103,7 +103,8 @@ Start with the chapter pages in the sidebar.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
   direct base search success/failure wrappers, height-expression
   base/positivity/recurrence/monotonicity, split-child direct validity and
-  membership/search preservation, insertion, deletion,
+  membership/search preservation, direct failed-membership preservation,
+  insertion, deletion,
   successful/unsuccessful search-after-update theorem surface, and direct
   inserted/deleted-key, old-key query preservation, and failed membership
   corollaries.
@@ -518,6 +519,7 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.splitChild_valid`,
   {lit}`CLRS.Chapter18.BTree.splitChild_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_not_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.splitChild_not_mem_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_iff`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_old`,
   {lit}`CLRS.Chapter18.BTree.splitChild_search_false_iff`,
@@ -526,12 +528,15 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter18.BTree.insert_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_not_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.insert_not_mem_of_ne`,
   {lit}`CLRS.Chapter18.BTree.insert_search_false_iff`,
   {lit}`CLRS.Chapter18.BTree.insert_search_false_of_ne`,
   {lit}`CLRS.Chapter18.BTree.delete_preserves_model`,
   {lit}`CLRS.Chapter18.BTree.delete_mem_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_search_iff`,
   {lit}`CLRS.Chapter18.BTree.delete_not_mem_iff`,
+  {lit}`CLRS.Chapter18.BTree.delete_not_mem_old`,
+  {lit}`CLRS.Chapter18.BTree.delete_not_mem_of_eq`,
   {lit}`CLRS.Chapter18.BTree.delete_search_false_iff`, and
   {lit}`CLRS.Chapter18.BTree.delete_search_false_old`.
 * 19.1 Fibonacci heaps: {lit}`partial`.
