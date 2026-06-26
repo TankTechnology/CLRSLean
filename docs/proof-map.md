@@ -987,6 +987,8 @@ any consistent tree with the same frequency table.
   - `CLRS.Chapter17.binaryCounter_trace_totalFlips_le`
   - `CLRS.Chapter17.binaryCounter_totalFlips_le`
   - `CLRS.Chapter17.dynamicPotential_nonneg`
+  - `CLRS.Chapter17.dynamicTableInsert_potential_nonneg`
+  - `CLRS.Chapter17.dynamicTableDelete_potential_nonneg`
   - `CLRS.Chapter17.dynamicTableInsertCost_pos`
   - `CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`
   - `CLRS.Chapter17.dynamicTableInsertCost_of_fits`
@@ -1006,6 +1008,7 @@ any consistent tree with the same frequency table.
   - `CLRS.Chapter17.dynamicTableInsert_capacity_fits`
   - `CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`
   - `CLRS.Chapter17.dynamicTableInsert_capacity_ge_double_of_expand`
+  - `CLRS.Chapter17.dynamicTableInsert_amortizedCost_eq`
   - `CLRS.Chapter17.dynamicTableInsert_amortizedBound`
   - `CLRS.Chapter17.dynamicTableDeleteCost_pos_of_nonempty`
   - `CLRS.Chapter17.dynamicTableDeleteCost_pos_iff_nonempty`
@@ -1032,13 +1035,15 @@ any consistent tree with the same frequency table.
   - `CLRS.Chapter17.dynamicTableDelete_capacity_fits`
   - `CLRS.Chapter17.dynamicTableDelete_capacity_le_size`
   - `CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract`
+  - `CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq`
   - `CLRS.Chapter17.dynamicTableDelete_amortizedBound`
   - `CLRS.Chapter17.dynamicTable_amortizedBound`
 - Proof pattern: finite-prefix sums, accounting credit balance, potential
   telescoping, executable counter trace induction, size-level table potential
   nonnegativity, capacity feasibility/direction, post-state field equations,
   post-state allocation-size case specs, stored-count direction,
-  post-state capacity corollaries, resize-branch capacity wrappers,
+  post-state capacity corollaries, post-transition potential nonnegativity,
+  concrete amortized-cost unfolding, resize-branch capacity wrappers,
   actual-cost and capacity-choice case specs, zero/positive deletion-cost wrappers,
   premise-light deletion-cost branch wrappers,
   lower/upper bounds, and transitions
@@ -1052,11 +1057,12 @@ examples compile against stable public theorem names.  The executable counter
 trace now has a multi-step potential bound and an empty-counter {lit}`2n` flip
 bound.  Dynamic-table insertion and deletion/contraction now expose size-level
 potential nonnegativity, capacity feasibility/direction, direct post-state
-stored-count and capacity corollaries, resize-branch capacity wrappers,
-post-state field equations, actual-cost
-and capacity-choice case specs, exact zero/positive deletion-cost wrappers,
-premise-light deletion-cost branch wrappers, positive-cost and upper-bound
-transition facts, while
+stored-count and capacity corollaries, post-transition potential
+nonnegativity, concrete amortized-cost unfolding wrappers, resize-branch
+capacity wrappers, post-state field equations, actual-cost and capacity-choice
+case specs, exact zero/positive deletion-cost wrappers, premise-light
+deletion-cost branch wrappers, positive-cost and upper-bound transition facts,
+while
 mutable-array copying and
 allocator semantics remain future refinements.
 

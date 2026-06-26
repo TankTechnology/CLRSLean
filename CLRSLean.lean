@@ -98,7 +98,8 @@ Start with the chapter pages in the sidebar.
   an executable multi-step counter trace bound and size-level dynamic-table
   potential, actual-cost and capacity-choice case specs, capacity-direction,
   actual-cost lower/upper bounds, post-state field equations, stored-count
-  direction, post-state capacity, resize-branch capacity wrappers, exact
+  direction, post-state capacity, post-transition potential, concrete
+  amortized-cost unfolding, resize-branch capacity wrappers, exact
   zero/positive deletion-cost wrappers, premise-light deletion-cost branch
   wrappers, and transition wrappers.
 * Chapter 18 - B-Trees: first-pass mathematical B-tree membership, search,
@@ -461,6 +462,8 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.binaryCounter_totalFlips_le`.
 * 17.4 Dynamic tables: {lit}`partial`.
   Public results: {lit}`CLRS.Chapter17.dynamicPotential_nonneg`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_potential_nonneg`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_potential_nonneg`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_pos`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_of_fits`,
@@ -480,6 +483,7 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_fits`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_ge_double_of_expand`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedCost_eq`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedBound`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_pos_of_nonempty`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_pos_iff_nonempty`,
@@ -506,6 +510,7 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_fits`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedBound`, and
   {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`.
 * 18.1-18.3 B-trees: {lit}`partial`.

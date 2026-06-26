@@ -13,6 +13,9 @@ Main results:
   not exceed allocated table size.
 - Theorem {lit}`dynamicPotential_nonneg`: the first-pass table potential is
   nonnegative.
+- Theorems {lit}`dynamicTableInsert_potential_nonneg` and
+  {lit}`dynamicTableDelete_potential_nonneg`: concrete post-transition states
+  have nonnegative first-pass potential.
 - Theorems {lit}`dynamicTableInsertSize_fits` and
   {lit}`dynamicTableDeleteSize_fits`: the first-pass capacity choices can hold
   the post-operation number of stored elements.
@@ -72,6 +75,9 @@ Main results:
 - Theorems {lit}`dynamicTableInsert_amortizedBound` and
   {lit}`dynamicTableDelete_amortizedBound`: the concrete first-pass transitions
   instantiate the generic amortized-cost wrapper.
+- Theorems {lit}`dynamicTableInsert_amortizedCost_eq` and
+  {lit}`dynamicTableDelete_amortizedCost_eq`: concrete transition amortized
+  costs unfold to actual cost plus the post-potential minus the pre-potential.
 - Theorem {lit}`dynamicTable_amortizedBound`: the abstract dynamic-table
   amortized cost is bounded by actual cost plus the post-operation potential.
 
@@ -282,6 +288,16 @@ def dynamicTableDeleteCost (s : DynamicTableState) : Nat :=
   else
     1
 
+/-- Insertion leaves a state with nonnegative first-pass potential. -/
+theorem dynamicTableInsert_potential_nonneg (s : DynamicTableState) :
+    0 <= dynamicPotential (dynamicTableInsert s) := by
+  exact dynamicPotential_nonneg (dynamicTableInsert s)
+
+/-- Deletion leaves a state with nonnegative first-pass potential. -/
+theorem dynamicTableDelete_potential_nonneg (s : DynamicTableState) :
+    0 <= dynamicPotential (dynamicTableDelete s) := by
+  exact dynamicPotential_nonneg (dynamicTableDelete s)
+
 /-- Deleting from a nonempty dynamic table has positive first-pass actual cost. -/
 theorem dynamicTableDeleteCost_pos_of_nonempty (s : DynamicTableState)
     (hnum : s.num ≠ 0) :
@@ -478,6 +494,20 @@ theorem dynamicTableDelete_valid (s : DynamicTableState)
     DynamicTableState.Valid (dynamicTableDelete s) := by
   unfold DynamicTableState.Valid dynamicTableDelete
   exact dynamicTableDeleteSize_fits s hvalid
+
+/-- Concrete insertion amortized cost unfolds to actual plus potential change. -/
+theorem dynamicTableInsert_amortizedCost_eq (s : DynamicTableState) :
+    dynamicTableAmortizedCost s (dynamicTableInsert s) (dynamicTableInsertCost s) =
+      Int.ofNat (dynamicTableInsertCost s) +
+        dynamicPotential (dynamicTableInsert s) - dynamicPotential s := by
+  rfl
+
+/-- Concrete deletion amortized cost unfolds to actual plus potential change. -/
+theorem dynamicTableDelete_amortizedCost_eq (s : DynamicTableState) :
+    dynamicTableAmortizedCost s (dynamicTableDelete s) (dynamicTableDeleteCost s) =
+      Int.ofNat (dynamicTableDeleteCost s) +
+        dynamicPotential (dynamicTableDelete s) - dynamicPotential s := by
+  rfl
 
 /--
 The abstract amortized transition cost is bounded by actual cost plus the

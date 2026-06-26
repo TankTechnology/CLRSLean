@@ -17,6 +17,8 @@
 - `CLRS.Chapter17.binaryCounter_trace_totalFlips_le`
 - `CLRS.Chapter17.binaryCounter_totalFlips_le`
 - `CLRS.Chapter17.dynamicPotential_nonneg`
+- `CLRS.Chapter17.dynamicTableInsert_potential_nonneg`
+- `CLRS.Chapter17.dynamicTableDelete_potential_nonneg`
 - `CLRS.Chapter17.dynamicTableInsertCost_pos`
 - `CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`
 - `CLRS.Chapter17.dynamicTableInsertCost_of_fits`
@@ -36,6 +38,7 @@
 - `CLRS.Chapter17.dynamicTableInsert_capacity_fits`
 - `CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`
 - `CLRS.Chapter17.dynamicTableInsert_capacity_ge_double_of_expand`
+- `CLRS.Chapter17.dynamicTableInsert_amortizedCost_eq`
 - `CLRS.Chapter17.dynamicTableInsert_amortizedBound`
 - `CLRS.Chapter17.dynamicTableDeleteCost_pos_of_nonempty`
 - `CLRS.Chapter17.dynamicTableDeleteCost_pos_iff_nonempty`
@@ -62,6 +65,7 @@
 - `CLRS.Chapter17.dynamicTableDelete_capacity_fits`
 - `CLRS.Chapter17.dynamicTableDelete_capacity_le_size`
 - `CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract`
+- `CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq`
 - `CLRS.Chapter17.dynamicTableDelete_amortizedBound`
 - `CLRS.Chapter17.dynamicTable_amortizedBound`
 
@@ -79,7 +83,7 @@ equations, allocation-size case wrappers, and stored-count direction facts.  It
 also records positive actual-cost facts for insertion and nonempty deletion,
 exact zero/positive deletion-cost wrappers, bounds the first-pass transition
 costs by the corresponding element-count copying budgets, and records direct
-actual-cost, premise-light deletion-cost branch, capacity-choice, and
-post-state allocation-size case
-specifications, but it is still a size-level model rather than an
-array-copying model.
+actual-cost, premise-light deletion-cost branch, capacity-choice, post-state
+allocation-size case, post-transition potential nonnegativity, and concrete
+amortized-cost unfolding wrappers, but it is still a size-level model rather
+than an array-copying model.

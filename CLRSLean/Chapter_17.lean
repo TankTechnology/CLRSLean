@@ -16,7 +16,8 @@ explicit nonnegative potential fact, actual-cost and capacity-choice case
 specifications, direct post-state field equations and allocation-size case
 wrappers, direct post-state stored-count and capacity corollaries, and direct
 resize-branch capacity wrappers plus premise-light deletion-cost branch wrappers,
-including exact zero/positive deletion cost specifications.
+post-transition potential nonnegativity, and concrete amortized-cost unfolding
+wrappers, including exact zero/positive deletion cost specifications.
 
 ## Sections
 
@@ -38,6 +39,8 @@ including exact zero/positive deletion cost specifications.
 * 17.4 Dynamic tables: {lit}`partial`.
   Main results:
   {lit}`CLRS.Chapter17.dynamicPotential_nonneg`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_potential_nonneg`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_potential_nonneg`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_pos`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_of_fits`,
@@ -57,6 +60,7 @@ including exact zero/positive deletion cost specifications.
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_fits`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_ge_double_of_expand`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedCost_eq`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedBound`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_pos_of_nonempty`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_pos_iff_nonempty`,
@@ -83,6 +87,7 @@ including exact zero/positive deletion cost specifications.
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_fits`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedBound`, and
   {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`.
 

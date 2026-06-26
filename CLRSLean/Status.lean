@@ -96,7 +96,8 @@ which areas should not yet be counted as proof-complete.
   post-state field equations, stored-count direction facts, actual-cost and
   capacity-choice case specs, positive/zero deletion-cost exact wrappers,
   premise-light deletion-cost branch wrappers, positive-cost lower bounds, upper bounds,
-  post-state capacity corollaries, resize-branch capacity wrappers, and
+  post-state capacity corollaries, post-transition potential nonnegativity,
+  concrete amortized-cost unfolding, resize-branch capacity wrappers, and
   insertion/deletion wrappers are proved;
   allocator and RAM refinements remain.
 * Chapter 18, Sections 18.1-18.3: a mathematical B-tree model has search,
@@ -539,6 +540,8 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter17.binaryCounter_trace_totalFlips_le`,
   {lit}`CLRS.Chapter17.binaryCounter_totalFlips_le`,
   {lit}`CLRS.Chapter17.dynamicPotential_nonneg`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_potential_nonneg`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_potential_nonneg`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_pos`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_le_num_succ`,
   {lit}`CLRS.Chapter17.dynamicTableInsertCost_of_fits`,
@@ -558,6 +561,7 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_fits`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_ge_size`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_capacity_ge_double_of_expand`,
+  {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedCost_eq`,
   {lit}`CLRS.Chapter17.dynamicTableInsert_amortizedBound`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_pos_of_nonempty`,
   {lit}`CLRS.Chapter17.dynamicTableDeleteCost_pos_iff_nonempty`,
@@ -584,6 +588,7 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_fits`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedBound`, and
   {lit}`CLRS.Chapter17.dynamicTable_amortizedBound`;
   remaining gap: mutable-array copying, RAM/allocation constants, and sharper

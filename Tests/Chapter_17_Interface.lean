@@ -30,6 +30,8 @@ import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 #check CLRS.Chapter17.DynamicTableState.Valid
 #check CLRS.Chapter17.dynamicPotential
 #check CLRS.Chapter17.dynamicPotential_nonneg
+#check CLRS.Chapter17.dynamicTableInsert_potential_nonneg
+#check CLRS.Chapter17.dynamicTableDelete_potential_nonneg
 #check CLRS.Chapter17.dynamicTableAmortizedCost
 #check CLRS.Chapter17.dynamicTableInsertSize
 #check CLRS.Chapter17.dynamicTableInsert
@@ -82,5 +84,7 @@ import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 #check CLRS.Chapter17.dynamicTableDelete_capacity_fits
 #check CLRS.Chapter17.dynamicTableDelete_capacity_le_size
 #check CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract
+#check CLRS.Chapter17.dynamicTableInsert_amortizedCost_eq
+#check CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq
 #check CLRS.Chapter17.dynamicTableDelete_amortizedBound
 #check CLRS.Chapter17.dynamicTable_amortizedBound
