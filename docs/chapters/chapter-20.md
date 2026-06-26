@@ -42,6 +42,7 @@
 - `CLRS.Chapter20.VEB.insert_member_self`
 - `CLRS.Chapter20.VEB.insert_member_old`
 - `CLRS.Chapter20.VEB.insert_member_false_iff`
+- `CLRS.Chapter20.VEB.insert_member_false_of_ne`
 - `CLRS.Chapter20.VEB.insert_minimum_correct`
 - `CLRS.Chapter20.VEB.insert_minimum_mem`
 - `CLRS.Chapter20.VEB.insert_minimum_le_inserted`
@@ -72,6 +73,8 @@
 - `CLRS.Chapter20.VEB.delete_member_deleted_false`
 - `CLRS.Chapter20.VEB.delete_member_of_ne`
 - `CLRS.Chapter20.VEB.delete_member_false_iff`
+- `CLRS.Chapter20.VEB.delete_member_false_old`
+- `CLRS.Chapter20.VEB.delete_member_false_of_eq`
 - `CLRS.Chapter20.VEB.delete_minimum_correct`
 - `CLRS.Chapter20.VEB.delete_minimum_ne`
 - `CLRS.Chapter20.VEB.delete_minimum_mem`
@@ -108,7 +111,8 @@ The current chapter proves side-length universe arithmetic, including bounded
 high/low recomposition facts, and finite-set operation specifications.
 It also records direct member-query corollaries for inserted/deleted keys,
 old-key preservation, and exact failed member queries after updates,
-successful-query universe-bound corollaries, direct extrema
+direct failed member-query preservation wrappers, successful-query
+universe-bound corollaries, direct extrema
 membership/lower- and upper-bound wrappers, direct extrema-after-update
 membership/order wrappers, direct base/insert/delete neighbor
 membership/order wrappers, positive and empty-result extrema-after-update

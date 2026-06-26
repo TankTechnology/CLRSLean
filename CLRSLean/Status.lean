@@ -131,7 +131,8 @@ which areas should not yet be counted as proof-complete.
   empty-after-update specs, direct extrema membership/lower- and upper-bound
   wrappers, direct extrema-after-update membership/order wrappers, direct
   base/insert/delete neighbor membership/order wrappers, direct member-query
-  preservation and failure corollaries, update-query
+  preservation and failure corollaries, direct failed member-query
+  preservation wrappers, update-query
   universe-bound corollaries, and operation-depth
   recurrence/monotonicity specs, are proved; recursive cluster representation
   and the {lit}`O(log log u)` bridge remain.
@@ -754,6 +755,7 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter20.VEB.insert_member_self`,
   {lit}`CLRS.Chapter20.VEB.insert_member_old`,
   {lit}`CLRS.Chapter20.VEB.insert_member_false_iff`,
+  {lit}`CLRS.Chapter20.VEB.insert_member_false_of_ne`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_mem`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_le_inserted`,
@@ -784,6 +786,8 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter20.VEB.delete_member_deleted_false`,
   {lit}`CLRS.Chapter20.VEB.delete_member_of_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_member_false_iff`,
+  {lit}`CLRS.Chapter20.VEB.delete_member_false_old`,
+  {lit}`CLRS.Chapter20.VEB.delete_member_false_of_eq`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_mem`,

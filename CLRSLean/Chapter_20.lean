@@ -17,8 +17,9 @@ membership/order wrappers, direct extrema-after-update membership/order
 wrappers, extrema empty-after-update specifications, update-query
 universe-bound corollaries, direct
 inserted/deleted key and old-key member-preservation corollaries, exact
-failed member-query specifications after updates, and operation-depth
-base/step/linear and monotonicity wrappers.
+failed member-query specifications after updates, direct failed member-query
+preservation wrappers, and operation-depth base/step/linear and monotonicity
+wrappers.
 
 ## Sections
 
@@ -63,6 +64,7 @@ base/step/linear and monotonicity wrappers.
   {lit}`CLRS.Chapter20.VEB.insert_member_self`,
   {lit}`CLRS.Chapter20.VEB.insert_member_old`,
   {lit}`CLRS.Chapter20.VEB.insert_member_false_iff`,
+  {lit}`CLRS.Chapter20.VEB.insert_member_false_of_ne`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_mem`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_le_inserted`,
@@ -93,6 +95,8 @@ base/step/linear and monotonicity wrappers.
   {lit}`CLRS.Chapter20.VEB.delete_member_deleted_false`,
   {lit}`CLRS.Chapter20.VEB.delete_member_of_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_member_false_iff`,
+  {lit}`CLRS.Chapter20.VEB.delete_member_false_old`,
+  {lit}`CLRS.Chapter20.VEB.delete_member_false_of_eq`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_mem`,

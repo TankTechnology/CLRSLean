@@ -47,6 +47,10 @@ Main results:
 - Theorems {lit}`VEB.insert_member_false_iff` and
   {lit}`VEB.delete_member_false_iff`: exact failed member-query specifications
   after insertion and deletion.
+- Theorems {lit}`VEB.insert_member_false_of_ne`,
+  {lit}`VEB.delete_member_false_old`, and
+  {lit}`VEB.delete_member_false_of_eq`: direct failed member-query preservation
+  wrappers after insertion and deletion.
 - Theorems {lit}`VEB.insert_minimum_correct`,
   {lit}`VEB.insert_maximum_correct`, {lit}`VEB.delete_minimum_correct`, and
   {lit}`VEB.delete_maximum_correct`: extrema returned after updates are
@@ -492,6 +496,14 @@ theorem insert_member_false_iff {t : Tree} {s : Finset Nat} {x y : Nat}
           rw [holdFalse] at holdTrue
           contradiction
 
+/-- Old failed membership queries different from the inserted key remain false after insertion. -/
+theorem insert_member_false_of_ne {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hx : x < t.univSize)
+    (hyx : y ≠ x) (hy : member y t = false) :
+    member y (insert x t) = false := by
+  rw [insert_member_false_iff (t := t) (s := s) (x := x) (y := y) hrep hx]
+  exact ⟨hyx, hy⟩
+
 /-- A returned minimum after insertion is the least key among the inserted key and old set. -/
 theorem insert_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}
     (hrep : Represents t s) (hx : x < t.univSize)
@@ -813,7 +825,21 @@ theorem delete_member_false_iff {t : Tree} {s : Finset Nat} {x y : Nat}
             (delete_member_iff (t := t) (s := s) (x := x) (y := y) hrep).mp
               hmember
           rw [holdFalse] at hcases
-          simp at hcases
+          exact hcases.2.symm
+
+/-- Old failed membership queries remain false after deletion. -/
+theorem delete_member_false_old {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hy : member y t = false) :
+    member y (delete x t) = false := by
+  rw [delete_member_false_iff (t := t) (s := s) (x := x) (y := y) hrep]
+  exact Or.inr hy
+
+/-- Keys equal to the deleted key are failed membership queries after deletion. -/
+theorem delete_member_false_of_eq {t : Tree} {s : Finset Nat} {x y : Nat}
+    (hrep : Represents t s) (hyx : y = x) :
+    member y (delete x t) = false := by
+  rw [delete_member_false_iff (t := t) (s := s) (x := x) (y := y) hrep]
+  exact Or.inl hyx
 
 /-- A returned minimum after deletion is the least remaining old key. -/
 theorem delete_minimum_correct {t : Tree} {s : Finset Nat} {x m : Nat}

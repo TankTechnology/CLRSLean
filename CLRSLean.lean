@@ -129,7 +129,8 @@ Start with the chapter pages in the sidebar.
   extrema membership/lower- and upper-bound wrappers, direct
   extrema-after-update membership/order wrappers, direct base/insert/delete
   neighbor membership/order wrappers, member-query preservation and failure
-  corollaries, update-query universe-bound corollaries, and operation-depth
+  corollaries, direct failed member-query preservation wrappers,
+  update-query universe-bound corollaries, and operation-depth
   recurrence/monotonicity specs.
 * Chapter 23 - Minimum Spanning Trees: the MST cut property, the mathematical
   Kruskal skeleton, and finite-graph MST wrappers.
@@ -646,6 +647,7 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter20.VEB.insert_member_self`,
   {lit}`CLRS.Chapter20.VEB.insert_member_old`,
   {lit}`CLRS.Chapter20.VEB.insert_member_false_iff`,
+  {lit}`CLRS.Chapter20.VEB.insert_member_false_of_ne`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_mem`,
   {lit}`CLRS.Chapter20.VEB.insert_minimum_le_inserted`,
@@ -676,6 +678,8 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter20.VEB.delete_member_deleted_false`,
   {lit}`CLRS.Chapter20.VEB.delete_member_of_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_member_false_iff`,
+  {lit}`CLRS.Chapter20.VEB.delete_member_false_old`,
+  {lit}`CLRS.Chapter20.VEB.delete_member_false_of_eq`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_correct`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_ne`,
   {lit}`CLRS.Chapter20.VEB.delete_minimum_mem`,

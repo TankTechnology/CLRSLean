@@ -1310,6 +1310,7 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.insert_member_self`
   - `CLRS.Chapter20.VEB.insert_member_old`
   - `CLRS.Chapter20.VEB.insert_member_false_iff`
+  - `CLRS.Chapter20.VEB.insert_member_false_of_ne`
   - `CLRS.Chapter20.VEB.insert_minimum_correct`
   - `CLRS.Chapter20.VEB.insert_minimum_mem`
   - `CLRS.Chapter20.VEB.insert_minimum_le_inserted`
@@ -1340,6 +1341,8 @@ Fibonacci logarithmic theorem.
   - `CLRS.Chapter20.VEB.delete_member_deleted_false`
   - `CLRS.Chapter20.VEB.delete_member_of_ne`
   - `CLRS.Chapter20.VEB.delete_member_false_iff`
+  - `CLRS.Chapter20.VEB.delete_member_false_old`
+  - `CLRS.Chapter20.VEB.delete_member_false_of_eq`
   - `CLRS.Chapter20.VEB.delete_minimum_correct`
   - `CLRS.Chapter20.VEB.delete_minimum_ne`
   - `CLRS.Chapter20.VEB.delete_minimum_mem`
@@ -1374,7 +1377,8 @@ Fibonacci logarithmic theorem.
   extrema/successor via `Finset.min'`/`max'`, successful-query universe-bound
   bridges, direct extrema membership/lower- and upper-bound wrappers, direct
   base/insert/delete neighbor membership/order wrappers, direct updated-key,
-  old-key preservation, and failed member queries after updates, direct
+  old-key preservation, failed member queries after updates, and direct
+  failed member-query preservation wrappers, direct
   extrema-after-update membership/order wrappers, update-query universe-bound
   corollaries, and definition unfolding for
   first-pass operation-depth recurrence and monotonicity facts
@@ -1390,7 +1394,7 @@ corollaries, direct extrema membership/lower- and upper-bound wrappers,
 direct base/insert/delete neighbor membership/order wrappers,
 membership-after-update, direct extrema-after-update membership/order wrappers,
 direct updated-key and old-key member-preservation corollaries, exact failed
-member-query corollaries,
+member-query corollaries, direct failed member-query preservation wrappers,
 positive and empty-result extrema-after-update, and both positive and
 no-neighbor specifications for neighbor queries after updates, plus direct
 universe-bound corollaries for successful queries after updates.  The
