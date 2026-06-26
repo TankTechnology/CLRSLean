@@ -41,9 +41,11 @@ description = "A Lean 4 companion for CLRS-style algorithm correctness proofs."
 ]
 "CLRSLean.Chapter_04" = [
   "CLRSLean.Chapter_04.Section_04_1_Maximum_Subarray",
+  "CLRSLean.Chapter_04.Section_04_2_Strassen_Algorithm",
   "CLRSLean.Chapter_04.Section_04_3_Substitution_Method",
   "CLRSLean.Chapter_04.Section_04_4_Recursion_Tree_Method",
   "CLRSLean.Chapter_04.Section_04_5_Master_Theorem",
+  "CLRSLean.Chapter_04.Section_04_6_Master_Theorem_All_Input",
 ]
 "CLRSLean.Chapter_05" = [
   "CLRSLean.Chapter_05.Section_05_1_Hiring_Problem",
@@ -182,6 +184,9 @@ title = "3.2. Standard Functions"
 [modules."CLRSLean.Chapter_04.Section_04_1_Maximum_Subarray"]
 title = "4.1. The Maximum-Subarray Problem"
 
+[modules."CLRSLean.Chapter_04.Section_04_2_Strassen_Algorithm"]
+title = "4.2. Strassen's Algorithm for Matrix Multiplication"
+
 [modules."CLRSLean.Chapter_04.Section_04_3_Substitution_Method"]
 title = "4.3. The Substitution Method"
 
@@ -190,6 +195,9 @@ title = "4.4. The Recursion-Tree Method"
 
 [modules."CLRSLean.Chapter_04.Section_04_5_Master_Theorem"]
 title = "4.5. The Master Method"
+
+[modules."CLRSLean.Chapter_04.Section_04_6_Master_Theorem_All_Input"]
+title = "4.6. Proof of the Master Theorem"
 
 [modules."CLRSLean.Chapter_05.Section_05_1_Hiring_Problem"]
 title = "5.1. The Hiring Problem"
