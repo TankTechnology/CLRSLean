@@ -96,8 +96,8 @@ which areas should not yet be counted as proof-complete.
   post-state field equations, stored-count direction facts, actual-cost and
   capacity-choice case specs, positive/zero deletion-cost exact wrappers,
   premise-light deletion-cost branch wrappers, positive-cost lower bounds, upper bounds,
-  positive insertion count/capacity wrappers, post-state capacity corollaries,
-  post-transition potential nonnegativity,
+  positive insertion/deletion count/capacity wrappers, post-state capacity
+  corollaries, post-transition potential nonnegativity,
   concrete amortized-cost unfolding, resize-branch capacity wrappers, and
   insertion/deletion wrappers are proved;
   allocator and RAM refinements remain.
@@ -593,8 +593,10 @@ exchange-path automation, and remaining Chapter 8/9 algorithm refinements.
   {lit}`CLRS.Chapter17.dynamicTableDelete_size_of_no_contract`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_le`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_empty`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_num_pos_of_one_lt`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_fits`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_pos_of_one_lt`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq`,

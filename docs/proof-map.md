@@ -1033,8 +1033,10 @@ any consistent tree with the same frequency table.
   - `CLRS.Chapter17.dynamicTableDelete_size_of_no_contract`
   - `CLRS.Chapter17.dynamicTableDelete_num_le`
   - `CLRS.Chapter17.dynamicTableDelete_num_empty`
+  - `CLRS.Chapter17.dynamicTableDelete_num_pos_of_one_lt`
   - `CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty`
   - `CLRS.Chapter17.dynamicTableDelete_capacity_fits`
+  - `CLRS.Chapter17.dynamicTableDelete_capacity_pos_of_one_lt`
   - `CLRS.Chapter17.dynamicTableDelete_capacity_le_size`
   - `CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract`
   - `CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq`
@@ -1044,7 +1046,7 @@ any consistent tree with the same frequency table.
   telescoping, executable counter trace induction, size-level table potential
   nonnegativity, capacity feasibility/direction, post-state field equations,
   post-state allocation-size case specs, stored-count direction, positive
-  insertion count/capacity wrappers, post-state capacity corollaries,
+  insertion/deletion count/capacity wrappers, post-state capacity corollaries,
   post-transition potential nonnegativity,
   concrete amortized-cost unfolding, resize-branch capacity wrappers,
   actual-cost and capacity-choice case specs, zero/positive deletion-cost wrappers,

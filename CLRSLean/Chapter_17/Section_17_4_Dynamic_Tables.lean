@@ -65,12 +65,14 @@ Main results:
 - Theorems {lit}`dynamicTableInsert_num_gt`,
   {lit}`dynamicTableInsert_num_pos`, {lit}`dynamicTableInsert_num_ge`,
   {lit}`dynamicTableDelete_num_le`, {lit}`dynamicTableDelete_num_empty`, and
-  {lit}`dynamicTableDelete_num_lt_of_nonempty`: direct post-state
-  stored-count direction corollaries for insertion and deletion.
+  {lit}`dynamicTableDelete_num_pos_of_one_lt`, and
+  {lit}`dynamicTableDelete_num_lt_of_nonempty`: direct post-state stored-count
+  direction corollaries for insertion and deletion.
 - Theorems {lit}`dynamicTableInsert_capacity_fits`,
   {lit}`dynamicTableInsert_capacity_pos`,
   {lit}`dynamicTableInsert_capacity_ge_size`,
-  {lit}`dynamicTableDelete_capacity_fits`, and
+  {lit}`dynamicTableDelete_capacity_fits`,
+  {lit}`dynamicTableDelete_capacity_pos_of_one_lt`, and
   {lit}`dynamicTableDelete_capacity_le_size`: direct post-state capacity
   corollaries for insertion and deletion.
 - Theorems {lit}`dynamicTableInsert_amortizedBound` and
@@ -478,6 +480,13 @@ theorem dynamicTableDelete_num_empty (s : DynamicTableState)
     (dynamicTableDelete s).num = 0 := by
   rw [dynamicTableDelete_num, hempty]
 
+/-- Deleting from a table with at least two elements leaves a positive count. -/
+theorem dynamicTableDelete_num_pos_of_one_lt (s : DynamicTableState)
+    (hnum : 1 < s.num) :
+    0 < (dynamicTableDelete s).num := by
+  rw [dynamicTableDelete_num]
+  omega
+
 /-- Deleting from a nonempty table strictly decreases the stored-element count. -/
 theorem dynamicTableDelete_num_lt_of_nonempty (s : DynamicTableState)
     (hnum : s.num ≠ 0) :
@@ -490,6 +499,16 @@ theorem dynamicTableDelete_capacity_fits (s : DynamicTableState)
     (hvalid : DynamicTableState.Valid s) :
     (dynamicTableDelete s).num <= (dynamicTableDelete s).size := by
   exact dynamicTableDeleteSize_fits s hvalid
+
+/-- Deleting from a valid table with at least two elements leaves positive capacity. -/
+theorem dynamicTableDelete_capacity_pos_of_one_lt (s : DynamicTableState)
+    (hvalid : DynamicTableState.Valid s) (hnum : 1 < s.num) :
+    0 < (dynamicTableDelete s).size := by
+  have hpost : 0 < (dynamicTableDelete s).num :=
+    dynamicTableDelete_num_pos_of_one_lt s hnum
+  have hfit : (dynamicTableDelete s).num <= (dynamicTableDelete s).size :=
+    dynamicTableDelete_capacity_fits s hvalid
+  omega
 
 /-- Dynamic-table deletion never grows the post-state capacity for a valid table. -/
 theorem dynamicTableDelete_capacity_le_size (s : DynamicTableState)

@@ -63,8 +63,10 @@
 - `CLRS.Chapter17.dynamicTableDelete_size_of_no_contract`
 - `CLRS.Chapter17.dynamicTableDelete_num_le`
 - `CLRS.Chapter17.dynamicTableDelete_num_empty`
+- `CLRS.Chapter17.dynamicTableDelete_num_pos_of_one_lt`
 - `CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty`
 - `CLRS.Chapter17.dynamicTableDelete_capacity_fits`
+- `CLRS.Chapter17.dynamicTableDelete_capacity_pos_of_one_lt`
 - `CLRS.Chapter17.dynamicTableDelete_capacity_le_size`
 - `CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract`
 - `CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq`
@@ -80,8 +82,8 @@ potential refinements for dynamic tables.  The dynamic-table layer currently
 exposes a nonnegative potential and checks that the chosen post-operation
 capacity can hold the resulting element count while moving in the expected
 direction for insertion and deletion, including direct post-state capacity
-corollaries, positive insertion count/capacity wrappers, direct resize-branch
-capacity wrappers, post-state field
+corollaries, positive insertion/deletion count/capacity wrappers, direct
+resize-branch capacity wrappers, post-state field
 equations, allocation-size case wrappers, and stored-count direction facts.  It
 also records positive actual-cost facts for insertion and nonempty deletion,
 exact zero/positive deletion-cost wrappers, bounds the first-pass transition

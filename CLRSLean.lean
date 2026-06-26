@@ -98,8 +98,8 @@ Start with the chapter pages in the sidebar.
   an executable multi-step counter trace bound and size-level dynamic-table
   potential, actual-cost and capacity-choice case specs, capacity-direction,
   actual-cost lower/upper bounds, post-state field equations, stored-count
-  direction, positive insertion count/capacity wrappers, post-state capacity,
-  post-transition potential, concrete
+  direction, positive insertion/deletion count/capacity wrappers, post-state
+  capacity, post-transition potential, concrete
   amortized-cost unfolding, resize-branch capacity wrappers, exact
   zero/positive deletion-cost wrappers, premise-light deletion-cost branch
   wrappers, and transition wrappers.
@@ -514,8 +514,10 @@ Start with the chapter pages in the sidebar.
   {lit}`CLRS.Chapter17.dynamicTableDelete_size_of_no_contract`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_le`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_empty`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_num_pos_of_one_lt`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_fits`,
+  {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_pos_of_one_lt`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_size`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract`,
   {lit}`CLRS.Chapter17.dynamicTableDelete_amortizedCost_eq`,

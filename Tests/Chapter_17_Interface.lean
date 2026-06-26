@@ -82,8 +82,10 @@ import CLRSLean.Chapter_17.Section_17_4_Dynamic_Tables
 #check CLRS.Chapter17.dynamicTableDelete_size_of_no_contract
 #check CLRS.Chapter17.dynamicTableDelete_num_le
 #check CLRS.Chapter17.dynamicTableDelete_num_empty
+#check CLRS.Chapter17.dynamicTableDelete_num_pos_of_one_lt
 #check CLRS.Chapter17.dynamicTableDelete_num_lt_of_nonempty
 #check CLRS.Chapter17.dynamicTableDelete_capacity_fits
+#check CLRS.Chapter17.dynamicTableDelete_capacity_pos_of_one_lt
 #check CLRS.Chapter17.dynamicTableDelete_capacity_le_size
 #check CLRS.Chapter17.dynamicTableDelete_capacity_le_half_of_contract
 #check CLRS.Chapter17.dynamicTableInsert_amortizedCost_eq
