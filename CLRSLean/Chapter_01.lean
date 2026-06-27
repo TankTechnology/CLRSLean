@@ -36,11 +36,11 @@ The cost is precision: every case must be handled, every inequality justified.
 
 ## How to read the rest
 
-| Chapter | What you'll find |
-|---------|-----------------|
-| 2 | Sorting correctness, a runtime bound, and a merge-sort recurrence |
-| 16 | Huffman optimality — the flagship greedy proof |
-| 23 | The MST cut property and Kruskal's induction |
+Start with the sections that already have strong proof stories:
+
+* Chapter 2: sorting correctness, a runtime bound, and a merge-sort recurrence.
+* Chapter 16: Huffman optimality, the flagship greedy proof.
+* Chapter 23: the MST cut property and Kruskal's induction.
 
 To build and browse the site locally:
 

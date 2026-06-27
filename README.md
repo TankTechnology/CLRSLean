@@ -102,6 +102,7 @@ python3 scripts/check_progress_csv.py
 python3 scripts/test_literate_config.py
 python3 scripts/test_optimize_literate_html.py
 python3 scripts/check_literate_html_freshness.py .lake/build/literate-html
+python3 scripts/check_literate_rendering.py .lake/build/literate-html
 ```
 
 Generate a sitemap for a built site directory:
@@ -120,8 +121,9 @@ to GitHub Pages.  During deployment it:
 2. Checks generated-page freshness.
 3. Copies the generated pages into `_site`.
 4. Optimizes generated HTML for faster reading.
-5. Generates `_site/sitemap.xml`.
-6. Uploads the Pages artifact.
+5. Checks the rendered HTML for raw Markdown artifacts.
+6. Generates `_site/sitemap.xml`.
+7. Uploads the Pages artifact.
 
 The generated sitemap is meant to be submitted in Google Search Console as:
 
